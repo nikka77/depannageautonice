@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demander un dépannage — DepannageAutoNice</title>
+  <meta name="description" content="Demandez un dépannage auto en 2 minutes. Localisation, type de panne, coordonnées. Intervention en 30-45 min sur Nice et Alpes-Maritimes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="demande.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="dem-header">
+    <div class="dem-header-inner">
+      <a href="index.html" class="dem-logo">
+        <i data-lucide="chevron-left"></i>
+        <span>Dépannage<strong>Auto</strong>Nice</span>
+      </a>
+      <a href="tel:0617684270" class="dem-header-call">
+        <i data-lucide="phone-call"></i>
+        06 17 68 42 70
+      </a>
+    </div>
+  </header>
+
+  <!-- PROGRESS STEPS -->
+  <div class="step-progress" id="stepProgress">
+    <div class="step-progress-inner">
+      <div class="step-dot active" data-step="0">
+        <i data-lucide="map-pin"></i>
+        <span>Position</span>
+      </div>
+      <div class="step-line" id="line-0"></div>
+      <div class="step-dot" data-step="1">
+        <i data-lucide="car"></i>
+        <span>Panne</span>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step-dot" data-step="2">
+        <i data-lucide="pencil-line"></i>
+        <span>Détails</span>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step-dot" data-step="3">
+        <i data-lucide="phone"></i>
+        <span>Contact</span>
+      </div>
+      <div class="step-line" id="line-3"></div>
+      <div class="step-dot" data-step="4">
+        <i data-lucide="check"></i>
+        <span>Confirmé</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- URGENCY RIBBON -->
+  <div class="urgency-ribbon" id="urgencyRibbon">
+    <span class="urge-blink">●</span>
+    <span>Technicien disponible — Intervention sous <strong>30 à 60 min</strong></span>
+  </div>
+
+  <!-- MAIN -->
+  <main class="dem-main">
+
+    <!-- ═══ ÉTAPE 0 — GÉOLOCALISATION ═══ -->
+    <div class="step-panel active" id="step-0">
+      <div class="step-header">
+        <div class="step-num">01</div>
+        <div>
+          <h2 class="step-title">Votre position</h2>
+          <p class="step-sub">Nécessaire pour estimer l'heure d'arrivée</p>
+        </div>
+      </div>
+
+      <button class="btn-geo" id="btnGeo">
+        <i data-lucide="crosshair"></i>
+        <span id="btnGeoText">Activer ma position GPS</span>
+      </button>
+
+      <div class="geo-status hidden" id="geoLoading">
+        <div class="geo-spinner"></div>
+        <span>Localisation en cours…</span>
+      </div>
+
+      <div class="geo-found hidden" id="geoFound">
+        <div id="geoMiniMap" style="width:100%;height:180px;"></div>
+        <div class="geo-address-box" id="geoAddressBox">
+          <i data-lucide="map-pin"></i>
+          <span id="geoAddressText">Localisation trouvée</span>
+        </div>
+      </div>
+
+      <div class="or-divider"><span>OU</span></div>
+
+      <div class="form-group">
+        <label for="manualAddress">Saisir l'adresse manuellement</label>
+        <input type="text" id="manualAddress" placeholder="Ex: 15 rue de France, Nice" autocomplete="street-address">
+      </div>
+
+      <button class="btn-dem btn-primary-dem" id="btn0Next">
+        Continuer
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- ═══ ÉTAPE 1 — TYPE DE PANNE ═══ -->
+    <div class="step-panel" id="step-1">
+      <div class="step-header">
+        <div class="step-num">02</div>
+        <div>
+          <h2 class="step-title">Type de panne</h2>
+          <p class="step-sub">Sélectionnez la situation la plus proche</p>
+        </div>
+      </div>
+
+      <div class="panne-grid" id="panneGrid">
+
+        <button class="panne-card" data-type="pneu" aria-label="Pneu crevé">
+          <div class="panne-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3.5"/><line x1="12" y1="2" x2="12" y2="8.5"/><line x1="12" y1="15.5" x2="12" y2="22"/><line x1="2" y1="12" x2="8.5" y2="12"/><line x1="15.5" y1="12" x2="22" y2="12"/><line x1="4.2" y1="4.2" x2="8.5" y2="8.5"/><line x1="15.5" y1="15.5" x2="19.8" y2="19.8"/><line x1="19.8" y1="4.2" x2="15.5" y2="8.5"/><line x1="8.5" y1="15.5" x2="4.2" y2="19.8"/></svg></div>
+          <div class="panne-label">Pneu crevé</div>
+          <div class="panne-desc">Crevaison, pneu à plat</div>
+        </button>
+
+        <button class="panne-card" data-type="batterie" aria-label="Batterie / Démarrage">
+          <div class="panne-icon"><i data-lucide="battery-low"></i></div>
+          <div class="panne-label">Batterie</div>
+          <div class="panne-desc">Démarrage, batterie à plat</div>
+        </button>
+
+        <button class="panne-card" data-type="carburant" aria-label="Panne de carburant">
+          <div class="panne-icon"><i data-lucide="fuel"></i></div>
+          <div class="panne-label">Carburant</div>
+          <div class="panne-desc">Panne sèche, mauvais carburant</div>
+        </button>
+
+        <button class="panne-card" data-type="remorquage" aria-label="Remorquage">
+          <div class="panne-icon"><i data-lucide="truck"></i></div>
+          <div class="panne-label">Remorquage</div>
+          <div class="panne-desc">Transport vers garage</div>
+        </button>
+
+        <button class="panne-card" data-type="moteur" aria-label="Surchauffe moteur">
+          <div class="panne-icon"><i data-lucide="thermometer"></i></div>
+          <div class="panne-label">Surchauffe</div>
+          <div class="panne-desc">Moteur surchauffé, fumée</div>
+        </button>
+
+        <button class="panne-card" data-type="autre" aria-label="Autre problème">
+          <div class="panne-icon"><i data-lucide="wrench"></i></div>
+          <div class="panne-label">Autre</div>
+          <div class="panne-desc">Verrouillage, accident…</div>
+        </button>
+
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-dem btn-back-dem" id="btn1Back">
+          <i data-lucide="chevron-left"></i>
+          Retour
+        </button>
+        <button class="btn-dem btn-primary-dem" id="btn1Next" disabled>
+          Continuer
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ ÉTAPE 2 — DESCRIPTION ═══ -->
+    <div class="step-panel" id="step-2">
+      <div class="step-header">
+        <div class="step-num">03</div>
+        <div>
+          <h2 class="step-title">Détails <span class="step-optional">(optionnel)</span></h2>
+          <p class="step-sub">Décrivez le problème pour accélérer l'intervention</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="descriptionText">Description de la panne</label>
+        <textarea id="descriptionText" rows="4" placeholder="Ex: Pneu avant droit complètement à plat, je suis sur le bas-côté avenue Jean Médecin…"></textarea>
+      </div>
+
+      <div class="photo-upload-area" id="photoUploadArea">
+        <input type="file" id="photoInput" accept="image/*" capture="environment" aria-label="Ajouter une photo de la panne">
+        <label for="photoInput" class="photo-upload-content" id="photoUploadContent">
+          <div class="photo-upload-icon">
+            <i data-lucide="camera"></i>
+          </div>
+          <strong>Ajouter une photo</strong>
+          <span>Photo de la panne (optionnel)</span>
+        </label>
+        <img class="photo-preview hidden" id="photoPreview" alt="Aperçu panne">
+        <button class="photo-remove hidden" id="photoRemove" type="button" aria-label="Supprimer la photo">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-dem btn-back-dem" id="btn2Back">
+          <i data-lucide="chevron-left"></i>
+          Retour
+        </button>
+        <button class="btn-dem btn-primary-dem" id="btn2Next">
+          Continuer
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+
+      <button class="btn-skip" id="btn2Skip">Passer cette étape →</button>
+    </div>
+
+    <!-- ═══ ÉTAPE 3 — COORDONNÉES ═══ -->
+    <div class="step-panel" id="step-3">
+      <div class="step-header">
+        <div class="step-num">04</div>
+        <div>
+          <h2 class="step-title">Vos coordonnées</h2>
+          <p class="step-sub">Le technicien vous contactera avant d'arriver</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">Prénom</label>
+        <input type="text" id="firstName" placeholder="Jean" autocomplete="given-name">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Téléphone <span class="required-star">*</span></label>
+        <input type="tel" id="phoneNumber" placeholder="06 12 34 56 78" autocomplete="tel" required>
+        <span class="field-hint">Pour que le technicien vous joigne</span>
+      </div>
+
+      <div class="privacy-note">
+        <i data-lucide="lock"></i>
+        Vos données sont utilisées uniquement pour votre demande de dépannage
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-dem btn-back-dem" id="btn3Back">
+          <i data-lucide="chevron-left"></i>
+          Retour
+        </button>
+        <button class="btn-dem btn-primary-dem" id="btn3Next">
+          Envoyer la demande
+          <i data-lucide="send"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ ÉTAPE 4 — CONFIRMATION ═══ -->
+    <div class="step-panel" id="step-4">
+
+      <div class="confirm-banner">
+        <div class="confirm-check">
+          <i data-lucide="check-circle"></i>
+        </div>
+        <div>
+          <div class="confirm-title">Demande reçue</div>
+          <div class="confirm-sub">Un technicien vous est assigné</div>
+        </div>
+        <div class="eta-badge">
+          <div class="eta-label">ETA</div>
+          <div class="eta-value">30–45<span>min</span></div>
+        </div>
+      </div>
+
+      <!-- Technicien assigné -->
+      <div class="tech-card">
+        <div class="tech-avatar">
+          <div class="tech-avatar-fallback" id="techAvatarFallback">
+            <i data-lucide="user"></i>
+          </div>
+          <div class="tech-online-dot"></div>
+        </div>
+        <div class="tech-info">
+          <div class="tech-name">Karim D.</div>
+          <div class="tech-role">Technicien de dépannage</div>
+          <div class="tech-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-val">4.9</span>
+            <span class="rating-count">(127 avis)</span>
+          </div>
+        </div>
+        <div class="tech-meta">
+          <div class="tech-distance" id="techDistance">~5 km</div>
+          <div class="tech-exp">12 ans exp.</div>
+        </div>
+      </div>
+
+      <!-- Mini-carte confirmation -->
+      <div class="confirm-map-wrap">
+        <div id="confirmMap" style="width:100%;height:260px;"></div>
+        <div class="confirm-map-overlay">
+          <span class="confirm-addr-label" id="confirmAddrLabel">Votre position</span>
+        </div>
+      </div>
+
+      <!-- Récap panne -->
+      <div class="recap-strip" id="recapStrip">
+        <div class="recap-item">
+          <span class="recap-label">PANNE</span>
+          <span class="recap-val" id="recapTypeVal">—</span>
+        </div>
+        <div class="recap-sep"></div>
+        <div class="recap-item">
+          <span class="recap-label">INTERVENTION</span>
+          <span class="recap-val">30–45 MIN</span>
+        </div>
+        <div class="recap-sep"></div>
+        <div class="recap-item">
+          <span class="recap-label">TARIF</span>
+          <span class="recap-val">Dès 70€</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="confirm-actions">
+        <a class="btn-dem btn-whatsapp-dem" id="btnWhatsapp" href="#" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          Confirmer via WhatsApp
+        </a>
+        <a class="btn-dem btn-call-dem" href="tel:0617684270">
+          <i data-lucide="phone-call"></i>
+          Appeler directement
+        </a>
+      </div>
+
+      <div class="confirm-footer">
+        <a href="index.html" class="confirm-back-link">← Retour à l'accueil</a>
+        <span class="confirm-footer-sep">|</span>
+        <span class="confirm-footer-text">Toutes assurances acceptées</span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="node_modules/lucide/dist/umd/lucide.min.js"></script>
+  <script>if (typeof lucide !== 'undefined') lucide.createIcons();</script>
+  <script src="demande.js"></script>
+</body>
+</html>
