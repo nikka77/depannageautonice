@@ -1116,7 +1116,28 @@ footer {
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  :root { --urgency-h: 48px; }
+  /* Mobile : urgency bar + header NON sticky → défilent avec la page vers le haut */
+  #urgency-bar {
+    position: static;
+    height: auto;
+    min-height: 40px;
+    padding: 8px 0;
+  }
+  #header {
+    position: static;
+    top: auto;
+  }
+  /* Urgency bar : autorise le wrap sur 2 lignes pour afficher tout le contenu */
+  .urgency-inner {
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding: 4px 12px;
+    justify-content: center;
+    row-gap: 4px;
+  }
+  .urgency-blink,
+  .urgency-text,
+  .urgency-sep { white-space: nowrap; }
 
   /* Nav mobile */
   #nav {
@@ -1132,37 +1153,13 @@ footer {
   .hamburger      { display: flex; }
   .floating-buttons { display: flex; }
 
-  /* Urgency bar : marquee défilant sur mobile (réutilise le pattern ticker) */
-  #urgency-bar { overflow: hidden; }
-  .urgency-inner {
-    flex-wrap: nowrap;
-    gap: 18px;
-    padding: 0;
-    width: max-content;
-    justify-content: flex-start;
-    animation: urgency-scroll 22s linear infinite;
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-  #urgency-bar:active .urgency-inner,
-  #urgency-bar:hover  .urgency-inner { animation-play-state: paused; }
-  .urgency-blink,
-  .urgency-text,
-  .urgency-sep { flex-shrink: 0; white-space: nowrap; }
-  .urgency-text:last-of-type,
-  .urgency-sep { display: inline-block; }
-  @keyframes urgency-scroll {
-    0%   { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, 0, 0); }
-  }
-
   /* Hero — flush top, height driven by content (image contain ne couvre plus tout)
      Mise en page : hud-tag + logo doivent rentrer dans l'image cinema (≈ 211px à 375px).
      Cinema bottom = 112 + 211 = 323px. On dimensionne pour que le ticker démarre à ~323px. */
   #hero {
     align-items: flex-start;
     min-height: auto;
-    padding-top: calc(var(--urgency-h) + var(--header-h) + 22px);
+    padding-top: 22px; /* urgency-bar et header ne sont plus fixed → pas d'offset */
     padding-bottom: 56px;
   }
   .hero-content {

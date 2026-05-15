@@ -112,6 +112,30 @@ const btn0Next       = document.getElementById('btn0Next');
 
 let geoMiniMapObj = null;
 
+// Détection préventive de l'état de permission (avant tout clic)
+// Si denied → on affiche les instructions sans attendre le clic raté
+function updateGeoUiForPermission(state) {
+  if (!btnGeo || !btnGeoText) return;
+  if (state === 'denied') {
+    btnGeo.classList.add('error-state');
+    btnGeoText.textContent = 'GPS bloqué — touchez l\'icône AA/cadenas dans la barre d\'adresse → Réglages du site → Position → Autoriser';
+  } else if (state === 'granted') {
+    btnGeoText.textContent = 'Activer ma position GPS (autorisé)';
+  } else {
+    btnGeoText.textContent = 'Activer ma position GPS';
+    btnGeo.classList.remove('error-state');
+  }
+}
+
+if (navigator.permissions && navigator.permissions.query) {
+  navigator.permissions.query({ name: 'geolocation' }).then(result => {
+    updateGeoUiForPermission(result.state);
+    // Écoute les changements (l'utilisateur peut autoriser pendant qu'il est sur la page)
+    result.addEventListener && result.addEventListener('change', () => updateGeoUiForPermission(result.state));
+    result.onchange = () => updateGeoUiForPermission(result.state);
+  }).catch(() => { /* API non supportée → on laisse le bouton tel quel */ });
+}
+
 btnGeo.addEventListener('click', () => {
   if (!navigator.geolocation) {
     btnGeo.classList.add('error-state');
