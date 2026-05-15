@@ -150,7 +150,19 @@ btnGeo.addEventListener('click', () => {
       geoLoading.classList.add('hidden');
       btnGeo.disabled = false;
       btnGeo.classList.add('error-state');
-      btnGeoText.textContent = err.code === 1 ? 'Permission refusée — saisissez manuellement' : 'Erreur GPS — saisissez manuellement';
+      let msg;
+      if (err.code === 1) {
+        msg = 'GPS bloqué — touchez l\'icône cadenas/AA dans la barre d\'adresse pour autoriser la position, ou saisissez l\'adresse manuellement';
+      } else if (err.code === 2) {
+        msg = 'Position indisponible — vérifiez que la localisation est activée dans les réglages, ou saisissez manuellement';
+      } else if (err.code === 3) {
+        msg = 'Délai dépassé — réessayez ou saisissez manuellement';
+      } else {
+        msg = 'Erreur GPS — saisissez manuellement';
+      }
+      btnGeoText.textContent = msg;
+      // Focus automatique sur la saisie manuelle pour faciliter le repli
+      if (manualAddress) manualAddress.focus();
     },
     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
   );

@@ -1132,23 +1132,29 @@ footer {
   .hamburger      { display: flex; }
   .floating-buttons { display: flex; }
 
-  /* Urgency bar : single line, ellipsis si dépassement */
+  /* Urgency bar : marquee défilant sur mobile (réutilise le pattern ticker) */
+  #urgency-bar { overflow: hidden; }
   .urgency-inner {
     flex-wrap: nowrap;
-    gap: 10px;
-    padding: 0 12px;
-    width: 100%;
-    min-width: 0;
+    gap: 18px;
+    padding: 0;
+    width: max-content;
+    justify-content: flex-start;
+    animation: urgency-scroll 22s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
-  .urgency-blink { flex-shrink: 0; }
-  .urgency-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-  }
+  #urgency-bar:active .urgency-inner,
+  #urgency-bar:hover  .urgency-inner { animation-play-state: paused; }
+  .urgency-blink,
+  .urgency-text,
+  .urgency-sep { flex-shrink: 0; white-space: nowrap; }
   .urgency-text:last-of-type,
-  .urgency-sep { display: none; }
+  .urgency-sep { display: inline-block; }
+  @keyframes urgency-scroll {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
 
   /* Hero — flush top, height driven by content (image contain ne couvre plus tout)
      Mise en page : hud-tag + logo doivent rentrer dans l'image cinema (≈ 211px à 375px).

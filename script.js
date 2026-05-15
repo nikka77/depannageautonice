@@ -205,6 +205,13 @@ if (revealBtn) {
     const children = Array.from(track.children);
     children.forEach(child => track.appendChild(child.cloneNode(true)));
   });
+  // Urgency bar : marquee uniquement sur mobile (sur desktop le contenu reste centré)
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    const urg = document.querySelector('.urgency-inner');
+    if (urg) {
+      Array.from(urg.children).forEach(c => urg.appendChild(c.cloneNode(true)));
+    }
+  }
 })();
 
 // ── FAQ Accordion ──────────────────────────
