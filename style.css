@@ -1116,7 +1116,7 @@ footer {
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  :root { --urgency-h: 40px; }
+  :root { --urgency-h: 48px; }
 
   /* Nav mobile */
   #nav {
@@ -1131,7 +1131,24 @@ footer {
   .header-cta     { display: none; }
   .hamburger      { display: flex; }
   .floating-buttons { display: flex; }
-  .urgency-text:last-child { display: none; }
+
+  /* Urgency bar : single line, ellipsis si dépassement */
+  .urgency-inner {
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 0 12px;
+    width: 100%;
+    min-width: 0;
+  }
+  .urgency-blink { flex-shrink: 0; }
+  .urgency-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .urgency-text:last-of-type,
+  .urgency-sep { display: none; }
 
   /* Hero — flush top, height driven by content (image contain ne couvre plus tout)
      Mise en page : hud-tag + logo doivent rentrer dans l'image cinema (≈ 211px à 375px).
