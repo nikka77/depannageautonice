@@ -8,6 +8,9 @@
   <meta property="og:title" content="Dépannage Auto Nice | 06 17 68 42 70">
   <meta property="og:description" content="Dépannage, remorquage, transport auto — Nice & Alpes-Maritimes. 7j/7 24h/24. À partir de 70€.">
   <meta property="og:type" content="website">
+  <link rel="canonical" href="https://nikka77.github.io/depannageautonice/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath fill='%23ff6b00' d='M18 28c4-7 11-11 18-9l5-3-3 9c2 5 1 11-3 15s-10 5-15 3l-5 3 3-9-2-2-1 1-2-2 1-1c1-2 2-3 4-5z'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#ff6b00">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -66,7 +69,7 @@
         <i data-lucide="map-pin" class="icon-sm"></i>
         Demander
       </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -447,18 +450,21 @@
           </div>
           <a href="tel:0617684270" class="btn btn-primary btn-contact-call">
             <i data-lucide="phone-call" class="icon-sm"></i>
-            Appel d'urgence — 06 17 68 42 70
+            <span class="btn-contact-call-text">
+              <span class="btn-contact-call-label">Appel d'urgence</span>
+              <span class="btn-contact-call-number">06 17 68 42 70</span>
+            </span>
           </a>
         </div>
 
         <form class="contact-form" id="contactForm">
           <div class="form-group">
             <label for="name">Nom</label>
-            <input type="text" id="name" name="name" placeholder="Votre nom" required>
+            <input type="text" id="name" name="name" placeholder="Votre nom" autocomplete="name" required>
           </div>
           <div class="form-group">
             <label for="phone">Téléphone</label>
-            <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX" required>
+            <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX" autocomplete="tel" inputmode="tel" required>
           </div>
           <div class="form-group">
             <label for="message">Message</label>
@@ -507,6 +513,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/lucide@1.16.0/dist/umd/lucide.min.js"></script>
   <script>if (typeof lucide !== 'undefined') lucide.createIcons();</script>
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>

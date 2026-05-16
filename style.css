@@ -878,6 +878,23 @@ h2 {
 }
 .contact-item span { color: var(--text); font-size: 0.9rem; }
 .btn-contact-call { clip-path: var(--clip-lg); }
+.btn-contact-call-text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+.btn-contact-call-label {
+  font-size: 0.7rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.btn-contact-call-number {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
 
 .contact-form {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -1227,6 +1244,49 @@ footer {
   .floating-buttons { bottom: 16px; right: 14px; gap: 10px; }
   .floating-btn { width: 50px; height: 50px; }
   .floating-btn svg { width: 22px; height: 22px; }
+
+  /* Footer : empilage propre + padding pour ne pas être masqué par les boutons flottants */
+  footer { padding-bottom: 90px; }
+  .footer-inner { text-align: center; padding: 0 16px; }
+  .footer-logo {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-links span { display: none; } /* on cache les séparateurs · quand empilé */
+  .footer-copy { font-size: 0.72rem; padding: 0 60px; }
+
+  /* Bouton "Appel d'urgence" — 2 lignes propres : label + numéro */
+  .btn-contact-call {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  .btn-contact-call-text {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+  }
+  .btn-contact-call-label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    text-transform: uppercase;
+  }
+  .btn-contact-call-number {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* backToTop ne doit pas se superposer aux boutons flottants */
+  #backToTop { bottom: 80px; }
 
   /* Cinématique — urgency + header sont maintenant static (au-dessus du #hero
      dans le flow naturel), donc la cinema commence à top:0 du #hero.

@@ -98,10 +98,14 @@ onScroll(); // init
 const hamburgerBtn = document.getElementById('hamburger');
 const navMenu      = document.getElementById('nav');
 if (hamburgerBtn && navMenu) {
-  hamburgerBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+  const syncAria = () => {
+    hamburgerBtn.setAttribute('aria-expanded', navMenu.classList.contains('open') ? 'true' : 'false');
+  };
+  hamburgerBtn.addEventListener('click', () => { navMenu.classList.toggle('open'); syncAria(); });
   document.addEventListener('click', (e) => {
     if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
       navMenu.classList.remove('open');
+      syncAria();
     }
   });
 }
