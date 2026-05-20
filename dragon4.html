@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Dragon Ball 4★ — Artefact</title>
+</head>
+<body>
+
+<!-- Death flash overlay (z-index > tout) -->
+<div id="death-flash" class="death-flash hidden"></div>
+
+<!-- ═══ KI HUD ═══ -->
+<div id="ki-hud" class="ki-hud hidden">
+  <span class="ki-label">KI</span>
+  <div class="ki-track"><div id="ki-fill" class="ki-fill"></div></div>
+  <span id="ki-value" class="ki-value">100</span>
+</div>
+
+<!-- Combo + Round badges (game + briefing) -->
+<div id="game-badges" class="game-badges hidden">
+  <span id="badge-round" class="badge-round">R1</span>
+  <span id="badge-combo" class="badge-combo hidden">×0</span>
+</div>
+
+<!-- ═══ INTRO ═══ -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-wrap">
+    <div class="star-row">★ ★ ★ ★</div>
+    <h1 class="intro-title">ARTEFACT<br><span class="intro-sub">4★</span></h1>
+    <p class="intro-tagline">Analyse énergétique en cours…</p>
+    <div class="scan-rings">
+      <div class="ring ring1"></div>
+      <div class="ring ring2"></div>
+      <div class="ring ring3"></div>
+    </div>
+    <button class="btn-primary btn-xl" id="btn-activer" onclick="startRun()">ACTIVER</button>
+    <div id="intro-meta" class="intro-meta hidden"></div>
+  </div>
+</div>
+
+<!-- ═══ BRIEFING ═══ -->
+<div id="screen-briefing" class="screen">
+  <div class="briefing-wrap">
+    <div class="briefing-round-lbl" id="b-round">ROUND 1</div>
+    <div class="briefing-icon" id="b-icon">⚡</div>
+    <div class="briefing-name" id="b-name">PRECISION STOP</div>
+    <div class="briefing-stars" id="b-stars">★★★☆☆</div>
+    <div class="briefing-desc" id="b-desc">Stoppe le compteur sur la cible</div>
+    <div class="briefing-narr" id="b-narr"></div>
+    <div class="briefing-countdown" id="b-countdown">2</div>
+  </div>
+</div>
+
+<!-- ═══ JEU ═══ -->
+<div id="screen-game" class="screen">
+
+  <!-- KAMEHAMEHA (Precision Stop) -->
+  <div id="mech-precision" class="mech-panel hidden">
+    <div class="kame-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="mech-top">
+      <span class="mech-lbl">KAMEHAMEHA</span>
+      <span class="mech-target-row">PUISSANCE CIBLE&nbsp;&nbsp;<strong id="prec-target">5.0</strong></span>
+    </div>
+    <div class="prec-center">
+      <div class="prec-number" id="prec-number">0.0</div>
+      <div class="prec-track-wrap">
+        <div class="prec-track">
+          <div class="prec-bar" id="prec-bar"></div>
+          <div class="prec-marker" id="prec-marker"></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-stop btn-kame" id="btn-stop">KA·ME·HA·ME·HA</button>
+    <div class="feedback hidden" id="fb-prec"></div>
+  </div>
+
+  <!-- MAKANKOSAPPO (Flash Reaction) -->
+  <div id="mech-flash" class="mech-panel hidden">
+    <div class="flash-phase" id="fp-ready">
+      <div class="makank-spiral">
+        <div class="makank-ring mr1"></div>
+        <div class="makank-ring mr2"></div>
+        <div class="makank-ring mr3"></div>
+      </div>
+      <div class="flash-ready">FOCUS…</div>
+    </div>
+    <div class="flash-phase hidden" id="fp-digit">
+      <div class="scan-label">SCOUTER</div>
+      <div class="flash-digit" id="flash-digit">5</div>
+    </div>
+    <div class="flash-phase hidden" id="fp-grid">
+      <div class="flash-prompt">IDENTIFIE LA CIBLE</div>
+      <div class="flash-grid" id="flash-grid"></div>
+      <div class="timeout-bar-wrap"><div class="timeout-bar" id="timeout-bar"></div></div>
+    </div>
+    <div class="feedback hidden" id="fb-flash"></div>
+  </div>
+
+  <!-- BIG BANG ATTACK (Charge Release) -->
+  <div id="mech-charge" class="mech-panel hidden">
+    <div class="mech-top">
+      <span class="mech-lbl">BIG BANG ATTACK</span>
+      <span class="bigbang-status" id="bigbang-status">CHARGE EN COURS…</span>
+    </div>
+    <div class="charge-arena bigbang-arena">
+      <div class="charge-gauge-col">
+        <div class="charge-gauge" id="charge-gauge">
+          <div class="charge-zone" id="charge-zone"></div>
+          <div class="charge-fill" id="charge-fill"></div>
+          <div class="charge-cursor" id="charge-cursor"></div>
+        </div>
+        <div class="charge-scale">
+          <span>100%</span>
+          <span id="charge-zone-txt"></span>
+          <span>0%</span>
+        </div>
+      </div>
+      <div class="charge-info">
+        <p>Maintiens quand la jauge entre dans la <span class="zone-hl">zone dorée</span></p>
+        <p>Relâche quand elle en sort</p>
+      </div>
+    </div>
+    <button class="btn-charge btn-bigbang" id="btn-charge">BIG BANG</button>
+    <div class="feedback hidden" id="fb-charge"></div>
+  </div>
+
+</div>
+
+<!-- ═══ RÉSULTAT ═══ -->
+<div id="screen-result" class="screen">
+  <div class="result-wrap">
+    <div class="result-title" id="res-title">RUN TERMINÉE</div>
+    <div class="result-profile" id="res-profile">GUERRIER</div>
+    <div class="result-desc" id="res-desc"></div>
+    <div class="result-power-block">
+      <div class="result-pl-label">PUISSANCE</div>
+      <div class="result-power" id="res-power">0</div>
+    </div>
+    <div class="result-grid">
+      <div class="result-cell"><div class="rcell-val" id="res-rounds">0</div><div class="rcell-lbl">MANCHES</div></div>
+      <div class="result-cell"><div class="rcell-val" id="res-prec">0%</div><div class="rcell-lbl">PRÉCISION</div></div>
+      <div class="result-cell"><div class="rcell-val" id="res-react">0%</div><div class="rcell-lbl">RÉACTION</div></div>
+      <div class="result-cell"><div class="rcell-val" id="res-combo">0</div><div class="rcell-lbl">COMBO MAX</div></div>
+    </div>
+    <div class="result-rarity" id="res-rarity">COMMUNE</div>
+    <div class="result-record hidden" id="res-record">★ NOUVEAU RECORD PERSONNEL</div>
+    <div class="result-btns">
+      <button class="btn-primary" onclick="goToCard()">VOIR MA CARTE</button>
+      <button class="btn-secondary" onclick="startRun()">REJOUER</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CARTE COLLECTOR ═══ -->
+<div id="screen-card" class="screen screen-card-scroll">
+  <div class="card-screen-wrap">
+    <div class="card" id="collector-card">
+      <!-- Header : étoiles + ARTEFACT -->
+      <div class="card-head">
+        <span class="card-stars-row">★ ★ ★ ★</span>
+        <span class="card-artefact-lbl">ARTEFACT</span>
+      </div>
+      <!-- Nom du profil sous les étoiles -->
+      <div class="card-profile-header">
+        <span class="card-profile-name" id="c-profile"></span>
+      </div>
+      <!-- Zone image avec aura -->
+      <div class="card-aura" id="card-aura">
+        <div class="card-image-container">
+          <div class="card-img-spinner" id="card-img-spinner"></div>
+          <img id="card-profile-img" src="" alt="Profil énergétique" />
+          <div class="card-image-overlay" id="card-image-overlay"></div>
+        </div>
+      </div>
+      <!-- Stats -->
+      <div class="card-power-block">
+        <div class="card-pl-label">PUISSANCE</div>
+        <div class="card-pl-val" id="c-power"></div>
+      </div>
+      <div class="card-stats-row">
+        <div class="card-stat"><div class="cs-lbl">PRÉCISION</div><div class="cs-val" id="c-prec"></div></div>
+        <div class="card-stat card-stat--r"><div class="cs-lbl">RÉACTION</div><div class="cs-val" id="c-react"></div></div>
+      </div>
+      <div class="card-footer">
+        <span id="c-rounds"></span>
+        <span class="card-rarity-span" id="c-rarity"></span>
+      </div>
+      <div class="card-id-row">
+        <span id="c-id"></span>
+        <span id="c-date"></span>
+      </div>
+      <div class="card-record-strip hidden" id="c-record">★ RECORD PERSONNEL</div>
+    </div>
+    <div class="card-btns">
+      <button class="btn-primary" onclick="shareResult()">PARTAGER</button>
+      <button class="btn-secondary" onclick="startRun()">REJOUER</button>
+    </div>
+    <div class="toast hidden" id="toast"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+// ─────────────────────────────────────────────
+// CONSTANTES
+// ─────────────────────────────────────────────
+const MECH_NAMES = { precision:'KAMEHAMEHA', flash:'MAKANKOSAPPO', charge:'BIG BANG ATTACK' };
+const MECH_ICONS = { precision:'🌊', flash:'🌀', charge:'💫' };
+const MECH_DESC  = {
+  precision:'Concentre ton Ki… Relâche au bon moment',
+  flash:'Analyse l\'adversaire en un instant',
+  charge:'Charge… Contrôle… Libère',
+};
+const MECH_NARR  = {
+  precision:'KA · ME · HA · ME · HA',
+  flash:'FOCUS — IDENTIFIE LA CIBLE',
+  charge:'CHARGE EN COURS…',
+};
+const PROFILE_IMAGES = {
+  'ULTRA INSTINCT': 'ultra instinct silver aura calm warrior glowing eyes anime dark background',
+  'BEAST':          'beast mode purple dark energy fierce warrior explosion anime dark background',
+  'SUPER SAIYAN BLUE': 'super saiyan blue electric aura calm fighter glowing anime dark background',
+  'BERSERKER':      'berserker red chaos energy wild fighter anime dark background',
+  'GUERRIER':       'orange energy warrior balanced stance anime dragon ball style dark background',
+};
+const PREC_SPEED_S  = [0.8, 1.2, 1.8, 2.5, 3.5];
+const PREC_TOL      = [1.5, 1.0, 0.7, 0.4, 0.2];
+const FLASH_DISP_MS = [1200, 900, 650, 450, 300];
+const CHARGE_SPD_S  = [3, 2.5, 2, 1.5, 1];
+
+// ─────────────────────────────────────────────
+// ÉTAT GLOBAL
+// ─────────────────────────────────────────────
+const S = {
+  ki:100, round:0, combo:0, maxCombo:0,
+  profileWeights:{instinct:0,beast:0,control:0,chaos:0},
+  seed:0, endCause:'survived',
+  diffHist:[], precScores:[], reactScores:[],
+  currentRound:null,
+  rafId:null,
+  toId:null,
+  barRafId:null,   // ← FIX: flash timeout bar rAF
+  powerLevel:0, profile:null, rarity:null,
+  avgPrec:0, avgReact:0,
+};
+
+// ─────────────────────────────────────────────
+// AUDIO (Web Audio API — zéro dépendance)
+// ─────────────────────────────────────────────
+let _ctx = null;
+function getCtx() {
+  if (!_ctx) try { _ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){}
+  return _ctx;
+}
+function snd(freq, type, dur, vol) {
+  const c = getCtx(); if (!c) return;
+  try {
+    const o = c.createOscillator(), g = c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.frequency.value = freq; o.type = type || 'sine';
+    g.gain.setValueAtTime(vol || 0.25, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + dur);
+    o.start(); o.stop(c.currentTime + dur);
+  } catch(e){}
+}
+const sfx = {
+  select:  () => snd(440, 'sine', 0.08, 0.15),
+  good:    () => snd(660, 'sine', 0.12, 0.2),
+  perfect: () => { snd(880,'sine',0.15,0.28); setTimeout(()=>snd(1320,'sine',0.2,0.18),90); },
+  damage:  () => snd(140, 'sawtooth', 0.25, 0.35),
+  death:   () => { snd(60,'sawtooth',0.8,0.5); snd(90,'sawtooth',0.6,0.4); },
+  ready:   () => snd(550, 'sine', 0.06, 0.12),
+};
+
+// ─────────────────────────────────────────────
+// HAPTICS
+// ─────────────────────────────────────────────
+const haptic = p => { try { navigator.vibrate?.(p); } catch(e){} };
+
+// ─────────────────────────────────────────────
+// ROUTER
+// ─────────────────────────────────────────────
+function showScreen(name) {
+  if (S.rafId)    { cancelAnimationFrame(S.rafId);    S.rafId    = null; }
+  if (S.toId)     { clearTimeout(S.toId);             S.toId     = null; }
+  if (S.barRafId) { cancelAnimationFrame(S.barRafId); S.barRafId = null; } // ← FIX
+
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+
+  const isGame     = (name === 'game');
+  const isBriefing = (name === 'briefing');
+  const showHud    = isGame || isBriefing;
+  const showBadges = isGame || isBriefing;
+
+  document.getElementById('ki-hud').classList.toggle('hidden', !showHud);
+  document.getElementById('game-badges').classList.toggle('hidden', !showBadges);
+}
+
+// ─────────────────────────────────────────────
+// DÉMARRAGE
+// ─────────────────────────────────────────────
+function startRun() {
+  haptic(10); sfx.select();
+  Object.assign(S, {
+    ki:100, round:0, combo:0, maxCombo:0,
+    profileWeights:{instinct:0,beast:0,control:0,chaos:0},
+    seed:Math.floor(Math.random()*1000000),
+    endCause:'survived',
+    diffHist:[], precScores:[], reactScores:[],
+    currentRound:null, rafId:null, toId:null, barRafId:null,
+    powerLevel:0, profile:null, rarity:null, avgPrec:0, avgReact:0,
+  });
+  updateKiDisplay();
+  nextRound();
+}
+
+// ─────────────────────────────────────────────
+// GÉNÉRATION ROUND
+// ─────────────────────────────────────────────
+function generateRound() {
+  const diff  = Math.min(Math.floor(S.round / 2) + 1, 5);
+  const types = ['precision','flash','charge'];
+  let type, tries = 0;
+  do {
+    type = types[Math.floor(Math.random() * 3)];
+    tries++;
+  } while (tries < 5 && S.currentRound && type === S.currentRound.type && Math.random() > 0.2);
+
+  const rd = { type, diff };
+  if (type === 'precision') {
+    rd.target   = parseFloat((2.0 + Math.random() * 6.0).toFixed(1));
+    rd.speedSec = PREC_SPEED_S[diff - 1];
+    rd.tol      = PREC_TOL[diff - 1];
+  } else if (type === 'flash') {
+    rd.digit     = 1 + Math.floor(Math.random() * 9);
+    rd.displayMs = FLASH_DISP_MS[diff - 1];
+  } else {
+    const zs = 30 + Math.random() * 40;
+    const zw = 10 + Math.random() * 10;
+    rd.zoneStart = Math.round(zs);
+    rd.zoneEnd   = Math.min(Math.round(zs + zw), 90);
+    rd.speedSec  = CHARGE_SPD_S[diff - 1];
+  }
+  return rd;
+}
+
+// ─────────────────────────────────────────────
+// FLOW
+// ─────────────────────────────────────────────
+function nextRound() {
+  S.round++;
+  const rd = generateRound();
+  S.currentRound = rd;
+  S.diffHist.push(rd.diff);
+  updateBadges();
+  showBriefing(rd);
+}
+
+function updateBadges() {
+  document.getElementById('badge-round').textContent = 'R' + S.round;
+  const cb = document.getElementById('badge-combo');
+  if (S.combo >= 2) {
+    cb.textContent = '×' + S.combo;
+    cb.classList.remove('hidden');
+  } else {
+    cb.classList.add('hidden');
+  }
+}
+
+function showBriefing(rd) {
+  document.getElementById('b-round').textContent = 'ROUND ' + S.round;
+  document.getElementById('b-icon').textContent  = MECH_ICONS[rd.type];
+  document.getElementById('b-name').textContent  = MECH_NAMES[rd.type];
+  document.getElementById('b-desc').textContent  = MECH_DESC[rd.type];
+  document.getElementById('b-narr').textContent  = MECH_NARR[rd.type];
+  document.getElementById('b-stars').textContent = '★'.repeat(rd.diff) + '☆'.repeat(5 - rd.diff);
+
+  let count = 2;
+  const cdEl = document.getElementById('b-countdown');
+  cdEl.textContent = count;
+  sfx.ready();
+
+  prepareMechUI(rd);
+  showScreen('briefing');
+
+  const tick = () => {
+    count--;
+    if (count > 0) {
+      cdEl.textContent = count;
+      sfx.ready();
+      S.toId = setTimeout(tick, 1000);
+    } else {
+      showScreen('game');
+      launchMech(rd);
+    }
+  };
+  S.toId = setTimeout(tick, 1000);
+}
+
+function prepareMechUI(rd) {
+  ['precision','flash','charge'].forEach(t =>
+    document.getElementById('mech-' + t).classList.add('hidden'));
+
+  if (rd.type === 'precision') {
+    document.getElementById('prec-target').textContent = rd.target.toFixed(1);
+    document.getElementById('prec-number').textContent = '0.0';
+    document.getElementById('prec-bar').style.width    = '0%';
+    document.getElementById('prec-marker').style.left  = (rd.target / 10 * 100) + '%';
+    document.getElementById('fb-prec').classList.add('hidden');
+    document.getElementById('mech-precision').classList.remove('hidden');
+  } else if (rd.type === 'flash') {
+    const grid = document.getElementById('flash-grid');
+    grid.innerHTML = '';
+    for (let i = 1; i <= 9; i++) {
+      const b = document.createElement('button');
+      b.className = 'flash-btn';
+      b.textContent = i;
+      b.dataset.digit = i;
+      grid.appendChild(b);
+    }
+    document.getElementById('fb-flash').classList.add('hidden');
+    document.getElementById('mech-flash').classList.remove('hidden');
+  } else {
+    const zEl = document.getElementById('charge-zone');
+    zEl.style.bottom = rd.zoneStart + '%';
+    zEl.style.height = (rd.zoneEnd - rd.zoneStart) + '%';
+    document.getElementById('charge-zone-txt').textContent = rd.zoneStart + '%–' + rd.zoneEnd + '%';
+    document.getElementById('charge-fill').style.height   = '0%';
+    document.getElementById('charge-cursor').style.bottom = '0%';
+    const btn = document.getElementById('btn-charge');
+    btn.textContent = 'BIG BANG';
+    btn.classList.remove('btn-charge--held');
+    document.getElementById('bigbang-status').textContent = 'CHARGE EN COURS…';
+    document.getElementById('fb-charge').classList.add('hidden');
+    document.getElementById('mech-charge').classList.remove('hidden');
+  }
+}
+
+function launchMech(rd) {
+  if (rd.type === 'precision') runPrecision(rd);
+  else if (rd.type === 'flash') runFlash(rd);
+  else runCharge(rd);
+}
+
+// ─────────────────────────────────────────────
+// KI
+// ─────────────────────────────────────────────
+function updateKi(delta) {
+  S.ki = Math.max(0, Math.min(100, S.ki + delta));
+  updateKiDisplay();
+  if (delta < 0) {
+    const hud = document.getElementById('ki-hud');
+    hud.classList.remove('shake');
+    void hud.offsetWidth;
+    hud.classList.add('shake');
+    hud.addEventListener('animationend', () => hud.classList.remove('shake'), { once:true });
+    haptic(delta <= -20 ? [40,15,40] : [20,10,20]);
+    sfx.damage();
+  } else {
+    haptic(30);
+    sfx.good();
+  }
+  if (S.ki <= 0) {
+    S.endCause = 'ki_death';
+    // Flash rouge plein écran
+    const flash = document.getElementById('death-flash');
+    flash.classList.remove('hidden');
+    setTimeout(() => flash.classList.add('hidden'), 800);
+    haptic(600);
+    sfx.death();
+    S.toId = setTimeout(endRun, 900);
+  }
+}
+
+function updateKiDisplay() {
+  const fill = document.getElementById('ki-fill');
+  const val  = document.getElementById('ki-value');
+  const hud  = document.getElementById('ki-hud');
+  if (!fill) return;
+  fill.style.width = S.ki + '%';
+  if (val) val.textContent = S.ki;
+  if (S.ki > 60)      fill.style.background = 'linear-gradient(90deg,#FF6B00,#FFD700)';
+  else if (S.ki > 30) fill.style.background = 'linear-gradient(90deg,#FF4400,#FF6B00)';
+  else                fill.style.background = '#FF2222';
+  // Critical warning
+  if (hud) hud.classList.toggle('ki-critical', S.ki < 25 && S.ki > 0);
+}
+
+// ─────────────────────────────────────────────
+// MÉCANIQUE 1 — PRECISION STOP
+// ─────────────────────────────────────────────
+function runPrecision(rd) {
+  let t0 = null, curVal = 0, stopped = false;
+
+  function tick(ts) {
+    if (!t0) t0 = ts;
+    curVal = parseFloat(((( ts - t0) / 1000 % rd.speedSec) / rd.speedSec * 10).toFixed(1));
+    document.getElementById('prec-number').textContent = curVal.toFixed(1);
+    document.getElementById('prec-bar').style.width    = (curVal / 10 * 100) + '%';
+    if (!stopped) S.rafId = requestAnimationFrame(tick);
+  }
+  S.rafId = requestAnimationFrame(tick);
+
+  const btn = document.getElementById('btn-stop');
+  function onStop(e) {
+    e.preventDefault();
+    // FIX: guard stale listener si round a changé
+    if (stopped || S.currentRound !== rd) return;
+    stopped = true;
+    cancelAnimationFrame(S.rafId); S.rafId = null;
+    btn.removeEventListener('pointerdown', onStop);
+    haptic(10);
+    scorePrecision(curVal, rd);
+  }
+  btn.addEventListener('pointerdown', onStop);
+}
+
+function scorePrecision(val, rd) {
+  const diff    = Math.abs(val - rd.target);
+  const pctFull = diff / 10;
+  const isSC    = S.combo >= 2;
+  let kiDelta, label, precScore;
+
+  if (pctFull < 0.05) {
+    kiDelta = isSC ? 12 : 8; label = '✦ PARFAIT';
+    S.profileWeights.instinct += 2; S.combo++;
+    precScore = 100; sfx.perfect(); haptic(50);
+  } else if (diff <= rd.tol) {
+    kiDelta = 4; label = 'BON';
+    S.profileWeights.control += 1; S.combo++;
+    precScore = Math.max(0, 100 - (diff / rd.tol) * 50);
+  } else if (pctFull < 0.30) {
+    kiDelta = -10; label = 'RATÉ';
+    S.combo = 0; S.profileWeights.chaos += 1; precScore = 20;
+  } else if (pctFull < 0.60) {
+    kiDelta = -20; label = 'RATÉ';
+    S.combo = 0; S.profileWeights.chaos += 1; precScore = 5;
+  } else {
+    kiDelta = -35; label = 'RATÉ';
+    S.combo = 0; S.profileWeights.chaos += 1; precScore = 0;
+  }
+
+  if (S.combo > S.maxCombo) S.maxCombo = S.combo;
+  S.precScores.push(precScore);
+  updateBadges();
+  showFeedback('fb-prec', label, kiDelta);
+  updateKi(kiDelta);
+  if (S.ki > 0) S.toId = setTimeout(nextRound, 1300);
+}
+
+// ─────────────────────────────────────────────
+// MÉCANIQUE 2 — FLASH REACTION
+// ─────────────────────────────────────────────
+function runFlash(rd) {
+  let answered = false, gridStart = null;
+
+  function showPhase(p) {
+    ['ready','digit','grid'].forEach(x =>
+      document.getElementById('fp-' + x).classList.toggle('hidden', x !== p));
+  }
+
+  showPhase('ready');
+  S.toId = setTimeout(() => {
+    document.getElementById('flash-digit').textContent = rd.digit;
+    showPhase('digit');
+
+    S.toId = setTimeout(() => {
+      showPhase('grid');
+      gridStart = performance.now();
+
+      // Barre de timeout animée — FIX: stockée dans S.barRafId
+      const bar = document.getElementById('timeout-bar');
+      bar.style.width = '100%';
+      const barT0 = performance.now();
+      const TOUT  = 4000;
+      function animBar(ts) {
+        const p = Math.max(0, 100 - (ts - barT0) / TOUT * 100);
+        bar.style.width = p + '%';
+        if (p > 0 && !answered) S.barRafId = requestAnimationFrame(animBar);
+        else S.barRafId = null;
+      }
+      S.barRafId = requestAnimationFrame(animBar);
+
+      // Timeout réponse
+      S.toId = setTimeout(() => {
+        if (answered) return;
+        answered = true;
+        if (S.barRafId) { cancelAnimationFrame(S.barRafId); S.barRafId = null; }
+        scoreFlash({ correct:false, rt:4000, timeout:true }, rd);
+      }, TOUT);
+
+      // Boutons grille
+      document.querySelectorAll('.flash-btn').forEach(btn => {
+        btn.addEventListener('pointerdown', function(e) {
+          e.preventDefault();
+          if (answered || S.currentRound !== rd) return; // FIX: guard
+          answered = true;
+          if (S.barRafId) { cancelAnimationFrame(S.barRafId); S.barRafId = null; }
+          clearTimeout(S.toId); S.toId = null;
+          haptic(10);
+          const rt     = performance.now() - gridStart;
+          const chosen = parseInt(this.dataset.digit, 10);
+          const correct = chosen === rd.digit;
+          // FIX: montrer brièvement le bon chiffre si mauvaise réponse
+          if (!correct) {
+            showPhase('digit');
+            document.getElementById('flash-digit').textContent = rd.digit;
+            document.getElementById('flash-digit').classList.add('flash-digit--wrong-reveal');
+            S.toId = setTimeout(() => {
+              document.getElementById('flash-digit').classList.remove('flash-digit--wrong-reveal');
+              scoreFlash({ correct, rt, timeout:false }, rd);
+            }, 700);
+          } else {
+            scoreFlash({ correct, rt, timeout:false }, rd);
+          }
+        });
+      });
+    }, rd.displayMs);
+  }, 1000 + Math.random() * 1000);
+}
+
+function scoreFlash(res, rd) {
+  const isSC = S.combo >= 2;
+  let kiDelta, label, reactScore;
+
+  if (res.timeout || !res.correct) {
+    kiDelta   = res.timeout ? -25 : -20;
+    label     = res.timeout ? 'TIMEOUT' : 'RATÉ';
+    S.combo   = 0; S.profileWeights.chaos += 1; reactScore = 0;
+  } else if (res.rt < 1000) {
+    kiDelta   = isSC ? 12 : 8; label = '⚡ RAPIDE !';
+    S.combo++; S.profileWeights.beast += 2;
+    reactScore = Math.max(0, 100 - res.rt / 4000 * 100);
+    sfx.perfect(); haptic(50);
+  } else {
+    kiDelta   = isSC ? 12 : 4; label = 'BON';
+    S.combo++; S.profileWeights.instinct += 1;
+    reactScore = Math.max(0, 100 - res.rt / 4000 * 100);
+  }
+
+  if (S.combo > S.maxCombo) S.maxCombo = S.combo;
+  S.reactScores.push(reactScore);
+  updateBadges();
+  showFeedback('fb-flash', label, kiDelta);
+  updateKi(kiDelta);
+  if (S.ki > 0) S.toId = setTimeout(nextRound, 1300);
+}
+
+// ─────────────────────────────────────────────
+// MÉCANIQUE 3 — CHARGE RELEASE
+// ─────────────────────────────────────────────
+function runCharge(rd) {
+  let t0 = null, pct = 0, pressPct = null, resolved = false;
+
+  function tick(ts) {
+    if (!t0) t0 = ts;
+    pct = ((ts - t0) / 1000 % rd.speedSec) / rd.speedSec * 100;
+    document.getElementById('charge-fill').style.height   = pct + '%';
+    document.getElementById('charge-cursor').style.bottom = pct + '%';
+    if (!resolved) S.rafId = requestAnimationFrame(tick);
+  }
+  S.rafId = requestAnimationFrame(tick);
+
+  const btn = document.getElementById('btn-charge');
+
+  function onPress(e) {
+    e.preventDefault();
+    // FIX: guard stale listener
+    if (resolved || pressPct !== null || S.currentRound !== rd) return;
+    pressPct = pct;
+    btn.textContent = 'RELÂCHER';
+    btn.classList.add('btn-charge--held');
+    document.getElementById('bigbang-status').textContent = 'MAINTIENS !';
+    haptic(10);
+  }
+  function onRelease(e) {
+    e.preventDefault();
+    if (resolved || pressPct === null || S.currentRound !== rd) return; // FIX
+    resolved = true;
+    cancelAnimationFrame(S.rafId); S.rafId = null;
+    cleanup();
+    scoreCharge(pressPct, pct, rd, false);
+  }
+  function onCancel() {
+    if (resolved || S.currentRound !== rd) return; // FIX
+    resolved = true;
+    cancelAnimationFrame(S.rafId); S.rafId = null;
+    cleanup();
+    scoreCharge(pressPct, null, rd, true);
+  }
+  function cleanup() {
+    btn.removeEventListener('pointerdown', onPress);
+    btn.removeEventListener('pointerup',   onRelease);
+    btn.removeEventListener('pointercancel', onCancel);
+  }
+
+  btn.addEventListener('pointerdown', onPress);
+  btn.addEventListener('pointerup',   onRelease);
+  btn.addEventListener('pointercancel', onCancel);
+}
+
+function scoreCharge(pressPct, relPct, rd, cancelled) {
+  const TOL = 8, isSC = S.combo >= 2;
+  let kiDelta, label, precScore;
+
+  if (cancelled || pressPct === null || relPct === null) {
+    kiDelta = -25; label = 'ANNULÉ';
+    S.combo = 0; S.profileWeights.chaos += 1; precScore = 0;
+  } else {
+    const pressIn = pressPct  >= rd.zoneStart - TOL && pressPct  <= rd.zoneEnd + TOL;
+    const relIn   = relPct    >= rd.zoneStart - TOL && relPct    <= rd.zoneEnd + TOL;
+    const hold    = relPct - pressPct;
+    const size    = rd.zoneEnd - rd.zoneStart;
+    const perfect = pressIn && relIn && hold >= size * 0.7;
+
+    if (perfect) {
+      kiDelta = isSC ? 12 : 8; label = '✦ PARFAIT';
+      S.combo++; S.profileWeights.control += 3;
+      precScore = 100; sfx.perfect(); haptic(50);
+    } else if (pressIn || relIn) {
+      kiDelta = -10; label = 'PARTIEL';
+      S.combo = 0; S.profileWeights.control += 1; precScore = 50;
+    } else {
+      kiDelta = -20; label = 'RATÉ';
+      S.combo = 0; S.profileWeights.beast += 1; precScore = 0;
+    }
+  }
+
+  if (S.combo > S.maxCombo) S.maxCombo = S.combo;
+  S.precScores.push(precScore);
+  updateBadges();
+  showFeedback('fb-charge', label, kiDelta);
+  updateKi(kiDelta);
+  if (S.ki > 0) S.toId = setTimeout(nextRound, 1300);
+}
+
+// ─────────────────────────────────────────────
+// FIN DE RUN
+// ─────────────────────────────────────────────
+function endRun() {
+  const avg = arr => arr.length ? Math.round(arr.reduce((a,b)=>a+b,0)/arr.length) : 0;
+  S.avgPrec  = avg(S.precScores);
+  S.avgReact = avg(S.reactScores);
+  const avgDiff = avg(S.diffHist);
+
+  S.powerLevel = Math.round(
+    (S.round * 1000) + (S.avgPrec * 500) + (S.maxCombo * 200) + (avgDiff * 300)
+  );
+  S.powerLevel = Math.round(S.powerLevel / 10) * 10;
+  S.profile = getProfile(S.profileWeights);
+  S.rarity  = getRarity(S.powerLevel);
+
+  saveStorage();
+  renderResult();
+  showScreen('result');
+}
+
+// ─────────────────────────────────────────────
+// PROFIL & RARETÉ
+// ─────────────────────────────────────────────
+function getProfile(w) {
+  if (w.instinct >= 6 && w.beast < 3)
+    return {name:'ULTRA INSTINCT',    color:'#00BFFF', aura:'instinct',
+            desc:'Maîtrise absolue. Ton corps agit avant ta pensée.'};
+  if (w.beast >= 6)
+    return {name:'BEAST',             color:'#8B00FF', aura:'beast',
+            desc:'Explosion instinctive. Puissance brute déchaînée.'};
+  if (w.control >= 6)
+    return {name:'SUPER SAIYAN BLUE', color:'#1E90FF', aura:'blue',
+            desc:'Contrôle parfait. Ki maîtrisé jusqu\'à la racine.'};
+  if (w.chaos >= 5)
+    return {name:'BERSERKER',         color:'#FF0000', aura:'berserker',
+            desc:'Chaos contrôlé. Imprévisible. Dangereux.'};
+  return   {name:'GUERRIER',          color:'#FF6B00', aura:'guerrier',
+            desc:'Polyvalent. L\'équilibre est une forme de force.'};
+}
+
+function getRarity(pl) {
+  if (pl >= 500000) return {name:'MYTHIQUE',   cls:'rarity-mythique'};
+  if (pl >= 150000) return {name:'LÉGENDAIRE', cls:'rarity-legendaire'};
+  if (pl >= 50000)  return {name:'ÉPIQUE',     cls:'rarity-epique'};
+  if (pl >= 10000)  return {name:'RARE',       cls:'rarity-rare'};
+  return              {name:'COMMUNE',     cls:'rarity-commune'};
+}
+
+// ─────────────────────────────────────────────
+// RENDU RÉSULTAT
+// ─────────────────────────────────────────────
+function renderResult() {
+  const isKiDeath = S.endCause === 'ki_death';
+  const titleEl = document.getElementById('res-title');
+  titleEl.textContent = isKiDeath ? 'RUPTURE ÉNERGÉTIQUE' : 'RUN TERMINÉE';
+  titleEl.classList.toggle('res-title--death', isKiDeath);
+
+  const profEl = document.getElementById('res-profile');
+  profEl.textContent = S.profile.name;
+  profEl.style.color = S.profile.color;
+  profEl.style.textShadow = '0 0 24px ' + S.profile.color;
+
+  document.getElementById('res-desc').textContent  = S.profile.desc;
+  document.getElementById('res-rounds').textContent = S.round;
+  document.getElementById('res-prec').textContent   = S.avgPrec + '%';
+  document.getElementById('res-react').textContent  = S.avgReact + '%';
+  document.getElementById('res-combo').textContent  = S.maxCombo;
+
+  const rarEl = document.getElementById('res-rarity');
+  rarEl.textContent = S.rarity.name;
+  rarEl.className   = 'result-rarity ' + S.rarity.cls;
+
+  // Compte à rebours animé du power level
+  const pwEl = document.getElementById('res-power');
+  pwEl.textContent = '0';
+  const stored = loadStorage();
+  document.getElementById('res-record').classList.toggle('hidden', S.powerLevel <= stored.best - 10);
+
+  // Animation count-up (inspirée frontend-design skill: high-impact moments)
+  const target = S.powerLevel, dur = 1200;
+  const t0 = performance.now();
+  function countUp(ts) {
+    const p   = Math.min((ts - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    pwEl.textContent = Math.round(target * ease).toLocaleString('fr-FR');
+    if (p < 1) requestAnimationFrame(countUp);
+  }
+  requestAnimationFrame(countUp);
+}
+
+// ─────────────────────────────────────────────
+// CARTE COLLECTOR
+// ─────────────────────────────────────────────
+function goToCard() {
+  haptic(10); sfx.select();
+  renderCard();
+  showScreen('card');
+}
+
+function renderCard() {
+  const p = S.profile, r = S.rarity;
+  const profileEl = document.getElementById('c-profile');
+  profileEl.textContent  = p.name;
+  profileEl.style.color  = p.color;
+  profileEl.style.textShadow = '0 0 20px ' + p.color + ', 0 0 40px ' + p.color + '66';
+  document.getElementById('card-aura').className   = 'card-aura aura-' + p.aura;
+
+  // Pollinations.ai image — direct img.src load
+  const prompt = PROFILE_IMAGES[p.name] || 'energy warrior anime dark background';
+  const imgUrl = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt) + '?width=400&height=400&nologo=true&seed=' + S.seed;
+  const imgEl   = document.getElementById('card-profile-img');
+  const spinner = document.getElementById('card-img-spinner');
+  const overlay = document.getElementById('card-image-overlay');
+  imgEl.style.opacity = '0';
+  spinner.classList.add('spinning');
+  let settled = false;
+  function onImgLoad() {
+    if (settled) return; settled = true;
+    imgEl.style.opacity = '1';
+    spinner.classList.remove('spinning');
+    overlay.style.opacity = '1';
+    imgEl.removeEventListener('load',  onImgLoad);
+    imgEl.removeEventListener('error', onImgFail);
+  }
+  function onImgFail() {
+    if (settled) return; settled = true;
+    spinner.classList.remove('spinning');
+    // fallback : pas d'image, l'aura CSS reste visible
+    imgEl.style.opacity = '0';
+    imgEl.removeEventListener('load',  onImgLoad);
+    imgEl.removeEventListener('error', onImgFail);
+  }
+  imgEl.addEventListener('load',  onImgLoad);
+  imgEl.addEventListener('error', onImgFail);
+  imgEl.src = imgUrl;
+  // Fallback after 12s (Pollinations generation time)
+  setTimeout(() => { if (!settled) onImgFail(); }, 12000);
+  document.getElementById('c-power').textContent   = S.powerLevel.toLocaleString('fr-FR');
+  document.getElementById('c-prec').textContent    = S.avgPrec + '%';
+  document.getElementById('c-react').textContent   = S.avgReact + '%';
+  document.getElementById('c-rounds').textContent  = S.round + ' manches';
+
+  const cr = document.getElementById('c-rarity');
+  cr.textContent = r.name;
+  cr.className   = 'card-rarity-span ' + r.cls;
+
+  const id6 = String(S.seed).padStart(6,'0').slice(-6);
+  const date = new Date().toISOString().slice(0, 10);
+  document.getElementById('c-id').textContent   = 'DB4-' + id6;
+  document.getElementById('c-date').textContent = date;
+
+  const stored = loadStorage();
+  document.getElementById('c-record').classList.toggle('hidden', S.powerLevel < stored.best);
+}
+
+// ─────────────────────────────────────────────
+// PARTAGE
+// ─────────────────────────────────────────────
+function shareResult() {
+  haptic(10);
+  const text =
+    `🐉 ${S.profile.name} — Puissance ${S.powerLevel.toLocaleString('fr-FR')}\n` +
+    `Rareté : ${S.rarity.name} | ${S.round} manches\n` +
+    `Scan la Dragon Ball 4★ pour jouer !`;
+  if (navigator.share) {
+    navigator.share({title:'Dragon Ball 4★ Artefact', text}).catch(()=>{});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(()=>toast('Copié !')).catch(()=>toast(text));
+  } else { toast(text); }
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  setTimeout(()=>el.classList.add('hidden'), 3000);
+}
+
+// ─────────────────────────────────────────────
+// LOCALSTORAGE
+// ─────────────────────────────────────────────
+function loadStorage() {
+  try {
+    return {
+      best:  parseInt(localStorage.getItem('nikka_db_best')  || '0', 10),
+      cards: JSON.parse(localStorage.getItem('nikka_db_cards') || '[]'),
+      count: parseInt(localStorage.getItem('nikka_db_count') || '0', 10),
+    };
+  } catch { return {best:0, cards:[], count:0}; }
+}
+function saveStorage() {
+  try {
+    const st   = loadStorage();
+    const best = Math.max(st.best, S.powerLevel);
+    const card = {
+      powerLevel:S.powerLevel, profile:S.profile.name, rarity:S.rarity.name,
+      rounds:S.round, prec:S.avgPrec, react:S.avgReact,
+      combo:S.maxCombo, date:new Date().toISOString().slice(0,10), seed:S.seed,
+    };
+    localStorage.setItem('nikka_db_best',  String(best));
+    localStorage.setItem('nikka_db_cards', JSON.stringify([card,...st.cards].slice(0,10)));
+    localStorage.setItem('nikka_db_count', String(st.count + 1));
+  } catch {}
+}
+
+// ─────────────────────────────────────────────
+// FEEDBACK UI
+// ─────────────────────────────────────────────
+function showFeedback(id, label, kiDelta) {
+  const el  = document.getElementById(id);
+  const sgn = kiDelta >= 0 ? '+' : '';
+  el.textContent = label + '   Ki ' + sgn + kiDelta;
+  el.className   = 'feedback ' + (kiDelta >= 0 ? 'fb-good' : 'fb-bad');
+}
+
+// ─────────────────────────────────────────────
+// VISIBILITÉ (anti-abandon)
+// ─────────────────────────────────────────────
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && S.rafId && S.currentRound) {
+    cancelAnimationFrame(S.rafId); S.rafId = null;
+    if (S.ki > 0) {
+      updateKi(-25);
+      if (S.ki > 0) S.toId = setTimeout(nextRound, 900);
+    }
+  }
+});
+
+// ─────────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────────
+(function boot() {
+  updateKiDisplay();
+  const st = loadStorage();
+  if (st.count > 0) {
+    const meta = document.getElementById('intro-meta');
+    meta.textContent = `${st.count} run${st.count>1?'s':''} · Record : ${st.best.toLocaleString('fr-FR')}`;
+    meta.classList.remove('hidden');
+  }
+  showScreen('intro');
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════
+     CSS — frontend-design skill applied:
+     Bold aesthetic, high-impact motion,
+     atmospheric depth, micro-interactions
+═══════════════════════════════════════════ -->
+<style>
+/* ── RESET ────────────────────────────────── */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --orange:#FF6B00; --gold:#FFD700; --white:#FFF;
+  --ki-red:#FF2222; --bg:#000; --bg2:#080808;
+  --border:rgba(255,215,0,0.22);
+}
+html { height:100%; background:var(--bg); -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body {
+  background:var(--bg); color:var(--white);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  min-height:100dvh; min-height:-webkit-fill-available;
+  overflow:hidden; position:fixed; inset:0;
+}
+button { touch-action:manipulation; -webkit-tap-highlight-color:transparent; cursor:pointer; border:none; outline:none; font-family:inherit; }
+
+/* ── SCREENS ──────────────────────────────── */
+.screen { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; padding:20px; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.screen.active { display:flex; animation:fadeUp .22s ease-out; }
+.hidden { display:none !important; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── DEATH FLASH ──────────────────────────── */
+.death-flash {
+  position:fixed; inset:0; z-index:500;
+  background:rgba(255,0,0,0.55);
+  pointer-events:none;
+  animation:deathFlashAnim 0.9s ease-out forwards;
+}
+@keyframes deathFlashAnim {
+  0%   { opacity:1; }
+  30%  { opacity:0.8; }
+  100% { opacity:0; }
+}
+
+/* ── KI HUD ───────────────────────────────── */
+.ki-hud {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 16px;
+  background:rgba(0,0,0,0.92); border-bottom:1px solid var(--border);
+  backdrop-filter:blur(8px);
+  transition:border-bottom-color 0.3s;
+}
+.ki-critical {
+  border-bottom-color:rgba(255,34,34,0.7);
+  animation:kiCriticalPulse 0.7s ease-in-out infinite;
+}
+@keyframes kiCriticalPulse {
+  0%,100% { border-bottom-color:rgba(255,34,34,0.4); }
+  50%     { border-bottom-color:rgba(255,34,34,0.95); box-shadow:0 2px 12px rgba(255,34,34,0.4); }
+}
+.ki-label { font-size:11px; font-weight:700; letter-spacing:2px; color:var(--gold); min-width:20px; }
+.ki-track { flex:1; height:9px; background:rgba(255,255,255,.1); border-radius:5px; overflow:hidden; }
+.ki-fill  { height:100%; border-radius:5px; background:linear-gradient(90deg,#FF6B00,#FFD700); transition:width .25s ease,background .4s ease; width:100%; }
+.ki-value { font-size:13px; font-weight:700; min-width:30px; text-align:right; }
+
+@keyframes kiShake {
+  0%  {transform:translateX(0)} 15%{transform:translateX(-7px)}
+  35% {transform:translateX(6px)} 55%{transform:translateX(-4px)}
+  75% {transform:translateX(3px)} 100%{transform:translateX(0)}
+}
+.ki-hud.shake { animation:kiShake .4s ease-out; }
+
+/* ── GAME BADGES (round + combo) ──────────── */
+.game-badges {
+  position:fixed; top:42px; right:14px; z-index:190;
+  display:flex; flex-direction:column; align-items:flex-end; gap:4px;
+}
+.badge-round {
+  font-size:10px; font-weight:700; letter-spacing:2px;
+  color:rgba(255,255,255,.45); padding:3px 8px;
+  border:1px solid rgba(255,255,255,.15); border-radius:20px;
+  background:rgba(0,0,0,.7);
+}
+.badge-combo {
+  font-size:13px; font-weight:900; letter-spacing:1px;
+  color:var(--gold); padding:3px 10px;
+  border:1px solid rgba(255,215,0,.4); border-radius:20px;
+  background:rgba(255,215,0,.08);
+  animation:comboPop .2s ease-out;
+}
+@keyframes comboPop { from{transform:scale(1.3);opacity:.5} to{transform:scale(1);opacity:1} }
+
+/* ── BOUTONS ──────────────────────────────── */
+.btn-primary {
+  background:var(--orange); color:var(--white);
+  font-size:16px; font-weight:800; letter-spacing:2px;
+  padding:16px 40px; border-radius:5px; min-height:56px; min-width:160px;
+  box-shadow:0 0 20px rgba(255,107,0,.4);
+  transition:transform .1s,box-shadow .1s;
+}
+.btn-primary:active { transform:scale(.95); box-shadow:0 0 8px rgba(255,107,0,.2); }
+.btn-xl { font-size:20px; padding:20px 64px; min-height:68px; }
+.btn-secondary {
+  background:transparent; color:var(--white);
+  font-size:14px; font-weight:700; letter-spacing:2px;
+  padding:14px 32px; border-radius:5px;
+  border:1px solid rgba(255,255,255,.3); min-height:52px;
+}
+.btn-secondary:active { background:rgba(255,255,255,.1); }
+
+/* ── INTRO ────────────────────────────────── */
+.intro-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; gap:18px;
+  text-align:center; width:100%; max-width:380px;
+}
+.star-row   { font-size:22px; color:var(--gold); letter-spacing:8px; }
+.intro-title {
+  font-size:clamp(52px,16vw,86px); font-weight:900;
+  line-height:1; letter-spacing:-2px; color:var(--gold);
+  animation:pulseGold 2s ease-in-out infinite;
+}
+.intro-sub     { font-size:clamp(34px,11vw,58px); color:var(--orange); }
+.intro-tagline { font-size:14px; color:rgba(255,255,255,.5); letter-spacing:1px; }
+.intro-meta    { font-size:12px; color:rgba(255,255,255,.32); letter-spacing:1px; }
+
+.scan-rings { position:relative; width:80px; height:80px; }
+.ring { position:absolute; inset:0; border:2px solid var(--gold); border-radius:50%; }
+.ring1 { animation:ringExpand 2s ease-out infinite; }
+.ring2 { animation:ringExpand 2s ease-out .67s infinite; }
+.ring3 { animation:ringExpand 2s ease-out 1.33s infinite; }
+@keyframes ringExpand { 0%{transform:scale(.3);opacity:.9} 100%{transform:scale(2.2);opacity:0} }
+@keyframes pulseGold {
+  0%,100%{text-shadow:0 0 10px var(--gold),0 0 28px rgba(255,215,0,.5);transform:scale(1)}
+  50%    {text-shadow:0 0 22px var(--gold),0 0 60px rgba(255,215,0,.7),0 0 100px rgba(255,107,0,.35);transform:scale(1.02)}
+}
+
+/* ── BRIEFING ─────────────────────────────── */
+.briefing-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; gap:14px;
+  text-align:center; padding-top:70px;
+}
+.briefing-round-lbl { font-size:12px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,.45); }
+.briefing-icon      { font-size:64px; animation:iconBounce 0.5s ease-out; }
+@keyframes iconBounce { 0%{transform:scale(0);opacity:0} 70%{transform:scale(1.15)} 100%{transform:scale(1);opacity:1} }
+.briefing-name      { font-size:clamp(22px,6vw,34px); font-weight:900; letter-spacing:1px; color:var(--gold); }
+.briefing-stars     { font-size:22px; color:var(--orange); letter-spacing:4px; }
+.briefing-desc      { font-size:14px; color:rgba(255,255,255,.55); }
+.briefing-countdown {
+  font-size:88px; font-weight:900; line-height:1;
+  color:var(--orange); text-shadow:0 0 30px var(--orange);
+  animation:pulseGold 1s ease-in-out infinite;
+}
+
+/* ── GAME SCREEN ──────────────────────────── */
+#screen-game { padding-top:60px; justify-content:flex-start; padding-bottom:16px; }
+.mech-panel  { width:100%; max-width:440px; display:flex; flex-direction:column; align-items:center; gap:18px; flex:1; }
+.mech-top    { display:flex; flex-direction:column; align-items:center; gap:5px; padding-top:10px; }
+.mech-lbl    { font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,.35); }
+.mech-target-row { font-size:15px; color:var(--gold); }
+
+.feedback {
+  font-size:19px; font-weight:800; letter-spacing:1px;
+  padding:10px 20px; border-radius:5px; text-align:center;
+  animation:fadeUp .2s ease-out;
+}
+.fb-good { color:var(--gold); background:rgba(255,215,0,.12); }
+.fb-bad  { color:var(--ki-red); background:rgba(255,34,34,.12); }
+
+/* ── PRECISION STOP ───────────────────────── */
+.prec-center { display:flex; flex-direction:column; align-items:center; gap:22px; width:100%; }
+.prec-number {
+  font-size:clamp(80px,24vw,130px); font-weight:900; line-height:1;
+  color:var(--white); font-variant-numeric:tabular-nums;
+  text-shadow:0 0 28px rgba(255,215,0,.35); letter-spacing:-3px;
+}
+.prec-track-wrap { width:100%; padding:0 4px; }
+.prec-track { position:relative; height:13px; background:rgba(255,255,255,.1); border-radius:7px; overflow:visible; }
+.prec-bar   { height:100%; border-radius:7px; background:linear-gradient(90deg,var(--orange),var(--gold)); width:0%; }
+.prec-marker {
+  position:absolute; top:-4px; width:3px; height:21px;
+  background:var(--white); border-radius:2px;
+  transform:translateX(-50%); box-shadow:0 0 8px var(--gold);
+}
+.btn-stop {
+  width:100%; max-width:320px;
+  background:var(--ki-red); color:var(--white);
+  font-size:24px; font-weight:900; letter-spacing:3px;
+  padding:22px; border-radius:6px; min-height:74px;
+  box-shadow:0 0 30px rgba(255,34,34,.4);
+  transition:transform .08s,box-shadow .08s;
+}
+.btn-stop:active { transform:scale(.95); box-shadow:0 0 8px rgba(255,34,34,.15); }
+
+/* ── FLASH REACTION ───────────────────────── */
+#mech-flash { justify-content:center; }
+.flash-phase { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; width:100%; flex:1; }
+.flash-ready { font-size:clamp(28px,8vw,50px); font-weight:700; color:rgba(255,255,255,.45); letter-spacing:5px; animation:blink 1s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.flash-digit {
+  font-size:clamp(130px,38vw,210px); font-weight:900; line-height:1;
+  color:var(--gold); text-shadow:0 0 60px var(--gold),0 0 120px rgba(255,215,0,.35);
+  animation:digitPop .15s ease-out;
+}
+/* Mauvaise réponse : chiffre affiché en rouge */
+.flash-digit--wrong-reveal {
+  color:var(--ki-red) !important;
+  text-shadow:0 0 40px var(--ki-red) !important;
+  animation:wrongReveal .15s ease-out;
+}
+@keyframes digitPop     { from{transform:scale(1.25);opacity:0}  to{transform:scale(1);opacity:1} }
+@keyframes wrongReveal  { from{transform:scale(0.8);opacity:0}   to{transform:scale(1);opacity:1} }
+
+.flash-prompt  { font-size:16px; color:rgba(255,255,255,.55); letter-spacing:1px; }
+.flash-grid    { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; width:100%; max-width:300px; }
+.flash-btn {
+  background:rgba(255,255,255,.07); color:var(--white);
+  font-size:30px; font-weight:800; border-radius:8px;
+  aspect-ratio:1; min-height:74px;
+  border:1px solid rgba(255,255,255,.13);
+  touch-action:manipulation; transition:background .08s;
+}
+.flash-btn:active { background:var(--orange); }
+.timeout-bar-wrap { width:100%; max-width:300px; height:4px; background:rgba(255,255,255,.1); border-radius:2px; overflow:hidden; }
+.timeout-bar      { height:100%; background:var(--orange); border-radius:2px; width:100%; }
+
+/* ── CHARGE RELEASE ───────────────────────── */
+.charge-arena    { display:flex; gap:18px; align-items:flex-end; width:100%; max-width:320px; height:260px; }
+.charge-gauge-col{ display:flex; gap:10px; height:100%; align-items:stretch; }
+.charge-gauge    { width:48px; position:relative; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:6px; overflow:hidden; }
+.charge-zone     { position:absolute; left:0; right:0; background:rgba(255,215,0,.2); border-top:2px solid var(--gold); border-bottom:2px solid var(--gold); z-index:2; }
+.charge-fill     { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(180deg,var(--orange),var(--ki-red)); height:0%; z-index:1; }
+.charge-cursor   { position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--white); box-shadow:0 0 8px var(--white); z-index:3; }
+.charge-scale    { display:flex; flex-direction:column; justify-content:space-between; align-items:flex-start; font-size:9px; color:rgba(255,255,255,.35); padding:2px 0; height:100%; }
+#charge-zone-txt { color:var(--gold); font-size:8px; font-weight:700; }
+.charge-info     { flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px; font-size:13px; color:rgba(255,255,255,.55); line-height:1.5; }
+.zone-hl         { color:var(--gold); font-weight:700; }
+.btn-charge {
+  width:100%; max-width:320px;
+  background:rgba(255,215,0,.12); color:var(--gold);
+  font-size:20px; font-weight:900; letter-spacing:2px;
+  padding:20px; border-radius:6px; min-height:70px;
+  border:2px solid var(--gold);
+  touch-action:none; transition:background .1s;
+}
+.btn-charge--held, .btn-charge:active { background:rgba(255,215,0,.3); box-shadow:0 0 22px rgba(255,215,0,.3); }
+
+/* ── RÉSULTAT ─────────────────────────────── */
+.result-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  gap:16px; text-align:center; width:100%; max-width:420px; padding-bottom:20px;
+  animation:resultReveal .4s ease-out;
+}
+@keyframes resultReveal { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.result-title {
+  font-size:clamp(17px,5vw,24px); font-weight:900;
+  letter-spacing:2px; color:rgba(255,255,255,.55);
+}
+.res-title--death {
+  color:var(--ki-red) !important;
+  text-shadow:0 0 20px rgba(255,34,34,.6);
+  animation:pulseGold 1.5s ease-in-out infinite;
+}
+.result-profile {
+  font-size:clamp(26px,8vw,44px); font-weight:900;
+  letter-spacing:1px; line-height:1.1;
+}
+.result-desc  { font-size:13px; color:rgba(255,255,255,.5); max-width:280px; line-height:1.5; }
+.result-power-block { line-height:1.1; }
+.result-pl-label    { font-size:10px; letter-spacing:3px; color:rgba(255,255,255,.35); }
+.result-power       { font-size:clamp(36px,11vw,58px); font-weight:900; color:var(--gold); text-shadow:0 0 20px rgba(255,215,0,.45); }
+.result-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; width:100%;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+  border-radius:8px; padding:14px 8px;
+}
+.result-cell { text-align:center; }
+.rcell-val   { font-size:18px; font-weight:800; }
+.rcell-lbl   { font-size:8px; letter-spacing:1px; color:rgba(255,255,255,.35); margin-top:3px; }
+.result-rarity  { font-size:20px; font-weight:900; letter-spacing:3px; padding:6px 18px; border-radius:4px; }
+.result-record  { font-size:13px; font-weight:800; letter-spacing:2px; color:var(--gold); animation:pulseGold 1.5s ease-in-out infinite; }
+.result-btns    { display:flex; flex-direction:column; gap:10px; width:100%; }
+.result-btns button { width:100%; }
+
+/* ── RARETÉS ──────────────────────────────── */
+.rarity-commune   { color:#888; }
+.rarity-rare      { color:#00CC44; text-shadow:0 0 10px rgba(0,204,68,.4); }
+.rarity-epique    { color:#9B30FF; text-shadow:0 0 10px rgba(155,48,255,.4); }
+.rarity-legendaire {
+  background:linear-gradient(90deg,#FFD700 0%,#FFF5A0 40%,#FFD700 50%,#B8860B 60%,#FFD700 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:shimmerGold 2s linear infinite;
+}
+@keyframes shimmerGold { 0%{background-position:-200% center} 100%{background-position:200% center} }
+.rarity-mythique {
+  background:linear-gradient(90deg,#FF0000,#FF7700,#FFD700,#00FF88,#00BFFF,#8B00FF,#FF0000);
+  background-size:300% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:shimmerRainbow 2s linear infinite;
+}
+@keyframes shimmerRainbow { 0%{background-position:0% center} 100%{background-position:300% center} }
+
+/* ── CARTE COLLECTOR ──────────────────────── */
+/* Écran carte : scroll natif sur tout l'écran */
+.screen-card-scroll {
+  justify-content:flex-start !important;
+  padding:0 !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+}
+.card-screen-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  gap:16px; width:100%; max-width:400px;
+  padding:20px 20px 40px;
+  animation:cardReveal .5s cubic-bezier(0.34,1.56,0.64,1);
+  /* pas de overflow ici — le parent .screen scroll */
+}
+@keyframes cardReveal { from{opacity:0;transform:scale(.88) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.card {
+  width:min(320px,90vw);
+  /* PAS d'aspect-ratio — hauteur dictée par le contenu */
+  background:var(--bg2); border:2px solid var(--gold); border-radius:14px;
+  display:flex; flex-direction:column; overflow:hidden; flex-shrink:0;
+  box-shadow:0 0 40px rgba(255,215,0,.22), 0 8px 32px rgba(0,0,0,.85);
+}
+.card-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 14px;
+  background:linear-gradient(135deg,rgba(255,107,0,.28),rgba(255,215,0,.16));
+  border-bottom:1px solid var(--border);
+}
+.card-stars-row    { font-size:14px; color:var(--gold); letter-spacing:5px; }
+.card-artefact-lbl { font-size:10px; font-weight:700; letter-spacing:2px; color:rgba(255,255,255,.45); }
+
+/* Nom du profil sous les étoiles */
+.card-profile-header {
+  text-align:center; padding:10px 14px 6px;
+  border-bottom:1px solid var(--border);
+  background:rgba(0,0,0,.3);
+}
+.card-profile-name {
+  font-size:clamp(18px,5vw,26px); font-weight:900;
+  text-align:center; line-height:1.1; letter-spacing:1px;
+  display:block;
+}
+
+/* Aura — zone image uniquement */
+.card-aura {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:10px;
+}
+
+@keyframes auraInstinct {
+  0%,100%{box-shadow:inset 0 0 30px rgba(0,191,255,.2);background:rgba(0,60,110,.2)}
+  50%    {box-shadow:inset 0 0 70px rgba(0,191,255,.45),0 0 30px rgba(192,192,192,.1);background:rgba(0,90,160,.32)}
+}
+@keyframes auraBeast {
+  0%,100%{box-shadow:inset 0 0 28px rgba(139,0,255,.2);background:rgba(50,0,90,.25)}
+  50%    {box-shadow:inset 0 0 70px rgba(139,0,255,.52);background:rgba(75,0,130,.38)}
+}
+@keyframes auraBlue {
+  0%,100%{box-shadow:inset 0 0 28px rgba(30,144,255,.2);background:rgba(0,35,90,.22)}
+  50%    {box-shadow:inset 0 0 65px rgba(30,144,255,.48);background:rgba(0,55,125,.34)}
+}
+@keyframes auraBerserker {
+  0%,100%{box-shadow:inset 0 0 18px rgba(255,0,0,.2);background:rgba(70,0,0,.22)}
+  25%    {box-shadow:inset 0 0 80px rgba(255,0,0,.55);background:rgba(110,0,0,.4)}
+  75%    {box-shadow:inset 0 0 8px  rgba(255,0,0,.1);background:rgba(50,0,0,.18)}
+}
+@keyframes auraGuerrier {
+  0%,100%{box-shadow:inset 0 0 28px rgba(255,107,0,.2);background:rgba(70,25,0,.22)}
+  50%    {box-shadow:inset 0 0 65px rgba(255,107,0,.45);background:rgba(100,38,0,.34)}
+}
+.aura-instinct  { animation:auraInstinct  2.6s ease-in-out infinite; }
+.aura-beast     { animation:auraBeast     2s ease-in-out infinite; }
+.aura-blue      { animation:auraBlue      3s ease-in-out infinite; }
+.aura-berserker { animation:auraBerserker 1.5s ease-in-out infinite; }
+.aura-guerrier  { animation:auraGuerrier  2.6s ease-in-out infinite; }
+
+/* Sections carte */
+.card-power-block { text-align:center; padding:9px 14px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(255,215,0,.04); }
+.card-pl-label { font-size:8px; letter-spacing:3px; color:rgba(255,255,255,.35); margin-bottom:2px; }
+.card-pl-val   { font-size:clamp(22px,6vw,30px); font-weight:900; color:var(--gold); text-shadow:0 0 14px rgba(255,215,0,.35); }
+.card-stats-row  { display:flex; border-bottom:1px solid var(--border); }
+.card-stat       { flex:1; text-align:center; padding:7px 4px; }
+.card-stat--r    { border-left:1px solid var(--border); }
+.cs-lbl { font-size:7px; letter-spacing:2px; color:rgba(255,255,255,.3); margin-bottom:2px; }
+.cs-val { font-size:17px; font-weight:800; }
+.card-footer { display:flex; align-items:center; justify-content:space-between; padding:6px 13px; border-bottom:1px solid var(--border); font-size:11px; color:rgba(255,255,255,.45); }
+.card-rarity-span { font-weight:800; font-size:12px; }
+.card-id-row { display:flex; align-items:center; justify-content:space-between; padding:5px 13px; font-size:8px; letter-spacing:.5px; color:rgba(255,255,255,.25); }
+.card-record-strip { text-align:center; font-size:9px; font-weight:800; letter-spacing:2px; color:var(--gold); padding:4px 0; background:rgba(255,215,0,.1); }
+
+.card-btns { display:flex; gap:10px; width:min(316px,88vw); }
+.card-btns button { flex:1; }
+
+/* ── BRIEFING NARR ────────────────────────── */
+.briefing-narr {
+  font-size:clamp(13px,3.5vw,17px); font-weight:900; letter-spacing:3px;
+  color:var(--orange); text-shadow:0 0 14px var(--orange);
+  animation:pulseGold 1.8s ease-in-out infinite;
+}
+
+/* ── KAMEHAMEHA PARTICLES ─────────────────── */
+.kame-particles {
+  position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0;
+}
+.kame-particles span {
+  position:absolute; width:5px; height:5px; border-radius:50%;
+  background:radial-gradient(circle, #00BFFF, #1E90FF);
+  animation:kameFloat linear infinite;
+  opacity:0;
+}
+.kame-particles span:nth-child(1){left:15%;animation-duration:4.2s;animation-delay:0s;width:4px;height:4px}
+.kame-particles span:nth-child(2){left:30%;animation-duration:3.8s;animation-delay:.8s;width:6px;height:6px}
+.kame-particles span:nth-child(3){left:50%;animation-duration:5.1s;animation-delay:.3s;width:3px;height:3px}
+.kame-particles span:nth-child(4){left:68%;animation-duration:4.5s;animation-delay:1.2s;width:5px;height:5px}
+.kame-particles span:nth-child(5){left:82%;animation-duration:3.6s;animation-delay:.6s;width:4px;height:4px}
+.kame-particles span:nth-child(6){left:22%;animation-duration:4.9s;animation-delay:2s;width:3px;height:3px}
+.kame-particles span:nth-child(7){left:58%;animation-duration:4.1s;animation-delay:1.7s;width:6px;height:6px}
+.kame-particles span:nth-child(8){left:76%;animation-duration:3.4s;animation-delay:2.5s;width:4px;height:4px}
+@keyframes kameFloat {
+  0%  { bottom:-10px; opacity:0; transform:scale(0.5); }
+  15% { opacity:.8; }
+  85% { opacity:.4; }
+  100%{ bottom:110%; opacity:0; transform:scale(1.5) translateX(20px); }
+}
+#mech-precision { position:relative; }
+.btn-kame {
+  font-size:clamp(13px,4vw,18px) !important; letter-spacing:4px !important;
+  background:linear-gradient(135deg,#0055AA,#00BFFF) !important;
+  box-shadow:0 0 30px rgba(0,191,255,.5) !important;
+  text-shadow:0 0 10px rgba(255,255,255,.7);
+}
+.btn-kame:active { transform:scale(.95); box-shadow:0 0 50px rgba(0,191,255,.8) !important; }
+
+/* ── MAKANKOSAPPO SPIRAL ──────────────────── */
+.makank-spiral {
+  position:relative; width:90px; height:90px; margin:0 auto;
+}
+.makank-ring {
+  position:absolute; inset:0; border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:var(--orange);
+  border-right-color:rgba(255,107,0,.3);
+}
+.mr1 { animation:makankSpin 1.1s linear infinite; border-top-color:#FF6B00; }
+.mr2 { inset:12px; animation:makankSpin 1.6s linear infinite reverse; border-top-color:#FFD700; }
+.mr3 { inset:24px; animation:makankSpin 2.2s linear infinite; border-top-color:#FF4444; }
+@keyframes makankSpin { to { transform:rotate(360deg); } }
+
+.scan-label {
+  font-size:10px; font-weight:700; letter-spacing:4px;
+  color:rgba(255,215,0,.6);
+  animation:blink 0.4s step-start infinite;
+}
+
+/* ── BIG BANG ATTACK ──────────────────────── */
+.bigbang-status {
+  font-size:13px; font-weight:800; letter-spacing:2px;
+  color:var(--gold); text-shadow:0 0 12px rgba(255,215,0,.5);
+  animation:bbStatusPulse 1s ease-in-out infinite;
+}
+@keyframes bbStatusPulse {
+  0%,100%{opacity:1;text-shadow:0 0 10px rgba(255,215,0,.5)}
+  50%{opacity:.6;text-shadow:0 0 22px rgba(255,215,0,.9)}
+}
+.bigbang-arena {
+  position:relative;
+}
+.bigbang-arena::before {
+  content:'';
+  position:absolute; inset:-30px;
+  background:radial-gradient(ellipse at center, rgba(255,215,0,.07) 0%, transparent 70%);
+  animation:bigbangAura 1.5s ease-in-out infinite;
+  pointer-events:none; border-radius:50%;
+}
+@keyframes bigbangAura {
+  0%,100%{transform:scale(1);opacity:.6}
+  50%{transform:scale(1.12);opacity:1}
+}
+.btn-bigbang {
+  background:linear-gradient(135deg,rgba(255,107,0,.18),rgba(255,215,0,.18)) !important;
+  border:2px solid var(--gold) !important;
+  color:var(--gold) !important;
+  box-shadow:0 0 20px rgba(255,215,0,.3) !important;
+  font-size:22px !important; letter-spacing:3px !important;
+}
+.btn-bigbang.btn-charge--held {
+  background:linear-gradient(135deg,rgba(255,107,0,.4),rgba(255,215,0,.4)) !important;
+  box-shadow:0 0 40px rgba(255,215,0,.6) !important;
+}
+
+/* ── CARTE: IMAGE POLLINATIONS ────────────── */
+.card-image-container {
+  position:relative;
+  width:100%;
+  height:180px;          /* hauteur fixe — indépendante de l'aspect-ratio carte */
+  border-radius:8px; overflow:hidden;
+  background:rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center;
+}
+#card-profile-img {
+  width:100%; height:100%; object-fit:cover;
+  border-radius:8px;
+  transition:opacity .5s ease;
+}
+/* Overlay léger sur l'image (non utilisé pour le nom) */
+.card-image-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.3) 0%, transparent 50%);
+  pointer-events:none;
+}
+.card-img-spinner {
+  position:absolute; width:36px; height:36px; border-radius:50%;
+  border:3px solid rgba(255,215,0,.15);
+  border-top-color:var(--gold);
+  display:none;
+}
+.card-img-spinner.spinning {
+  display:block;
+  animation:makankSpin .9s linear infinite;
+}
+
+/* ── TOAST ────────────────────────────────── */
+.toast {
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  background:rgba(255,107,0,.96); color:var(--white);
+  padding:12px 22px; border-radius:8px;
+  font-size:14px; font-weight:700; text-align:center;
+  max-width:80vw; z-index:999;
+  animation:fadeUp .2s ease-out;
+}
+</style>
+</body>
+</html>
