@@ -86,6 +86,10 @@ function onScroll() {
     if (backToTop) backToTop.classList.toggle('visible', scrollY > 400);
     const sticky = document.getElementById('stickyCtaCall');
     if (sticky) sticky.classList.toggle('visible', scrollY > 500);
+    // Sur mobile, les boutons flottants apparaissent aussi après scroll
+    // pour ne pas recouvrir les CTAs et badges du hero.
+    const floats = document.querySelector('.floating-buttons');
+    if (floats) floats.classList.toggle('visible', scrollY > 500);
 
     const offset = headerH() + urgencyH() + 80;
     let current = '';

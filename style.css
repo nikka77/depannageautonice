@@ -1412,10 +1412,19 @@ footer {
   h2 { font-size: clamp(1.4rem, 7vw, 2rem); letter-spacing: 0.5px; }
   .section-sub { font-size: 0.88rem; margin-bottom: 36px; }
 
-  /* Floating buttons — compact on mobile, repositionnés au-dessus du sticky-cta */
-  .floating-buttons { bottom: 80px; right: 14px; gap: 10px; }
-  .floating-btn { width: 50px; height: 50px; }
-  .floating-btn svg { width: 22px; height: 22px; }
+  /* Floating buttons — mobile : disposition horizontale compacte, sans recouvrir le contenu.
+     L'action "Appel" est déjà couverte par .sticky-cta-call → on masque .floating-call
+     pour ne garder que WhatsApp + Formulaire en pill horizontale (bottom-right).
+     N'apparaissent qu'après scroll (en même temps que la sticky CTA). */
+  .floating-buttons {
+    bottom: 84px; right: 10px;
+    flex-direction: row; gap: 8px; align-items: center;
+    display: none;
+  }
+  .floating-buttons.visible { display: flex; }
+  .floating-call { display: none; }
+  .floating-btn { width: 44px; height: 44px; }
+  .floating-btn svg { width: 20px; height: 20px; }
 
   /* Sticky CTA d'appel — visible après scroll (urgence = conversion) */
   .sticky-cta-call.visible {
