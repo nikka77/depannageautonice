@@ -5,6 +5,27 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Sticky CTA d'appel — caché par défaut, visible après scroll sur mobile uniquement */
+.sticky-cta-call { display: none; }
+
+/* Accessibilité : masquage visuel mais lisible par lecteurs d'écran/SEO */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible global pour navigation clavier (a11y WCAG) */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
 /* ── Variables ────────────────────────────── */
 :root {
   /* Backgrounds */
@@ -1240,10 +1261,39 @@ footer {
   h2 { font-size: clamp(1.4rem, 7vw, 2rem); letter-spacing: 0.5px; }
   .section-sub { font-size: 0.88rem; margin-bottom: 36px; }
 
-  /* Floating buttons — compact on mobile */
-  .floating-buttons { bottom: 16px; right: 14px; gap: 10px; }
+  /* Floating buttons — compact on mobile, repositionnés au-dessus du sticky-cta */
+  .floating-buttons { bottom: 80px; right: 14px; gap: 10px; }
   .floating-btn { width: 50px; height: 50px; }
   .floating-btn svg { width: 22px; height: 22px; }
+
+  /* Sticky CTA d'appel — visible après scroll (urgence = conversion) */
+  .sticky-cta-call.visible {
+    display: flex;
+    position: fixed;
+    left: 12px; right: 12px; bottom: 12px;
+    z-index: 950;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--orange) 0%, #e85d00 100%);
+    color: #111;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(255, 107, 0, 0.45), 0 0 0 1px rgba(0,0,0,0.2);
+    font-weight: 700;
+    animation: sticky-pulse 2.2s ease-in-out infinite;
+  }
+  .sticky-cta-text { display: flex; flex-direction: column; line-height: 1.15; flex: 1; }
+  .sticky-cta-label { font-size: 0.68rem; letter-spacing: 1.2px; text-transform: uppercase; opacity: 0.85; font-weight: 600; }
+  .sticky-cta-number { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.6px; }
+
+  /* Décale backToTop pour ne plus chevaucher sticky */
+  #backToTop { bottom: 150px; }
+
+  @keyframes sticky-pulse {
+    0%, 100% { box-shadow: 0 8px 24px rgba(255, 107, 0, 0.45); }
+    50%      { box-shadow: 0 8px 32px rgba(255, 107, 0, 0.75), 0 0 0 4px rgba(255, 107, 0, 0.15); }
+  }
 
   /* Footer : empilage propre + padding pour ne pas être masqué par les boutons flottants */
   footer { padding-bottom: 90px; }
@@ -1256,9 +1306,17 @@ footer {
   .footer-links {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
+  }
+  .footer-links a {
+    padding: 12px 16px; /* zone tactile ≥ 44px WCAG */
+    display: inline-block;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
   .footer-links span { display: none; } /* on cache les séparateurs · quand empilé */
+  .footer-phone a { padding: 8px 12px; display: inline-block; min-height: 44px; line-height: 28px; }
   .footer-copy { font-size: 0.72rem; padding: 0 60px; }
 
   /* Bouton "Appel d'urgence" — 2 lignes propres : label + numéro */

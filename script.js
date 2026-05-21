@@ -84,6 +84,8 @@ function onScroll() {
     if (progressBar) progressBar.style.width = maxScroll > 0 ? (scrollY / maxScroll * 100) + '%' : '0%';
     if (header) header.classList.toggle('scrolled', scrollY > 30);
     if (backToTop) backToTop.classList.toggle('visible', scrollY > 400);
+    const sticky = document.getElementById('stickyCtaCall');
+    if (sticky) sticky.classList.toggle('visible', scrollY > 500);
 
     const offset = headerH() + urgencyH() + 80;
     let current = '';
