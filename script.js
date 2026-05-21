@@ -203,6 +203,31 @@ if (revealBtn) {
   });
 }
 
+// ── IntersectionObserver pour les reveals (data-reveal) ──
+// Ajoute la classe .in-view une fois la carte entrée dans le viewport.
+// La transition CSS (opacity + translateY) s'occupe du rendu visuel.
+(function initReveals() {
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!revealEls.length) return;
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    revealEls.forEach(el => el.classList.add('in-view'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => io.observe(el));
+})();
+
 // ── Duplication ticker + marquee pour la boucle d'animation ──
 // Évite la duplication du HTML source : le contenu n'est écrit qu'une fois,
 // puis cloné via JS pour permettre l'animation `translate3d(-50%, 0, 0)`.
