@@ -364,6 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Build all tire panels
   TIRE_KEYS.forEach(buildTirePanel);
 
+  // Année max dynamique (évite que le champ devienne périmé après changement d'année)
+  const anneeInput = document.getElementById('annee');
+  if (anneeInput) anneeInput.max = String(new Date().getFullYear());
+
   // Vehicle form
   document.getElementById('vehicleForm').addEventListener('submit', (e) => {
     e.preventDefault();
