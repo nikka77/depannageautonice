@@ -441,7 +441,7 @@ function buildWhatsApp() {
     `👤 Prénom : ${prenom}`,
     `📞 Tél : ${state.phone}`,
     ``,
-    `⏱ Demande envoyée via depannagerautonice.fr`,
+    `⏱ Demande envoyée via depannageautonice.fr`,
   ].filter(l => l !== null).join('\n');
 
   const encoded = encodeURIComponent(lines);

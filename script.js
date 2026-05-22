@@ -299,6 +299,6 @@ if (contactForm) {
     const phone   = document.getElementById('phone').value.trim();
     const message = document.getElementById('message').value.trim();
     const body    = `Nom: ${name}\nTéléphone: ${phone}\n\nMessage:\n${message}`;
-    window.location.href = `mailto:contact@depannagerautonice.fr?subject=Demande%20de%20dépannage&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:contact@depannageautonice.fr?subject=Demande%20de%20dépannage&body=${encodeURIComponent(body)}`;
   });
 }

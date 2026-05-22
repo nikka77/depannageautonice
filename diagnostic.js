@@ -393,7 +393,7 @@ function buildCertificate() {
 
     <div class="cert-footer">
       <div class="cert-legal">
-        Ce document a été établi suite à un auto-diagnostic assisté réalisé via <strong>depannagerautonice.fr</strong>.<br>
+        Ce document a été établi suite à un auto-diagnostic assisté réalisé via <strong>depannageautonice.fr</strong>.<br>
         Il atteste que le propriétaire du véhicule a entrepris une démarche de vérification de l'état de ses pneumatiques et, le cas échéant, a planifié leur remplacement.<br><br>
         Contact : <strong>06 17 68 42 70</strong> — Zone ind. Quai de la Blanquière, Nice
       </div>

@@ -372,9 +372,19 @@
 
   </main>
 
+  <footer class="page-footer" style="border-top:1px solid rgba(255,255,255,0.08);padding:24px 16px;text-align:center;color:rgba(255,255,255,0.55);font-size:13px;background:#0a0a0a;">
+    <a href="index.html" style="color:#ff6b00;text-decoration:none;">← Accueil</a>
+    <span style="margin:0 10px;opacity:0.4;">·</span>
+    <a href="mentions-legales.html" style="color:rgba(255,255,255,0.7);text-decoration:none;">Mentions légales</a>
+    <span style="margin:0 10px;opacity:0.4;">·</span>
+    <a href="tel:+33617684270" style="color:#ff6b00;text-decoration:none;font-weight:600;">06 17 68 42 70</a>
+    <div style="margin-top:8px;opacity:0.7;">© <span id="footerYear"></span> Dépannage Auto Nice</div>
+  </footer>
+
   <script src="js/leaflet.js"></script>
   <script src="js/lucide.min.js"></script>
   <script>if (typeof lucide !== 'undefined') lucide.createIcons();</script>
   <script src="demande.js"></script>
+  <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>
