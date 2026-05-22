@@ -29,6 +29,49 @@ const TIRE_KEYS  = ['fl', 'fr', 'rl', 'rr'];
 const TIRE_NAMES = { fl: 'Avant Gauche', fr: 'Avant Droit', rl: 'Arrière Gauche', rr: 'Arrière Droit' };
 const TIRE_STEPS = { fl: 1, fr: 2, rl: 3, rr: 4 };
 
+// ── Persistence localStorage ───────────────
+const STORAGE_KEY = 'depannage-diagnostic-v1';
+const STORAGE_TTL = 1000 * 60 * 60 * 24 * 7; // 7 jours
+
+function persist() {
+  try {
+    const payload = {
+      ts: Date.now(),
+      vehicle: state.vehicle,
+      tires: state.tires,
+      currentStep: state.currentStep
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch (_) { /* quota / privacy mode — silencieux */ }
+}
+
+function loadPersisted() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!data || !data.ts || (Date.now() - data.ts) > STORAGE_TTL) {
+      localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+    return data;
+  } catch (_) { return null; }
+}
+
+function clearPersisted() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
+function hasMeaningfulData(data) {
+  if (!data) return false;
+  const v = data.vehicle || {};
+  if (v.marque || v.modele || v.immat) return true;
+  return TIRE_KEYS.some(k => {
+    const t = (data.tires || {})[k] || {};
+    return t.depth || t.visual || t.age || t.photo;
+  });
+}
+
 // ── Scoring ────────────────────────────────
 function scoreTire(tire) {
   const depthScore  = { '>4': 3, '3-4': 2, '2-3': 1, '<2': 0 }[tire.depth]  ?? -1;
@@ -54,6 +97,7 @@ function goToStep(step) {
   document.getElementById(`step-${step}`).classList.add('active');
   state.currentStep = step;
   updateProgress(step);
+  persist();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -159,6 +203,7 @@ function buildTirePanel(tireKey) {
     const reader = new FileReader();
     reader.onload = (ev) => {
       state.tires[tireKey].photo = ev.target.result;
+      persist();
       photoArea.classList.add('has-photo');
       photoArea.innerHTML = `
         <img class="photo-preview" src="${ev.target.result}" alt="Photo pneu ${name}">
@@ -177,6 +222,7 @@ function buildTirePanel(tireKey) {
         grid.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         state.tires[grid.dataset.key][grid.dataset.field] = btn.dataset.val;
+        persist();
       });
     });
   });
@@ -184,6 +230,7 @@ function buildTirePanel(tireKey) {
 
 window.removePhoto = function(tireKey) {
   state.tires[tireKey].photo = null;
+  persist();
   buildTirePanel(tireKey); // rebuild panel
 };
 
@@ -368,6 +415,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const anneeInput = document.getElementById('annee');
   if (anneeInput) anneeInput.max = String(new Date().getFullYear());
 
+  // Restauration progression (localStorage)
+  const persisted = loadPersisted();
+  if (hasMeaningfulData(persisted)) {
+    const date = new Date(persisted.ts).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
+    if (confirm(`Un diagnostic en cours a été trouvé (${date}).\nVoulez-vous le reprendre ?`)) {
+      Object.assign(state.vehicle, persisted.vehicle || {});
+      TIRE_KEYS.forEach(k => {
+        if (persisted.tires && persisted.tires[k]) {
+          Object.assign(state.tires[k], persisted.tires[k]);
+        }
+      });
+      // Remplir le formulaire véhicule
+      ['immat', 'marque', 'modele', 'annee', 'proprietaire'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && state.vehicle[id]) el.value = state.vehicle[id];
+      });
+      // Reconstruire panneaux pneus pour réafficher choix + photos
+      TIRE_KEYS.forEach(k => {
+        buildTirePanel(k);
+        const panel = document.getElementById(`step-${TIRE_STEPS[k]}`);
+        if (!panel) return;
+        const t = state.tires[k];
+        panel.querySelectorAll('.options-grid').forEach(grid => {
+          const field = grid.dataset.field;
+          const val   = t[field];
+          if (!val) return;
+          grid.querySelectorAll('.option-btn').forEach(b => {
+            if (b.dataset.val === val) b.classList.add('selected');
+          });
+        });
+        if (t.photo) {
+          const photoArea = panel.querySelector('.photo-upload');
+          if (photoArea) {
+            photoArea.classList.add('has-photo');
+            photoArea.innerHTML = `
+              <img class="photo-preview" src="${t.photo}" alt="Photo pneu ${TIRE_NAMES[k]}">
+              <button class="photo-remove" onclick="removePhoto('${k}')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            `;
+          }
+        }
+      });
+      // Reprendre à l'étape sauvegardée
+      const step = Math.min(Math.max(0, persisted.currentStep || 0), 5);
+      goToStep(step);
+    } else {
+      clearPersisted();
+    }
+  }
+
   // Vehicle form
   document.getElementById('vehicleForm').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -378,6 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
       annee:        document.getElementById('annee').value,
       proprietaire: document.getElementById('proprietaire').value
     };
+    persist();
     goToStep(1);
   });
 
@@ -429,6 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.open(`https://wa.me/33617684270?text=${encodeURIComponent(msg)}`, '_blank');
     document.getElementById('appointmentModal').classList.remove('open');
+    clearPersisted();
   });
 
   // Certificate

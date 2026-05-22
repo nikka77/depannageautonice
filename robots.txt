@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nikka77.github.io/depannageautonice/sitemap.xml
