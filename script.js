@@ -128,7 +128,10 @@ if (typeof gsap !== 'undefined') {
     .from('.hero-hud-tag',    { opacity: 0, y: -20, duration: 0.6 })
     .from('#hero h1',          { opacity: 0, y: 40,  duration: 0.8 }, '-=0.2')
     .from('.hero-sub',         { opacity: 0, y: 30,  duration: 0.7 }, '-=0.5')
-    .from('.btn-hero',         { opacity: 0, y: 20,  scale: 0.95, duration: 0.6 }, '-=0.4')
+    .fromTo('.btn-hero',
+      { opacity: 0, y: 20, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, clearProps: 'transform,scale,translate,rotate' },
+      '-=0.4')
     .from('.hero-badges span', { opacity: 0, y: 15,  duration: 0.5, stagger: 0.1 }, '-=0.3');
 
   // Service cards
