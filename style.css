@@ -490,18 +490,20 @@ h2 {
   100% { opacity: 0; }
 }
 
-/* Ken Burns — slow cinematic pan per slide */
+/* Ken Burns — slow cinematic pan per slide
+   Règle: |translate| <= (scale-1)*50 pour garantir débordement permanent
+   et éviter toute bande grise au rendu subpixel. */
 @keyframes cinema-kb-1 {
-  from { transform: scale(1.0)  translate3d(0,    0,    0); }
-  to   { transform: scale(1.12) translate3d(-2%,  -1%,  0); }
+  from { transform: scale(1.06) translate3d(1%,   0%,   0); }
+  to   { transform: scale(1.14) translate3d(-2%,  -1%,  0); }
 }
 @keyframes cinema-kb-2 {
-  from { transform: scale(1.08) translate3d(2%,   1%,   0); }
+  from { transform: scale(1.10) translate3d(2%,   1%,   0); }
   to   { transform: scale(1.18) translate3d(0%,   -1%,  0); }
 }
 @keyframes cinema-kb-3 {
-  from { transform: scale(1.1)  translate3d(-1%,  -2%,  0); }
-  to   { transform: scale(1.04) translate3d(1%,   0%,   0); }
+  from { transform: scale(1.12) translate3d(-1%,  -2%,  0); }
+  to   { transform: scale(1.08) translate3d(1%,   0%,   0); }
 }
 
 /* Deux boutons CTA côte à côte */
