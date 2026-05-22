@@ -1373,13 +1373,28 @@ footer {
   .ticker-band:not(.ticker-band--mobile) { display: none; }
   .hero-hud-tag { font-size: 0.6rem; letter-spacing: 1.5px; margin-bottom: 8px; }
 
-  /* CTA — always side by side */
-  .hero-cta-group { gap: 10px; flex-wrap: nowrap; }
-  .btn-hero {
-    font-size: 0.8rem; padding: 13px 14px;
-    flex: 1; min-width: 0;
+  /* CTA — stack vertically on mobile, primary first, both full width */
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
   }
-  .btn-hero-secondary { font-size: 0.78rem; padding: 12px 12px; }
+  .btn-hero {
+    font-size: 0.95rem;
+    padding: 16px 20px;
+    width: 100%;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .btn-hero-secondary {
+    font-size: 0.85rem;
+    padding: 14px 16px;
+    width: 100%;
+    justify-content: center;
+  }
 
   /* Badges — 2×2 compact grid */
   .hero-badges {
