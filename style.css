@@ -422,8 +422,34 @@ h2 {
   width: min(520px, 90vw);
   height: auto;
   margin: 0 auto 20px;
-  /* légère lueur orange pour l'intégrer dans l'ambiance */
-  filter: drop-shadow(0 0 24px rgba(255,107,0,0.35));
+  /* triple lueur néon : rose chaud + cyan froid + orange ambiance */
+  filter:
+    drop-shadow(0 0 8px  rgba(255, 60, 160, 0.85))
+    drop-shadow(0 0 18px rgba(255, 60, 160, 0.55))
+    drop-shadow(0 0 24px rgba(0, 220, 255, 0.45))
+    drop-shadow(0 0 36px rgba(255, 107, 0, 0.35));
+  animation: logo-neon-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes logo-neon-pulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 8px  rgba(255, 60, 160, 0.85))
+      drop-shadow(0 0 18px rgba(255, 60, 160, 0.55))
+      drop-shadow(0 0 24px rgba(0, 220, 255, 0.45))
+      drop-shadow(0 0 36px rgba(255, 107, 0, 0.35));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 12px rgba(255, 60, 160, 1))
+      drop-shadow(0 0 26px rgba(255, 60, 160, 0.75))
+      drop-shadow(0 0 34px rgba(0, 220, 255, 0.65))
+      drop-shadow(0 0 48px rgba(255, 107, 0, 0.5));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-gma { animation: none; }
 }
 
 .hero-content h1 {
