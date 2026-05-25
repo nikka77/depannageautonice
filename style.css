@@ -488,21 +488,21 @@ h2 {
 }
 
 .cinema-slide--1 {
-  background-image: url('img/hero-1.png?v=2');
+  background-image: url('img/hero-1.webp?v=1');
   background-position: center 40%;
   animation: cinema-fade 18s ease-in-out infinite,
              cinema-kb-1  18s linear        infinite;
   animation-delay: 0s, 0s;
 }
 .cinema-slide--2 {
-  background-image: url('img/hero-2.png?v=2');
+  background-image: url('img/hero-2.webp?v=1');
   background-position: center 55%;
   animation: cinema-fade 18s ease-in-out infinite,
              cinema-kb-2  18s linear        infinite;
   animation-delay: 6s, 6s;
 }
 .cinema-slide--3 {
-  background-image: url('img/hero-3.png?v=2');
+  background-image: url('img/hero-3.webp?v=1');
   background-position: center 50%;
   animation: cinema-fade 18s ease-in-out infinite,
              cinema-kb-3  18s linear        infinite;

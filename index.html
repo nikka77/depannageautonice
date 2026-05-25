@@ -22,7 +22,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="vendor/css/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
+  <!-- Preload LCP assets pour accélérer le first paint mobile -->
+  <link rel="preload" as="image" href="img/hero-1.webp?v=1" fetchpriority="high">
+  <link rel="preload" as="image" href="img/logo-neon.webp?v=1" fetchpriority="high">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,7 +58,7 @@
     "priceRange": "€",
     "description": "Dépannage, remorquage et transport auto 7j/7 24h/24 sur Nice et les Alpes-Maritimes. Intervention en 30 min à 1h. À partir de 70 €. Toutes assurances.",
     "image": "https://nikka77.github.io/depannageautonice/img/hero-1.png",
-    "logo": "https://nikka77.github.io/depannageautonice/img/logo-gma.png",
+    "logo": "https://nikka77.github.io/depannageautonice/img/logo-neon.png",
     "foundingDate": "2004",
     "areaServed": [
       { "@type": "City", "name": "Nice" },
@@ -151,7 +154,7 @@
     <div class="container hero-content">
       <h1 class="sr-only">Dépannage Auto Nice — Intervention 7j/7 24h/24 sur Nice et les Alpes-Maritimes</h1>
       <span class="hud-tag hero-hud-tag">◆ DISPONIBLE MAINTENANT</span>
-      <img src="img/logo-neon.png?v=2" alt="Dépanne-moi vite — Dépannage Auto Nice" class="hero-logo-gma">
+      <img src="img/logo-neon.webp?v=1" alt="Dépanne-moi vite — Dépannage Auto Nice" class="hero-logo-gma" width="520" height="346" decoding="async" fetchpriority="high">
       <!-- Ticker mobile uniquement — positionné sous le diaporama (contenu cloné par script.js) -->
       <div class="ticker-band ticker-band--mobile" aria-hidden="true">
         <div class="ticker-track">
