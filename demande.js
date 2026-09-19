@@ -61,11 +61,12 @@ function initLeafletMap(containerId, lat, lng, onMapReady) {
 
   const map = L.map(containerId, {
     center: [lat, lng], zoom: 14,
-    scrollWheelZoom: false, zoomControl: false, attributionControl: false,
+    scrollWheelZoom: false, zoomControl: false, attributionControl: true,
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    subdomains: 'abcd', maxZoom: 18,
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
   }).addTo(map);
 
   const pulseIcon = L.divIcon({
@@ -528,10 +529,11 @@ function initConfirmMap() {
   if (!confirmMap) {
     // Première initialisation — panel maintenant visible, taille correcte
     confirmMap = L.map('confirmMap', {
-      scrollWheelZoom: false, zoomControl: false, attributionControl: false,
+      scrollWheelZoom: false, zoomControl: false, attributionControl: true,
     });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd', maxZoom: 18,
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
     }).addTo(confirmMap);
 
     // Marqueur client (pulse orange)
@@ -581,14 +583,18 @@ async function drawRoute(map, from, to) {
     const data = await res.json();
     if (!data.routes?.[0]) throw new Error('no route');
     const coords = data.routes[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
-    routeLayer = L.polyline(coords, {
-      color: '#ff6b00', weight: 3, opacity: 0.85, dashArray: '8, 5',
-    }).addTo(map);
+    // Doublé d'un liseré blanc : sur des tuiles claires et chargées,
+    // un simple trait orange se confond avec les routes de la carte.
+    routeLayer = L.layerGroup([
+      L.polyline(coords, { color: '#ffffff', weight: 7, opacity: 0.9 }),
+      L.polyline(coords, { color: '#d94e00', weight: 3.5, opacity: 1 }),
+    ]).addTo(map);
   } catch {
     // Fallback : ligne droite si OSRM indisponible
-    routeLayer = L.polyline([from, to], {
-      color: '#ff6b00', weight: 2, opacity: 0.5, dashArray: '6, 6',
-    }).addTo(map);
+    routeLayer = L.layerGroup([
+      L.polyline([from, to], { color: '#ffffff', weight: 5, opacity: 0.8 }),
+      L.polyline([from, to], { color: '#d94e00', weight: 2, opacity: 0.9, dashArray: '6, 6' }),
+    ]).addTo(map);
   }
 }
 

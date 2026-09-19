@@ -1031,6 +1031,16 @@ h2 {
   clip-path: var(--clip-2xl);
 }
 /* Marker radar pulse (CSS keyframes) */
+/* Crédit OpenStreetMap : obligatoire (licence ODbL), gardé discret */
+.leaflet-control-attribution {
+  background: rgba(255,255,255,0.82) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 9px !important;
+  color: #55554d !important;
+  padding: 1px 5px !important;
+}
+.leaflet-control-attribution a { color: #b34800 !important; text-decoration: none; }
+
 .leaflet-marker-pulse {
   width: 18px; height: 18px; background: var(--orange-bright);
   clip-path: var(--clip-xs);

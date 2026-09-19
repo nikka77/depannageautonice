@@ -178,6 +178,17 @@ module.exports = async function handler(req, res) {
       // il peut contenir l'URL appelée, donc le jeton.
       console.error('Auto Ways a répondu', reponse.status, texte.slice(0, 300));
 
+      // Un 403 signifie « Token invalide » : clé expirée, révoquée ou quota
+      // épuisé. C'est un problème d'exploitation, pas une panne passagère :
+      // il doit ressortir clairement dans les journaux Vercel, sinon on le
+      // cherche longtemps.
+      if (reponse.status === 403) {
+        console.error(
+          'AUTOWAYS : jeton refusé (403). Vérifier la clé et le quota sur ' +
+          'https://app.auto-ways.net/api-keys, puis redéployer.'
+        );
+      }
+
       // Observé en production : pour une plaque absente de sa base, Auto Ways
       // ne renvoie pas un 404 propre mais un 500 avec une page HTML d'erreur.
       // On le traite donc comme « introuvable » : pour le visiteur, la suite

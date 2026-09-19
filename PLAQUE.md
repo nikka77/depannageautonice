@@ -105,6 +105,12 @@ Trois pièges, tous traités dans `normaliser()` :
   véhicules (une Clio dCi renvoie `GAZOLE` d'un côté, `ESSENCE` de l'autre).
   Seul `AWN_energie` est utilisé.
 
+Un **jeton expiré, révoqué ou à quota épuisé** donne un `403` avec
+`{"error":true,"message":"Token invalide"}`. Le relais le journalise
+explicitement dans les logs Vercel, en rappelant d'aller vérifier la clé sur
+<https://app.auto-ways.net/api-keys>. Côté visiteur, le message reste
+« Recherche indisponible — renseignez la marque et le modèle vous-même ».
+
 Pour réinspecter la réponse brute : mettre `DEBUG_PLAQUE=1`, redéployer, puis
 appeler avec `&diag=1`. **Attention**, `DEBUG_PLAQUE=1` autorise aussi `?diag=1`
 à contourner le filtre d'origine : à remettre à `0` et redéployer aussitôt après.

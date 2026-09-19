@@ -551,6 +551,17 @@ body::before {
 
 /* ── Leaflet HUD overrides ──────────────────── */
 .leaflet-container { background: #e8e8e2 !important; }
+
+/* Crédit OpenStreetMap : obligatoire (licence ODbL), gardé discret */
+.leaflet-control-attribution {
+  background: rgba(255,255,255,0.82) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 9px !important;
+  color: #55554d !important;
+  padding: 1px 5px !important;
+}
+.leaflet-control-attribution a { color: #b34800 !important; text-decoration: none; }
+
 .leaflet-marker-pulse {
   width: 18px; height: 18px;
   background: var(--orange-bright); position: relative;

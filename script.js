@@ -268,11 +268,15 @@ document.querySelectorAll('.faq-question').forEach(btn => {
 
   const map = L.map('zoneMap', {
     center: [43.7102, 7.2620], zoom: 10,
-    scrollWheelZoom: false, zoomControl: true, attributionControl: false,
+    scrollWheelZoom: false, zoomControl: true, attributionControl: true,
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; CARTO', subdomains: 'abcd', maxZoom: 18,
+  // Tuiles OpenStreetMap : libres, sans clé d'API, et claires — assorties
+  // au thème du site. Le crédit est obligatoire (licence ODbL), d'où
+  // l'attributionControl laissé actif.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
   }).addTo(map);
 
   L.circle([43.7102, 7.2620], {
