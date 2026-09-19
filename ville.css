@@ -52,6 +52,10 @@ a { color: var(--orange); }
 .v-top-tel {
   font-family: 'JetBrains Mono', monospace; font-weight: 700;
   color: var(--orange); text-decoration: none; white-space: nowrap;
+  /* Sur un site de dépannage, c'est le lien le plus tapé, souvent dans
+     l'urgence : il lui faut une vraie surface, pas 26px de haut. */
+  display: inline-flex; align-items: center;
+  min-height: 44px;
 }
 
 /* ── Fil d'Ariane ─────────────────────────── */
@@ -59,7 +63,7 @@ a { color: var(--orange); }
   max-width: 880px; margin: 0 auto; padding: 16px 20px 0;
   font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gray);
 }
-.v-crumb a { color: var(--gray); text-decoration: none; }
+.v-crumb a { color: var(--gray); text-decoration: none; display: inline-block; padding: 6px 2px; }
 .v-crumb a:hover { color: var(--orange); }
 .v-crumb span { margin: 0 6px; }
 

@@ -128,7 +128,8 @@ function buildTirePanel(tireKey) {
     </div>
 
     <div class="photo-upload-area" id="photo-area-${tireKey}">
-      <input type="file" accept="image/*" capture="environment" id="photo-input-${tireKey}">
+      <input type="file" accept="image/*" capture="environment" id="photo-input-${tireKey}"
+             aria-label="Photographier le pneu ${name.toLowerCase()}">
       <div class="photo-upload-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>

@@ -320,8 +320,14 @@ if (contactForm) {
     const message = document.getElementById('message').value.trim();
     const body    = `Nom : ${name}\nTéléphone : ${phone}\n\nMessage :\n${message}`;
 
+    // Sans relais e-mail configuré, on bascule sur WhatsApp plutôt que sur
+    // un mailto : le domaine depannageautonice.fr n'est pas enregistré, donc
+    // l'adresse de contact ne reçoit rien. WhatsApp, lui, arrive vraiment.
     if (!cfg.formAccessKey) {
-      window.location.href = `mailto:contact@depannageautonice.fr?subject=Demande%20de%20dépannage&body=${encodeURIComponent(body)}`;
+      const numero = cfg.whatsappNumber || '33617684270';
+      const texte = `Message depuis le site\n\n${body}`;
+      window.open(`https://wa.me/${numero}?text=${encodeURIComponent(texte)}`, '_blank', 'noopener');
+      setStatus('Votre message est prêt dans WhatsApp — appuyez sur Envoyer. Sinon, appelez le 06 17 68 42 70.', 'ok');
       return;
     }
 

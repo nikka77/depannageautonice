@@ -341,7 +341,12 @@ h2 {
 
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto;
+  background: none; border: none; cursor: pointer; margin-left: auto;
+  /* Cible tactile d'au moins 44px : le bouton ne faisait que 21px de haut,
+     difficile à viser sur téléphone. */
+  padding: 12px 10px;
+  align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px;
 }
 .hamburger span { width: 24px; height: 1px; background: var(--text); display: block; transition: all 0.3s; }
 
@@ -1104,6 +1109,8 @@ h2 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.4rem; font-weight: 700;
   text-shadow: 0 0 24px var(--orange-glow);
+  /* Cible tactile confortable : le texte seul ne faisait que 26px de haut. */
+  display: inline-flex; align-items: center; min-height: 44px;
 }
 .contact-item span { color: var(--text); font-size: 0.9rem; }
 .btn-contact-call { clip-path: var(--clip-lg); }
@@ -1248,6 +1255,9 @@ footer {
   font-family: 'JetBrains Mono', monospace;
   color: var(--text-muted); text-decoration: none;
   font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;
+  /* Cible tactile confortable : le numéro reste le premier réflexe. */
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 8px;
 }
 .footer-copy { font-family: 'JetBrains Mono', monospace; color: var(--text-dim); font-size: 0.65rem; letter-spacing: 1px; }
 
