@@ -1,0 +1,192 @@
+{
+  "site": {
+    "base": "https://nikka77.github.io/depannageautonice",
+    "nom": "Dépannage Auto Nice",
+    "tel": "06 17 68 42 70",
+    "telHref": "0617684270",
+    "telIntl": "+33617684270",
+    "depart": "Quai de la Blanquière, Nice"
+  },
+  "villes": [
+    {
+      "slug": "cannes",
+      "nom": "Cannes",
+      "cp": "06400",
+      "lat": 43.5528,
+      "lng": 7.0174,
+      "distanceKm": 33,
+      "delai": "45 min à 1 h 15",
+      "acces": "A8 sortie 41 (Cannes-Mougins) ou 42 (Cannes-Centre), puis boulevard Carnot.",
+      "intro": "Une panne à Cannes immobilise vite toute une rue&nbsp;: entre la Croisette, le boulevard Carnot et les abords du Palais des Festivals, il y a rarement de quoi se ranger. Nous partons de Nice et remontons l'A8 pour vous dégager, réparer sur place quand c'est possible, ou remorquer.",
+      "specificites": [
+        {
+          "titre": "Parkings souterrains et hauteur limitée",
+          "texte": "Le Palais des Festivals, Forville et la plupart des parkings du centre plafonnent autour de 1,90 m. Un plateau classique n'y entre pas&nbsp;: dites-nous dès l'appel que le véhicule est en sous-sol, nous adaptons le matériel et sortons la voiture au treuil jusqu'à la rampe."
+        },
+        {
+          "titre": "Périodes de congrès",
+          "texte": "Pendant le Festival, le MIPIM ou le MIPCOM, la circulation du centre-ville est filtrée et le stationnement saturé. Le délai s'allonge&nbsp;: nous vous donnons une estimation honnête au téléphone plutôt qu'une promesse intenable."
+        },
+        {
+          "titre": "Bord de mer et sel",
+          "texte": "Les véhicules garés longtemps le long de la Croisette ou au port souffrent de l'air salin&nbsp;: cosses de batterie oxydées et démarrages capricieux sont les pannes que nous voyons le plus souvent ici."
+        }
+      ],
+      "quartiers": ["La Croisette", "Le Suquet", "La Bocca", "Palm Beach", "Petit Juas", "République", "Port Canto", "Ranguin"],
+      "faq": [
+        {
+          "q": "Intervenez-vous dans les parkings souterrains de Cannes ?",
+          "r": "Oui. La plupart des parkings cannois sont limités à 1,90 m de hauteur&nbsp;: nous sortons le véhicule au treuil jusqu'à un point accessible, puis nous le chargeons. Signalez-nous le niveau et le nom du parking dès l'appel."
+        },
+        {
+          "q": "Combien de temps pour arriver à Cannes depuis Nice ?",
+          "r": "Comptez 45 minutes à 1 h 15 selon le trafic sur l'A8 et l'heure de la journée. En période de congrès ou aux heures de pointe, l'accès au centre-ville ajoute du délai&nbsp;: nous vous donnons une estimation réaliste au téléphone."
+        }
+      ]
+    },
+    {
+      "slug": "antibes",
+      "nom": "Antibes",
+      "cp": "06600",
+      "lat": 43.5808,
+      "lng": 7.1239,
+      "distanceKm": 22,
+      "delai": "35 min à 1 h",
+      "acces": "A8 sortie 44 (Antibes), ou bord de mer par la N7 depuis Villeneuve-Loubet.",
+      "intro": "Antibes, Juan-les-Pins et le Cap forment trois réalités très différentes pour un dépanneur. Nous couvrons les trois, de la zone technologique aux ruelles du vieil Antibes, en partant de notre atelier niçois.",
+      "specificites": [
+        {
+          "titre": "Le Cap d'Antibes et ses routes étroites",
+          "texte": "Sur le Cap, beaucoup de voies privées ou en impasse ne laissent pas la place de manœuvrer un plateau. Nous arrivons alors en véhicule léger pour tenter la réparation sur place, et n'engageons le camion qu'une fois le point de chargement repéré."
+        },
+        {
+          "titre": "Sophia Antipolis et les trajets domicile-travail",
+          "texte": "La technopole draine des milliers de trajets quotidiens. La panne type que nous traitons ici, c'est le démarrage impossible sur un parking d'entreprise en fin de journée&nbsp;: batterie, alternateur ou démarreur. Un test sur place suffit souvent à trancher."
+        },
+        {
+          "titre": "Port Vauban et remorquage de bateaux",
+          "texte": "Autour du port, nous intervenons régulièrement sur des véhicules tractant une remorque. Précisez-nous la présence d'un attelage ou d'une remorque&nbsp;: cela change le matériel que nous engageons."
+        }
+      ],
+      "quartiers": ["Vieil Antibes", "Juan-les-Pins", "Cap d'Antibes", "La Fontonne", "Les Semboules", "Sophia Antipolis", "Port Vauban", "Les Trois Moulins"],
+      "faq": [
+        {
+          "q": "Pouvez-vous intervenir sur un parking d'entreprise à Sophia Antipolis ?",
+          "r": "Oui, à condition que l'accès nous soit ouvert. Prévenez l'accueil ou le gardien de notre passage&nbsp;: sur les sites fermés à badge, c'est ce qui fait perdre le plus de temps."
+        },
+        {
+          "q": "Mon véhicule est dans une voie privée du Cap, trop étroite pour un camion.",
+          "r": "Nous commençons par un dépannage sur place en véhicule léger. Si le remorquage est inévitable, nous déplaçons la voiture jusqu'au premier point où le plateau peut charger en sécurité."
+        }
+      ]
+    },
+    {
+      "slug": "menton",
+      "nom": "Menton",
+      "cp": "06500",
+      "lat": 43.7747,
+      "lng": 7.4977,
+      "distanceKm": 30,
+      "delai": "40 min à 1 h 10",
+      "acces": "A8 sortie 59 (Menton), ou par les corniches depuis Nice.",
+      "intro": "Entre Menton, Roquebrune et la frontière italienne, tout se joue sur la pente. Les corniches et les routes en lacets fatiguent les freins et les circuits de refroidissement&nbsp;: ce sont les pannes que nous traitons le plus souvent de ce côté du département.",
+      "specificites": [
+        {
+          "titre": "Surchauffe sur les corniches",
+          "texte": "La Moyenne et la Grande Corniche enchaînent les montées longues. Si le témoin de température monte, coupez la climatisation, arrêtez-vous dès que c'est sûr et n'ouvrez surtout pas le vase d'expansion à chaud. Appelez-nous avant que le joint de culasse ne lâche&nbsp;: la différence de facture est considérable."
+        },
+        {
+          "titre": "Freins en descente",
+          "texte": "En descente prolongée vers Menton, des freins surchauffés perdent leur mordant. Une odeur de brûlé et une pédale qui s'allonge imposent l'arrêt immédiat&nbsp;: nous venons plutôt que de vous laisser redescendre."
+        },
+        {
+          "titre": "Frontière italienne",
+          "texte": "Nous intervenons jusqu'à la frontière. Au-delà, sur le territoire italien, la réglementation du remorquage change&nbsp;: appelez-nous pour que nous vérifions ensemble ce qui est possible avant d'engager quoi que ce soit."
+        }
+      ],
+      "quartiers": ["Garavan", "Centre historique", "Carnolès", "Borrigo", "Monti", "Roquebrune-Cap-Martin", "Val de Gorbio"],
+      "faq": [
+        {
+          "q": "Que faire si ma voiture surchauffe sur la corniche ?",
+          "r": "Arrêtez-vous au premier endroit sûr, coupez le moteur et laissez refroidir sans ouvrir le circuit. Ouvrir un vase d'expansion sous pression provoque des brûlures graves. Appelez le 06 17 68 42 70&nbsp;: continuer à rouler ainsi abîme souvent le moteur définitivement."
+        },
+        {
+          "q": "Intervenez-vous jusqu'à la frontière italienne ?",
+          "r": "Oui, sur toute la commune de Menton jusqu'à la frontière. Pour une panne survenue côté italien, appelez-nous quand même&nbsp;: nous vous dirons franchement si nous pouvons intervenir ou non."
+        }
+      ]
+    },
+    {
+      "slug": "cagnes-sur-mer",
+      "nom": "Cagnes-sur-Mer",
+      "cp": "06800",
+      "lat": 43.6636,
+      "lng": 7.1487,
+      "distanceKm": 13,
+      "delai": "25 à 45 min",
+      "acces": "A8 sortie 47 (Cagnes-sur-Mer) ou 48 (Villeneuve-Loubet), bord de mer par la N98.",
+      "intro": "Cagnes est la commune la plus proche de notre atelier&nbsp;: c'est là que nos délais sont les plus courts. Du Cros-de-Cagnes au village perché du Haut-de-Cagnes, les conditions d'intervention n'ont pourtant rien à voir.",
+      "specificites": [
+        {
+          "titre": "Le Haut-de-Cagnes et ses ruelles",
+          "texte": "Le village médiéval se monte par des rues en forte pente, parfois trop étroites pour un plateau. Nous montons en véhicule léger, et si le remorquage s'impose, nous redescendons la voiture jusqu'à un point de chargement praticable."
+        },
+        {
+          "titre": "Polygone Riviera et les parkings commerciaux",
+          "texte": "Un samedi de forte affluence, la panne au démarrage sur le parking d'un centre commercial est un classique. Nous intervenons sur place&nbsp;: donnez-nous le niveau et la zone, cela nous fait gagner de longues minutes."
+        },
+        {
+          "titre": "Bord de mer et galets",
+          "texte": "Le long de la promenade du Cros-de-Cagnes, le stationnement sur les accotements finit régulièrement en roue bloquée ou en pneu ouvert par un galet. C'est une intervention rapide, souvent réglée sur place."
+        }
+      ],
+      "quartiers": ["Cros-de-Cagnes", "Haut-de-Cagnes", "Val Fleuri", "Les Bréguières", "Polygone Riviera", "Hippodrome", "Saint-Véran"],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Cagnes-sur-Mer ?",
+          "r": "Cagnes est à environ 13 km de notre atelier niçois&nbsp;: comptez 25 à 45 minutes selon le trafic sur la N98 ou l'A8. C'est l'une des communes où nous arrivons le plus vite."
+        },
+        {
+          "q": "Ma voiture est bloquée dans une ruelle du Haut-de-Cagnes.",
+          "r": "Nous venons d'abord en véhicule léger pour évaluer et tenter la réparation sur place. Si le remorquage est nécessaire, nous sortons la voiture jusqu'à une rue où le plateau peut charger."
+        }
+      ]
+    },
+    {
+      "slug": "grasse",
+      "nom": "Grasse",
+      "cp": "06130",
+      "lat": 43.6591,
+      "lng": 6.9225,
+      "distanceKm": 40,
+      "delai": "50 min à 1 h 20",
+      "acces": "A8 sortie 42, puis pénétrante Cannes-Grasse (D6185).",
+      "intro": "Grasse est la commune la plus éloignée de notre atelier et la plus exigeante en dénivelé&nbsp;: la ville s'étage entre 300 et 400 mètres d'altitude. Nous y montons, mais nous préférons annoncer un délai franc plutôt qu'un chiffre de vitrine.",
+      "specificites": [
+        {
+          "titre": "Dénivelé et embrayage",
+          "texte": "La montée depuis la pénétrante use les embrayages, surtout en boîte manuelle dans les bouchons. Une odeur âcre et un régime qui s'emballe sans que la voiture n'accélère&nbsp;: arrêtez-vous, continuer finit en remorquage de toute façon."
+        },
+        {
+          "titre": "Vieille ville escarpée",
+          "texte": "Les ruelles du centre historique sont étroites, en pente et souvent en sens unique. Le plateau n'y monte pas&nbsp;: nous intervenons au plus près et sortons le véhicule jusqu'à un boulevard accessible."
+        },
+        {
+          "titre": "Arrière-pays et routes isolées",
+          "texte": "Vers Saint-Vallier, Cabris ou Le Tignet, le réseau devient sinueux et la couverture téléphonique irrégulière. Donnez-nous un point de repère précis (borne kilométrique, hameau, commerce) plutôt qu'une adresse approximative."
+        }
+      ],
+      "quartiers": ["Centre historique", "Saint-Jacques", "Plascassier", "Magagnosc", "Le Plan de Grasse", "Saint-Antoine", "La Paoute"],
+      "faq": [
+        {
+          "q": "Montez-vous jusqu'à Grasse et dans l'arrière-pays ?",
+          "r": "Oui. Grasse est à environ 40 km de Nice&nbsp;: comptez 50 minutes à 1 h 20. Pour les communes de l'arrière-pays au-delà, appelez-nous&nbsp;: nous vous dirons tout de suite si nous pouvons intervenir et sous quel délai."
+        },
+        {
+          "q": "Le tarif est-il le même qu'à Nice ?",
+          "r": "Non. Le tarif de base de 70 € correspond à Nice et ses environs immédiats. Sur Grasse, la distance est facturée en supplément&nbsp;: le montant exact vous est annoncé au téléphone, avant tout déplacement, et c'est celui qui sera facturé."
+        }
+      ]
+    }
+  ]
+}

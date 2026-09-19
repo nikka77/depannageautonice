@@ -972,12 +972,23 @@ h2 {
    ============================================= */
 #zone { padding: 96px 0; background: var(--bg-elevated); }
 .zone-content { display: grid; grid-template-columns: 1fr 1.6fr; gap: 52px; align-items: center; }
-.zone-cities { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
-.zone-cities span {
+.zone-cities { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.zone-cities span,
+.zone-cities a {
   font-family: 'JetBrains Mono', monospace;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 5px 14px; font-size: 0.72rem;
   color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase;
+}
+.zone-cities a {
+  color: var(--orange); border-color: rgba(255,107,0,0.35);
+  text-decoration: none; transition: background 0.2s, border-color 0.2s;
+}
+.zone-cities a:hover,
+.zone-cities a:focus-visible { background: rgba(255,107,0,0.12); border-color: var(--orange); }
+.zone-cities-note {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+  color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;
 }
 .btn-zone { border-radius: var(--radius); }
 /* Carte Leaflet */
