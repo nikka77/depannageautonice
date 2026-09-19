@@ -467,33 +467,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  let pneuOrigine = null;
+  // ── Recherche par plaque ────────────────────
+  // La recherche part seule dès que la plaque est complète. Elle
+  // renseigne marque, modèle et année, et retient la monte d'origine
+  // pour l'attestation. Les champs restent modifiables : la base se
+  // trompe parfois sur la finition, et le client doit pouvoir corriger.
+  let vehiculeTrouve = null;
+  let champsAutoRemplis = [];
 
-  // Recherche par plaque : remplit marque, modèle et année.
-  // Les champs restent modifiables, la base officielle se trompe parfois
-  // sur la finition et l'utilisateur doit pouvoir corriger.
   if (window.Plaque) {
     const statutEl = document.getElementById('plaqueStatut');
+    const carteEl  = document.getElementById('plaqueCarte');
+
+    const ecrire = (id, valeur) => {
+      const el = document.getElementById(id);
+      if (!el || !valeur) return;
+      // On n'écrase jamais ce que le client a tapé lui-même ; on écrase
+      // en revanche ce qu'une recherche précédente avait posé.
+      if (el.value && !champsAutoRemplis.includes(id)) return;
+      el.value = valeur;
+      if (!champsAutoRemplis.includes(id)) champsAutoRemplis.push(id);
+    };
+
     Plaque.brancher({
       champ:  document.getElementById('immat'),
-      bouton: document.getElementById('btnPlaque'),
-      onEtat: (texte, type) => {
-        if (!statutEl) return;
-        statutEl.textContent = texte;
-        statutEl.hidden = !texte;
-        statutEl.className = 'plaque-statut' + (type ? ' is-' + type : '');
+      carte:  carteEl,
+      statut: statutEl,
+      onTrouve: (v) => {
+        vehiculeTrouve = v;
+        ecrire('marque', Plaque.joli(v.marque));
+        ecrire('modele', Plaque.joli(v.modele));
+        ecrire('annee', v.annee);
+        // Écrit tout de suite dans l'état : persist() peut alors le sauver,
+        // et un rechargement de page ne perd pas la monte d'origine.
+        state.vehicle.pneuOrigine = v.pneu || null;
+        state.vehicle.energie = v.energie || null;
+        persist();
       },
-      onSucces: (v) => {
-        const poser = (id, valeur) => {
+      onEfface: () => {
+        vehiculeTrouve = null;
+        // Ne vider que les champs posés par la recherche.
+        champsAutoRemplis.forEach(id => {
           const el = document.getElementById(id);
-          if (el && valeur && !el.value) el.value = valeur;
-        };
-        poser('marque', v.marque);
-        poser('modele', [v.modele, v.version].filter(Boolean).join(' '));
-        poser('annee', v.annee);
-        // La dimension d'origine vient de la base officielle : elle figurera
-        // sur l'attestation, ce qui la rend nettement plus crédible.
-        pneuOrigine = v.pneu || null;
+          if (el) el.value = '';
+        });
+        champsAutoRemplis = [];
       },
     });
   }
@@ -507,7 +525,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modele:       document.getElementById('modele').value,
       annee:        document.getElementById('annee').value,
       proprietaire: document.getElementById('proprietaire').value,
-      pneuOrigine:  pneuOrigine
+      pneuOrigine:  vehiculeTrouve ? vehiculeTrouve.pneu : (state.vehicle.pneuOrigine || null),
+      energie:      vehiculeTrouve ? vehiculeTrouve.energie : (state.vehicle.energie || null)
     };
     persist();
     goToStep(1);

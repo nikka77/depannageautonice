@@ -128,11 +128,34 @@ S'il a été committé, publié, ou collé dans un outil tiers : le révoquer et
 générer un nouveau depuis <https://app.auto-ways.net/api-keys>. Retirer le
 jeton d'un fichier ne suffit pas, l'historique git le conserve.
 
+## Comment ça se présente au client
+
+Aucun bouton à cliquer. Dès que la plaque saisie est complète et valide, la
+recherche part seule après une demi-seconde de pause dans la frappe. Ce délai
+n'est pas cosmétique : sans lui, chaque caractère tapé déclencherait un appel
+facturé. Une frappe en cours annule la requête précédente, et une plaque déjà
+interrogée n'est jamais redemandée.
+
+Le résultat s'affiche en **fiche** plutôt qu'en remplissant les champs en
+silence : nom du véhicule, finition, puis les faits utiles en pastilles —
+année, énergie, carrosserie, puissance, nombre de portes, et monte de pneus
+quand elle est connue. L'énergie et la carrosserie sont là pour une raison
+opérationnelle : un électrique ne se remorque pas comme un thermique, et un
+fourgon n'entre pas sur le même plateau.
+
+Un lien « Ce n'est pas le bon » vide la fiche, les champs qu'elle avait
+remplis, et le champ plaque. La saisie manuelle reprend aussitôt la main.
+
+`js/plaque.js` est le composant partagé par les deux pages : même
+comportement, même fiche, un seul endroit à modifier.
+
 ## Où c'est utilisé
 
-- `diagnostic.html` — remplit marque, modèle et année du formulaire véhicule,
-  et reporte la **monte de pneus d'origine** sur l'attestation quand Auto Ways
-  la connaît. Les champs restent modifiables : la base se trompe parfois sur la
-  finition.
+- `diagnostic.html` — renseigne marque, modèle et année, et reporte la **monte
+  de pneus d'origine** sur l'attestation quand Auto Ways la connaît. Ce que le
+  client a tapé lui-même n'est jamais écrasé ; seuls les champs posés par une
+  recherche précédente le sont.
 - `demande.html` — étape « Détails ». Le véhicule identifié est joint au message
-  envoyé au garage, pour partir avec le bon matériel.
+  envoyé au garage et rappelé sur l'écran de confirmation. La plaque est
+  conservée même si le client clique « Passer », qui ne concerne que la
+  description.

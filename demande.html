@@ -215,11 +215,9 @@
 
       <div class="form-group">
         <label for="plaqueInput">Plaque d'immatriculation</label>
-        <div class="plaque-row">
-          <input type="text" id="plaqueInput" placeholder="AB-123-CD" maxlength="9" autocomplete="off" inputmode="latin" style="text-transform:uppercase">
-          <button type="button" class="btn-plaque" id="btnPlaque" hidden>Rechercher</button>
-        </div>
+        <input type="text" id="plaqueInput" class="champ-plaque" placeholder="AB-123-CD" maxlength="9" autocomplete="off" inputmode="latin" style="text-transform:uppercase">
         <p class="plaque-statut" id="plaqueStatut" role="status" aria-live="polite" hidden></p>
+        <div class="veh-carte" id="plaqueCarte" role="status" aria-live="polite" hidden></div>
         <p class="plaque-aide">Nous saurons quel véhicule nous attend et partirons avec le bon matériel.</p>
       </div>
 
@@ -363,6 +361,9 @@
           <span class="recap-val">Dès 70€</span>
         </div>
       </div>
+
+      <!-- Véhicule identifié, affiché seulement s'il l'a été -->
+      <p class="recap-vehicule" id="recapVehicule" hidden></p>
 
       <!-- Actions -->
       <div class="confirm-actions">

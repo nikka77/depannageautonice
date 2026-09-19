@@ -296,29 +296,35 @@ photoRemove.addEventListener('click', (e) => {
 });
 
 // ── Recherche par plaque (étape 2) ──────────
+// Part toute seule dès que la plaque est complète : le client n'a rien
+// à cliquer. Savoir à l'avance que c'est un fourgon ou un électrique
+// change le matériel que le dépanneur emporte.
 if (window.Plaque) {
-  const plaqueStatut = document.getElementById('plaqueStatut');
   Plaque.brancher({
     champ:  document.getElementById('plaqueInput'),
-    bouton: document.getElementById('btnPlaque'),
-    onEtat: (texte, type) => {
-      if (!plaqueStatut) return;
-      plaqueStatut.textContent = texte;
-      plaqueStatut.hidden = !texte;
-      plaqueStatut.className = 'plaque-statut' + (type ? ' is-' + type : '');
-    },
-    onSucces: (v) => { state.vehicule = v; },
+    carte:  document.getElementById('plaqueCarte'),
+    statut: document.getElementById('plaqueStatut'),
+    onTrouve: (v) => { state.vehicule = v; },
+    onEfface: () => { state.vehicule = null; },
   });
 }
 
+// Relève la plaque saisie, que le client valide l'étape ou la passe.
+function releverPlaque() {
+  const champ = document.getElementById('plaqueInput');
+  if (champ) state.plaque = champ.value.trim();
+}
+
 btn2Next.addEventListener('click', () => {
-  const champPlaque = document.getElementById('plaqueInput');
-  if (champPlaque) state.plaque = champPlaque.value.trim();
+  releverPlaque();
   state.description = document.getElementById('descriptionText').value.trim();
   goToStep(3);
 });
 btn2Back.addEventListener('click', () => goToStep(1));
 btn2Skip.addEventListener('click', () => {
+  // « Passer » ne concerne que la description : une plaque déjà saisie
+  // reste acquise, sinon le véhicule identifié serait perdu en silence.
+  releverPlaque();
   state.description = '';
   goToStep(3);
 });
@@ -375,8 +381,11 @@ btn3Back.addEventListener('click', () => goToStep(2));
 // que sa demande est arrivée.
 function libelleVehicule() {
   const v = state.vehicule;
-  const nom = v ? [v.marque, v.modele, v.version].filter(Boolean).join(' ') : '';
-  const details = v ? [v.annee, v.energie, v.carrosserie].filter(Boolean).join(', ') : '';
+  // Auto Ways renvoie tout en capitales : on adoucit, le message au
+  // garage comme le récapitulatif client se lisent mieux ainsi.
+  const j = (t) => (window.Plaque ? Plaque.joli(t) : t);
+  const nom = v ? [j(v.marque), j(v.modele), v.version].filter(Boolean).join(' ') : '';
+  const details = v ? [v.annee, j(v.energie), j(v.carrosserie)].filter(Boolean).join(', ') : '';
   if (state.plaque && nom) return `${state.plaque} — ${nom}${details ? ' (' + details + ')' : ''}`;
   if (state.plaque) return state.plaque;
   return null;
@@ -460,6 +469,14 @@ function buildConfirmation() {
       techDistance.textContent = 'Nice';
       if (techExp) techExp.textContent = 'centre-ville';
     }
+  }
+
+  // Rappelle au client ce que le garage a reçu sur son véhicule.
+  const recapVeh = document.getElementById('recapVehicule');
+  if (recapVeh) {
+    const libelle = libelleVehicule();
+    recapVeh.textContent = libelle ? `Véhicule transmis : ${libelle}` : '';
+    recapVeh.hidden = !libelle;
   }
 
   applyDeliveryState();

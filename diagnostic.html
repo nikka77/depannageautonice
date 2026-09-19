@@ -97,11 +97,9 @@
         <div class="form-row">
           <div class="form-group">
             <label for="immat">Immatriculation</label>
-            <div class="plaque-row">
-              <input type="text" id="immat" placeholder="AB-123-CD" maxlength="9" autocomplete="off" style="text-transform:uppercase">
-              <button type="button" class="btn-plaque" id="btnPlaque" hidden>Rechercher</button>
-            </div>
+            <input type="text" id="immat" class="champ-plaque" placeholder="AB-123-CD" maxlength="9" autocomplete="off" inputmode="latin" style="text-transform:uppercase">
             <p class="plaque-statut" id="plaqueStatut" role="status" aria-live="polite" hidden></p>
+            <div class="veh-carte" id="plaqueCarte" role="status" aria-live="polite" hidden></div>
           </div>
           <div class="form-group">
             <label for="annee">Année</label>
