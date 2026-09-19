@@ -195,20 +195,9 @@ if (typeof gsap !== 'undefined') {
 }
 
 // ── Bouton "Appel direct" — révèle le numéro puis devient cliquable directement ──
-const revealBtn = document.getElementById('revealPhoneBtn');
-if (revealBtn) {
-  revealBtn.addEventListener('click', function () {
-    if (this.dataset.revealed) {
-      window.location.href = 'tel:0617684270';
-      return;
-    }
-    this.dataset.revealed = '1';
-    const textEl = document.getElementById('revealPhoneText');
-    if (textEl) textEl.textContent = '06 17 68 42 70';
-    this.classList.add('revealed');
-    this.setAttribute('aria-label', 'Appeler le 06 17 68 42 70');
-  });
-}
+// Le bouton « Appel direct » masquait le numéro derrière un clic. Sur un site
+// de dépannage, c'est un clic de trop : le numéro est maintenant écrit en
+// clair dans un lien tel: — plus rien à révéler ici.
 
 // ── IntersectionObserver pour les reveals (data-reveal) ──
 // Ajoute la classe .in-view une fois la carte entrée dans le viewport.

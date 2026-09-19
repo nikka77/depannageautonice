@@ -650,7 +650,12 @@ body::before {
 
 /* ── Responsive ─────────────────────────────── */
 @media (max-width: 640px) {
-  .dem-header-call { display: none; }
+  /* Le numéro était masqué sur mobile alors que c'est la page où un client
+     bloqué sur le bord de la route peut vouloir abandonner le formulaire et
+     appeler. Il reste affiché, simplement plus compact. */
+  .dem-header-call { padding: 10px; font-size: 0.78rem; gap: 5px; flex-shrink: 0; }
+  .dem-header-inner { gap: 10px; }
+  .dem-logo { min-width: 0; font-size: 0.9rem; overflow: hidden; white-space: nowrap; }
   .dem-main { padding: 24px 16px 80px; }
 
   /* Panne grid — 2 col compact */

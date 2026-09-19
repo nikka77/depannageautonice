@@ -332,11 +332,36 @@ h2 {
 #nav a.active::after { transform: scaleX(1); }
 #nav a.active { color: var(--orange); }
 
-.header-call,
 .header-cta {
   padding: 9px 18px; font-size: 0.78rem;
   clip-path: var(--clip-md);
   white-space: nowrap;
+}
+
+/* Numéro d'urgence dans l'en-tête — permanent, cliquable, jamais masqué.
+   C'est l'action n°1 d'un site de dépannage : elle ne doit demander
+   ni scroll, ni ouverture de menu. */
+.header-call {
+  display: inline-flex; align-items: center; gap: 9px;
+  text-decoration: none; white-space: nowrap;
+  padding: 7px 14px; min-height: 44px;
+  border: 1px solid var(--orange);
+  background: rgba(255, 107, 0, 0.06);
+  color: var(--orange);
+  clip-path: var(--clip-md);
+  transition: background 0.2s, color 0.2s;
+}
+.header-call:hover { background: var(--orange-bright); color: #16160f; }
+.header-call .icon-sm { flex-shrink: 0; }
+.header-call-text { display: flex; flex-direction: column; line-height: 1.1; }
+.header-call-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 1.5px;
+  text-transform: uppercase; opacity: 0.85;
+}
+.header-call-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92rem; font-weight: 700; letter-spacing: 0.5px;
 }
 
 .hamburger {
@@ -503,6 +528,17 @@ h2 {
   text-shadow: 0 0 40px var(--orange-glow);
 }
 
+/* Titre visible du hero. Le logo est une image : sans ce titre, la page
+   n'affichait aucune phrase d'accroche lisible et le <h1> n'existait
+   qu'en sr-only — mauvais pour le visiteur comme pour le référencement.
+   Dimensionné sous le logo, pas à sa place. */
+.hero-content h1.hero-title {
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+  line-height: 1.2; letter-spacing: 1px;
+  margin-top: 4px; margin-bottom: 14px;
+}
+.hero-title span { display: inline-block; }
+
 .hero-sub {
   font-family: 'Chakra Petch', sans-serif;
   font-size: clamp(0.95rem, 2.5vw, 1.1rem);
@@ -585,18 +621,22 @@ h2 {
   padding: 16px 28px;
   font-family: 'Chakra Petch', sans-serif;
   font-size: 1rem; font-weight: 700;
-  background: transparent;
+  background: var(--bg-card);
   color: var(--text);
-  border: 1px solid var(--border-bright);
+  border: 1px solid var(--orange);
   cursor: pointer; text-decoration: none;
   transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
   clip-path: var(--clip-lg);
   text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
 }
 .btn-hero-secondary:hover {
-  border-color: var(--neon-cyan);
-  color: var(--neon-cyan);
-  box-shadow: 0 0 20px var(--neon-cyan-glow);
+  border-color: var(--orange);
+  background: var(--orange-bright);
+  color: #16160f;
+}
+.btn-hero-secondary span {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
 }
 .btn-hero-secondary.revealed {
   border-color: var(--orange);
@@ -637,6 +677,11 @@ h2 {
   backface-visibility: hidden;
 }
 .ticker-band:hover .ticker-track { animation-play-state: paused; }
+/* Un défilement infini est inconfortable, voire nauséeux, pour qui a demandé
+   moins d'animations : on l'arrête au lieu de le ralentir. */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track, .marquee-track { animation: none; }
+}
 @keyframes ticker-scroll {
   0%   { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-50%, 0, 0); }
@@ -962,14 +1007,16 @@ h2 {
   .tarif-guarantee { border-left: 1px solid var(--border); border-top: 3px solid var(--orange); }
 }
 
-/* Accents néon sur les tarifs non-featured */
-.tarifs-grid .tarif-card:nth-child(2) { border-top: 2px solid var(--neon-cyan); }
-.tarifs-grid .tarif-card:nth-child(2) .tarif-price strong {
-  color: var(--neon-cyan); text-shadow: 0 0 24px var(--neon-cyan-glow);
-}
-.tarifs-grid .tarif-card:nth-child(3) { border-top: 2px solid var(--neon-purple); }
+/* Cartes tarifaires secondaires.
+   Elles portaient un turquoise et un violet hérités du thème néon : trois
+   couleurs différentes sur une même rangée, sans rapport avec la marque, et
+   aucune hiérarchie lisible. Elles passent en gris neutre pour que la carte
+   « À partir de 70 € » reste la seule en orange, donc la seule mise en avant. */
+.tarifs-grid .tarif-card:nth-child(2),
+.tarifs-grid .tarif-card:nth-child(3) { border-top: 2px solid var(--text-dim); }
+.tarifs-grid .tarif-card:nth-child(2) .tarif-price strong,
 .tarifs-grid .tarif-card:nth-child(3) .tarif-price strong {
-  color: var(--neon-purple); text-shadow: 0 0 24px var(--neon-purple-glow);
+  color: var(--text); text-shadow: none;
 }
 
 /* =============================================
@@ -1390,6 +1437,40 @@ footer {
    ============================================= */
 
 /* ── Large desktop ── */
+/* ── Écrans intermédiaires : l'en-tête doit rester sur une ligne ──
+   Entre le mobile (menu hamburger) et le grand écran, le logo, les six
+   entrées de menu, le numéro et le bouton « Demander » ne tiennent plus :
+   le bouton débordait du viewport vers 1180px. On resserre plutôt que de
+   masquer — le numéro et le bouton restent tous les deux accessibles. */
+@media (min-width: 769px) {
+  .header-inner { gap: 14px; }
+  #nav { gap: 16px; }
+  #nav a { font-size: 0.68rem; letter-spacing: 1px; }
+  .header-call { padding: 6px 11px; gap: 7px; }
+  .header-call-num { font-size: 0.85rem; }
+  .header-cta { padding: 9px 14px; font-size: 0.72rem; }
+  .logo-main { font-size: 1.15rem; }
+}
+
+/* En dessous de ~1080px, les six entrées de menu ne tiennent plus en ligne
+   même resserrées : le bouton « Demander » sortait du viewport. Le menu passe
+   au hamburger dès cette largeur, ce qui libère la place pour garder à la fois
+   le numéro d'urgence et le bouton de demande visibles. */
+@media (max-width: 1080px) and (min-width: 769px) {
+  #nav {
+    display: none; position: absolute; top: var(--header-h);
+    left: 0; right: 0; background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column; padding: 14px 24px; gap: 2px;
+    z-index: var(--z-nav-mobile);
+  }
+  #nav.open { display: flex; }
+  /* Cible tactile >= 44px dans le menu deroulant. */
+  #nav a { font-size: 0.9rem; padding: 11px 0; }
+  .hamburger { display: flex; margin-left: 0; }
+  .header-call { margin-left: auto; }
+}
+
 @media (max-width: 1024px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .tarifs-grid   { grid-template-columns: repeat(2, 1fr); }
@@ -1419,27 +1500,35 @@ footer {
     position: static;
     top: auto;
   }
-  /* Urgency bar : autorise le wrap sur 2 lignes pour afficher tout le contenu */
+  /* Urgency bar : elle passait sur deux lignes et tassait le haut de page.
+     On garde le seul message qui compte — le délai — et on retire ce que le
+     ticker juste en dessous répète déjà (7j/7, zone). Une ligne, toujours. */
   .urgency-inner {
-    flex-wrap: wrap;
-    gap: 8px 14px;
-    padding: 4px 12px;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 2px 10px;
     justify-content: center;
-    row-gap: 4px;
+    font-size: 0.68rem;
   }
   .urgency-blink,
   .urgency-text,
   .urgency-sep { white-space: nowrap; }
+  .urgency-zone,
+  .urgency-sep,
+  .urgency-hours { display: none; }
 
   /* Nav mobile */
   #nav {
     display: none; position: absolute; top: var(--header-h);
     left: 0; right: 0; background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
-    flex-direction: column; padding: 20px 24px; gap: 18px; z-index: var(--z-nav-mobile);
+    flex-direction: column; padding: 14px 24px; gap: 2px; z-index: var(--z-nav-mobile);
   }
   #nav.open { display: flex; }
-  #nav a    { font-size: 0.9rem; }
+  #nav a    { font-size: 0.9rem; padding: 11px 0; }
+  /* Sur mobile, l'en-tête n'a pas la largeur pour le logo, le numéro et le
+     menu sans rogner le logo. Le numéro est donc porté par la barre d'action
+     du bas, écrit en toutes lettres et visible en permanence — voir plus bas. */
   .header-call    { display: none; }
   .header-cta     { display: none; }
   .hamburger      { display: flex; }
@@ -1530,51 +1619,64 @@ footer {
   h2 { font-size: clamp(1.4rem, 7vw, 2rem); letter-spacing: 0.5px; }
   .section-sub { font-size: 0.88rem; margin-bottom: 36px; }
 
-  /* Floating buttons — mobile : disposition horizontale compacte, sans recouvrir le contenu.
-     L'action "Appel" est déjà couverte par .sticky-cta-call → on masque .floating-call
-     pour ne garder que WhatsApp + Formulaire en pill horizontale (bottom-right).
-     N'apparaissent qu'après scroll (en même temps que la sticky CTA). */
-  .floating-buttons {
-    bottom: 84px; right: 10px;
-    flex-direction: row; gap: 8px; align-items: center;
-    display: none;
+  /* ── Barre d'action mobile ────────────────────────────────
+     Il y avait cinq éléments flottants empilés en bas de l'écran : une
+     barre d'appel collante, trois boutons ronds (dont un second « Appel »
+     en doublon) et le retour en haut. Ils recouvraient le contenu — sur
+     la page contact, le champ « Téléphone » disparaissait dessous.
+     Une seule barre, ancrée en bas, avec les trois actions réelles, et
+     une réserve d'espace en bas de page pour ne rien masquer. */
+  .sticky-cta-call,
+  .sticky-cta-call.visible { display: none; }
+
+  body { padding-bottom: 72px; }
+
+  .floating-buttons,
+  .floating-buttons.visible {
+    display: flex;
+    flex-direction: row;
+    left: 0; right: 0; bottom: 0;
+    gap: 6px;
+    padding: 7px 10px;
+    padding-bottom: calc(7px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 20px rgba(20, 20, 12, 0.10);
+    z-index: 950;
   }
-  .floating-buttons.visible { display: flex; }
-  .floating-call { display: none; }
-  .floating-btn { width: 44px; height: 44px; }
+
+  .floating-btn {
+    flex: 1; width: auto; height: 52px;
+    flex-direction: column; gap: 3px;
+    clip-path: var(--clip-xs);
+  }
   .floating-btn svg { width: 20px; height: 20px; }
 
-  /* Sticky CTA d'appel — visible après scroll (urgence = conversion) */
-  .sticky-cta-call.visible {
-    display: flex;
-    position: fixed;
-    left: 12px; right: 12px; bottom: 12px;
-    z-index: 950;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, var(--orange-bright) 0%, #ff8c2e 100%);
-    color: #111;
-    text-decoration: none;
-    padding: 12px 18px;
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(255, 107, 0, 0.35), 0 0 0 1px rgba(20,20,12,0.12);
-    font-weight: 700;
-    animation: sticky-pulse 2.2s ease-in-out infinite;
+  /* Appeler passe en premier et occupe plus de place : sur un dépannage,
+     c'est l'action qui compte. */
+  .floating-call {
+    display: flex; order: -1; flex: 1.9;
+    background: var(--orange-bright); color: #16160f;
+    box-shadow: none; animation: none;
   }
-  .sticky-cta-text { display: flex; flex-direction: column; line-height: 1.15; flex: 1; }
-  .sticky-cta-label { font-size: 0.68rem; letter-spacing: 1.2px; text-transform: uppercase; opacity: 0.85; font-weight: 600; }
-  .sticky-cta-number { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.6px; }
+  /* Le numéro en clair plutôt que « Appeler » : sur mobile c'est le seul
+     endroit où il est visible en permanence. */
+  .floating-call .floating-tip { font-size: 0.66rem; letter-spacing: 0; }
 
-  /* Décale backToTop pour ne plus chevaucher sticky */
-  #backToTop { bottom: 150px; }
-
-  @keyframes sticky-pulse {
-    0%, 100% { box-shadow: 0 8px 24px rgba(255, 107, 0, 0.45); }
-    50%      { box-shadow: 0 8px 32px rgba(255, 107, 0, 0.75), 0 0 0 4px rgba(255, 107, 0, 0.15); }
+  /* L'étiquette n'est plus une bulle au survol mais le libellé du bouton. */
+  .floating-tip {
+    display: block;
+    position: static; opacity: 1; transform: none;
+    background: none; border: 0; padding: 0;
+    font-size: 0.6rem; letter-spacing: 0.5px;
+    color: inherit;
   }
+
+  #backToTop { bottom: 84px; left: 12px; }
 
   /* Footer : empilage propre + padding pour ne pas être masqué par les boutons flottants */
-  footer { padding-bottom: 90px; }
+  footer { padding-bottom: 24px; }
   .footer-inner { text-align: center; padding: 0 16px; }
   .footer-logo {
     font-size: 1.25rem;
@@ -1621,8 +1723,6 @@ footer {
     letter-spacing: 0.5px;
   }
 
-  /* backToTop ne doit pas se superposer aux boutons flottants */
-  #backToTop { bottom: 80px; }
 
   /* Cinématique — urgency + header sont maintenant static (au-dessus du #hero
      dans le flow naturel), donc la cinema commence à top:0 du #hero.
