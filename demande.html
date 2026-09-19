@@ -214,6 +214,16 @@
       </div>
 
       <div class="form-group">
+        <label for="plaqueInput">Plaque d'immatriculation</label>
+        <div class="plaque-row">
+          <input type="text" id="plaqueInput" placeholder="AB-123-CD" maxlength="9" autocomplete="off" inputmode="latin" style="text-transform:uppercase">
+          <button type="button" class="btn-plaque" id="btnPlaque" hidden>Rechercher</button>
+        </div>
+        <p class="plaque-statut" id="plaqueStatut" role="status" aria-live="polite" hidden></p>
+        <p class="plaque-aide">Nous saurons quel véhicule nous attend et partirons avec le bon matériel.</p>
+      </div>
+
+      <div class="form-group">
         <label for="descriptionText">Description de la panne</label>
         <textarea id="descriptionText" rows="4" placeholder="Ex: Pneu avant droit complètement à plat, je suis sur le bas-côté avenue Jean Médecin…"></textarea>
       </div>
@@ -386,6 +396,7 @@
   </footer>
 
   <script src="config.js"></script>
+  <script src="js/plaque.js"></script>
   <script src="js/leaflet.js"></script>
   <script src="js/lucide.min.js"></script>
   <script>if (typeof lucide !== 'undefined') lucide.createIcons();</script>

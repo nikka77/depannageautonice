@@ -466,6 +466,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Recherche par plaque : remplit marque, modèle et année.
+  // Les champs restent modifiables, la base officielle se trompe parfois
+  // sur la finition et l'utilisateur doit pouvoir corriger.
+  if (window.Plaque) {
+    const statutEl = document.getElementById('plaqueStatut');
+    Plaque.brancher({
+      champ:  document.getElementById('immat'),
+      bouton: document.getElementById('btnPlaque'),
+      onEtat: (texte, type) => {
+        if (!statutEl) return;
+        statutEl.textContent = texte;
+        statutEl.hidden = !texte;
+        statutEl.className = 'plaque-statut' + (type ? ' is-' + type : '');
+      },
+      onSucces: (v) => {
+        const poser = (id, valeur) => {
+          const el = document.getElementById(id);
+          if (el && valeur && !el.value) el.value = valeur;
+        };
+        poser('marque', v.marque);
+        poser('modele', [v.modele, v.version].filter(Boolean).join(' '));
+        poser('annee', v.annee);
+      },
+    });
+  }
+
   // Vehicle form
   document.getElementById('vehicleForm').addEventListener('submit', (e) => {
     e.preventDefault();

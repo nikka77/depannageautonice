@@ -526,3 +526,45 @@ body::before {
   .diag-actions { flex-direction: column; }
   .diag-actions .btn-diag { width: 100%; text-align: center; }
 }
+
+
+/* ── Recherche par plaque ─────────────────────
+   Le bouton reste masqué tant qu'aucun relais n'est configuré
+   (config.js → plaqueEndpoint) : la saisie manuelle suffit alors. */
+.plaque-row { display: flex; gap: 8px; align-items: stretch; }
+.plaque-row input { flex: 1; min-width: 0; }
+.btn-plaque {
+  flex-shrink: 0; padding: 0 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+.btn-plaque:hover:not(:disabled) { background: var(--orange-bright); color: #16160f; border-color: var(--orange-bright); }
+.btn-plaque:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-plaque[hidden] { display: none; }
+
+.plaque-statut {
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; line-height: 1.5;
+  color: var(--gray);
+}
+.plaque-statut[hidden] { display: none; }
+.plaque-statut.is-ok { color: var(--neon-green); }
+.plaque-statut.is-erreur { color: var(--danger, #cc0026); }
+
+.plaque-aide {
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; line-height: 1.5; color: var(--gray);
+}
+
+@media (max-width: 420px) {
+  .plaque-row { flex-wrap: wrap; }
+  .btn-plaque { width: 100%; padding: 12px 16px; }
+}

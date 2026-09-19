@@ -14,6 +14,8 @@ const state = {
   panneType: '',
   panneLabel: '',
   description: '',
+  plaque: '',
+  vehicule: null,
   photoDataUrl: null,
   firstName: '',
   phone: '',
@@ -293,7 +295,25 @@ photoRemove.addEventListener('click', (e) => {
   photoInput.style.pointerEvents = '';
 });
 
+// ── Recherche par plaque (étape 2) ──────────
+if (window.Plaque) {
+  const plaqueStatut = document.getElementById('plaqueStatut');
+  Plaque.brancher({
+    champ:  document.getElementById('plaqueInput'),
+    bouton: document.getElementById('btnPlaque'),
+    onEtat: (texte, type) => {
+      if (!plaqueStatut) return;
+      plaqueStatut.textContent = texte;
+      plaqueStatut.hidden = !texte;
+      plaqueStatut.className = 'plaque-statut' + (type ? ' is-' + type : '');
+    },
+    onSucces: (v) => { state.vehicule = v; },
+  });
+}
+
 btn2Next.addEventListener('click', () => {
+  const champPlaque = document.getElementById('plaqueInput');
+  if (champPlaque) state.plaque = champPlaque.value.trim();
   state.description = document.getElementById('descriptionText').value.trim();
   goToStep(3);
 });
@@ -353,9 +373,19 @@ btn3Back.addEventListener('click', () => goToStep(2));
 // Le site est statique : sans relais configuré, rien ne peut partir
 // automatiquement. On le dit au client plutôt que de le laisser croire
 // que sa demande est arrivée.
+function libelleVehicule() {
+  const v = state.vehicule;
+  const nom = v ? [v.marque, v.modele, v.version].filter(Boolean).join(' ') : '';
+  const details = v ? [v.annee, v.energie, v.boite].filter(Boolean).join(', ') : '';
+  if (state.plaque && nom) return `${state.plaque} — ${nom}${details ? ' (' + details + ')' : ''}`;
+  if (state.plaque) return state.plaque;
+  return null;
+}
+
 function requestSummary() {
   return [
     `Panne : ${state.panneLabel || '—'}`,
+    libelleVehicule() ? `Véhicule : ${libelleVehicule()}` : null,
     `Adresse : ${state.address || '—'}`,
     state.hasGps
       ? `Position GPS : https://www.google.com/maps?q=${state.lat},${state.lng}`
@@ -553,6 +583,7 @@ function buildWhatsApp() {
     `📍 Position : ${state.address}`,
     state.hasGps ? `🗺 https://www.google.com/maps?q=${state.lat},${state.lng}` : null,
     `🔧 Panne : ${state.panneLabel}`,
+    libelleVehicule() ? `🚗 Véhicule : ${libelleVehicule()}` : null,
     state.description ? `📝 Description : ${state.description}` : null,
     ``,
     `👤 Prénom : ${prenom}`,

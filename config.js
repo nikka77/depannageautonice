@@ -25,6 +25,20 @@ window.SITE_CONFIG = {
   // Au-delà, on n'immobilise pas le client : bascule sur WhatsApp.
   formTimeoutMs: 8000,
 
+  // ── Recherche de véhicule par plaque ──────────────────────
+  // Adresse du relais serveur, PAS l'API Auto Ways directement.
+  // Le jeton Auto Ways ne doit jamais figurer ici : ce fichier est
+  // public (dépôt public + servi à chaque visiteur). Il vit dans les
+  // variables d'environnement Vercel, lu par api/plaque.js.
+  //
+  // POUR ACTIVER : déployer api/plaque.js sur Vercel, y définir
+  // AUTOWAYS_TOKEN, puis coller ici l'URL obtenue, par exemple
+  // 'https://depannageautonice.vercel.app/api/plaque'.
+  // Tant que c'est vide, le bouton de recherche reste masqué et
+  // la marque et le modèle se saisissent à la main.
+  plaqueEndpoint: '',
+  plaqueTimeoutMs: 10000,
+
   // ── Contact ───────────────────────────────────────────────
   whatsappNumber: '33617684270',  // format international, sans "+"
   phoneDisplay: '06 17 68 42 70',

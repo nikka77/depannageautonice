@@ -23,3 +23,9 @@ yarn-error.log*
 
 # Claude
 .claude/
+
+# Secrets / environnement — ne jamais committer de clé d'API
+.env
+.env.*
+!.env.example
+.vercel/
