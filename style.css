@@ -1,6 +1,6 @@
 /* =============================================
    DEPANNAGERAUTONICE.FR — style.css
-   Design system : GTA-urbain, HUD néon, noir profond
+   Design system : thème clair, accents orange
    ============================================= */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,38 +26,45 @@ select:focus-visible, textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* ── Variables ────────────────────────────── */
 :root {
-  /* Backgrounds */
-  --bg:          #0a0a0a;
-  --bg-elevated: #141414;
-  --bg-card:     #1a1a1a;
+  /* Backgrounds — thème clair */
+  --bg:          #ffffff;
+  --bg-elevated: #f4f4f0;
+  --bg-card:     #ffffff;
 
   /* Borders */
-  --border:        #2a2a2a;
-  --border-bright: #3a3a3a;
+  --border:        #e0e0d7;
+  --border-bright: #c4c4b8;
 
   /* Text */
-  --text:       #f5f5f5;
-  --text-muted: #8a8a8a;
-  --text-dim:   #6e6e6e;
+  --text:       #16160f;
+  --text-muted: #5c5c53;
+  --text-dim:   #6b6b62;
 
-  /* Accents néon — primaire */
-  --orange:      #ff6b00;
-  --orange-glow: rgba(255, 107, 0, 0.4);
-  --yellow:      #f4d03f;
-  --green:       #39ff14;
-  --red:         #ff1744;
+  /* Accent primaire — orange assombri pour rester lisible sur blanc
+     (contraste 4,8:1). --orange-bright garde l'orange de marque,
+     réservé aux aplats où le texte posé dessus est noir. */
+  --orange:        #b34800;
+  --orange-bright: #ff6b00;
+  --orange-glow:   rgba(179, 72, 0, 0.18);
+  --yellow:        #8a6d00;
+  --green:         #1a7f2e;
+  --red:           #cc0026;
 
-  /* Accents néon — secondaires (ponctuels) */
-  --neon-pink:        #ff006e;
-  --neon-pink-glow:   rgba(255, 0, 110, 0.4);
-  --neon-purple:      #9b00ff;
-  --neon-purple-glow: rgba(155, 0, 255, 0.35);
-  --neon-cyan:        #00f0ff;
-  --neon-cyan-glow:   rgba(0, 240, 255, 0.4);
-  --neon-toxic:       #b6ff00;
-  --neon-toxic-glow:  rgba(182, 255, 0, 0.4);
+  /* Accents secondaires (ponctuels) */
+  --neon-pink:        #b3004e;
+  --neon-pink-glow:   rgba(179, 0, 78, 0.16);
+  --neon-purple:      #6b16b8;
+  --neon-purple-glow: rgba(107, 22, 184, 0.14);
+  --neon-cyan:        #00707f;
+  --neon-cyan-glow:   rgba(0, 112, 127, 0.16);
+  --neon-toxic:       #5a7d00;
+  --neon-toxic-glow:  rgba(90, 125, 0, 0.16);
+
+  /* Ombres douces — remplacent les lueurs néon du thème sombre */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 12, 0.06);
+  --shadow-md: 0 2px 8px rgba(20, 20, 12, 0.08);
+  --shadow-lg: 0 8px 28px rgba(20, 20, 12, 0.10);
 
   /* Legacy aliases (compatibilité JS existant) */
   --amber:       var(--orange);
@@ -109,7 +116,7 @@ body::before {
   background: repeating-linear-gradient(
     0deg,
     transparent 0, transparent 2px,
-    rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px
+    rgba(20,20,12,0.022) 2px, rgba(20,20,12,0.022) 4px
   );
   pointer-events: none;
   z-index: var(--z-scanlines);
@@ -120,7 +127,7 @@ body::after {
   content: '';
   position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.04;
+  opacity: 0.018;
   pointer-events: none;
   z-index: var(--z-grain);
 }
@@ -133,7 +140,7 @@ body::after {
 #progressBar {
   position: fixed; top: 0; left: 0;
   height: 3px; width: 0%;
-  background: var(--orange);
+  background: var(--orange-bright);
   z-index: var(--z-progress);
   box-shadow: 0 0 12px var(--orange-glow);
   transition: width 0.1s linear;
@@ -159,6 +166,13 @@ body::after {
   display: inline-flex;
   margin-bottom: 24px;
   animation: pulse-border 2.5s infinite;
+  /* Posé sur la partie sombre du diaporama : l'orange assombri prévu
+     pour le fond blanc y serait illisible. */
+  color: #ff9a4d;
+  border: 1px solid rgba(255,154,77,0.45);
+  background: rgba(10,10,10,0.38);
+  padding: 6px 14px;
+  backdrop-filter: blur(2px);
 }
 @keyframes pulse-border {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,0,0.4); }
@@ -183,7 +197,7 @@ body::after {
 
 /* Bouton primaire — clip HUD */
 .btn-primary {
-  background: var(--orange); color: #000;
+  background: var(--orange-bright); color: #000;
   font-weight: 800;
   clip-path: var(--clip-lg);
 }
@@ -203,7 +217,7 @@ body::after {
 
 /* Bouton hero — grand CTA */
 .btn-hero {
-  background: var(--orange); color: #000;
+  background: var(--orange-bright); color: #000;
   font-family: 'Chakra Petch', sans-serif;
   font-size: 1.1rem; font-weight: 800;
   padding: 18px 44px;
@@ -241,8 +255,8 @@ h2 {
 #urgency-bar {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: var(--z-urgency); height: var(--urgency-h);
-  background: #1a0000;
-  border-bottom: 1px solid rgba(255,23,68,0.4);
+  background: #fdecee;
+  border-bottom: 1px solid rgba(204,0,38,0.22);
   display: flex; align-items: center; justify-content: center;
 }
 .urgency-inner {
@@ -262,7 +276,7 @@ h2 {
   0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--red); }
   50%       { opacity: 0.5; box-shadow: none; }
 }
-.urgency-text { color: rgba(255,255,255,0.8); }
+.urgency-text { color: var(--text-muted); }
 .urgency-text strong { color: var(--text); font-weight: 700; }
 .urgency-sep { color: var(--text-dim); }
 .urgency-phone {
@@ -278,14 +292,14 @@ h2 {
 #header {
   position: fixed; top: var(--urgency-h); left: 0; right: 0;
   z-index: var(--z-header);
-  background: rgba(10,10,10,0.97);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   transition: box-shadow 0.3s, border-color 0.3s;
 }
 #header.scrolled {
   border-color: var(--orange);
-  box-shadow: 0 4px 32px rgba(255,107,0,0.12);
+  box-shadow: var(--shadow-md);
 }
 
 .header-inner { display: flex; align-items: center; gap: 20px; height: var(--header-h); }
@@ -310,7 +324,7 @@ h2 {
 }
 #nav a::after {
   content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-  height: 1px; background: var(--orange);
+  height: 1px; background: var(--orange-bright);
   transform: scaleX(0); transition: transform 0.2s;
 }
 #nav a:hover { color: var(--orange); }
@@ -341,7 +355,7 @@ h2 {
   background:
     radial-gradient(ellipse at 20% 80%, rgba(255, 107, 0, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 30%, rgba(255, 107, 0, 0.06) 0%, transparent 55%),
-    linear-gradient(180deg, var(--bg) 0%, #0d0807 50%, var(--bg) 100%);
+    linear-gradient(180deg, var(--bg) 0%, #faf8f6 50%, var(--bg) 100%);
   padding-top: calc(var(--urgency-h) + var(--header-h) + 60px);
   padding-bottom: 80px;
 }
@@ -383,12 +397,32 @@ h2 {
   background:
     radial-gradient(ellipse 60% 55% at 75% 22%, rgba(255,107,0,0.10) 0%, transparent 58%),
     linear-gradient(to bottom,
-      rgba(10,10,10,0.52) 0%,
-      rgba(10,10,10,0.28) 22%,
-      rgba(10,10,10,0.40) 52%,
-      rgba(10,10,10,0.90) 80%,
-      rgba(10,10,10,1.00) 92%);
+      rgba(10,10,10,0.58) 0%,
+      rgba(10,10,10,0.42) 28%,
+      rgba(16,16,12,0.52) 54%,
+      rgba(255,255,255,0.82) 60%,
+      rgba(255,255,255,0.99) 66%,
+      var(--bg) 70%,
+      var(--bg) 100%);
   pointer-events: none;
+}
+
+/* Le diaporama couvre tout le hero, mais le logo néon et le texte ne sont pas
+   à la même hauteur selon la largeur d'écran : le fondu vers le blanc doit
+   tomber entre les deux, donc plus haut sur mobile. */
+@media (max-width: 768px) {
+  .hero-overlay {
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 18%, rgba(255,107,0,0.12) 0%, transparent 60%),
+      linear-gradient(to bottom,
+        rgba(10,10,10,0.55) 0%,
+        rgba(10,10,10,0.40) 24%,
+        rgba(16,16,12,0.48) 33%,
+        rgba(255,255,255,0.80) 40%,
+        rgba(255,255,255,0.98) 45%,
+        var(--bg) 50%,
+        var(--bg) 100%);
+  }
 }
 
 .hero-content { position: relative; z-index: 3; text-align: center; }
@@ -572,7 +606,7 @@ h2 {
 }
 .hero-badges span {
   font-family: 'JetBrains Mono', monospace;
-  background: rgba(255,255,255,0.03);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-bright);
   padding: 7px 16px;
   font-size: 0.72rem; color: var(--text-muted);
@@ -585,7 +619,7 @@ h2 {
 .ticker-band--mobile { display: none; } /* caché sur desktop, activé en mobile */
 
 .ticker-band {
-  background: var(--orange);
+  background: var(--orange-bright);
   overflow: hidden;
   padding: 10px 0;
   position: relative;
@@ -671,7 +705,7 @@ h2 {
 /* Accent orange haut-gauche (HUD card) */
 .service-card::before {
   content: ''; position: absolute; top: 0; left: 0;
-  width: 36px; height: 2px; background: var(--orange);
+  width: 36px; height: 2px; background: var(--orange-bright);
 }
 /* Numéro HUD haut-droite */
 .service-card::after {
@@ -733,7 +767,7 @@ h2 {
 .step-number {
   position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
   width: 36px; height: 36px;
-  background: var(--orange); color: #000;
+  background: var(--orange-bright); color: #000;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700; font-size: 1rem;
   display: flex; align-items: center; justify-content: center;
@@ -754,8 +788,8 @@ h2 {
   border-top-color: var(--neon-cyan);
 }
 .steps-grid > .step-card:nth-child(3) .step-number {
-  background: var(--neon-cyan); color: #000;
-  box-shadow: 0 0 16px var(--neon-cyan-glow);
+  background: var(--neon-cyan); color: #ffffff;
+  box-shadow: var(--shadow-sm);
 }
 .steps-grid > .step-card:nth-child(3):hover {
   box-shadow: 0 0 32px rgba(0,240,255,0.1);
@@ -764,8 +798,8 @@ h2 {
   border-top-color: var(--neon-toxic);
 }
 .steps-grid > .step-card:nth-child(5) .step-number {
-  background: var(--neon-toxic); color: #000;
-  box-shadow: 0 0 16px var(--neon-toxic-glow);
+  background: var(--neon-toxic); color: #ffffff;
+  box-shadow: var(--shadow-sm);
 }
 .steps-grid > .step-card:nth-child(5):hover {
   box-shadow: 0 0 32px rgba(182,255,0,0.1);
@@ -808,7 +842,7 @@ h2 {
 /* Accent orange haut-gauche (HUD) */
 .reason-card::before {
   content: ''; position: absolute; top: 0; left: 0;
-  width: 36px; height: 2px; background: var(--orange);
+  width: 36px; height: 2px; background: var(--orange-bright);
   transition: width 0.4s ease;
 }
 /* Numéro HUD haut-droite */
@@ -859,7 +893,7 @@ h2 {
 }
 .tarif-badge {
   position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
-  background: var(--orange); color: #000;
+  background: var(--orange-bright); color: #000;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.62rem; font-weight: 700;
   padding: 4px 14px; white-space: nowrap;
@@ -998,7 +1032,7 @@ h2 {
 }
 /* Marker radar pulse (CSS keyframes) */
 .leaflet-marker-pulse {
-  width: 18px; height: 18px; background: var(--orange);
+  width: 18px; height: 18px; background: var(--orange-bright);
   clip-path: var(--clip-xs);
   position: relative;
 }
@@ -1142,11 +1176,11 @@ h2 {
 .floating-form {
   background: var(--bg-elevated); color: var(--text);
   border: 1px solid var(--border);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 16px rgba(20,20,12,0.18);
 }
 .floating-form:hover { border-color: var(--orange); color: var(--orange); }
 .floating-call {
-  background: var(--orange); color: #000;
+  background: var(--orange-bright); color: #000;
   animation: float-pulse 2.5s infinite;
 }
 /* Tooltip label — visible au hover (desktop) */
@@ -1183,14 +1217,14 @@ h2 {
   cursor: pointer; transition: all 0.2s;
   clip-path: var(--clip-sm);
 }
-#backToTop:hover { background: var(--orange); color: #000; border-color: var(--orange); }
+#backToTop:hover { background: var(--orange-bright); color: #000; border-color: var(--orange); }
 #backToTop.visible { display: flex; }
 
 /* =============================================
    FOOTER
    ============================================= */
 footer {
-  background: #050505;
+  background: var(--bg-elevated);
   border-top: 1px solid var(--orange);
   padding: 32px 0;
 }
@@ -1498,12 +1532,12 @@ footer {
     z-index: 950;
     align-items: center;
     gap: 12px;
-    background: linear-gradient(135deg, var(--orange) 0%, #e85d00 100%);
+    background: linear-gradient(135deg, var(--orange-bright) 0%, #ff8c2e 100%);
     color: #111;
     text-decoration: none;
     padding: 12px 18px;
     border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(255, 107, 0, 0.45), 0 0 0 1px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 24px rgba(255, 107, 0, 0.35), 0 0 0 1px rgba(20,20,12,0.12);
     font-weight: 700;
     animation: sticky-pulse 2.2s ease-in-out infinite;
   }

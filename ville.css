@@ -5,15 +5,19 @@
    ============================================= */
 
 :root {
-  --bg:            #0a0a0a;
-  --bg-elevated:   #141414;
-  --bg-card:       #1a1a1a;
-  --border:        #2a2a2a;
-  --white:         #f5f5f5;
-  --gray:          #8a8a8a;
-  --orange:        #ff6b00;
-  --orange-glow:   rgba(255,107,0,0.35);
-  --neon-green:    #39ff14;
+  --shadow-sm: 0 1px 2px rgba(20, 20, 12, 0.06);
+  --shadow-md: 0 2px 8px rgba(20, 20, 12, 0.08);
+  --shadow-lg: 0 8px 28px rgba(20, 20, 12, 0.10);
+  --bg:            #ffffff;
+  --bg-elevated:   #f4f4f0;
+  --bg-card:       #ffffff;
+  --border:        #e0e0d7;
+  --white:         #16160f;
+  --gray:          #55554d;
+  --orange-bright: #ff6b00;
+  --orange:        #b34800;
+  --orange-glow:   rgba(179, 72, 0, 0.18);
+  --neon-green:    #1a7f2e;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,7 +40,7 @@ a { color: var(--orange); }
   position: sticky; top: 0; z-index: 20;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 14px 20px;
-  background: rgba(10,10,10,0.94);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -75,7 +79,7 @@ h1 {
   font-size: clamp(1.75rem, 6vw, 2.75rem); line-height: 1.15;
   letter-spacing: -0.01em; margin-bottom: 14px;
 }
-.v-lead { color: #d0d0d0; font-size: 1.05rem; margin-bottom: 24px; }
+.v-lead { color: #3c3c34; font-size: 1.05rem; margin-bottom: 24px; }
 
 .v-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
 .v-btn {
@@ -85,8 +89,8 @@ h1 {
   transition: background 0.2s, box-shadow 0.2s, color 0.2s;
 }
 .v-btn-call {
-  background: var(--orange); color: #0a0a0a;
-  box-shadow: 0 0 24px var(--orange-glow);
+  background: var(--orange-bright); color: #16160f;
+  box-shadow: var(--shadow-md);
 }
 .v-btn-call:hover { background: #ff8533; }
 .v-btn-ghost { border-color: var(--border); color: var(--white); background: var(--bg-card); }
@@ -117,7 +121,7 @@ h2 {
   font-size: clamp(1.25rem, 4vw, 1.6rem); margin-bottom: 18px;
 }
 h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px; }
-.v-section p { color: #cfcfcf; margin-bottom: 12px; }
+.v-section p { color: #3c3c34; margin-bottom: 12px; }
 .v-note { font-size: 0.85rem; color: var(--gray); }
 
 .v-cards { display: grid; gap: 14px; }
@@ -133,7 +137,7 @@ h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px
 .v-quartiers li {
   font-family: 'JetBrains Mono', monospace; font-size: 0.74rem;
   background: var(--bg-elevated); border: 1px solid var(--border);
-  padding: 7px 12px; color: #d8d8d8;
+  padding: 7px 12px; color: #3c3c34;
 }
 
 .v-faq { border: 1px solid var(--border); background: var(--bg-card); margin-bottom: 10px; }
@@ -144,16 +148,16 @@ h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px
 .v-faq summary::-webkit-details-marker { display: none; }
 .v-faq summary::after { content: '+'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
 .v-faq[open] summary::after { content: '−'; }
-.v-faq p { padding: 0 16px 16px; margin: 0; color: #cfcfcf; font-size: 0.95rem; }
+.v-faq p { padding: 0 16px 16px; margin: 0; color: #3c3c34; font-size: 0.95rem; }
 
 /* ── Rappel final ─────────────────────────── */
 .v-final { padding: 40px 0; text-align: center; }
-.v-final p { color: #cfcfcf; margin-bottom: 20px; }
+.v-final p { color: #3c3c34; margin-bottom: 20px; }
 .v-final .v-cta { justify-content: center; }
 
 /* ── Pied de page ─────────────────────────── */
 .v-footer {
-  border-top: 1px solid var(--border); background: #070707;
+  border-top: 1px solid var(--border); background: var(--bg-elevated);
   padding: 32px 20px; text-align: center;
 }
 .v-footer-title {
@@ -172,10 +176,10 @@ h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px
 .v-sticky {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
   display: flex; align-items: center; justify-content: center;
-  padding: 16px; background: var(--orange); color: #0a0a0a;
+  padding: 16px; background: var(--orange-bright); color: #16160f;
   font-family: 'JetBrains Mono', monospace; font-weight: 700;
   letter-spacing: 0.04em; text-decoration: none;
-  box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
+  box-shadow: 0 -6px 20px rgba(20,20,12,0.16);
 }
 
 @media (min-width: 640px) {

@@ -6,20 +6,25 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:            #0a0a0a;
-  --bg-elevated:   #141414;
-  --bg-card:       #1a1a1a;
-  --border:        #2a2a2a;
-  --border-bright: #3a3a3a;
-  --white:         #f5f5f5;
-  --gray:          #8a8a8a;
-  --text-dim:      #6e6e6e;
+  --shadow-sm: 0 1px 2px rgba(20, 20, 12, 0.06);
+  --shadow-md: 0 2px 8px rgba(20, 20, 12, 0.08);
+  --shadow-lg: 0 8px 28px rgba(20, 20, 12, 0.10);
+  --bg:            #ffffff;
+  --bg-elevated:   #f4f4f0;
+  --bg-card:       #ffffff;
+  --border:        #e0e0d7;
+  --border-bright: #c4c4b8;
+  --white:         #16160f;
+  --gray:          #55554d;
+  --text-dim:      #6b6b62;
 
-  --orange:        #ff6b00;
-  --orange-glow:   rgba(255,107,0,0.4);
-  --neon-green:    #39ff14;
-  --neon-cyan:     #00f0ff;
-  --danger:        #ff1744;
+  --orange-bright: #ff6b00;
+
+  --orange:        #b34800;
+  --orange-glow:   rgba(179, 72, 0, 0.18);
+  --neon-green:    #1a7f2e;
+  --neon-cyan:     #00707f;
+  --danger:        #cc0026;
 }
 
 html { scroll-behavior: smooth; }
@@ -39,14 +44,14 @@ body::before {
   background: repeating-linear-gradient(
     0deg,
     transparent 0, transparent 2px,
-    rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
+    rgba(20,20,12,0.02) 2px, rgba(20,20,12,0.02) 4px
   );
   pointer-events: none; z-index: 9999;
 }
 
 /* ── Header ─────────────────────────────────── */
 .dem-header {
-  background: rgba(10,10,10,0.97);
+  background: rgba(255,255,255,0.94);
   border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: blur(10px);
@@ -96,7 +101,7 @@ body::before {
 .step-dot svg { width: 16px; height: 16px; pointer-events: none; }
 .step-dot span { display: none; }
 .step-dot.active {
-  background: var(--orange); color: var(--bg);
+  background: var(--orange-bright); color: #16160f;
   box-shadow: 0 0 16px var(--orange-glow), 0 0 32px var(--orange-glow);
   border-color: var(--orange);
 }
@@ -109,7 +114,7 @@ body::before {
   flex: 1; height: 1px; background: var(--border);
   transition: background 0.3s; max-width: 60px;
 }
-.step-line.done { background: var(--orange); box-shadow: 0 0 6px var(--orange-glow); }
+.step-line.done { background: var(--orange-bright); box-shadow: 0 0 6px var(--orange-glow); }
 
 /* ── Urgency ribbon ─────────────────────────── */
 .urgency-ribbon {
@@ -328,8 +333,8 @@ body::before {
 .photo-preview { width: 100%; max-height: 220px; object-fit: cover; display: block; }
 .photo-remove {
   position: absolute; top: 8px; right: 8px; z-index: 2;
-  background: rgba(0,0,0,0.75); border: 1px solid var(--border-bright);
-  color: var(--white); width: 28px; height: 28px;
+  background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff; width: 28px; height: 28px;
   display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
 .photo-remove:hover { border-color: var(--danger); color: var(--danger); }
@@ -348,7 +353,7 @@ body::before {
 .btn-dem:active { transform: translateY(0); }
 
 .btn-primary-dem {
-  background: var(--orange); color: var(--bg);
+  background: var(--orange-bright); color: #16160f;
   box-shadow: 0 0 20px var(--orange-glow);
 }
 .btn-primary-dem:hover { background: #ff8533; box-shadow: 0 0 32px var(--orange-glow), 0 0 64px rgba(255,107,0,0.2); }
@@ -501,7 +506,7 @@ body::before {
 }
 .confirm-map-overlay {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 400;
-  background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
   padding: 10px 14px 8px;
   pointer-events: none;
 }
@@ -545,10 +550,10 @@ body::before {
 .confirm-footer-text { color: var(--text-dim); }
 
 /* ── Leaflet HUD overrides ──────────────────── */
-.leaflet-container { background: #111 !important; }
+.leaflet-container { background: #e8e8e2 !important; }
 .leaflet-marker-pulse {
   width: 18px; height: 18px;
-  background: var(--orange); position: relative;
+  background: var(--orange-bright); position: relative;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 .leaflet-marker-pulse::before, .leaflet-marker-pulse::after {
