@@ -31,12 +31,10 @@ window.SITE_CONFIG = {
   // public (dépôt public + servi à chaque visiteur). Il vit dans les
   // variables d'environnement Vercel, lu par api/plaque.js.
   //
-  // POUR ACTIVER : déployer api/plaque.js sur Vercel, y définir
-  // AUTOWAYS_TOKEN, puis coller ici l'URL obtenue, par exemple
-  // 'https://depannageautonice.vercel.app/api/plaque'.
-  // Tant que c'est vide, le bouton de recherche reste masqué et
-  // la marque et le modèle se saisissent à la main.
-  plaqueEndpoint: '',
+  // Le relais est déployé et opérationnel (projet Vercel
+  // « depannage-plaque »). Vider cette valeur remasque le bouton de
+  // recherche et remet la saisie manuelle seule.
+  plaqueEndpoint: 'https://depannage-plaque.vercel.app/api/plaque',
   plaqueTimeoutMs: 10000,
 
   // ── Contact ───────────────────────────────────────────────

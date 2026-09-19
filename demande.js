@@ -376,7 +376,7 @@ btn3Back.addEventListener('click', () => goToStep(2));
 function libelleVehicule() {
   const v = state.vehicule;
   const nom = v ? [v.marque, v.modele, v.version].filter(Boolean).join(' ') : '';
-  const details = v ? [v.annee, v.energie, v.boite].filter(Boolean).join(', ') : '';
+  const details = v ? [v.annee, v.energie, v.carrosserie].filter(Boolean).join(', ') : '';
   if (state.plaque && nom) return `${state.plaque} — ${nom}${details ? ' (' + details + ')' : ''}`;
   if (state.plaque) return state.plaque;
   return null;

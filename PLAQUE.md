@@ -2,8 +2,10 @@
 
 Le site sait remplir la marque, le modèle et l'année à partir d'une plaque
 d'immatriculation, via l'API [Auto Ways](https://app.auto-ways.net/api-keys).
-La fonctionnalité est **inactive tant que le relais n'est pas déployé** : le
-bouton « Rechercher » reste masqué et la saisie manuelle fonctionne comme avant.
+**Le relais est déployé et opérationnel.** Projet Vercel `depannage-plaque`,
+point de terminaison `https://depannage-plaque.vercel.app/api/plaque`, déjà
+renseigné dans `config.js`. Vider `plaqueEndpoint` remasque le bouton et remet
+la saisie manuelle seule.
 
 ## Pourquoi un relais, et pas un appel direct
 
@@ -25,7 +27,26 @@ La consommation étant facturée, le jeton ne doit jamais quitter le serveur.
 `api/plaque.js` sert de relais : il détient le jeton, n'expose que la recherche
 par plaque, et ne renvoie jamais l'URL amont au navigateur.
 
-## Déploiement (une seule fois)
+## Ce qui est déjà en place
+
+Le relais a été déployé en *inline deployment* (l'intégration GitHub de Vercel
+n'était pas installée sur le compte). Il ne contient que la fonction, pas le
+site : celui-ci reste sur GitHub Pages.
+
+Conséquence à connaître : **le déploiement n'est pas relié au dépôt**. Modifier
+`api/plaque.js` ici ne met pas Vercel à jour automatiquement. Pour lier les
+deux, installer l'app Vercel sur GitHub (<https://github.com/apps/vercel>) puis
+importer le dépôt — les déploiements suivront alors chaque push.
+
+Variables d'environnement déjà définies sur le projet :
+
+| Nom | Valeur | État |
+|---|---|---|
+| `AUTOWAYS_TOKEN` | le jeton Auto Ways | défini, type « sensitive » (non relisible) |
+| `ALLOWED_ORIGINS` | `https://nikka77.github.io,http://localhost:8123` | défini |
+| `DEBUG_PLAQUE` | `0` | désactivé |
+
+## Refaire le déploiement depuis zéro
 
 1. **Importer le dépôt sur Vercel** — <https://vercel.com/new>, choisir
    `nikka77/depannageautonice`. Aucun réglage de build : le projet est statique,
@@ -56,17 +77,37 @@ par plaque, et ne renvoie jamais l'URL amont au navigateur.
    Ce champ contient une simple URL publique, aucun secret : il peut être
    committé sans risque. Le bouton « Rechercher » apparaît dès ce moment.
 
-## Ajuster la correspondance des champs
+## Le format réel d'Auto Ways
 
-Le nom exact des champs renvoyés par Auto Ways n'a pas pu être vérifié à
-l'écriture du code : `normaliser()` dans `api/plaque.js` essaie donc plusieurs
-noms probables (`marque`/`make`/`brand`, etc.).
+Vérifié en production. La réponse est enveloppée et **tous les champs sont
+préfixés `AWN_`** :
 
-Après le premier déploiement, mettre `DEBUG_PLAQUE=1`, faire une recherche,
-et regarder le champ `brut` de la réponse : il contient la réponse d'Auto Ways
-telle quelle. Compléter alors les listes de `normaliser()` avec les vrais noms,
-puis **remettre `DEBUG_PLAQUE` à vide** — cette réponse brute n'a pas à être
-exposée en permanence.
+```json
+{ "code": 200, "error": false, "message": "Succès",
+  "data": { "AWN_marque": "PEUGEOT", "AWN_modele": "EXPERT",
+            "AWN_finition": "M ELECTRIQUE 136 PACK ASPHALT 50 KWH",
+            "AWN_date_mise_en_circulation": "13-03-2023",
+            "AWN_energie": "ÉLECTRICITÉ", "AWN_carrosserie": "FOURGON",
+            "AWN_puissance_fiscale": "9", "AWN_puissance_chevaux": "136",
+            "AWN_pneus": [{ "label": "155/65R14 75T", … }], … } }
+```
+
+Trois pièges, tous traités dans `normaliser()` :
+
+- **Les champs inconnus ne sont pas vides** : Auto Ways écrit `"INCONNU"`, `"0"`
+  ou `[]`. Sans filtrage, le client verrait s'afficher « INCONNU ».
+- **Une plaque absente de la base ne donne pas un 404** mais un **500 avec une
+  page HTML** d'erreur serveur. Le relais traite ce cas comme « véhicule
+  introuvable » : pour le visiteur la suite est la même (saisie manuelle), et
+  annoncer une panne de service serait faux la plupart du temps. Revers de la
+  médaille : une vraie panne d'Auto Ways sera annoncée de la même façon.
+- **`AWN_energie` et `AWN_energie_description` se contredisent** sur certains
+  véhicules (une Clio dCi renvoie `GAZOLE` d'un côté, `ESSENCE` de l'autre).
+  Seul `AWN_energie` est utilisé.
+
+Pour réinspecter la réponse brute : mettre `DEBUG_PLAQUE=1`, redéployer, puis
+appeler avec `&diag=1`. **Attention**, `DEBUG_PLAQUE=1` autorise aussi `?diag=1`
+à contourner le filtre d'origine : à remettre à `0` et redéployer aussitôt après.
 
 ## Protections en place
 
@@ -89,8 +130,9 @@ jeton d'un fichier ne suffit pas, l'historique git le conserve.
 
 ## Où c'est utilisé
 
-- `diagnostic.html` — remplit marque, modèle et année du formulaire véhicule.
-  Les champs restent modifiables : la base officielle se trompe parfois sur la
+- `diagnostic.html` — remplit marque, modèle et année du formulaire véhicule,
+  et reporte la **monte de pneus d'origine** sur l'attestation quand Auto Ways
+  la connaît. Les champs restent modifiables : la base se trompe parfois sur la
   finition.
 - `demande.html` — étape « Détails ». Le véhicule identifié est joint au message
   envoyé au garage, pour partir avec le bon matériel.

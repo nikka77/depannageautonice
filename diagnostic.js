@@ -378,6 +378,7 @@ function buildCertificate() {
         <div class="cert-info-row"><span>Immatriculation</span><strong>${esc(v.immat)}</strong></div>
         <div class="cert-info-row"><span>Marque / Modèle</span><strong>${esc(v.marque)} ${esc(v.modele)}</strong></div>
         <div class="cert-info-row"><span>Année</span><strong>${esc(v.annee)}</strong></div>
+        ${v.pneuOrigine ? `<div class="cert-info-row"><span>Monte d'origine</span><strong>${esc(v.pneuOrigine)}</strong></div>` : ''}
       </div>
     </div>
 
@@ -466,6 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  let pneuOrigine = null;
+
   // Recherche par plaque : remplit marque, modèle et année.
   // Les champs restent modifiables, la base officielle se trompe parfois
   // sur la finition et l'utilisateur doit pouvoir corriger.
@@ -488,6 +491,9 @@ document.addEventListener('DOMContentLoaded', () => {
         poser('marque', v.marque);
         poser('modele', [v.modele, v.version].filter(Boolean).join(' '));
         poser('annee', v.annee);
+        // La dimension d'origine vient de la base officielle : elle figurera
+        // sur l'attestation, ce qui la rend nettement plus crédible.
+        pneuOrigine = v.pneu || null;
       },
     });
   }
@@ -500,7 +506,8 @@ document.addEventListener('DOMContentLoaded', () => {
       marque:       document.getElementById('marque').value,
       modele:       document.getElementById('modele').value,
       annee:        document.getElementById('annee').value,
-      proprietaire: document.getElementById('proprietaire').value
+      proprietaire: document.getElementById('proprietaire').value,
+      pneuOrigine:  pneuOrigine
     };
     persist();
     goToStep(1);

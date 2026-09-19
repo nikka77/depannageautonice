@@ -52,13 +52,33 @@ function originesAutorisees() {
   return brut.split(',').map(o => o.trim()).filter(Boolean);
 }
 
-// Récupère la première clé présente parmi plusieurs noms possibles :
-// le nommage exact d'Auto Ways n'est pas figé, on reste tolérant.
+// Auto Ways préfixe tous ses champs par « AWN_ » (AWN_marque, AWN_modele…).
+// On compare donc sur le nom sans préfixe, ce qui accepte aussi une
+// éventuelle réponse non préfixée.
+function cleNormalisee(cle) {
+  return cle.replace(/^AWN_/i, '').toLowerCase();
+}
+
+// Auto Ways remplit les champs inconnus avec des marqueurs plutôt qu'avec
+// du vide : les laisser passer afficherait « INCONNU » au client.
+const MARQUEURS_VIDES = new Set(['', '0', 'inconnu', 'non renseigne', 'non renseigné', 'nc', 'null']);
+
+function propre(valeur) {
+  if (valeur == null) return null;
+  if (Array.isArray(valeur)) return valeur.length ? valeur : null;
+  const texte = String(valeur).trim();
+  if (MARQUEURS_VIDES.has(texte.toLowerCase())) return null;
+  return texte;
+}
+
 function champ(obj, ...noms) {
+  if (!obj || typeof obj !== 'object') return null;
   for (const n of noms) {
-    for (const cle of Object.keys(obj || {})) {
-      if (cle.toLowerCase() === n.toLowerCase() && obj[cle] !== '' && obj[cle] != null) {
-        return obj[cle];
+    const cible = n.toLowerCase();
+    for (const cle of Object.keys(obj)) {
+      if (cleNormalisee(cle) === cible) {
+        const v = propre(obj[cle]);
+        if (v !== null) return v;
       }
     }
   }
@@ -66,22 +86,36 @@ function champ(obj, ...noms) {
 }
 
 function normaliser(data) {
-  // La charge utile est parfois encapsulée (data, result, vehicule…)
-  const v = (data && typeof data === 'object')
-    ? (champ(data, 'data', 'result', 'vehicule', 'vehicle') || data)
-    : {};
-  const annee = champ(v, 'annee', 'year', 'date_mise_en_circulation', 'dateMiseCirculation', 'date1erCir_fr');
+  // Enveloppe Auto Ways : { code, country, query, error, message, data: {…} }
+  const v = (data && typeof data === 'object' && data.data && typeof data.data === 'object')
+    ? data.data
+    : (data || {});
+
+  // La date arrive en 2019-06-20 (champ « _us ») ou en 20-06-2019.
+  const dateUs = champ(v, 'date_mise_en_circulation_us');
+  const dateFr = champ(v, 'date_mise_en_circulation', 'date_cg');
+  const source = dateUs || dateFr || '';
+  const annee = (source.match(/(19|20)\d{2}/) || [null])[0];
+
+  // Auto Ways renvoie les pneus d'origine sous forme de liste d'objets
+  // { width, height, diameter, load_index, speed_index, label }.
+  const pneus = champ(v, 'pneus');
+  const pneu = Array.isArray(pneus) && pneus.length ? (pneus[0].label || null) : null;
+
   return {
-    marque:      champ(v, 'marque', 'make', 'brand'),
-    modele:      champ(v, 'modele', 'model', 'modele_etude'),
-    version:     champ(v, 'version', 'finition', 'trim'),
-    annee:       typeof annee === 'string' ? (annee.match(/(19|20)\d{2}/) || [null])[0] : annee,
-    energie:     champ(v, 'energie', 'carburant', 'fuel', 'energy'),
-    puissance:   champ(v, 'puissance_fiscale', 'puissanceFiscale', 'puissance', 'power'),
-    boite:       champ(v, 'boite_vitesse', 'boiteVitesse', 'transmission'),
-    portes:      champ(v, 'nb_portes', 'portes', 'doors'),
-    genre:       champ(v, 'genre', 'type', 'carrosserie'),
-    pneus:       champ(v, 'pneus', 'dimension_pneus', 'tyres'),
+    marque:      champ(v, 'marque'),
+    modele:      champ(v, 'modele', 'modele_prf', 'modele_etude', 'model'),
+    version:     champ(v, 'finition', 'label_moteur', 'version'),
+    annee:       annee,
+    miseEnCirculation: dateFr,
+    energie:     champ(v, 'energie'),
+    carrosserie: champ(v, 'carrosserie'),
+    puissanceFiscale: champ(v, 'puissance_fiscale'),
+    puissanceCh: champ(v, 'puissance_chevaux'),
+    portes:      champ(v, 'nbr_portes'),
+    vin:         champ(v, 'vin'),
+    pneu:        pneu,
+    pneus:       pneus,
   };
 }
 
@@ -103,7 +137,9 @@ module.exports = async function handler(req, res) {
 
   // Une origine absente correspond à un appel hors navigateur (curl, script) :
   // on le refuse, ce relais n'est là que pour nos propres pages.
-  if (!origineOk) {
+  // Seule exception : le mode diagnostic, réservé à la mise au point.
+  const diag = process.env.DEBUG_PLAQUE === '1' && req.query.diag === '1';
+  if (!origineOk && !diag) {
     return res.status(403).json({ erreur: 'Origine non autorisée' });
   }
 
@@ -135,25 +171,54 @@ module.exports = async function handler(req, res) {
       clearTimeout(minuteur);
     }
 
+    const texte = await reponse.text();
+
     if (!reponse.ok) {
-      // On ne relaie jamais le corps d'erreur : il peut contenir l'URL appelée,
-      // donc le jeton.
-      console.error('Auto Ways a répondu', reponse.status);
-      const statut = reponse.status === 404 ? 404 : 502;
-      return res.status(statut).json({
-        erreur: statut === 404 ? 'Véhicule introuvable' : 'Service de recherche indisponible',
-      });
+      // Le corps amont n'est jamais relayé tel quel hors diagnostic :
+      // il peut contenir l'URL appelée, donc le jeton.
+      console.error('Auto Ways a répondu', reponse.status, texte.slice(0, 300));
+
+      // Observé en production : pour une plaque absente de sa base, Auto Ways
+      // ne renvoie pas un 404 propre mais un 500 avec une page HTML d'erreur.
+      // On le traite donc comme « introuvable » : pour le visiteur, la suite
+      // est la même (saisie manuelle), et annoncer une panne de service
+      // serait faux dans l'immense majorité des cas.
+      const htmlDErreur = reponse.status >= 500 && !texte.trim().startsWith('{');
+      const statut = (reponse.status === 404 || htmlDErreur) ? 404 : 502;
+
+      const corps = { erreur: statut === 404 ? 'Véhicule introuvable' : 'Service de recherche indisponible' };
+      if (diag) { corps.amont_statut = reponse.status; corps.amont_corps = texte.slice(0, 1200); }
+      return res.status(statut).json(corps);
     }
 
-    const data = await reponse.json();
+    let data;
+    try {
+      data = JSON.parse(texte);
+    } catch {
+      console.error('Réponse amont non JSON');
+      const corps = { erreur: 'Réponse inattendue du service' };
+      if (diag) corps.amont_corps = texte.slice(0, 1200);
+      return res.status(502).json(corps);
+    }
+
+    // Auto Ways répond 200 même quand la plaque est inconnue : c'est le
+    // drapeau « error » de la charge utile qui fait foi.
+    if (data && data.error === true) {
+      const corps = { erreur: 'Véhicule introuvable' };
+      if (diag) corps.brut = data;
+      return res.status(404).json(corps);
+    }
+
     const vehicule = normaliser(data);
 
     if (!vehicule.marque && !vehicule.modele) {
-      return res.status(404).json({ erreur: 'Véhicule introuvable' });
+      const corps = { erreur: 'Véhicule introuvable' };
+      if (diag) corps.brut = data;
+      return res.status(404).json(corps);
     }
 
     const charge = { plaque, vehicule };
-    if (process.env.DEBUG_PLAQUE === '1') charge.brut = data;
+    if (diag) charge.brut = data;
     return res.status(200).json(charge);
 
   } catch (e) {
