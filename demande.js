@@ -17,7 +17,11 @@ const state = {
   photoDataUrl: null,
   firstName: '',
   phone: '',
+  hasGps: false,  // false = lat/lng sont le repli « centre de Nice », pas la position réelle
+  delivery: null, // 'sent' = reçue par le garage | 'manual' = au client de l'envoyer
 };
+
+const CONFIG = window.SITE_CONFIG || {};
 
 // ── Maps Leaflet ────────────────────────────
 let miniMap      = null;
@@ -151,6 +155,7 @@ btnGeo.addEventListener('click', () => {
     async (pos) => {
       state.lat = pos.coords.latitude;
       state.lng = pos.coords.longitude;
+      state.hasGps = true;
 
       geoLoading.classList.add('hidden');
       geoFound.classList.remove('hidden');
@@ -314,7 +319,7 @@ phoneInput.addEventListener('input', () => {
   phoneInput.style.borderColor = '';
 });
 
-btn3Next.addEventListener('click', () => {
+btn3Next.addEventListener('click', async () => {
   const phone = phoneInput.value.replace(/\s/g, '');
   if (phone.length < 10) {
     phoneInput.style.borderColor = 'var(--danger)';
@@ -324,6 +329,18 @@ btn3Next.addEventListener('click', () => {
   phoneInput.style.borderColor = '';
   state.phone     = phoneInput.value.trim();
   state.firstName = firstNameInput.value.trim();
+
+  const btnLabel = btn3Next.innerHTML;
+  btn3Next.disabled = true;
+  btn3Next.classList.add('is-sending');
+  btn3Next.textContent = 'Envoi en cours…';
+
+  state.delivery = await deliverRequest();
+
+  btn3Next.disabled = false;
+  btn3Next.classList.remove('is-sending');
+  btn3Next.innerHTML = btnLabel;
+
   buildConfirmation();
   goToStep(4);
   // Init carte APRÈS affichage du panel (évite le bug Leaflet sur container caché)
@@ -331,6 +348,62 @@ btn3Next.addEventListener('click', () => {
 });
 
 btn3Back.addEventListener('click', () => goToStep(2));
+
+// ── Transmission de la demande ──────────────
+// Le site est statique : sans relais configuré, rien ne peut partir
+// automatiquement. On le dit au client plutôt que de le laisser croire
+// que sa demande est arrivée.
+function requestSummary() {
+  return [
+    `Panne : ${state.panneLabel || '—'}`,
+    `Adresse : ${state.address || '—'}`,
+    state.hasGps
+      ? `Position GPS : https://www.google.com/maps?q=${state.lat},${state.lng}`
+      : 'Position GPS : non communiquée (adresse saisie à la main)',
+    state.description ? `Description : ${state.description}` : null,
+    `Prénom : ${state.firstName || '—'}`,
+    `Téléphone : ${state.phone}`,
+  ].filter(Boolean).join('\n');
+}
+
+function saveRequestLocally() {
+  try {
+    localStorage.setItem('dan_last_request', JSON.stringify({
+      date: new Date().toISOString(),
+      panne: state.panneLabel,
+      adresse: state.address,
+      phone: state.phone,
+    }));
+  } catch { /* stockage indisponible (navigation privée) → sans conséquence */ }
+}
+
+async function deliverRequest() {
+  saveRequestLocally();
+
+  if (!CONFIG.formAccessKey) return 'manual';
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), CONFIG.formTimeoutMs || 8000);
+
+  try {
+    const res = await fetch(CONFIG.formEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        access_key: CONFIG.formAccessKey,
+        subject: `🚨 Dépannage — ${state.panneLabel || 'demande'} — ${state.phone}`,
+        from_name: 'depannageautonice.fr',
+        message: requestSummary(),
+      }),
+    });
+    return res.ok ? 'sent' : 'manual';
+  } catch {
+    return 'manual';
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 // ── ÉTAPE 4 — Confirmation ──────────────────
 function buildConfirmation() {
@@ -342,18 +415,61 @@ function buildConfirmation() {
   const recapTypeVal = document.getElementById('recapTypeVal');
   if (recapTypeVal) recapTypeVal.textContent = state.panneLabel || '—';
 
-  // Distance technicien (simulée d'après les coordonnées)
+  // Distance depuis l'atelier, calculée d'après les coordonnées saisies
+  // Sans GPS, lat/lng valent le centre de Nice : afficher une distance serait faux.
   const techDistance = document.getElementById('techDistance');
+  const techExp = document.querySelector('.tech-exp');
   if (techDistance) {
-    const dLat = state.lat - GARAGE[0];
-    const dLng = state.lng - GARAGE[1];
-    const km = Math.sqrt(dLat * dLat + dLng * dLng) * 111;
-    techDistance.textContent = `~${km.toFixed(1)} km`;
+    if (state.hasGps) {
+      const dLat = state.lat - GARAGE[0];
+      const dLng = state.lng - GARAGE[1];
+      const km = Math.sqrt(dLat * dLat + dLng * dLng) * 111;
+      techDistance.textContent = `~${km.toFixed(1)} km`;
+      if (techExp) techExp.textContent = 'de vous';
+    } else {
+      techDistance.textContent = 'Nice';
+      if (techExp) techExp.textContent = 'centre-ville';
+    }
   }
+
+  applyDeliveryState();
 
   // Lien WhatsApp
   buildWhatsApp();
   // La carte sera initialisée après affichage du panel (setTimeout dans btn3Next)
+}
+
+// Adapte l'écran final à ce qui s'est réellement passé.
+function applyDeliveryState() {
+  const sent    = state.delivery === 'sent';
+  const banner  = document.getElementById('confirmBanner');
+  const title   = document.getElementById('confirmTitle');
+  const sub     = document.getElementById('confirmSub');
+  const notice  = document.getElementById('confirmNotice');
+
+  if (banner) banner.classList.toggle('is-pending', !sent);
+
+  if (title) title.textContent = sent ? 'Demande transmise' : 'Dernière étape';
+  if (sub) {
+    sub.textContent = sent
+      ? `Nous vous rappelons au ${state.phone}`
+      : 'Confirmez par WhatsApp ou appelez-nous';
+  }
+
+  if (notice) {
+    notice.hidden = sent;
+    if (!sent) {
+      notice.querySelector('.confirm-notice-text').textContent =
+        'Votre demande n\'est pas encore arrivée chez nous. Touchez « Envoyer via WhatsApp » ci-dessous — le message est déjà rédigé — ou appelez-nous directement.';
+    }
+  }
+
+  // Le bouton WhatsApp devient l'action principale quand rien n'est parti.
+  const waBtn = document.getElementById('btnWhatsapp');
+  if (waBtn) {
+    const label = waBtn.querySelector('.wa-label');
+    if (label) label.textContent = sent ? 'Ajouter une précision par WhatsApp' : 'Envoyer via WhatsApp';
+  }
 }
 
 // ── Carte confirmation avec trajet ──────────
@@ -435,6 +551,7 @@ function buildWhatsApp() {
     `🚨 DEMANDE DE DÉPANNAGE`,
     ``,
     `📍 Position : ${state.address}`,
+    state.hasGps ? `🗺 https://www.google.com/maps?q=${state.lat},${state.lng}` : null,
     `🔧 Panne : ${state.panneLabel}`,
     state.description ? `📝 Description : ${state.description}` : null,
     ``,
@@ -446,7 +563,8 @@ function buildWhatsApp() {
 
   const encoded = encodeURIComponent(lines);
   const link = document.getElementById('btnWhatsapp');
-  if (link) link.href = `https://wa.me/33617684270?text=${encoded}`;
+  const number = CONFIG.whatsappNumber || '33617684270';
+  if (link) link.href = `https://wa.me/${number}?text=${encoded}`;
 }
 
 // ── Init ────────────────────────────────────

@@ -353,6 +353,9 @@ body::before {
 }
 .btn-primary-dem:hover { background: #ff8533; box-shadow: 0 0 32px var(--orange-glow), 0 0 64px rgba(255,107,0,0.2); }
 .btn-primary-dem:disabled { background: var(--bg-card); color: var(--gray); box-shadow: none; cursor: not-allowed; opacity: 0.5; }
+.btn-dem.is-sending { opacity: 0.75; animation: sendingPulse 1.1s ease-in-out infinite; }
+@keyframes sendingPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .btn-dem.is-sending { animation: none; } }
 
 .btn-back-dem {
   background: transparent; color: var(--gray);
@@ -423,6 +426,32 @@ body::before {
 }
 .eta-value span { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; }
 
+/* Demande pas encore transmise : la bannière passe en orange, pas en vert */
+.confirm-banner.is-pending {
+  background: rgba(255,107,0,0.07);
+  border-color: rgba(255,107,0,0.3);
+  border-left-color: var(--orange);
+}
+.confirm-banner.is-pending .confirm-check {
+  background: rgba(255,107,0,0.1); border-color: rgba(255,107,0,0.35);
+  color: var(--orange);
+}
+.confirm-banner.is-pending .confirm-title { color: var(--orange); }
+
+.confirm-notice {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: rgba(255,23,68,0.06);
+  border: 1px solid rgba(255,23,68,0.28);
+  border-left: 3px solid var(--danger);
+  padding: 14px 16px; margin-bottom: 18px;
+}
+.confirm-notice[hidden] { display: none; }
+.confirm-notice svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--danger); margin-top: 1px; }
+.confirm-notice-text {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+  line-height: 1.6; color: var(--white);
+}
+
 /* Technicien card */
 .tech-card {
   display: flex; align-items: center; gap: 14px;
@@ -455,6 +484,10 @@ body::before {
 .stars { color: var(--orange); font-size: 0.72rem; letter-spacing: -1px; }
 .rating-val { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; color: var(--white); }
 .rating-count { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gray); }
+.tech-commit {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  line-height: 1.5; color: var(--neon-green);
+}
 .tech-meta { text-align: right; flex-shrink: 0; }
 .tech-distance { font-family: 'Bowlby One', sans-serif; font-size: 0.9rem; color: var(--orange); }
 .tech-exp { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gray); }

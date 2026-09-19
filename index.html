@@ -609,6 +609,7 @@
             <textarea id="message" name="message" rows="4" placeholder="Décrivez votre problème (localisation, type de panne…)" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-full">Envoyer le message</button>
+          <p class="form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></p>
           <p class="form-note">Pour une urgence, appelez directement le <a href="tel:0617684270">06 17 68 42 70</a></p>
         </form>
       </div>
@@ -667,6 +668,7 @@
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="js/gsap.min.js"></script>
   <script src="js/ScrollTrigger.min.js"></script>
   <script src="js/lenis.min.js"></script>

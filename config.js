@@ -1,0 +1,32 @@
+// =============================================
+// DEPANNAGEAUTONICE.FR — config.js
+// Réglages d'exploitation du site. Seul fichier à modifier
+// pour changer la réception des demandes ou les numéros.
+// =============================================
+
+window.SITE_CONFIG = {
+
+  // ── Réception des demandes par e-mail ─────────────────────
+  // Le site est hébergé en statique (GitHub Pages) : il ne peut pas
+  // envoyer d'e-mail lui-même. Web3Forms sert de relais.
+  //
+  // POUR ACTIVER (5 min, gratuit) :
+  //   1. Aller sur https://web3forms.com
+  //   2. Saisir l'adresse e-mail qui doit recevoir les demandes
+  //   3. Copier la clé d'accès reçue par e-mail et la coller ci-dessous
+  //
+  // Tant que cette clé est vide, aucune demande n'est transmise
+  // automatiquement : le site le dit clairement au client et le bascule
+  // sur WhatsApp ou l'appel direct.
+  formAccessKey: '',
+  formEndpoint: 'https://api.web3forms.com/submit',
+
+  // Délai max d'attente de la réponse du relais, en ms.
+  // Au-delà, on n'immobilise pas le client : bascule sur WhatsApp.
+  formTimeoutMs: 8000,
+
+  // ── Contact ───────────────────────────────────────────────
+  whatsappNumber: '33617684270',  // format international, sans "+"
+  phoneDisplay: '06 17 68 42 70',
+  phoneHref: '0617684270',
+};

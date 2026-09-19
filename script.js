@@ -293,15 +293,61 @@ document.querySelectorAll('.faq-question').forEach(btn => {
     );
 })();
 
-// ── Formulaire → mailto ────────────────────
+// ── Formulaire de contact ──────────────────
+// Envoi via le relais configuré dans config.js. Sans relais configuré,
+// on retombe sur le client mail du visiteur plutôt que de perdre le message.
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  contactForm.addEventListener('submit', function (e) {
+  const cfg      = window.SITE_CONFIG || {};
+  const statusEl = document.getElementById('contactFormStatus');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+  function setStatus(text, kind) {
+    if (!statusEl) return;
+    statusEl.textContent = text;
+    statusEl.className = `form-status is-${kind}`;
+    statusEl.hidden = !text;
+  }
+
+  contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     const name    = document.getElementById('name').value.trim();
     const phone   = document.getElementById('phone').value.trim();
     const message = document.getElementById('message').value.trim();
-    const body    = `Nom: ${name}\nTéléphone: ${phone}\n\nMessage:\n${message}`;
-    window.location.href = `mailto:contact@depannageautonice.fr?subject=Demande%20de%20dépannage&body=${encodeURIComponent(body)}`;
+    const body    = `Nom : ${name}\nTéléphone : ${phone}\n\nMessage :\n${message}`;
+
+    if (!cfg.formAccessKey) {
+      window.location.href = `mailto:contact@depannageautonice.fr?subject=Demande%20de%20dépannage&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    const originalLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours…'; }
+    setStatus('', 'info');
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), cfg.formTimeoutMs || 8000);
+
+    try {
+      const res = await fetch(cfg.formEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        signal: controller.signal,
+        body: JSON.stringify({
+          access_key: cfg.formAccessKey,
+          subject: `Message du site — ${name}`,
+          from_name: 'depannageautonice.fr',
+          message: body,
+        }),
+      });
+      if (!res.ok) throw new Error('relais indisponible');
+      contactForm.reset();
+      setStatus('Message envoyé. Nous vous rappelons au plus vite.', 'ok');
+    } catch {
+      setStatus('L\'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez.', 'error');
+    } finally {
+      clearTimeout(timer);
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
+    }
   });
 }
