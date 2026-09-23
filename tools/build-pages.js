@@ -15,7 +15,7 @@
 //   {{TEL}} {{TEL_HREF}} {{WA}}           coordonnées
 //   {{ic:nom}} {{ic:nom:classe}}          icône de img/icons.svg
 //   {{FAQ_LIST}}                          questions de la page (données FAQ)
-//   {{ZONE_ROWS}} {{ZONE_CHIPS}}          délais et communes (villes.json)
+//   {{V:slug}} {{ZONE_CHIPS}}             ville + délai, liste des villes (villes.json)
 // =============================================
 
 const fs = require('fs');
@@ -42,34 +42,26 @@ const ic = (name, cls) => `<svg class="ic${cls ? ' ' + cls : ''}" aria-hidden="t
 const FAQ = {
   faq: [
     ['Quel est votre délai d\'intervention&nbsp;?',
-      `<p>Entre <strong>30 minutes et 1 heure sur Nice</strong>, estimé hors heures de pointe. Pour les autres communes du 06, le délai dépend de la distance&nbsp;; il vous est annoncé au téléphone, avant l'intervention.</p><p><a href="zone.html">Voir les délais par commune</a></p>`],
-    ['Combien coûte un dépannage&nbsp;?',
-      `<p><strong>À partir de 70&nbsp;€</strong> sur Nice et ses environs. Au-delà, le prix dépend de la distance et vous est annoncé au téléphone avant le départ de la dépanneuse. Le prix annoncé est le prix facturé&nbsp;: aucun supplément à l'arrivée.</p>`],
+      `<p>Nous intervenons en 30 minutes à 1 heure sur Nice et ses environs. Pour les communes plus éloignées des Alpes-Maritimes, le délai peut varier selon l'heure et la circulation&nbsp;; il vous est annoncé au téléphone avant le départ de la dépanneuse.</p>`],
     ['Mon assurance prend-elle en charge le dépannage&nbsp;?',
-      `<p>Dans la majorité des cas, oui. Nous travaillons avec <strong>toutes les compagnies d'assurance auto</strong> (MAIF, AXA, Allianz, MACIF, GMF, Groupama et bien d'autres). Si votre contrat inclut une assistance, appelez-nous&nbsp;: nous vérifions avec vous ce qui est couvert.</p>`],
+      // La maquette conseillait d'appeler le dépanneur « avant votre
+      // assurance ». Or un contrat avec assistance peut refuser de rembourser
+      // une intervention qu'il n'a pas missionnée : la réponse protège le client.
+      `<p>Dans la majorité des cas, oui. Nous travaillons avec toutes les compagnies d'assurance auto (MAIF, AXA, Allianz, MACIF, GMF, Groupama et bien d'autres). Si votre contrat comprend une assistance, dites-le-nous à l'appel&nbsp;: nous vérifions avec vous ce qui est couvert avant d'intervenir, et nous gérons souvent la prise en charge à votre place.</p>`],
     ['Intervenez-vous la nuit et le week-end&nbsp;?',
-      `<p>Oui. Nous sommes disponibles <strong>7 jours sur 7, 24 heures sur 24</strong>, y compris les nuits, week-ends et jours fériés.</p>`],
+      `<p>Oui. Nous sommes disponibles 7 jours sur 7, 24 heures sur 24, y compris les nuits, week-ends et jours fériés. Un technicien décroche — il n'y a pas de répondeur.</p>`],
     ['Quels types de véhicules prenez-vous en charge&nbsp;?',
-      `<p>Voitures particulières, SUV, monospaces, utilitaires légers, motos et scooters. Pour les poids lourds ou les véhicules spéciaux, appelez pour vérifier la faisabilité.</p>`],
-    ['Où emmenez-vous mon véhicule&nbsp;?',
-      `<p>Où vous le décidez&nbsp;: notre atelier du Quai de la Blanquière à Nice, votre garage habituel ou votre domicile. S'il arrive à notre atelier, le diagnostic et la réparation peuvent se faire sur place.</p>`],
+      `<p>Voitures particulières, SUV, monospaces, utilitaires légers, motos et scooters. Pour les poids lourds ou véhicules spéciaux, contactez-nous pour vérifier la faisabilité.</p>`],
     ['Que faire en cas de panne sur l\'autoroute&nbsp;?',
-      `<p><strong>Mettez votre gilet, allumez vos feux de détresse et passez derrière la glissière de sécurité.</strong> Sur autoroute, l'intervention passe obligatoirement par le dépanneur agréé par la société d'autoroute&nbsp;: utilisez une borne d'appel d'urgence.</p>`],
-    ['Je ne peux pas téléphoner, comment faire&nbsp;?',
-      `<p>Faites la <a href="demande.html">demande en ligne</a> — position, panne, véhicule — ou écrivez-nous sur <a href="${WA}" rel="noopener">WhatsApp</a>. Nous vous rappelons ou vous répondons par écrit.</p>`],
-  ],
-  'a-propos': [
-    ['Êtes-vous un dépanneur ou un garage&nbsp;?',
-      `<p>Les deux. Nous dépannons sur la route et nous disposons d'un atelier Zone industrielle du Quai de la Blanquière, à Nice. Un véhicule remorqué peut donc être diagnostiqué et réparé au même endroit, sans changer d'interlocuteur.</p>`],
-    ['Intervenez-vous vraiment la nuit et le dimanche&nbsp;?',
-      `<p>Oui, 7 jours sur 7 et 24 heures sur 24. Le délai est estimé entre 30 minutes et 1 heure sur Nice&nbsp;; il s'allonge aux heures de pointe et à mesure que l'on s'éloigne de Nice.</p>`],
-    ['Comment connaître le prix avant de m\'engager&nbsp;?',
-      `<p>Le prix est annoncé par téléphone, avant le départ de la dépanneuse. Le devis est transmis avant l'intervention et le prix annoncé est le prix facturé&nbsp;: pas de frais découverts à l'arrivée.</p>`],
+      `<p>Mettez votre gilet jaune, allumez vos warnings et éloignez-vous du véhicule en passant la glissière de sécurité. Sur autoroute, l'intervention passe obligatoirement par le prestataire agréé du réseau&nbsp;: utilisez une borne d'appel d'urgence ou appelez le 112.</p>`],
+    ['Comment le prix est-il fixé&nbsp;?',
+      `<p>Le tarif de départ est de 70&nbsp;€ sur Nice et sa première couronne. Au-delà, un devis vous est annoncé au téléphone avant que la dépanneuse parte. Le prix annoncé est le prix facturé&nbsp;: pas de supplément à l'arrivée.</p>`],
   ],
 };
 
-const faqHtml = items => items.map(([q, a]) =>
-  `    <details>\n      <summary>${q}${ic('chevron')}</summary>\n      <div>${a}</div>\n    </details>`).join('\n');
+// name="faq" : une seule réponse ouverte à la fois, sans JavaScript.
+const faqHtml = items => items.map(([q, a], i) =>
+  `    <details name="faq"${i === 0 ? ' open' : ''}>\n      <summary>${q}${ic('chevron')}</summary>\n      <div>${a}</div>\n    </details>`).join('\n');
 const faqSchema = (items, url) => ({
   '@type': 'FAQPage',
   '@id': `${url}#faq`,
@@ -136,37 +128,37 @@ const PAGES = [
     schema: () => [BUSINESS, { '@type': 'WebSite', '@id': `${BASE}/#site`, url: `${BASE}/`, name: 'Dépannage Auto Nice', inLanguage: 'fr-FR' }],
   },
   {
-    file: 'services.html', frag: 'services.html', nav: 'services', path: '/services.html', crumb: 'Services & tarifs',
-    title: `Services et tarifs — Dépannage Auto Nice | ${TEL}`,
-    desc: 'Remorquage, dépannage sur place, erreur de carburant, pneu, batterie, surchauffe moteur. À partir de 70 € sur Nice, devis annoncé avant intervention. 7j/7 24h/24.',
-    schema: url => [crumbs(url, 'Services & tarifs')],
+    file: 'services.html', frag: 'services.html', nav: 'services', path: '/services.html',
+    title: `Nos services — Dépannage Auto Nice | ${TEL}`,
+    desc: 'Remorquage, dépannage sur place, erreur de carburant, pneu, batterie, surchauffe moteur : diagnostic sur place et prix annoncé avant toute manipulation. 7j/7 24h/24.',
+    schema: url => [crumbs(url, 'Nos services')],
   },
   {
-    file: 'zone.html', frag: 'zone.html', nav: 'zone', path: '/zone.html', crumb: "Zone d'intervention",
-    title: `Zone d'intervention : Nice et tout le 06 — Dépannage Auto Nice`,
-    desc: 'Dépannage sur Nice et dans toutes les Alpes-Maritimes : Cannes, Antibes, Menton, Cagnes-sur-Mer, Grasse. Délais estimés par commune, annoncés avant intervention.',
+    file: 'zone.html', frag: 'zone.html', nav: 'zone', path: '/zone.html',
+    title: `Zone d'intervention : tout le 06 — Dépannage Auto Nice`,
+    desc: 'Dépannage en 30 à 60 min sur Nice et sa première couronne, et dans tout le 06 : Cannes, Antibes, Menton, Cagnes-sur-Mer, Grasse. Délai annoncé avant le départ.',
     leaflet: true,
     schema: url => [crumbs(url, "Zone d'intervention")],
   },
   {
-    file: 'faq.html', frag: 'faq.html', nav: 'faq', path: '/faq.html', crumb: 'Questions fréquentes', faq: 'faq',
+    file: 'faq.html', frag: 'faq.html', nav: 'faq', path: '/faq.html', faq: 'faq',
     title: 'Questions fréquentes — Dépannage Auto Nice',
-    desc: "Délai d'intervention, prix, assurance, autoroute, types de véhicules : les réponses aux questions les plus posées sur le dépannage auto à Nice.",
+    desc: "Délai d'intervention, prix, assurance, autoroute, types de véhicules : ce que les clients demandent le plus souvent avant d'appeler un dépanneur à Nice.",
     schema: (url, p) => [crumbs(url, 'Questions fréquentes'), faqSchema(FAQ[p.faq], url)],
   },
   {
-    file: 'a-propos.html', frag: 'a-propos.html', nav: 'a-propos', path: '/a-propos.html', crumb: 'À propos', faq: 'a-propos',
-    title: `À propos — Dépannage Auto Nice | ${TEL}`,
-    desc: 'Qui nous sommes : un atelier à Nice, Quai de la Blanquière, et un service de dépannage et remorquage 7j/7 24h/24 sur tout le 06. Prix annoncé = prix facturé.',
-    schema: (url, p) => [
+    file: 'a-propos.html', frag: 'a-propos.html', nav: 'a-propos', path: '/a-propos.html',
+    title: `À propos — une équipe niçoise | Dépannage Auto Nice`,
+    desc: "Une équipe niçoise, pas une plateforme : atelier Quai de la Blanquière à Nice, dépannage et remorquage 7j/7 24h/24 dans tout le 06. Un technicien au bout du fil.",
+    schema: url => [
       { '@type': 'AboutPage', '@id': `${url}#page`, url, name: 'À propos — Dépannage Auto Nice', inLanguage: 'fr-FR', about: { '@id': `${BASE}/#business` } },
-      crumbs(url, 'À propos'), faqSchema(FAQ[p.faq], url),
+      crumbs(url, 'À propos'),
     ],
   },
   {
-    file: 'contact.html', frag: 'contact.html', nav: 'contact', path: '/contact.html', crumb: 'Contact',
-    title: `Contact — Dépannage Auto Nice | ${TEL}`,
-    desc: `Appelez le ${TEL} 7j/7 24h/24, écrivez sur WhatsApp ou envoyez un message. Atelier Zone industrielle du Quai de la Blanquière, Nice.`,
+    file: 'contact.html', frag: 'contact.html', nav: 'contact', path: '/contact.html',
+    title: `Nous joindre — Dépannage Auto Nice | ${TEL}`,
+    desc: `Panne en cours : appelez le ${TEL}, 7j/7 24h/24. Devis, rendez-vous atelier ou question : formulaire ou WhatsApp. Atelier Quai de la Blanquière, Nice.`,
     config: true,
     schema: url => [
       { '@type': 'ContactPage', '@id': `${url}#page`, url, name: 'Contact — Dépannage Auto Nice', inLanguage: 'fr-FR', about: { '@id': `${BASE}/#business` } },
@@ -259,7 +251,8 @@ ${body}
       </div>
       <nav class="ft-col" aria-label="Le site">
         <p class="ft-h">Le site</p>
-        <a href="services.html">Services &amp; tarifs</a>
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Nos services</a>
         <a href="zone.html">Zone d'intervention</a>
         <a href="faq.html">Questions fréquentes</a>
         <a href="a-propos.html">À propos de l'équipe</a>
@@ -270,10 +263,6 @@ ${body}
         <a href="diagnostic.html">Diagnostic pneus gratuit</a>
         <a href="contact.html">Contact</a>
         <a href="mentions-legales.html">Mentions légales</a>
-      </nav>
-      <nav class="ft-col" aria-label="Villes">
-        <p class="ft-h">Villes</p>
-${villes.map(v => `        <a href="ville-${v.slug}.html">Dépannage ${v.nom}</a>`).join('\n')}
       </nav>
     </div>
     <p class="ft-copy">© <span id="year">2026</span> Dépannage Auto Nice</p>
@@ -290,6 +279,7 @@ ${villes.map(v => `        <a href="ville-${v.slug}.html">Dépannage ${v.nom}</a
     <a href="tel:${TEL_HREF}" class="bar-call" aria-label="Appeler le ${TEL}"><small>Appeler</small><strong>${TEL}</strong></a>
     <a href="demande.html">${ic('file', 'ic-sm')}Demande</a>
     <a href="${WA}" rel="noopener">${ic('message', 'ic-sm')}WhatsApp</a>
+    <a href="#main" class="bar-top" aria-label="Remonter en haut de page">${ic('arrow-up', 'ic-sm')}</a>
   </div>
 
 ${p.config ? '  <script src="config.js"></script>\n' : ''}${p.leaflet ? '  <script src="js/leaflet.js"></script>\n' : ''}  <script src="site.js"></script>
@@ -305,8 +295,11 @@ function fill(p, src) {
     .replace(/\{\{TEL\}\}/g, TEL)
     .replace(/\{\{WA\}\}/g, WA)
     .replace('{{FAQ_LIST}}', p.faq ? faqHtml(FAQ[p.faq]) : '')
-    .replace('{{ZONE_ROWS}}', villes.map(v =>
-      `          <tr><td><a href="ville-${v.slug}.html">${v.nom}</a></td><td>${v.delai}</td></tr>`).join('\n'))
+    .replace(/\{\{V:([a-z-]+)\}\}/g, (_, slug) => {
+      const v = villes.find(x => x.slug === slug);
+      if (!v) throw new Error(`ville inconnue : ${slug}`);
+      return `<a href="ville-${v.slug}.html">${v.nom}</a> <span class="delai">(${v.delai})</span>`;
+    })
     .replace('{{ZONE_CHIPS}}', villes.map(v =>
       `    <li><a href="ville-${v.slug}.html">${v.nom}</a></li>`).join('\n'));
 }

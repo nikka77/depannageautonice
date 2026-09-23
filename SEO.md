@@ -9,7 +9,7 @@ pas être faites depuis le code.
   sur l'accueil (adresse, téléphone, horaires 24h/24, zone desservie, tarif de départ).
 - **Une page par sujet** — services & tarifs, zone, FAQ, à propos, contact —
   chacune avec son titre, sa description, son `canonical` et son `BreadcrumbList`.
-- **`FAQPage`** sur la page FAQ, la page À propos et chaque page ville : rend
+- **`FAQPage`** sur la page FAQ et chaque page ville : rend
   les questions éligibles à l'affichage enrichi dans les résultats Google. Le
   texte affiché et le balisage viennent de la même source dans
   `tools/build-pages.js`, ils ne peuvent pas diverger.

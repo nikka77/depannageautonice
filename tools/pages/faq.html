@@ -1,17 +1,21 @@
-<section class="phero">
-  <div class="wrap phero-in">
-    <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">›</span>Questions fréquentes</nav>
-    <h1>Questions fréquentes</h1>
-    <p>Délai, prix, assurance, autoroute&nbsp;: ce que l'on nous demande le plus souvent au téléphone. Une question qui n'est pas ici&nbsp;? Appelez, on répond jour et nuit.</p>
-  </div>
+<section class="wrap intro">
+  <a href="index.html" class="back">← Accueil</a>
+  <h1>Questions fréquentes</h1>
+  <p class="lead">Ce que les clients demandent le plus souvent avant d'appeler. Si votre cas n'y est pas, le bouton d'appel reste à portée sur toutes les pages.</p>
 </section>
 
 <section class="wrap sec" aria-label="Questions et réponses">
   <div class="faq">
 {{FAQ_LIST}}
   </div>
-  <div class="btns mt-lg">
-    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
-    <a href="contact.html" class="btn btn-line">Poser une question par écrit</a>
+</section>
+
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">Votre question n'est pas là&nbsp;?</h2>
+      <p>Écrivez-nous, ou utilisez le bouton d'appel — il n'y a pas de répondeur.</p>
+    </div>
+    <a href="contact.html" class="btn btn-orange">Nous écrire {{ic:arrow-right:ic-sm}}</a>
   </div>
 </section>

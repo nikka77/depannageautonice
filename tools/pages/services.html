@@ -1,119 +1,66 @@
-<section class="phero">
-  <div class="wrap phero-in">
-    <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">›</span>Services &amp; tarifs</nav>
-    <h1>Services et tarifs</h1>
-    <p>Dépannage sur place quand la voiture peut repartir, remorquage quand elle ne peut pas. Sur Nice et dans tout le 06, 7j/7 et 24h/24, avec un prix annoncé avant le départ de la dépanneuse.</p>
-    <div class="btns">
-      <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
-      <a href="demande.html" class="btn btn-ghost">{{ic:file}}Demander en ligne</a>
+<section class="wrap intro">
+  <a href="index.html" class="back">← Accueil</a>
+  <h1>Ce qu'on fait, et ce qu'on ne fait pas.</h1>
+  <p class="lead">Six interventions couvrent l'essentiel des appels reçus. Dans tous les cas, le diagnostic est fait sur place et le prix annoncé avant toute manipulation.</p>
+</section>
+
+<section class="wrap sec" aria-label="Nos six interventions">
+  <div class="grid grid-wide">
+    <article class="cell svc">
+      <div class="svc-hd">{{ic:truck}}<span class="svc-num">/01</span></div>
+      <h2>Remorquage &amp; transport</h2>
+      <p>Prise en charge et transport de votre véhicule vers l'atelier ou le lieu de votre choix, en toute sécurité.</p>
+      <p class="svc-meta">Tous véhicules légers · 06 entier</p>
+    </article>
+    <article class="cell svc">
+      <div class="svc-hd">{{ic:wrench}}<span class="svc-num">/02</span></div>
+      <h2>Dépannage sur place</h2>
+      <p>Diagnostic et réparation rapide sur place pour vous remettre en route sans délai.</p>
+      <p class="svc-meta">Remise en route immédiate quand c'est possible</p>
+    </article>
+    <article class="cell svc">
+      <div class="svc-hd">{{ic:fuel}}<span class="svc-num">/03</span></div>
+      <h2>Erreur de carburant</h2>
+      <p>Mauvais carburant mis par erreur&nbsp;? Vidange du réservoir et remise en route sans endommager le moteur.</p>
+      <p class="svc-meta">Ne démarrez pas le moteur — appelez avant</p>
+    </article>
+    <article class="cell svc">
+      <div class="svc-hd">{{ic:wheel}}<span class="svc-num">/04</span></div>
+      <h2>Changement de pneu</h2>
+      <p>Crevaison ou pneu endommagé&nbsp;? Remplacement rapide sur place, tous véhicules.</p>
+      <p class="svc-meta"><a href="diagnostic.html">Diagnostic pneus gratuit disponible en ligne</a></p>
+    </article>
+    <article class="cell svc">
+      <div class="svc-hd">{{ic:battery}}<span class="svc-num">/05</span></div>
+      <h2>Batterie &amp; démarrage</h2>
+      <p>Batterie à plat ou panne de démarrage — diagnostic et remplacement sur place si nécessaire.</p>
+      <p class="svc-meta">Test de charge avant tout remplacement</p>
+    </article>
+    <article class="cell svc">
+      <div class="svc-hd">{{ic:thermo}}<span class="svc-num">/06</span></div>
+      <h2>Surchauffe moteur</h2>
+      <p>Moteur en surchauffe&nbsp;? Arrêtez-vous et appelez-nous — intervention sécurisée, diagnostic immédiat.</p>
+      <p class="svc-meta">Coupez le moteur, n'ouvrez pas le vase d'expansion</p>
+    </article>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-limites">
+  <div class="aside">
+    <h2 id="h-limites">Ce que nous ne prenons pas en charge</h2>
+    <ul>
+      <li>Poids lourds et véhicules spéciaux&nbsp;: appelez-nous, nous vérifions la faisabilité au cas par cas.</li>
+      <li>Autoroutes et voies rapides&nbsp;: l'intervention passe obligatoirement par le prestataire agréé du réseau.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">Une panne en cours&nbsp;?</h2>
+      <p>Décrivez-la en ligne, ou utilisez le bouton d'appel toujours visible.</p>
     </div>
+    <a href="demande.html" class="btn btn-orange">Demander un dépannage {{ic:arrow-right:ic-sm}}</a>
   </div>
-</section>
-
-<section class="wrap sec" aria-labelledby="h-services">
-  <div class="sec-hd">
-    <p class="kicker">Ce qu'on fait</p>
-    <h2 id="h-services">Six interventions, un seul numéro</h2>
-    <p>Voitures, SUV, monospaces, utilitaires légers, motos et scooters. Poids lourds et véhicules spéciaux&nbsp;: appelez pour vérifier la faisabilité.</p>
-  </div>
-  <div class="cards">
-    <article class="card">
-      {{ic:truck}}
-      <h3>Remorquage &amp; transport</h3>
-      <p>Véhicule immobilisé, accidenté ou non roulant&nbsp;: transport vers notre atelier ou vers le lieu de votre choix.</p>
-      <a href="demande.html?type=remorquage" class="textlink"><span>Demander un remorquage</span></a>
-    </article>
-    <article class="card">
-      {{ic:wrench}}
-      <h3>Dépannage sur place</h3>
-      <p>Diagnostic immédiat et réparation sur place quand c'est possible, pour repartir sans passer par l'atelier.</p>
-      <a href="demande.html" class="textlink"><span>Demander un dépannage</span></a>
-    </article>
-    <article class="card">
-      {{ic:fuel}}
-      <h3>Erreur de carburant</h3>
-      <p>Gazole dans une essence ou l'inverse&nbsp;: ne démarrez pas. Vidange du réservoir et remise en route sans abîmer le moteur.</p>
-      <a href="demande.html?type=carburant" class="textlink"><span>Signaler une erreur de carburant</span></a>
-    </article>
-    <article class="card">
-      {{ic:wheel}}
-      <h3>Changement de pneu</h3>
-      <p>Crevaison ou pneu endommagé&nbsp;: remplacement sur place, tous véhicules.</p>
-      <a href="demande.html?type=pneu" class="textlink"><span>Signaler une crevaison</span></a>
-    </article>
-    <article class="card">
-      {{ic:battery}}
-      <h3>Batterie &amp; démarrage</h3>
-      <p>Batterie à plat ou panne de démarrage&nbsp;: diagnostic, démarrage assisté, remplacement sur place si nécessaire.</p>
-      <a href="demande.html?type=batterie" class="textlink"><span>Signaler une panne de batterie</span></a>
-    </article>
-    <article class="card">
-      {{ic:thermo}}
-      <h3>Surchauffe moteur</h3>
-      <p>Voyant de température allumé ou vapeur sous le capot&nbsp;: arrêtez-vous et coupez le moteur. Intervention sécurisée, diagnostic immédiat.</p>
-      <a href="demande.html?type=moteur" class="textlink"><span>Signaler une surchauffe</span></a>
-    </article>
-  </div>
-</section>
-
-<section class="wrap sec" aria-labelledby="h-steps">
-  <div class="sec-hd">
-    <p class="kicker">Comment ça se passe</p>
-    <h2 id="h-steps">Du premier appel au véhicule qui repart</h2>
-  </div>
-  <ol class="steps">
-    <li>
-      <h3>Vous appelez ou vous faites la demande en ligne</h3>
-      <p>Position, type de panne, véhicule. Le formulaire pose les mêmes questions que nous au téléphone — pratique quand vous ne pouvez pas parler.</p>
-    </li>
-    <li>
-      <h3>Prix et délai annoncés avant le départ</h3>
-      <p>Si le tarif ne vous convient pas, vous n'avez rien engagé.</p>
-    </li>
-    <li>
-      <h3>Intervention</h3>
-      <p>Dépannage sur place si le véhicule peut repartir, remorquage sinon. Vous choisissez la destination&nbsp;: notre atelier, votre garage, votre domicile.</p>
-    </li>
-  </ol>
-</section>
-
-<section class="wrap sec" id="tarifs" aria-labelledby="h-tarifs">
-  <div class="sec-hd">
-    <p class="kicker">Tarifs</p>
-    <h2 id="h-tarifs">Un prix de départ clair, un devis pour le reste</h2>
-    <p>La distance change le prix&nbsp;: au-delà de Nice, nous préférons vous annoncer un montant exact au téléphone plutôt qu'un chiffre qui ne tiendrait pas.</p>
-  </div>
-  <div class="tarifs">
-    <article class="tarif tarif-top">
-      <h3>Nice &amp; environs</h3>
-      <p class="price"><small>À partir de</small>70 €</p>
-      <ul>
-        <li>Dépannage sur place</li>
-        <li>Prise en charge rapide</li>
-        <li>7j/7 — 24h/24</li>
-      </ul>
-      <a href="demande.html" class="btn btn-orange">Demander un dépannage</a>
-    </article>
-    <article class="tarif">
-      <h3>Alpes-Maritimes</h3>
-      <p class="price"><small>Prix annoncé à l'appel</small>Sur devis</p>
-      <ul>
-        <li>Cannes, Antibes, Menton</li>
-        <li>Grasse, Vence, Cagnes-sur-Mer…</li>
-        <li>Devis gratuit par téléphone</li>
-      </ul>
-      <a href="tel:{{TEL_HREF}}" class="btn btn-line">Demander un devis</a>
-    </article>
-    <article class="tarif">
-      <h3>Atelier</h3>
-      <p class="price"><small>Réparations mécaniques</small>Sur rendez-vous</p>
-      <ul>
-        <li>Diagnostic et mécanique</li>
-        <li>Quai de la Blanquière, Nice</li>
-        <li>Après remorquage ou sur rendez-vous</li>
-      </ul>
-      <a href="contact.html" class="btn btn-line">Prendre rendez-vous</a>
-    </article>
-  </div>
-  <p class="note"><strong>Notre engagement&nbsp;:</strong> devis transmis avant intervention, prix annoncé = prix facturé. Aucun frais caché, aucun supplément à l'arrivée. Nous travaillons avec toutes les compagnies d'assurance auto — prise en charge directe possible.</p>
 </section>

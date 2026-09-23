@@ -82,7 +82,8 @@
       const name = form.elements.name.value.trim();
       const phone = form.elements.phone.value.trim();
       const message = form.elements.message.value.trim();
-      const body = `Nom : ${name}\nTéléphone : ${phone}\n\nMessage :\n${message}`;
+      const subject = form.elements.subject ? form.elements.subject.value : 'Message';
+      const body = `Sujet : ${subject}\nNom : ${name}\nTéléphone : ${phone}\n\nMessage :\n${message}`;
 
       if (!cfg.formAccessKey) {
         const numero = cfg.whatsappNumber || '33617684270';
@@ -104,7 +105,7 @@
           signal: controller.signal,
           body: JSON.stringify({
             access_key: cfg.formAccessKey,
-            subject: `Message du site — ${name}`,
+            subject: `${subject} — ${name}`,
             from_name: 'Dépannage Auto Nice (site)',
             message: body,
           }),

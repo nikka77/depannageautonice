@@ -97,38 +97,61 @@ contre vous.
   estimé », ce qui couvre juridiquement, mais le délai doit rester tenable
   aux heures de pointe.
 
-Le « 10 000+ interventions », les « techniciens certifiés — permis poids
-lourd » et le défilé de logos d'assureurs présentés comme « partenaires » ont
-disparu avec le nouveau design. C'est une bonne chose : aucun des trois
-n'était vérifiable, et afficher les marques d'assureurs comme partenaires sans
-convention signée expose à une réclamation.
+Le « 10 000+ interventions » et le défilé de logos d'assureurs présentés
+comme « partenaires » ont disparu avec le nouveau design. C'est une bonne
+chose : le premier n'était pas vérifiable, et afficher les marques
+d'assureurs comme partenaires sans convention signée expose à une
+réclamation.
 
 ---
 
-## Page « À propos » — ce que je n'ai pas écrit
+## Pages intérieures — points à trancher
 
-La maquette Claude Design `a-propos.dc.html` n'a pas encore été transmise
-(seul l'accueil a été exporté). La page actuelle reprend le système visuel de
-l'accueil ; si la maquette propose une autre structure, l'exporter comme
-l'accueil et je l'intègre.
+Les cinq maquettes (services, zone, FAQ, à propos, contact) sont intégrées.
+En les vérifiant, plusieurs points ne peuvent être réglés que par vous.
 
-`a-propos.html` existe et est complète sur tout ce que le site affirmait déjà :
-zone, services, horaires, atelier, tarif de départ, assurances, déroulé d'une
-intervention, limites. Je n'y ai **rien inventé**.
+### Affirmations revenues avec la maquette « À propos »
 
-Manquent donc les éléments qu'on attend d'une page « qui sommes-nous » et que
-vous seul connaissez. Donnez-les-moi et je les intègre :
+La maquette de l'accueil avait retiré ces trois arguments ; celle de la page
+À propos les réaffiche. Ils sont en ligne tels que vous les avez écrits, mais
+ils vous engagent — un contrôle DGCCRF ou un client mécontent peut demander à
+les voir justifiés :
 
-| Élément | Pourquoi ça compte |
-|---|---|
-| **Année de création réelle** | la page ne dit pas « depuis 2004 » tant que ce n'est pas confirmé (voir ci-dessus) |
-| **Qui tient l'entreprise** | un prénom, un parcours en deux phrases. C'est ce qui distingue un artisan d'une plateforme anonyme |
-| **Taille de l'équipe et du parc** | « 2 camions plateau » est plus crédible qu'un chiffre rond |
-| **Agréments / certifications** | agrément préfectoral, conventions d'assurance, qualifications mécaniques |
-| **Une photo de l'atelier ou du camion** | la page n'a aucune image ; une vraie photo vaut mieux qu'une banque d'images |
+- **« Plus de 20 ans d'expérience »** — suppose la création en 2004 (voir plus haut).
+- **« Techniciens certifiés — permis poids-lourd, formation remorquage,
+  habilitations VL/VUL à jour »** — gardez les justificatifs sous la main.
+- **« Vous n'avancez rien quand votre contrat le couvre »** — vrai seulement
+  si vous facturez l'assureur directement dans tous ces cas.
 
-Trois affirmations de la page sont à vérifier de votre côté, parce qu'elles
-sont reprises du reste du site et qu'elles vous engagent :
-« pas d'intervention directe sur autoroute », « pas de carrosserie »,
-« pas de secours aux personnes ». Si l'une est fausse, dites-le-moi : elle envoie
-actuellement des clients ailleurs.
+### Photos réelles — la section attend vos fichiers
+
+La maquette prévoit une section « L'équipe et les camions » avec trois cases
+**« Photo dépanneuse », « Photo atelier », « Photo équipe »**. Je ne l'ai pas
+publiée vide : des cadres en pointillés marqués « emplacement réservé »
+donneraient à un client l'impression d'un site inachevé.
+
+L'image à côté du titre est celle choisie dans la maquette (`hero-3.webp`).
+C'est une **illustration générée** — garage au néon, Mustang, enseigne
+« GRAN MECANO AUTO » — pas une photo de votre atelier. Son texte alternatif le
+dit honnêtement. Remplacez-la dès que possible par une vraie photo.
+
+Envoyez-moi 3 ou 4 photos (téléphone suffit, en paysage) : je les compresse,
+je remplace l'illustration et j'ajoute la section.
+
+### Textes de la maquette modifiés
+
+- **FAQ, assurance** — la maquette disait « avant d'appeler votre assurance,
+  contactez-nous directement ». Un contrat avec assistance peut refuser de
+  rembourser un dépannage qu'il n'a pas missionné : le client se retrouverait
+  à payer. La réponse dit maintenant de signaler l'assistance à l'appel pour
+  vérifier ce qui est couvert.
+- **Contact, encadré légal** — la maquette annonçait des « mentions légales
+  complètes (SIRET, TVA, assurance RC, médiateur…) ». Elles ne le sont pas
+  encore (point 2 ci-dessus) : l'encadré renvoie simplement à la page.
+- **Accueil, panneau « Délai & zone »** — il plaçait Antibes en « première
+  couronne », la page Zone dans « Ouest du département ». Aligné sur la page
+  Zone.
+- **Zone, autoroute** — « appelez le 112 depuis une borne » : les bornes
+  appellent directement l'exploitant. Devenu « utilisez une borne d'appel
+  d'urgence ou appelez le 112 ».
+
