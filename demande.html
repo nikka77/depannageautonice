@@ -4,25 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Demander un dépannage — DepannageAutoNice</title>
-  <meta name="description" content="Demandez un dépannage auto en 2 minutes. Localisation, type de panne, coordonnées. Intervention en 30-45 min sur Nice et Alpes-Maritimes.">
+  <meta name="description" content="Demandez un dépannage auto en 2 minutes. Localisation, type de panne, coordonnées. Intervention estimée en 30 à 60 min sur Nice, partout dans les Alpes-Maritimes.">
   <link rel="canonical" href="https://nikka77.github.io/depannageautonice/demande.html">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nikka77.github.io/depannageautonice/demande.html">
   <meta property="og:title" content="Demander un dépannage — DepannageAutoNice">
-  <meta property="og:description" content="Demandez un dépannage auto en 2 minutes. Intervention en 30-45 min sur Nice et Alpes-Maritimes.">
+  <meta property="og:description" content="Demandez un dépannage auto en 2 minutes. Intervention estimée en 30 à 60 min sur Nice, partout dans les Alpes-Maritimes.">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:image" content="https://nikka77.github.io/depannageautonice/img/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Demander un dépannage — DepannageAutoNice">
-  <meta name="twitter:description" content="Demandez un dépannage auto en 2 minutes. Intervention 30-45 min sur Nice et Alpes-Maritimes.">
+  <meta name="twitter:description" content="Demandez un dépannage auto en 2 minutes. Intervention estimée en 30 à 60 min sur Nice.">
   <meta name="twitter:image" content="https://nikka77.github.io/depannageautonice/img/og-cover.jpg">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath fill='%23ff6b00' d='M18 28c4-7 11-11 18-9l5-3-3 9c2 5 1 11-3 15s-10 5-15 3l-5 3 3-9-2-2-1 1-2-2 1-1c1-2 2-3 4-5z'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#ff6b00">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="img/icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/chakra-400-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="vendor/css/leaflet.css">
   <link rel="stylesheet" href="demande.css">
+  <link rel="stylesheet" href="funnel.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,21 +50,18 @@
 <body>
 
   <!-- HEADER -->
-  <header class="dem-header">
-    <div class="dem-header-inner">
-      <a href="index.html" class="dem-logo">
-        <i data-lucide="chevron-left"></i>
-        <span>Dépannage<strong>Auto</strong>Nice</span>
+  <header class="fn-hd">
+    <div class="fn-hd-in">
+      <a href="index.html" class="fn-brand" aria-label="Dépannage Auto Nice — retour à l'accueil">
+        <span class="fn-bar" aria-hidden="true"></span>
+        <span class="fn-txt"><span class="fn-name">Dépannage Auto Nice</span><span class="fn-sub">Demande de dépannage</span></span>
       </a>
-      <a href="tel:+33617684270" class="dem-header-call">
-        <i data-lucide="phone-call"></i>
-        06 17 68 42 70
-      </a>
+      <a href="tel:+33617684270" class="fn-call" aria-label="Appeler le 06 17 68 42 70"><small>Urgence 24h/24</small><strong>06 17 68 42 70</strong></a>
     </div>
   </header>
 
   <!-- PROGRESS STEPS -->
-  <div class="step-progress" id="stepProgress">
+  <div class="step-progress" id="stepProgress" role="region" aria-label="Étapes">
     <div class="step-progress-inner">
       <div class="step-dot active" data-step="0">
         <i data-lucide="map-pin"></i>
@@ -92,7 +91,7 @@
   </div>
 
   <!-- URGENCY RIBBON -->
-  <div class="urgency-ribbon" id="urgencyRibbon">
+  <div class="urgency-ribbon" id="urgencyRibbon" role="region" aria-label="Disponibilité">
     <span class="urge-blink">●</span>
     <span>Technicien disponible — Intervention sous <strong>30 à 60 min</strong></span>
   </div>
@@ -235,7 +234,7 @@
             <i data-lucide="camera"></i>
           </div>
           <strong>Ajouter une photo</strong>
-          <span>Optionnel — elle vous aide à décrire la panne&nbsp;; pour nous la montrer, envoyez-la ensuite sur WhatsApp</span>
+          <span>Optionnel — vous pourrez nous l'envoyer sur WhatsApp à la dernière étape</span>
         </label>
         <img class="photo-preview hidden" id="photoPreview" alt="Aperçu panne">
         <button class="photo-remove hidden" id="photoRemove" type="button" aria-label="Supprimer la photo">
@@ -306,8 +305,8 @@
           <div class="confirm-sub" id="confirmSub">Nous vous rappelons au plus vite</div>
         </div>
         <div class="eta-badge">
-          <div class="eta-label">Délai estimé</div>
-          <div class="eta-value">30–45<span>min</span></div>
+          <div class="eta-label">Délai estimé sur Nice</div>
+          <div class="eta-value">30–60<span>min</span></div>
         </div>
       </div>
 
@@ -355,7 +354,7 @@
         <div class="recap-sep"></div>
         <div class="recap-item">
           <span class="recap-label">DÉLAI ESTIMÉ</span>
-          <span class="recap-val">30–45 MIN</span>
+          <span class="recap-val">30–60 MIN SUR NICE</span>
         </div>
         <div class="recap-sep"></div>
         <div class="recap-item">
@@ -379,6 +378,15 @@
         </a>
       </div>
 
+      <!-- Photo jointe : envoyée par le partage natif du téléphone -->
+      <div class="photo-share" id="photoShare" hidden>
+        <button type="button" class="btn-dem btn-photo-dem" id="btnPhotoShare">
+          <i data-lucide="image-up"></i>
+          Joindre la photo sur WhatsApp
+        </button>
+        <p class="photo-share-hint" id="photoShareHint"></p>
+      </div>
+
       <div class="confirm-footer">
         <a href="index.html" class="confirm-back-link">← Retour à l'accueil</a>
         <span class="confirm-footer-sep">|</span>
@@ -389,16 +397,17 @@
 
   </main>
 
-  <footer class="page-footer" style="border-top:1px solid #e0e0d7;padding:24px 16px;text-align:center;color:#5c5c53;font-size:13px;background:#f4f4f0;">
-    <a href="index.html" style="color:#b34800;text-decoration:none;">← Accueil</a>
-    <span style="margin:0 10px;opacity:0.4;">·</span>
-    <a href="mentions-legales.html" style="color:#5c5c53;text-decoration:none;">Mentions légales</a>
-    <span style="margin:0 10px;opacity:0.4;">·</span>
-    <a href="tel:+33617684270" style="color:#b34800;text-decoration:none;font-weight:600;">06 17 68 42 70</a>
-    <div style="margin-top:8px;">© <span id="footerYear"></span> Dépannage Auto Nice</div>
+  <footer class="fn-ft">
+    <div class="fn-ft-in">
+      <a href="index.html">← Accueil</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="tel:+33617684270" class="fn-ft-tel">06 17 68 42 70</a>
+      <p class="fn-copy">© <span id="footerYear"></span> Dépannage Auto Nice</p>
+    </div>
   </footer>
 
   <script src="config.js"></script>
+  <script src="js/mesure.js"></script>
   <script src="js/plaque.js"></script>
   <script src="js/leaflet.js"></script>
   <script src="js/lucide.min.js"></script>

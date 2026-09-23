@@ -1,0 +1,65 @@
+/* =============================================
+   DÉPANNAGE AUTO NICE — funnel.css
+   En-tête et pied de page des pages d'action (demande, diagnostic),
+   alignés sur le design du site (site.css). Volontairement sans menu :
+   quelqu'un en panne qui remplit une demande ne doit pas être distrait.
+   Chargé APRÈS demande.css / diagnostic.css.
+   ============================================= */
+
+.fn-hd {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, .96);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e0e0d7;
+}
+.fn-hd-in {
+  max-width: 1160px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; gap: 16px; min-height: 64px;
+}
+.fn-brand {
+  display: flex; align-items: center; gap: 12px; margin-right: auto;
+  min-height: 44px; text-decoration: none; color: #16160f;
+}
+.fn-bar { width: 10px; height: 32px; background: #ff6b00; flex-shrink: 0; }
+.fn-txt { display: flex; flex-direction: column; }
+.fn-name {
+  white-space: nowrap;
+  font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1.02rem;
+  letter-spacing: .04em; text-transform: uppercase; line-height: 1.2;
+}
+.fn-sub {
+  font-family: 'JetBrains Mono', monospace; font-size: .62rem; letter-spacing: .16em;
+  text-transform: uppercase; color: #5c5c53;
+}
+.fn-call {
+  display: inline-flex; flex-direction: column; justify-content: center;
+  min-height: 46px; padding: 4px 14px; text-decoration: none; line-height: 1.2;
+  border: 1px solid #b34800; color: #b34800; font-family: 'JetBrains Mono', monospace;
+}
+.fn-call small { font-size: .56rem; letter-spacing: .16em; text-transform: uppercase; }
+.fn-call strong { font-size: .95rem; white-space: nowrap; }
+.fn-call:hover { background: #ff6b00; border-color: #ff6b00; color: #16160f; }
+
+.fn-ft { background: #16160f; color: #d6d6cf; font-family: 'Chakra Petch', sans-serif; }
+.fn-ft-in {
+  max-width: 1160px; margin: 0 auto; padding: 22px 20px 26px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 20px;
+  font-size: .9rem;
+}
+.fn-ft a { color: #d6d6cf; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.fn-ft a:hover { color: #ff9a4d; }
+.fn-ft .fn-ft-tel { color: #ff9a4d; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.fn-copy {
+  width: 100%; text-align: center; margin: 4px 0 0;
+  font-family: 'JetBrains Mono', monospace; font-size: .66rem; letter-spacing: .1em; color: #8d8d84;
+}
+
+@media (max-width: 560px) {
+  .fn-sub { display: none; }
+  .fn-bar { height: 28px; }
+  .fn-name { font-size: .88rem; letter-spacing: .02em; white-space: nowrap; }
+  .fn-hd-in { gap: 10px; }
+  .fn-call { padding: 4px 10px; }
+  .fn-call small { display: none; }
+  .fn-call strong { font-size: .85rem; }
+}

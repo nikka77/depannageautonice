@@ -7,12 +7,13 @@
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <p class="live"><span class="live-dot" aria-hidden="true"></span>Disponible maintenant — un technicien décroche</p>
-    <h1 id="h-hero">Une dépanneuse à Nice en <em>30 à 60&nbsp;minutes</em>.</h1>
+    <h1 id="h-hero" data-villes="{{HERO_VILLES}}">Une dépanneuse à <span class="h-ville">Nice</span> en <em class="h-delai">30 à 60&nbsp;minutes</em>.</h1>
     <p class="hero-lead">Dépannage sur place, remorquage et transport dans tout le 06, de jour comme de nuit. Prix annoncé avant l'intervention, à partir de 70&nbsp;€.</p>
     <div class="btns">
       <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
       <a href="demande.html" class="btn btn-ghost">{{ic:file}}Demander en ligne</a>
     </div>
+    <button type="button" class="rot-pause" aria-pressed="false" aria-label="Pause — mettre en pause le défilement des villes" hidden>Pause</button>
   </div>
 </section>
 
@@ -79,7 +80,7 @@
     <div class="promo-txt">
       <p class="kicker">Gratuit</p>
       <h2 id="h-diag">Diagnostic pneus en photo</h2>
-      <p>Photographiez vos pneus, recevez une évaluation de l'usure et une attestation à présenter en cas de contrôle.</p>
+      <p>Photographiez vos pneus, recevez une évaluation de l'usure et un compte rendu imprimable à montrer à votre garagiste.</p>
     </div>
     <a href="diagnostic.html" class="btn btn-dark">Démarrer le diagnostic {{ic:arrow-right:ic-sm}}</a>
   </div>

@@ -8,6 +8,24 @@
 (function () {
   'use strict';
 
+  // Textes affichés par le script, selon la langue de la page.
+  const LANG = (document.documentElement.lang || 'fr').slice(0, 2);
+  const TXT = {
+    fr: { pause: 'Pause', reprendre: 'Reprendre', pauseAria: 'Pause — mettre en pause le défilement des villes', reprendreAria: 'Reprendre — relancer le défilement des villes',
+          ok: 'Message envoyé. Nous vous rappelons au plus vite.', envoi: 'Envoi en cours…',
+          wa: 'Votre message est prêt dans WhatsApp — appuyez sur Envoyer. Sinon, appelez le 06 17 68 42 70.',
+          echec: "L'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez." },
+    en: { pause: 'Pause', reprendre: 'Resume', pauseAria: 'Pause — stop the rotating town names', reprendreAria: 'Resume — restart the rotating town names',
+          ok: 'Message sent. We will call you back as soon as possible.', envoi: 'Sending…',
+          wa: 'Your message is ready in WhatsApp — tap Send. Otherwise, call +33 6 17 68 42 70.',
+          echec: 'Sending failed. Call us on +33 6 17 68 42 70 or try again.' },
+    it: { pause: 'Pausa', reprendre: 'Riprendi', pauseAria: 'Pausa — ferma lo scorrimento delle città', reprendreAria: 'Riprendi — riavvia lo scorrimento delle città',
+          ok: 'Messaggio inviato. Vi richiameremo al più presto.', envoi: 'Invio in corso…',
+          wa: 'Il messaggio è pronto su WhatsApp — premete Invia. Altrimenti chiamate il +33 6 17 68 42 70.',
+          echec: "L'invio non è riuscito. Chiamateci al +33 6 17 68 42 70 o riprovate." },
+  };
+  const tx = TXT[LANG] || TXT.fr;
+
   // ── Menu mobile ─────────────────────────────
   const menuBtn = document.querySelector('.menu-btn');
   const nav = document.getElementById('nav');
@@ -81,7 +99,7 @@
       e.preventDefault();
       // Case piège cochée : c'est un robot. On feint le succès sans rien envoyer.
       if (form.elements.botcheck && form.elements.botcheck.checked) {
-        setStatus('Message envoyé. Nous vous rappelons au plus vite.', 'ok');
+        setStatus(tx.ok, 'ok');
         return;
       }
       const name = form.elements.name.value.trim();
@@ -93,12 +111,12 @@
       if (!cfg.formAccessKey) {
         const numero = cfg.whatsappNumber || '33617684270';
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent('Message depuis le site\n\n' + body)}`, '_blank', 'noopener');
-        setStatus('Votre message est prêt dans WhatsApp — appuyez sur Envoyer. Sinon, appelez le 06 17 68 42 70.', 'ok');
+        setStatus(tx.wa, 'ok');
         return;
       }
 
       const label = submitBtn ? submitBtn.textContent : '';
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours…'; }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = tx.envoi; }
       setStatus('', 'ok');
 
       const controller = new AbortController();
@@ -118,14 +136,70 @@
         });
         if (!res.ok) throw new Error('relais indisponible');
         form.reset();
-        setStatus('Message envoyé. Nous vous rappelons au plus vite.', 'ok');
+        setStatus(tx.ok, 'ok');
       } catch {
-        setStatus("L'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez.", 'error');
+        setStatus(tx.echec, 'error');
       } finally {
         clearTimeout(timer);
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = label; }
       }
     });
+  }
+
+  // ── Titre de l'accueil : une ville toutes les 3 secondes ──
+  // Chaque ville garde son propre délai. ?ville=grasse (annonce, QR code,
+  // lien envoyé) fixe le titre sur cette ville. Pas de défilement si
+  // l'utilisateur a demandé moins d'animations ; bouton Pause (WCAG 2.2.2).
+  const h1 = document.querySelector('h1[data-villes]');
+  if (h1) {
+    let liste = [];
+    try { liste = JSON.parse(h1.dataset.villes); } catch { liste = []; }
+    const vEl = h1.querySelector('.h-ville');
+    const dEl = h1.querySelector('.h-delai');
+    const poser = (c) => { vEl.textContent = c.v; dEl.textContent = c.d.replace(/ (min|h|minutes|minuti)\b/g, '\u00a0$1'); };
+    const voulue = new URLSearchParams(location.search).get('ville');
+    const fixe = liste.find(c => c.s === (voulue || '').toLowerCase());
+
+    if (fixe) {
+      poser(fixe);
+    } else if (liste.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Hauteur réservée à la variante la plus longue : sinon le texte et
+      // les boutons sautent à chaque changement, sous le doigt du visiteur.
+      const reserver = () => {
+        h1.style.minHeight = '';
+        let max = 0;
+        liste.forEach(c => { poser(c); max = Math.max(max, h1.offsetHeight); });
+        poser(liste[i]);
+        h1.style.minHeight = max + 'px';
+      };
+      let i = 0, pause = false, survol = false, t;
+      reserver();
+      let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(reserver, 150); });
+
+      const suivant = () => {
+        if (pause || survol || document.hidden) return;
+        h1.classList.add('swap');
+        setTimeout(() => { i = (i + 1) % liste.length; poser(liste[i]); h1.classList.remove('swap'); }, 180);
+      };
+      t = setInterval(suivant, 3000);
+
+      const heroEl = h1.closest('.hero');
+      heroEl.addEventListener('mouseenter', () => { survol = true; });
+      heroEl.addEventListener('mouseleave', () => { survol = false; });
+      heroEl.addEventListener('focusin', () => { survol = true; });
+      heroEl.addEventListener('focusout', () => { survol = false; });
+
+      const btn = document.querySelector('.rot-pause');
+      if (btn) {
+        btn.hidden = false;
+        btn.addEventListener('click', () => {
+          pause = !pause;
+          btn.setAttribute('aria-pressed', String(pause));
+          btn.textContent = pause ? tx.reprendre : tx.pause;
+          btn.setAttribute('aria-label', pause ? tx.reprendreAria : tx.pauseAria);
+        });
+      }
+    }
   }
 
   // ── Photos 2 et 3 du hero, chargées après l'affichage ──

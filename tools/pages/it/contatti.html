@@ -1,0 +1,53 @@
+<section class="wrap intro">
+  <a href="index.html" class="back">← Home</a>
+  <h1>Contattarci</h1>
+  <p class="lead">Se siete in panne, chiamare è la cosa più rapida — il pulsante è sempre sullo schermo. Per un preventivo, un appuntamento in officina o una domanda, basta questo modulo. La nostra squadra parla francese: per un messaggio scritto, WhatsApp è spesso più semplice.</p>
+</section>
+
+<section class="wrap sec">
+  <div class="split">
+    <div>
+      <h2 class="sr-only">Recapiti</h2>
+      <ul class="info">
+        <li>{{ic:pin}}<div><small>Officina</small>Zone industrielle du Quai de la Blanquière, 06000 Nizza, Francia</div></li>
+        <li>{{ic:clock}}<div><small>Orari</small>Soccorso 24 ore su 24 · officina su appuntamento</div></li>
+        <li>{{ic:timer}}<div><small>Tempo di arrivo</small>30–60 minuti a Nizza, altrove comunicato al telefono</div></li>
+        <li>{{ic:message}}<div><small>WhatsApp</small>Foto del guasto e posizione benvenute — <a href="{{WA}}" rel="noopener">apri la chat</a></div></li>
+      </ul>
+    </div>
+
+    <form class="form" id="contactForm">
+      <h2 class="sr-only">Scrivere un messaggio</h2>
+      <div class="field">
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" autocomplete="name" placeholder="Il vostro nome" required>
+      </div>
+      <div class="field">
+        <label for="phone">Telefono</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="+39 312 345 6789" required>
+      </div>
+      <div class="field">
+        <label for="subject">Oggetto</label>
+        <select id="subject" name="subject">
+          <option value="Demande de devis (IT)">Richiesta di preventivo</option>
+          <option value="Rendez-vous atelier (IT)">Appuntamento in officina</option>
+          <option value="Question sur une facture (IT)">Domanda su una fattura</option>
+          <option value="Autre (IT)">Altro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Messaggio</label>
+        <textarea id="message" name="message" rows="5" placeholder="Veicolo, posizione, cosa è successo…" required></textarea>
+      </div>
+      <!-- Piège à robots: invisible et hors tabulation; un humain ne le coche jamais. -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn btn-dark">Invia il messaggio</button>
+      <p class="form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></p>
+      <p class="form-help">Risposta entro qualche ora durante il giorno. Se siete in panne, usate il pulsante di chiamata.</p>
+    </form>
+  </div>
+</section>
+
+<section class="wrap sec sec-end">
+  <p class="aside">Informazioni legali sull'azienda (in francese): <a href="mentions-legales.html">note legali</a>.</p>
+</section>

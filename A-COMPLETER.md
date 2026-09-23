@@ -200,3 +200,74 @@ comptable). Donnez-moi votre pratique réelle.
 d'Auto Ways (elle pouvait contenir votre clé et la plaque du client). Le
 relais en ligne n'est mis à jour qu'après un redéploiement du projet Vercel
 `depannage-plaque`.
+
+---
+
+## Nouveautés à activer ou valider
+
+### Mesure d'audience — 3 minutes pour l'activer
+
+Tout est en place mais inactif. Créez un compte gratuit sur
+<https://www.goatcounter.com/signup>, choisissez un code (par exemple
+`depannageautonice`) et collez-le dans `config.js`, ligne `goatcounter`.
+Les statistiques seront sur `https://<votre-code>.goatcounter.com`.
+
+Ce qui sera compté, sans cookie ni bandeau de consentement :
+- les pages vues ;
+- chaque clic sur **Appeler**, **WhatsApp**, **Demander**, **Diagnostic**,
+  avec l'endroit du clic (`appel/titre`, `appel/barre-mobile`,
+  `whatsapp/colonne`…) : vous saurez quel bouton rapporte des appels ;
+- chaque demande terminée (`demande-envoyee/sent` si elle est arrivée par
+  e-mail, `demande-envoyee/manual` si le client a dû finir sur WhatsApp) ;
+- les photos partagées (`photo-partagee`).
+
+### Nouvelles pages ville — délais à valider
+
+Saint-Laurent-du-Var, Villeneuve-Loubet et Vence sont en ligne. Faute
+d'informations de votre part, j'ai écrit uniquement des faits publics
+(géographie, accès, lieux connus), sous le titre « Bon à savoir à… » et non
+« Ce que nous voyons le plus souvent » — ce qui aurait inventé votre
+expérience. **Les délais sont mes estimations**, calées sur les distances et
+vos cinq pages existantes : Saint-Laurent-du-Var 20 à 40 min,
+Villeneuve-Loubet 30 à 50 min, Vence 35 min à 1 h. Corrigez-les dans
+`tools/villes.json` si votre réalité diffère, puis lancez
+`node tools/build-pages.js && node tools/build-villes.js`.
+
+Au passage, la page Cagnes-sur-Mer indique « A8 sortie 47 (Cagnes-sur-Mer)
+ou 48 (Villeneuve-Loubet) » : il me semble que c'est l'inverse (47
+Villeneuve-Loubet, 48 Cagnes-sur-Mer). À vérifier sur place.
+
+### Pas de page Monaco
+
+Monaco est un autre pays, avec sa propre réglementation du remorquage et de
+la fourrière. Une page « Dépannage Monaco » risquerait de promettre une
+intervention que vous n'avez pas le droit de faire. Dites-moi ce que vous y
+faites réellement (dépannage sur place ? remorquage vers la France ?) et je
+l'écris.
+
+### Versions anglaise et italienne — une question
+
+Les pages `en/` et `it/` disent que l'équipe parle français et proposent
+WhatsApp pour un message écrit. **Si quelqu'un chez vous parle anglais ou
+italien au téléphone, dites-le** : je l'annoncerai, c'est un vrai argument
+face aux concurrents. Le formulaire de demande et le diagnostic restent en
+français ; les liens qui y mènent le précisent.
+
+### Diagnostic pneus : « attestation officielle » retirée
+
+La page promettait une « attestation officielle utilisable en cas de
+contrôle » et une « attestation (contrôle police) ». C'est un auto-diagnostic
+fait à partir des photos du client : il n'a aucune valeur officielle, et un
+client qui l'aurait présenté à un contrôle routier se serait senti trompé.
+C'est devenu un « compte rendu imprimable, à montrer au garage », qui le
+dit clairement. Même correction dans l'encart de l'accueil.
+
+### Demande : ce qui a changé à l'écran final
+
+- La carte affichait « Technicien en route » avant même que la demande soit
+  arrivée chez vous : remplacé par « Notre atelier ».
+- Le délai affiché était « 30–45 min », contre « 30 à 60 min » partout
+  ailleurs : aligné.
+- Le bandeau « Technicien disponible » en haut du formulaire est une
+  promesse, comme « un technicien décroche » : à garder seulement si c'est
+  vrai à toute heure.

@@ -21,7 +21,7 @@ const esc = s => String(s).replace(/&(?!(amp|lt|gt|quot|#\d+|nbsp);)/g, '&amp;')
 // Pour le JSON-LD : pas de HTML, donc on retire les entités et le balisage.
 const plain = s => String(s).replace(/&nbsp;/g, ' ').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
 
-const { writePage } = require('./build-pages');
+const { writePage, PAGES } = require('./build-pages');
 
 
 function page(v) {
@@ -94,7 +94,7 @@ function page(v) {
 </section>
 
 <section class="wrap sec" aria-labelledby="h-local">
-  <h2 class="sec-t" id="h-local">Ce que nous voyons le plus souvent à ${esc(v.nom)}</h2>
+  <h2 class="sec-t" id="h-local">${esc(v.specTitre || `Ce que nous voyons le plus souvent à ${v.nom}`)}</h2>
   <div class="grid grid-wide">
     ${v.specificites.map(sp => `<article class="cell"><h3>${esc(sp.titre)}</h3><p>${sp.texte}</p></article>`).join('\n    ')}
   </div>
@@ -166,16 +166,18 @@ villes.forEach(page);
 
 // ── Sitemap ─────────────────────────────────
 const today = new Date().toISOString().slice(0, 10);
+// Pages du générateur principal (toutes langues), sauf celles exclues de
+// l'index (404) : une seule source, le sitemap ne peut plus oublier une page.
+const PRIO = { accueil: '1.0', services: '0.9', zone: '0.8', faq: '0.7', contact: '0.7', 'a-propos': '0.6' };
 const staticPages = [
-  { loc: `${site.base}/`, freq: 'weekly', prio: '1.0' },
+  ...PAGES.filter(p => !p.noindex).map(p => ({
+    loc: `${site.base}/${p.file.replace(/(^|\/)index\.html$/, '$1')}`,
+    freq: p.key === 'accueil' ? 'weekly' : 'monthly',
+    // Les traductions passent après les pages françaises de même rang.
+    prio: p.lang ? '0.6' : (PRIO[p.key] || '0.3'),
+  })),
   { loc: `${site.base}/demande.html`, freq: 'monthly', prio: '0.9' },
   { loc: `${site.base}/diagnostic.html`, freq: 'monthly', prio: '0.8' },
-  { loc: `${site.base}/services.html`, freq: 'monthly', prio: '0.9' },
-  { loc: `${site.base}/zone.html`, freq: 'monthly', prio: '0.8' },
-  { loc: `${site.base}/faq.html`, freq: 'monthly', prio: '0.7' },
-  { loc: `${site.base}/contact.html`, freq: 'yearly', prio: '0.7' },
-  { loc: `${site.base}/a-propos.html`, freq: 'monthly', prio: '0.6' },
-  { loc: `${site.base}/mentions-legales.html`, freq: 'yearly', prio: '0.3' },
 ];
 const cityPages = villes.map(v => ({ loc: `${site.base}/ville-${v.slug}.html`, freq: 'monthly', prio: '0.8' }));
 

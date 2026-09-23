@@ -13,10 +13,11 @@ pas être faites depuis le code.
   les questions éligibles à l'affichage enrichi dans les résultats Google. Le
   texte affiché et le balisage viennent de la même source dans
   `tools/build-pages.js`, ils ne peuvent pas diverger.
-- **Pages locales** pour Cannes, Antibes, Menton, Cagnes-sur-Mer et Grasse.
+- **Pages locales** pour Cannes, Antibes, Menton, Cagnes-sur-Mer, Grasse,
+  Saint-Laurent-du-Var, Villeneuve-Loubet et Vence.
   Chacune a son propre contenu (accès, pannes fréquentes sur place, quartiers,
   délai réel depuis Nice), son `BreadcrumbList` et son `Service` géolocalisé.
-- **Sitemap** (14 URL) et `robots.txt` pointant dessus.
+- **Sitemap** (29 URL, construit automatiquement à partir des pages) et `robots.txt` pointant dessus.
 - **Image de partage** `img/og-cover.jpg` au format 1200×630 attendu par
   Facebook, WhatsApp et X, avec le nom et le numéro : un lien partagé sur
   WhatsApp montre directement qui appeler.
@@ -72,6 +73,22 @@ téléphone. Après l'achat, il faudra remplacer l'adresse de base dans
 `tools/villes.json` (clé `site.base`), relancer les deux générateurs, et mettre
 à jour les `canonical` et `og:url` de `demande.html`, `diagnostic.html` et
 `mentions-legales.html`, qui ne sont pas générées.
+
+## Versions anglaise et italienne
+
+Les pages clés existent en anglais (`en/`) et en italien (`it/`), reliées
+par des balises `hreflang` : Google montre à chacun la version de sa langue.
+Les noms de ville et les délais viennent de `villes.json` (Nizza et Mentone
+en italien). Contenus dans `tools/pages/en/` et `tools/pages/it/`, textes
+communs et FAQ traduites dans `tools/i18n.js`.
+
+## Titre de l'accueil ville par ville
+
+Le titre de l'accueil fait défiler les villes desservies, chacune avec son
+délai. Pour une campagne Google Ads ou un QR code, ajoutez `?ville=<nom>` à
+l'adresse (`?ville=grasse`, `?ville=cannes`…) : le titre reste fixé sur cette
+ville. Google ne transmet pas aux sites les mots tapés par l'internaute :
+c'est le seul moyen fiable d'adapter le titre à la recherche.
 
 ## Modifier un texte du site
 

@@ -1,6 +1,6 @@
 /* =============================================
    DEMANDE DÉPANNAGE — demande.css
-   Palette GTA/HUD — Bowlby One / Chakra Petch / JetBrains Mono
+   Design du site : Chakra Petch / JetBrains Mono, angles droits (fonts/fonts.css)
    ============================================= */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,47 +47,8 @@ body {
 }
 
 /* CRT scanlines */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0, transparent 2px,
-    rgba(20,20,12,0.02) 2px, rgba(20,20,12,0.02) 4px
-  );
-  pointer-events: none; z-index: 9999;
-}
 
 /* ── Header ─────────────────────────────────── */
-.dem-header {
-  background: rgba(255,255,255,0.94);
-  border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 50;
-  backdrop-filter: blur(10px);
-}
-.dem-header-inner {
-  max-width: 680px; margin: 0 auto; padding: 0 20px;
-  height: 64px; display: flex; align-items: center; justify-content: space-between;
-}
-.dem-logo {
-  display: flex; align-items: center; gap: 8px;
-  text-decoration: none; color: var(--white);
-  font-family: 'Bowlby One', sans-serif; font-size: 0.95rem;
-}
-.dem-logo svg { color: var(--orange); }
-.dem-logo strong { color: var(--orange); }
-.dem-header-call {
-  display: flex; align-items: center; gap: 6px;
-  text-decoration: none; color: var(--orange);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.82rem; font-weight: 700;
-  border: 1px solid rgba(255,107,0,0.3);
-  /* Cible tactile confortable : c'est le lien d'urgence. */
-  padding: 12px; min-height: 44px;
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
-  transition: background 0.2s, box-shadow 0.2s;
-}
-.dem-header-call:hover { background: rgba(255,107,0,0.1); box-shadow: 0 0 12px var(--orange-glow); }
 
 /* ── Progress steps ─────────────────────────── */
 .step-progress {
@@ -101,7 +62,6 @@ body::before {
 }
 .step-dot {
   width: 36px; height: 36px;
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   background: var(--bg-card); color: var(--gray);
   border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center;
@@ -163,14 +123,14 @@ body::before {
   display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px;
 }
 .step-num {
-  font-family: 'Bowlby One', sans-serif;
+  font-family: 'Chakra Petch', sans-serif; font-weight: 700;
   font-size: 2.2rem; color: var(--orange);
   line-height: 1; flex-shrink: 0;
   text-shadow: 0 0 24px var(--orange-glow);
   letter-spacing: -1px;
 }
 .step-title {
-  font-family: 'Bowlby One', sans-serif;
+  font-family: 'Chakra Petch', sans-serif; font-weight: 700;
   font-size: clamp(1.3rem, 4vw, 1.7rem);
   font-weight: 400; line-height: 1.1; margin-bottom: 4px;
 }
@@ -193,7 +153,6 @@ body::before {
   color: var(--orange);
   font-family: 'Chakra Petch', sans-serif;
   font-size: 1rem; font-weight: 700; cursor: pointer;
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
   transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
   text-transform: uppercase; letter-spacing: 1px;
 }
@@ -221,7 +180,6 @@ body::before {
   margin-bottom: 16px;
   border: 1px solid rgba(57,255,20,0.3);
   overflow: hidden;
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
 }
 .geo-address-box {
   display: flex; align-items: center; gap: 8px;
@@ -295,7 +253,6 @@ body::before {
   cursor: pointer; color: var(--gray);
   font-family: 'Chakra Petch', sans-serif;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
   transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
   text-align: center;
 }
@@ -357,7 +314,6 @@ body::before {
   font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;
   text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
 .btn-dem:hover { transform: translateY(-2px); }
 .btn-dem:active { transform: translateY(0); }
@@ -415,12 +371,11 @@ body::before {
 .confirm-check {
   width: 44px; height: 44px; flex-shrink: 0;
   background: rgba(57,255,20,0.1); border: 1px solid rgba(57,255,20,0.3);
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   display: flex; align-items: center; justify-content: center;
   color: var(--neon-green);
 }
 .confirm-title {
-  font-family: 'Bowlby One', sans-serif; font-size: 1rem; font-weight: 400;
+  font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1rem;
   color: var(--neon-green);
 }
 .confirm-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gray); }
@@ -428,14 +383,13 @@ body::before {
   margin-left: auto; flex-shrink: 0; text-align: center;
   background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.3);
   padding: 8px 14px;
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
 .eta-label {
   font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
   color: var(--orange); text-transform: uppercase; letter-spacing: 2px;
 }
 .eta-value {
-  font-family: 'Bowlby One', sans-serif; font-size: 1.2rem;
+  font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1.2rem;
   color: var(--orange); line-height: 1;
   text-shadow: 0 0 12px var(--orange-glow);
 }
@@ -476,7 +430,6 @@ body::before {
 .tech-avatar {
   width: 60px; height: 60px; flex-shrink: 0; position: relative;
   overflow: hidden;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
   background: var(--bg-elevated);
 }
 .tech-avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -493,7 +446,7 @@ body::before {
   border: 1.5px solid var(--bg-card);
 }
 .tech-info { flex: 1; min-width: 0; }
-.tech-name { font-family: 'Bowlby One', sans-serif; font-size: 1rem; font-weight: 400; }
+.tech-name { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 1rem; }
 .tech-role { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gray); margin-bottom: 4px; }
 .tech-rating { display: flex; align-items: center; gap: 6px; }
 .stars { color: var(--orange); font-size: 0.72rem; letter-spacing: -1px; }
@@ -504,14 +457,13 @@ body::before {
   line-height: 1.5; color: var(--neon-green);
 }
 .tech-meta { text-align: right; flex-shrink: 0; }
-.tech-distance { font-family: 'Bowlby One', sans-serif; font-size: 0.9rem; color: var(--orange); }
+.tech-distance { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--orange); }
 .tech-exp { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gray); }
 
 /* Confirmation map */
 .confirm-map-wrap {
   position: relative; margin-bottom: 16px;
   border: 1px solid var(--border);
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
   overflow: hidden;
 }
 .confirm-map-overlay {
@@ -613,8 +565,6 @@ body::before {
 .step-dot svg { color: inherit; display: block; width: 16px; height: 16px; }
 
 /* Header */
-.dem-logo svg { color: var(--orange); width: 18px; height: 18px; }
-.dem-header-call svg { color: inherit; width: 14px; height: 14px; }
 
 /* Geo button */
 .btn-geo svg { color: inherit; width: 22px; height: 22px; }
@@ -653,9 +603,6 @@ body::before {
   /* Le numéro était masqué sur mobile alors que c'est la page où un client
      bloqué sur le bord de la route peut vouloir abandonner le formulaire et
      appeler. Il reste affiché, simplement plus compact. */
-  .dem-header-call { padding: 10px; font-size: 0.78rem; gap: 5px; flex-shrink: 0; }
-  .dem-header-inner { gap: 10px; }
-  .dem-logo { min-width: 0; font-size: 0.9rem; overflow: hidden; white-space: nowrap; }
   .dem-main { padding: 24px 16px 80px; }
 
   /* Panne grid — 2 col compact */
@@ -776,3 +723,10 @@ body::before {
   .champ-plaque.is-recherche { animation: none; }
   .veh-carte { transition: none; opacity: 1; transform: none; }
 }
+
+/* ── Photo jointe (partage natif) ─────────── */
+.photo-share { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.btn-photo-dem { background: #fff; color: var(--text); border: 1px solid var(--border); width: 100%; justify-content: center; }
+.btn-photo-dem:hover { border-color: var(--orange); color: var(--orange); }
+.btn-photo-dem svg { width: 18px; height: 18px; }
+.photo-share-hint { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); line-height: 1.6; margin: 0; }

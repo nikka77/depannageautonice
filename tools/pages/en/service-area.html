@@ -1,0 +1,51 @@
+<section class="wrap intro">
+  <a href="index.html" class="back">← Home</a>
+  <h1>The whole Alpes-Maritimes, with an arrival time given when you call.</h1>
+  <p class="lead">30 to 60 minutes in Nice and the neighbouring towns. Further out, the time depends on the road and the hour — it is given to you before the tow truck sets off.</p>
+</section>
+
+<section class="wrap sec" aria-label="Times by area">
+  <div class="split">
+    <div>
+      <div class="grid grid-col">
+        <article class="cell zone">
+          <div class="zone-hd"><h2>Nice and first ring</h2><b>30 – 60 min</b></div>
+          <p>Nice, {{V:saint-laurent-du-var}}, {{V:cagnes-sur-mer}}, {{V:villeneuve-loubet}}, Villefranche-sur-Mer, Beaulieu.</p>
+        </article>
+        <article class="cell zone">
+          <div class="zone-hd"><h2>West of the department</h2><b>Time given when you call</b></div>
+          <p>{{V:antibes}}, Juan-les-Pins, Vallauris, Mougins, {{V:cannes}}, Le Cannet, Mandelieu, {{V:grasse}}, {{V:vence}}.</p>
+        </article>
+        <article class="cell zone">
+          <div class="zone-hd"><h2>East and hinterland</h2><b>Time given when you call</b></div>
+          <p>Monaco border, Roquebrune-Cap-Martin, {{V:menton}}, Sospel, Contes, Levens, and the rest of the Alpes-Maritimes.</p>
+        </article>
+      </div>
+      <p class="small-mono">Times in brackets: estimate from Nice outside rush hour. Town pages are in French. On motorways and expressways, recovery must be carried out by the operator approved for that network — use an emergency call box or dial 112.</p>
+    </div>
+    <div>
+      <div id="zoneMap" class="map" role="region" aria-label="Map of the area covered around our Nice workshop">
+        <p class="map-fallback">Map unavailable — we cover Nice and the whole Alpes-Maritimes department.</p>
+      </div>
+      <p class="map-legend">● Workshop — Quai de la Blanquière, Nice<br>Solid circle: about 30 min · dotted: 60 min and more</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-communes">
+  <h2 class="sec-t" id="h-communes">Town pages (in French)</h2>
+  <p class="sec-sub">Times, access and the most common local breakdowns.</p>
+  <ul class="chips">
+{{ZONE_CHIPS}}
+  </ul>
+</section>
+
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">Not sure you are in our area?</h2>
+      <p>Send us your location on WhatsApp: we tell you the real arrival time straight away.</p>
+    </div>
+    <a href="{{WA}}" class="btn btn-orange" rel="noopener">{{ic:message}}Send my location</a>
+  </div>
+</section>

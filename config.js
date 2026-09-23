@@ -37,6 +37,20 @@ window.SITE_CONFIG = {
   plaqueEndpoint: 'https://depannage-plaque.vercel.app/api/plaque',
   plaqueTimeoutMs: 10000,
 
+  // ── Mesure d'audience (GoatCounter) ───────────────────────
+  // Sans cookie ni donnée personnelle : pas de bandeau de consentement.
+  // Compte les pages vues ET chaque clic sur Appeler / WhatsApp /
+  // Demander, avec l'endroit du clic (titre, barre mobile, colonne…).
+  //
+  // POUR ACTIVER (3 min, gratuit) :
+  //   1. Créer un compte sur https://www.goatcounter.com/signup
+  //   2. Choisir un code, par exemple « depannageautonice »
+  //   3. Le coller ci-dessous. Les statistiques seront sur
+  //      https://depannageautonice.goatcounter.com
+  //
+  // Tant que ce code est vide, rien n'est chargé ni mesuré.
+  goatcounter: '',
+
   // ── Contact ───────────────────────────────────────────────
   whatsappNumber: '33617684270',  // format international, sans "+"
   phoneDisplay: '06 17 68 42 70',

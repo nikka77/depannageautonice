@@ -126,6 +126,11 @@ p { margin: 0; }
 .nav a:hover { color: var(--accent); }
 .nav a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--fill); }
 
+/* Sélecteur de langue : FR · EN · IT. */
+.langs { display: inline-flex; align-items: center; gap: 2px; padding-left: 14px; border-left: 1px solid var(--line); }
+.nav .langs a { min-width: 30px; justify-content: center; font-size: .66rem; letter-spacing: .08em; color: var(--muted); }
+.nav .langs a[aria-current="true"] { color: var(--ink); font-weight: 700; border-bottom-color: var(--ink); }
+
 .hd-actions { display: none; align-items: center; gap: 10px; }
 .hd-call {
   display: inline-flex; flex-direction: column; justify-content: center;
@@ -218,6 +223,15 @@ p { margin: 0; }
   letter-spacing: -.015em; margin-bottom: 20px; max-width: 18ch;
 }
 .hero h1 em { font-style: normal; color: var(--on-dark-accent); }
+.h-ville, .h-delai { transition: opacity .18s ease; }
+.hero h1.swap .h-ville, .hero h1.swap .h-delai { opacity: 0; }
+.rot-pause {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; padding: 0;
+  background: none; border: 0; cursor: pointer; color: #bdbdb4;
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+}
+.rot-pause:hover { color: var(--on-dark-accent); }
+.rot-pause[hidden] { display: none; }
 .hero-lead {
   font-size: clamp(1rem, 2.2vw, 1.15rem); line-height: 1.6;
   color: #e4e4dd; max-width: 52ch; margin-bottom: 34px;
@@ -521,6 +535,9 @@ p { margin: 0; }
   .nav.open { display: flex; }
   .nav a { font-size: .85rem; min-height: 48px; border-bottom: 1px solid var(--line); }
   .nav a[aria-current="page"] { border-bottom-color: var(--line); }
+  .langs { border-left: 0; padding: 6px 0 0; gap: 8px; }
+  .nav .langs a { border: 1px solid var(--line); min-width: 52px; min-height: 44px; font-size: .78rem; }
+  .nav .langs a[aria-current="true"] { border-color: var(--ink); }
 
   .bar {
     display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;

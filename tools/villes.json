@@ -32,7 +32,16 @@
           "texte": "Les véhicules garés longtemps le long de la Croisette ou au port souffrent de l'air salin&nbsp;: cosses de batterie oxydées et démarrages capricieux sont les pannes que nous voyons le plus souvent ici."
         }
       ],
-      "quartiers": ["La Croisette", "Le Suquet", "La Bocca", "Palm Beach", "Petit Juas", "République", "Port Canto", "Ranguin"],
+      "quartiers": [
+        "La Croisette",
+        "Le Suquet",
+        "La Bocca",
+        "Palm Beach",
+        "Petit Juas",
+        "République",
+        "Port Canto",
+        "Ranguin"
+      ],
       "faq": [
         {
           "q": "Intervenez-vous dans les parkings souterrains de Cannes ?",
@@ -68,7 +77,16 @@
           "texte": "Autour du port, nous intervenons régulièrement sur des véhicules tractant une remorque. Précisez-nous la présence d'un attelage ou d'une remorque&nbsp;: cela change le matériel que nous engageons."
         }
       ],
-      "quartiers": ["Vieil Antibes", "Juan-les-Pins", "Cap d'Antibes", "La Fontonne", "Les Semboules", "Sophia Antipolis", "Port Vauban", "Les Trois Moulins"],
+      "quartiers": [
+        "Vieil Antibes",
+        "Juan-les-Pins",
+        "Cap d'Antibes",
+        "La Fontonne",
+        "Les Semboules",
+        "Sophia Antipolis",
+        "Port Vauban",
+        "Les Trois Moulins"
+      ],
       "faq": [
         {
           "q": "Pouvez-vous intervenir sur un parking d'entreprise à Sophia Antipolis ?",
@@ -104,7 +122,15 @@
           "texte": "Nous intervenons jusqu'à la frontière. Au-delà, sur le territoire italien, la réglementation du remorquage change&nbsp;: appelez-nous pour que nous vérifions ensemble ce qui est possible avant d'engager quoi que ce soit."
         }
       ],
-      "quartiers": ["Garavan", "Centre historique", "Carnolès", "Borrigo", "Monti", "Roquebrune-Cap-Martin", "Val de Gorbio"],
+      "quartiers": [
+        "Garavan",
+        "Centre historique",
+        "Carnolès",
+        "Borrigo",
+        "Monti",
+        "Roquebrune-Cap-Martin",
+        "Val de Gorbio"
+      ],
       "faq": [
         {
           "q": "Que faire si ma voiture surchauffe sur la corniche ?",
@@ -140,7 +166,15 @@
           "texte": "Le long de la promenade du Cros-de-Cagnes, le stationnement sur les accotements finit régulièrement en roue bloquée ou en pneu ouvert par un galet. C'est une intervention rapide, souvent réglée sur place."
         }
       ],
-      "quartiers": ["Cros-de-Cagnes", "Haut-de-Cagnes", "Val Fleuri", "Les Bréguières", "Polygone Riviera", "Hippodrome", "Saint-Véran"],
+      "quartiers": [
+        "Cros-de-Cagnes",
+        "Haut-de-Cagnes",
+        "Val Fleuri",
+        "Les Bréguières",
+        "Polygone Riviera",
+        "Hippodrome",
+        "Saint-Véran"
+      ],
       "faq": [
         {
           "q": "Quel est votre délai sur Cagnes-sur-Mer ?",
@@ -176,7 +210,15 @@
           "texte": "Vers Saint-Vallier, Cabris ou Le Tignet, le réseau devient sinueux et la couverture téléphonique irrégulière. Donnez-nous un point de repère précis (borne kilométrique, hameau, commerce) plutôt qu'une adresse approximative."
         }
       ],
-      "quartiers": ["Centre historique", "Saint-Jacques", "Plascassier", "Magagnosc", "Le Plan de Grasse", "Saint-Antoine", "La Paoute"],
+      "quartiers": [
+        "Centre historique",
+        "Saint-Jacques",
+        "Plascassier",
+        "Magagnosc",
+        "Le Plan de Grasse",
+        "Saint-Antoine",
+        "La Paoute"
+      ],
       "faq": [
         {
           "q": "Montez-vous jusqu'à Grasse et dans l'arrière-pays ?",
@@ -185,6 +227,137 @@
         {
           "q": "Le tarif est-il le même qu'à Nice ?",
           "r": "Non. Le tarif de base de 70 € correspond à Nice et ses environs immédiats. Sur Grasse, la distance est facturée en supplément&nbsp;: le montant exact vous est annoncé au téléphone, avant tout déplacement, et c'est celui qui sera facturé."
+        }
+      ]
+    },
+    {
+      "slug": "saint-laurent-du-var",
+      "nom": "Saint-Laurent-du-Var",
+      "cp": "06700",
+      "lat": 43.6731,
+      "lng": 7.1903,
+      "distanceKm": 8,
+      "delai": "20 à 40 min",
+      "acces": "A8 sortie Saint-Laurent-du-Var, ou bord de mer depuis Nice par les ponts du Var.",
+      "intro": "Saint-Laurent-du-Var est de l'autre côté du Var, juste en face de Nice&nbsp;: c'est l'une des communes où nous arrivons le plus vite. Le passage du fleuve reste pourtant le point sensible du trajet aux heures de pointe.",
+      "specTitre": "Bon à savoir à Saint-Laurent-du-Var",
+      "specificites": [
+        {
+          "titre": "Les ponts du Var aux heures de pointe",
+          "texte": "Tout le trafic entre Nice et l'ouest du département franchit le Var sur quelques ponts. Le matin et en fin de journée, c'est là que le délai varie le plus&nbsp;: nous vous donnons au téléphone une estimation qui en tient compte."
+        },
+        {
+          "titre": "Cap 3000 et les parkings commerciaux",
+          "texte": "Sur un grand parking de centre commercial, une panne au démarrage se règle souvent sur place. Précisez-nous le niveau, la zone ou l'entrée la plus proche&nbsp;: c'est ce qui fait gagner le plus de temps à l'arrivée."
+        },
+        {
+          "titre": "Le port et le bord de mer",
+          "texte": "Le long du port et de la promenade, le stationnement est serré et souvent en épi. Si le véhicule doit être remorqué, nous le sortons jusqu'à un endroit où le plateau peut charger sans bloquer la circulation."
+        }
+      ],
+      "quartiers": [
+        "Centre-ville",
+        "Le Port",
+        "Vieux-Village",
+        "Les Pugets",
+        "Montaleigne",
+        "Point-du-Jour",
+        "Cap 3000"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Saint-Laurent-du-Var ?",
+          "r": "La commune est à environ 8 km de notre atelier&nbsp;: comptez 20 à 40 minutes, le plus souvent selon la circulation sur les ponts du Var."
+        },
+        {
+          "q": "Je suis en panne sur le parking d'un centre commercial.",
+          "r": "Restez près du véhicule si vous le pouvez et donnez-nous le niveau, la zone ou l'entrée la plus proche. Une panne au démarrage se règle souvent sur place, sans remorquage."
+        }
+      ]
+    },
+    {
+      "slug": "villeneuve-loubet",
+      "nom": "Villeneuve-Loubet",
+      "cp": "06270",
+      "lat": 43.6588,
+      "lng": 7.1219,
+      "distanceKm": 17,
+      "delai": "30 à 50 min",
+      "acces": "A8 sorties Villeneuve-Loubet ou Cagnes-sur-Mer, ou bord de mer par la D6007.",
+      "intro": "Entre Cagnes et Antibes, Villeneuve-Loubet va de la mer, avec Marina Baie des Anges, jusqu'au village perché autour de son château. Deux terrains très différents pour une intervention.",
+      "specTitre": "Bon à savoir à Villeneuve-Loubet",
+      "specificites": [
+        {
+          "titre": "Marina Baie des Anges",
+          "texte": "Les parkings de la Marina sont en grande partie souterrains et à accès contrôlé. Prévenez la conciergerie ou le gardien de notre passage et indiquez-nous le niveau&nbsp;: sans cela, l'accès peut prendre plus de temps que la réparation."
+        },
+        {
+          "titre": "Le bord de mer en saison",
+          "texte": "L'été, la route du bord de mer entre Cagnes et Antibes est très chargée. Si vous êtes immobilisé sur la voie, allumez vos feux de détresse et mettez-vous en sécurité hors de la chaussée en attendant."
+        },
+        {
+          "titre": "Le village et ses rues étroites",
+          "texte": "Les rues du vieux village sont en pente et étroites. Nous venons d'abord évaluer sur place&nbsp;; si le remorquage est nécessaire, nous descendons le véhicule jusqu'à un point de chargement praticable."
+        }
+      ],
+      "quartiers": [
+        "Village",
+        "Marina Baie des Anges",
+        "Villeneuve-Loubet Plage",
+        "Les Maurettes",
+        "Vaugrenier"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Villeneuve-Loubet ?",
+          "r": "La commune est à environ 17 km de notre atelier&nbsp;: comptez 30 à 50 minutes selon l'heure. En saison, le bord de mer allonge parfois le trajet&nbsp;: nous vous le disons au téléphone."
+        },
+        {
+          "q": "Ma voiture est dans un parking souterrain de la Marina.",
+          "r": "Nous intervenons en sous-sol quand la hauteur le permet. Indiquez-nous le niveau et prévenez le gardien de notre arrivée&nbsp;: c'est l'accès qui fait perdre le plus de temps."
+        }
+      ]
+    },
+    {
+      "slug": "vence",
+      "nom": "Vence",
+      "cp": "06140",
+      "lat": 43.7225,
+      "lng": 7.1119,
+      "distanceKm": 24,
+      "delai": "35 min à 1 h",
+      "acces": "Par Cagnes-sur-Mer et la D36, ou par La Colle-sur-Loup.",
+      "intro": "Vence est une ville perchée à une dizaine de kilomètres de la mer, porte d'entrée de l'arrière-pays. Entre la cité historique et les routes de montagne qui partent vers le col de Vence, les conditions d'intervention changent vite.",
+      "specTitre": "Bon à savoir à Vence",
+      "specificites": [
+        {
+          "titre": "La cité historique",
+          "texte": "Le centre ancien, derrière ses remparts, est fait de ruelles où un véhicule de dépannage ne passe pas. Donnez-nous l'accès le plus proche, place du Grand Jardin par exemple&nbsp;: nous vous y rejoignons."
+        },
+        {
+          "titre": "La route du col de Vence",
+          "texte": "Au-delà de la ville, la route monte en lacets vers le col, exposée au vent et, l'hiver, parfois au verglas. Si vous êtes arrêté dans un virage, mettez-vous en sécurité hors de la chaussée et donnez-nous un repère précis&nbsp;: borne, épingle, lieu-dit."
+        },
+        {
+          "titre": "Réseau et repères",
+          "texte": "Sur les hauteurs, la couverture téléphonique peut devenir irrégulière. Envoyez-nous votre position dès que vous captez, par la demande en ligne ou WhatsApp&nbsp;: elle nous reste même si l'appel coupe."
+        }
+      ],
+      "quartiers": [
+        "Cité historique",
+        "Place du Grand Jardin",
+        "Col de Vence",
+        "Route de Saint-Jeannet",
+        "Route de Tourrettes"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Vence ?",
+          "r": "Vence est à environ 24 km de notre atelier&nbsp;: comptez 35 minutes à 1 heure selon l'heure et le point exact, un peu plus sur la route du col."
+        },
+        {
+          "q": "Je suis en panne sur la route du col de Vence.",
+          "r": "Allumez vos feux de détresse, sortez du véhicule côté talus et, si possible, éloignez-vous du virage. Donnez-nous un repère précis ou envoyez votre position par WhatsApp&nbsp;: nous vous annonçons le délai avant de partir."
         }
       ]
     }

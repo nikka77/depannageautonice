@@ -271,6 +271,7 @@ const btn2Skip        = document.getElementById('btn2Skip');
 photoInput.addEventListener('change', () => {
   const file = photoInput.files[0];
   if (!file) return;
+  state.photoFile = file;   // gardé tel quel pour le partage natif (Web Share)
   const reader = new FileReader();
   reader.onload = (e) => {
     state.photoDataUrl = e.target.result;
@@ -288,6 +289,7 @@ photoInput.addEventListener('change', () => {
 photoRemove.addEventListener('click', (e) => {
   e.stopPropagation();
   state.photoDataUrl = null;
+  state.photoFile = null;
   photoInput.value = '';
   photoPreview.classList.add('hidden');
   photoRemove.classList.add('hidden');
@@ -363,6 +365,9 @@ btn3Next.addEventListener('click', async () => {
   btn3Next.textContent = 'Envoi en cours…';
 
   state.delivery = await deliverRequest();
+  // 'sent' = arrivée par e-mail ; 'manual' = le client doit finir sur
+  // WhatsApp ou par téléphone. Les deux sont des demandes, pas les mêmes.
+  if (window.mesurer) window.mesurer(`demande-envoyee/${state.delivery}`);
 
   btn3Next.disabled = false;
   btn3Next.classList.remove('is-sending');
@@ -403,7 +408,7 @@ function requestSummary() {
     state.description ? `Description : ${state.description}` : null,
     // La photo n'est pas transmise par le formulaire (ni par un lien
     // WhatsApp pré-rempli) : on signale au moins qu'elle existe.
-    state.photoDataUrl ? 'Photo : le client en a pris une, demandez-la-lui sur WhatsApp' : null,
+    state.photoDataUrl ? 'Photo : le client en a une, elle suit sur WhatsApp' : null,
     `Prénom : ${state.firstName || '—'}`,
     `Téléphone : ${state.phone}`,
   ].filter(Boolean).join('\n');
@@ -506,12 +511,47 @@ function applyDeliveryState() {
     }
   }
 
+  preparePhotoShare();
+
   // Le bouton WhatsApp devient l'action principale quand rien n'est parti.
   const waBtn = document.getElementById('btnWhatsapp');
   if (waBtn) {
     const label = waBtn.querySelector('.wa-label');
     if (label) label.textContent = sent ? 'Ajouter une précision par WhatsApp' : 'Envoyer via WhatsApp';
   }
+}
+
+// ── Photo : partage natif vers WhatsApp ─────
+// Un site statique ne peut pas joindre un fichier à un lien WhatsApp. Le
+// partage natif du téléphone (Web Share, Android et iOS) le peut : le client
+// envoie d'abord le message, ce qui crée notre conversation, puis partage
+// la photo et choisit cette conversation dans ses discussions récentes.
+function preparePhotoShare() {
+  const bloc = document.getElementById('photoShare');
+  const btn  = document.getElementById('btnPhotoShare');
+  const hint = document.getElementById('photoShareHint');
+  if (!bloc) return;
+  bloc.hidden = !state.photoFile;
+  if (!state.photoFile) return;
+
+  const partageable = !!(navigator.canShare && navigator.canShare({ files: [state.photoFile] }));
+  btn.hidden = !partageable;
+  hint.textContent = partageable
+    ? 'Envoyez d\'abord le message WhatsApp ci-dessus, puis touchez ce bouton et choisissez notre conversation.'
+    : 'Pour nous montrer votre photo, envoyez-la depuis votre galerie dans la conversation WhatsApp.';
+
+  if (btn.dataset.pret) return;
+  btn.dataset.pret = '1';
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.share({ files: [state.photoFile], title: 'Photo de la panne', text: 'Photo de ma panne (demande faite sur le site).' });
+      if (window.mesurer) window.mesurer('photo-partagee');
+    } catch (err) {
+      if (err && err.name !== 'AbortError') {
+        hint.textContent = 'Le partage n\'a pas fonctionné : envoyez la photo depuis votre galerie dans la conversation WhatsApp.';
+      }
+    }
+  });
 }
 
 // ── Carte confirmation avec trajet ──────────
@@ -548,7 +588,9 @@ function initConfirmMap() {
     });
     L.marker(GARAGE, { icon: techIcon })
       .addTo(confirmMap)
-      .bindPopup('🚐 Technicien en route');
+      // Pas « technicien en route » : à ce stade, la demande n'est peut-être
+      // même pas encore arrivée chez nous.
+      .bindPopup('🚐 Notre atelier — Quai de la Blanquière');
 
     // Fit bounds pour voir les deux marqueurs
     confirmMap.fitBounds([GARAGE, CLIENT], { padding: [32, 32] });

@@ -362,7 +362,7 @@ function buildCertificate() {
         <div class="cert-logo-sub">Zone industrielle du Quai de la Blanquière, Nice · 06 17 68 42 70</div>
       </div>
       <div class="cert-title-block">
-        <h2>Attestation de diagnostic<br>pneumatiques</h2>
+        <h2>Compte rendu d'auto-diagnostic<br>pneumatiques</h2>
         <p>Établie le ${dateStr} à ${timeStr}</p>
       </div>
     </div>
@@ -387,7 +387,7 @@ function buildCertificate() {
     <div class="cert-tires-grid">${tiresHtml}</div>
 
     <div class="cert-recommendation">
-      <h4>Recommandation professionnelle</h4>
+      <h4>Recommandation</h4>
       <p>${recoText}</p>
     </div>
 
@@ -396,7 +396,8 @@ function buildCertificate() {
     <div class="cert-footer">
       <div class="cert-legal">
         Ce document a été établi suite à un auto-diagnostic assisté réalisé via <strong>depannageautonice.fr</strong>.<br>
-        Il atteste que le propriétaire du véhicule a entrepris une démarche de vérification de l'état de ses pneumatiques et, le cas échéant, a planifié leur remplacement.<br><br>
+        Il atteste que le propriétaire du véhicule a entrepris une démarche de vérification de l'état de ses pneumatiques et, le cas échéant, a planifié leur remplacement.
+        Il repose sur les photos et les réponses du propriétaire&nbsp;: il ne remplace pas l'examen des pneus par un professionnel et n'a aucune valeur officielle (contrôle technique, forces de l'ordre).<br><br>
         Contact : <strong>06 17 68 42 70</strong> — Zone ind. Quai de la Blanquière, Nice
       </div>
       <div class="cert-signature">
@@ -471,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Recherche par plaque ────────────────────
   // La recherche part seule dès que la plaque est complète. Elle
   // renseigne marque, modèle et année, et retient la monte d'origine
-  // pour l'attestation. Les champs restent modifiables : la base se
+  // pour le compte rendu. Les champs restent modifiables : la base se
   // trompe parfois sur la finition, et le client doit pouvoir corriger.
   let vehiculeTrouve = null;
   let champsAutoRemplis = [];
