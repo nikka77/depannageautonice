@@ -86,15 +86,31 @@ Ces chiffres sont invérifiables depuis l'extérieur. S'ils sont exacts, rien à
 faire ; sinon il faut les corriger, une publicité trompeuse se retournant
 contre vous.
 
-- **« 10 000+ interventions réalisées »** sur la page d'accueil.
-- **« Depuis 2004 »**, repris aussi en `foundingDate` dans les données
-  structurées lues par Google.
-- **« Intervention en 30 min à 1h »** — présenté comme un délai estimé, ce qui
-  est la bonne formulation, mais il doit rester réaliste aux heures de pointe.
+- **« Depuis 2004 »** — le nouveau design l'affiche dans le bandeau de
+  l'accueil **et dans le pied de page de toutes les pages**, et il est repris
+  en `foundingDate` dans les données structurées lues par Google.
+- **« Disponible maintenant — un technicien décroche »** (accueil) : c'est une
+  promesse qu'un humain répond, y compris à 3 h du matin. À garder seulement
+  si c'est vrai toutes les nuits.
+- **« Une dépanneuse à Nice en 30 à 60 minutes »** (titre de l'accueil) : le
+  titre l'énonce comme une certitude. Le bandeau juste dessous dit « délai
+  estimé », ce qui couvre juridiquement, mais le délai doit rester tenable
+  aux heures de pointe.
+
+Le « 10 000+ interventions », les « techniciens certifiés — permis poids
+lourd » et le défilé de logos d'assureurs présentés comme « partenaires » ont
+disparu avec le nouveau design. C'est une bonne chose : aucun des trois
+n'était vérifiable, et afficher les marques d'assureurs comme partenaires sans
+convention signée expose à une réclamation.
 
 ---
 
 ## Page « À propos » — ce que je n'ai pas écrit
+
+La maquette Claude Design `a-propos.dc.html` n'a pas encore été transmise
+(seul l'accueil a été exporté). La page actuelle reprend le système visuel de
+l'accueil ; si la maquette propose une autre structure, l'exporter comme
+l'accueil et je l'intègre.
 
 `a-propos.html` existe et est complète sur tout ce que le site affirmait déjà :
 zone, services, horaires, atelier, tarif de départ, assurances, déroulé d'une
@@ -113,6 +129,6 @@ vous seul connaissez. Donnez-les-moi et je les intègre :
 
 Trois affirmations de la page sont à vérifier de votre côté, parce qu'elles
 sont reprises du reste du site et qu'elles vous engagent :
-« pas d'intervention sur autoroute », « pas de carrosserie », « pas de
-désincarcération ». Si l'une est fausse, dites-le-moi : elle envoie
+« pas d'intervention directe sur autoroute », « pas de carrosserie »,
+« pas de secours aux personnes ». Si l'une est fausse, dites-le-moi : elle envoie
 actuellement des clients ailleurs.

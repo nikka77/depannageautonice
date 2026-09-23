@@ -1,7 +1,7 @@
 /* =============================================
    DEPANNAGEAUTONICE.FR — ville.css
    Pages locales (ville-*.html). Autonome : ces pages ne chargent
-   ni style.css ni les librairies d'animation, pour rester légères.
+   ni site.css ni script, pour rester légères.
    ============================================= */
 
 :root {
@@ -154,33 +154,6 @@ h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px
 .v-faq summary::after { content: '+'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
 .v-faq[open] summary::after { content: '−'; }
 .v-faq p { padding: 0 16px 16px; margin: 0; color: #3c3c34; font-size: 0.95rem; }
-
-/* ── Page « À propos » ────────────────────── */
-/* Déroulé d'une intervention : une liste ordonnée avec un numéro lisible,
-   pas une puce. Le compteur CSS évite de figer les numéros dans le HTML. */
-/* Un numéro de téléphone coupé en fin de ligne ne se lit plus. */
-.ap-nowrap { white-space: nowrap; }
-
-.ap-steps { list-style: none; counter-reset: ap; display: grid; gap: 18px; }
-.ap-steps li {
-  counter-increment: ap;
-  display: grid; grid-template-columns: 44px 1fr; gap: 0 14px;
-  align-items: start;
-}
-.ap-steps li::before {
-  content: counter(ap, decimal-leading-zero);
-  grid-row: 1 / span 2;
-  font-family: 'Bowlby One', sans-serif; font-size: 1.35rem;
-  color: var(--orange); line-height: 1;
-  padding-top: 2px;
-}
-.ap-steps h3 { margin-bottom: 4px; }
-.ap-steps p { margin: 0; color: #3c3c34; font-size: 0.95rem; }
-
-/* Ce que nous ne faisons pas : même carte, accent neutre plutôt qu'orange,
-   pour que l'œil ne lise pas ces limites comme des offres. */
-.ap-card-no { border-left-color: #8a8a80; }
-.ap-card-no h3 { color: #3c3c34; }
 
 /* ── Rappel final ─────────────────────────── */
 .v-final { padding: 40px 0; text-align: center; }

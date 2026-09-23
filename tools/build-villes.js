@@ -218,6 +218,10 @@ const staticPages = [
   { loc: `${site.base}/`, freq: 'weekly', prio: '1.0' },
   { loc: `${site.base}/demande.html`, freq: 'monthly', prio: '0.9' },
   { loc: `${site.base}/diagnostic.html`, freq: 'monthly', prio: '0.8' },
+  { loc: `${site.base}/services.html`, freq: 'monthly', prio: '0.9' },
+  { loc: `${site.base}/zone.html`, freq: 'monthly', prio: '0.8' },
+  { loc: `${site.base}/faq.html`, freq: 'monthly', prio: '0.7' },
+  { loc: `${site.base}/contact.html`, freq: 'yearly', prio: '0.7' },
   { loc: `${site.base}/a-propos.html`, freq: 'monthly', prio: '0.6' },
   { loc: `${site.base}/mentions-legales.html`, freq: 'yearly', prio: '0.3' },
 ];

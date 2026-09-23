@@ -1,743 +1,323 @@
 <!DOCTYPE html>
+<!-- Généré par tools/build-pages.js — ne pas modifier à la main. -->
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dépannage Auto Nice | 06 17 68 42 70 — 7j/7 24h/24</title>
-  <meta name="description" content="Dépannage, remorquage et transport auto à Nice et dans les Alpes-Maritimes. Intervention en 30 min à 1h, 7j/7 24h/24, dès 70 €. Tél. 06 17 68 42 70.">
-  <meta property="og:title" content="Dépannage Auto Nice | 06 17 68 42 70">
-  <meta property="og:description" content="Dépannage, remorquage, transport auto — Nice & Alpes-Maritimes. 7j/7 24h/24. À partir de 70€.">
+  <meta name="description" content="Dépanneuse à Nice en 30 à 60 min, 7j/7 24h/24. Dépannage, remorquage et transport dans tout le 06, prix annoncé avant l'intervention, dès 70 €. Tél. 06 17 68 42 70.">
+  <link rel="canonical" href="https://nikka77.github.io/depannageautonice/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nikka77.github.io/depannageautonice/">
-  <meta property="og:image" content="https://nikka77.github.io/depannageautonice/img/og-cover.jpg">
+  <meta property="og:title" content="Dépannage Auto Nice | 06 17 68 42 70 — 7j/7 24h/24">
+  <meta property="og:description" content="Dépanneuse à Nice en 30 à 60 min, 7j/7 24h/24. Dépannage, remorquage et transport dans tout le 06, prix annoncé avant l'intervention, dès 70 €. Tél. 06 17 68 42 70.">
   <meta property="og:locale" content="fr_FR">
+  <meta property="og:image" content="https://nikka77.github.io/depannageautonice/img/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dépannage Auto Nice | 06 17 68 42 70">
-  <meta name="twitter:description" content="Dépannage 7j/7 24h/24 sur Nice & Alpes-Maritimes — à partir de 70€.">
+  <meta name="twitter:title" content="Dépannage Auto Nice | 06 17 68 42 70 — 7j/7 24h/24">
+  <meta name="twitter:description" content="Dépanneuse à Nice en 30 à 60 min, 7j/7 24h/24. Dépannage, remorquage et transport dans tout le 06, prix annoncé avant l'intervention, dès 70 €. Tél. 06 17 68 42 70.">
   <meta name="twitter:image" content="https://nikka77.github.io/depannageautonice/img/og-cover.jpg">
-  <link rel="canonical" href="https://nikka77.github.io/depannageautonice/">
+  <meta name="geo.region" content="FR-06">
+  <meta name="geo.placename" content="Nice">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath fill='%23ff6b00' d='M18 28c4-7 11-11 18-9l5-3-3 9c2 5 1 11-3 15s-10 5-15 3l-5 3 3-9-2-2-1 1-2-2 1-1c1-2 2-3 4-5z'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#ff6b00">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="vendor/css/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=13">
-  <!-- Preload LCP assets pour accélérer le first paint mobile -->
-  <link rel="preload" as="image" href="img/hero-1.webp?v=1" fetchpriority="high">
-  <link rel="preload" as="image" href="img/logo-neon-520.webp" imagesrcset="img/logo-neon-520.webp 520w, img/logo-neon-760.webp 760w, img/logo-neon.webp 1536w" imagesizes="(max-width: 700px) 62vw, 520px" fetchpriority="high">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/hero-1.webp" fetchpriority="high">
+  <link rel="stylesheet" href="site.css">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "AutomotiveBusiness", "EmergencyService"],
-    "@id": "https://nikka77.github.io/depannageautonice/#business",
-    "name": "Dépannage Auto Nice",
-    "alternateName": "DepannageAutoNice.fr",
-    "url": "https://nikka77.github.io/depannageautonice/",
-    "telephone": "+33617684270",
-    "email": "contact@depannageautonice.fr",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Zone industrielle du Quai de la Blanquière",
-      "addressLocality": "Nice",
-      "addressRegion": "Alpes-Maritimes",
-      "postalCode": "06000",
-      "addressCountry": "FR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 43.7102,
-      "longitude": 7.2620
-    },
-    "openingHoursSpecification": [{
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "00:00",
-      "closes": "23:59"
-    }],
-    "priceRange": "€",
-    "description": "Dépannage, remorquage et transport auto 7j/7 24h/24 sur Nice et les Alpes-Maritimes. Intervention en 30 min à 1h. À partir de 70 €. Toutes assurances.",
-    "image": "https://nikka77.github.io/depannageautonice/img/og-cover.jpg",
-    "logo": "https://nikka77.github.io/depannageautonice/img/logo.png",
-    "foundingDate": "2004",
-    "areaServed": [
-      { "@type": "City", "name": "Nice" },
-      { "@type": "City", "name": "Cannes" },
-      { "@type": "City", "name": "Antibes" },
-      { "@type": "City", "name": "Menton" },
-      { "@type": "City", "name": "Grasse" },
-      { "@type": "City", "name": "Vence" },
-      { "@type": "City", "name": "Cagnes-sur-Mer" },
-      { "@type": "City", "name": "Villeneuve-Loubet" },
-      { "@type": "City", "name": "Mougins" },
-      { "@type": "AdministrativeArea", "name": "Alpes-Maritimes" }
-    ],
-    "serviceType": [
-      "Dépannage automobile",
-      "Remorquage",
-      "Transport de véhicule",
-      "Erreur de carburant",
-      "Changement de pneu",
-      "Batterie et démarrage",
-      "Surchauffe moteur"
-    ],
-    "potentialAction": {
-      "@type": "ReserveAction",
-      "target": "https://nikka77.github.io/depannageautonice/demande.html",
-      "name": "Demander un dépannage"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Tarifs dépannage",
-      "itemListElement": [{
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LocalBusiness",
+        "AutomotiveBusiness",
+        "EmergencyService"
+      ],
+      "@id": "https://nikka77.github.io/depannageautonice/#business",
+      "name": "Dépannage Auto Nice",
+      "url": "https://nikka77.github.io/depannageautonice/",
+      "telephone": "+33617684270",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Zone industrielle du Quai de la Blanquière",
+        "addressLocality": "Nice",
+        "addressRegion": "Alpes-Maritimes",
+        "postalCode": "06000",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.7102,
+        "longitude": 7.262
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      ],
+      "priceRange": "€",
+      "description": "Dépannage, remorquage et transport auto 7j/7 24h/24 sur Nice et les Alpes-Maritimes. Délai estimé de 30 à 60 minutes sur Nice. À partir de 70 €. Toutes assurances.",
+      "image": "https://nikka77.github.io/depannageautonice/img/og-cover.jpg",
+      "logo": "https://nikka77.github.io/depannageautonice/img/logo.png",
+      "foundingDate": "2004",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Menton"
+        },
+        {
+          "@type": "City",
+          "name": "Grasse"
+        },
+        {
+          "@type": "City",
+          "name": "Vence"
+        },
+        {
+          "@type": "City",
+          "name": "Cagnes-sur-Mer"
+        },
+        {
+          "@type": "City",
+          "name": "Villeneuve-Loubet"
+        },
+        {
+          "@type": "City",
+          "name": "Mougins"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes"
+        }
+      ],
+      "serviceType": [
+        "Dépannage automobile",
+        "Remorquage",
+        "Transport de véhicule",
+        "Erreur de carburant",
+        "Changement de pneu",
+        "Batterie et démarrage",
+        "Surchauffe moteur"
+      ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": "https://nikka77.github.io/depannageautonice/demande.html",
+        "name": "Demander un dépannage"
+      },
+      "makesOffer": {
         "@type": "Offer",
-        "name": "Dépannage Nice & environs",
-        "price": "70",
-        "priceCurrency": "EUR",
+        "name": "Dépannage Nice et environs",
         "priceSpecification": {
           "@type": "PriceSpecification",
-          "minPrice": "70",
+          "minPrice": 70,
           "priceCurrency": "EUR"
         }
-      }]
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Quel est votre délai d'intervention ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nous intervenons en 30 minutes à 1 heure sur Nice et ses environs. Pour les communes plus éloignées des Alpes-Maritimes, le délai peut varier. Appelez-nous pour une estimation précise."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Mon assurance prend-elle en charge le dépannage ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Dans la majorité des cas, oui. Nous travaillons avec toutes les compagnies d'assurance auto (MAIF, AXA, Allianz, MACIF, GMF, Groupama et bien d'autres). Avant d'appeler votre assurance, contactez-nous directement : nous gérons souvent la prise en charge à votre place."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Intervenez-vous la nuit et le week-end ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Oui. Nous sommes disponibles 7 jours sur 7, 24 heures sur 24, y compris les nuits, week-ends et jours fériés."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Quels types de véhicules prenez-vous en charge ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nous intervenons sur tous types de véhicules : voitures particulières, SUV, monospaces, utilitaires légers, motos et scooters. Pour les poids lourds ou véhicules spéciaux, contactez-nous pour vérifier la faisabilité."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Que faire en cas de panne sur l'autoroute ?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Mettez votre gilet jaune, allumez vos warnings et éloignez-vous du véhicule en passant la glissière de sécurité. Appelez ensuite le 06 17 68 42 70. Attention : sur autoroute, l'intervention passe obligatoirement par un prestataire agréé."
-        }
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nikka77.github.io/depannageautonice/#site",
+      "url": "https://nikka77.github.io/depannageautonice/",
+      "name": "Dépannage Auto Nice",
+      "inLanguage": "fr-FR"
+    }
+  ]
+}
   </script>
 </head>
 <body>
+  <a class="skip" href="#main">Aller au contenu</a>
 
-  <div id="progressBar"></div>
-
-  <!-- URGENCE -->
-  <div id="urgency-bar">
-    <div class="urgency-inner">
-      <span class="urgency-blink">URGENCE</span>
-      <span class="urgency-text">Intervention en <strong>30 min à 1h</strong><span class="urgency-zone"> sur Nice</span></span>
-      <span class="urgency-sep">—</span>
-      <span class="urgency-text urgency-hours">7j/7 — 24h/24</span>
-    </div>
-  </div>
-
-  <!-- HEADER -->
-  <header id="header">
-    <div class="container header-inner">
-      <a href="#hero" class="logo">
-        <span class="logo-main">Dépannage<span class="logo-accent">Auto</span>Nice</span>
-        <span class="logo-sub">Zone Industrielle — Nice</span>
-      </a>
-      <nav id="nav">
-        <a href="#services" data-section="services">Services</a>
-        <a href="#comment-ca-marche" data-section="comment-ca-marche">Comment ça marche</a>
-        <a href="#tarifs" data-section="tarifs">Tarifs</a>
-        <a href="#zone" data-section="zone">Zone</a>
-        <a href="#faq" data-section="faq">FAQ</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="#contact" data-section="contact">Contact</a>
-      </nav>
-      <a href="tel:0617684270" class="header-call" aria-label="Appeler le 06 17 68 42 70">
-        <i data-lucide="phone-call" class="icon-sm"></i>
-        <span class="header-call-text">
-          <span class="header-call-label">Urgence 24h/24</span>
-          <span class="header-call-num">06 17 68 42 70</span>
+  <header class="hd">
+    <div class="wrap hd-in">
+      <a href="index.html" class="brand" aria-current="page">
+        <span class="brand-bar" aria-hidden="true"></span>
+        <span class="brand-txt">
+          <span class="brand-name">Dépannage Auto Nice</span>
+          <span class="brand-sub">Remorquage &amp; dépannage · 7j/7 24h/24</span>
         </span>
       </a>
-      <a href="demande.html" class="btn btn-primary header-cta">
-        <i data-lucide="map-pin" class="icon-sm"></i>
-        Demander
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="nav">
+        <svg class="ic ic-sm i-open" aria-hidden="true"><use href="img/icons.svg#i-menu"/></svg>
+        <svg class="ic ic-sm i-close" aria-hidden="true"><use href="img/icons.svg#i-x"/></svg>
+        <span class="menu-label">Menu</span>
       </button>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="services.html">Services</a>
+        <a href="zone.html">Zone</a>
+        <a href="faq.html">FAQ</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="hd-actions">
+        <a href="tel:0617684270" class="hd-call" aria-label="Appeler le 06 17 68 42 70"><small>Urgence 24h/24</small><strong>06 17 68 42 70</strong></a>
+        <a href="demande.html" class="hd-cta"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demander</a>
+      </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-cinema" aria-hidden="true">
-      <div class="cinema-slide cinema-slide--1"></div>
-      <div class="cinema-slide cinema-slide--2"></div>
-      <div class="cinema-slide cinema-slide--3"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-      <span class="hud-tag hero-hud-tag">◆ DISPONIBLE MAINTENANT</span>
-      <img src="img/logo-neon-520.webp" srcset="img/logo-neon-520.webp 520w, img/logo-neon-760.webp 760w, img/logo-neon.webp 1536w" sizes="(max-width: 700px) 62vw, 520px" alt="Dépanne-moi vite — Dépannage Auto Nice" class="hero-logo-gma" width="520" height="347" decoding="async" fetchpriority="high">
-      <!-- Ticker mobile uniquement — positionné sous le diaporama (contenu cloné par script.js) -->
-      <div class="ticker-band ticker-band--mobile" aria-hidden="true">
-        <div class="ticker-track">
-          <span>◆ INTERVENTION 30 MIN</span><span>◆ NICE &amp; ALPES-MARITIMES</span>
-          <span>◆ 7J/7 24H/24</span><span>◆ TOUTES ASSURANCES</span>
-          <span>◆ DÉPANNAGE SUR PLACE</span><span>◆ REMORQUAGE &amp; TRANSPORT</span>
-          <span>◆ À PARTIR DE 70€</span><span>◆ DEPUIS 2004</span>
+  <main id="main">
+    <section class="hero" aria-labelledby="h-hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-slide s1"></div>
+        <div class="hero-slide s2"></div>
+        <div class="hero-slide s3"></div>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="wrap hero-in">
+        <p class="live"><span class="live-dot" aria-hidden="true"></span>Disponible maintenant — un technicien décroche</p>
+        <h1 id="h-hero">Une dépanneuse à Nice en <em>30 à 60&nbsp;minutes</em>.</h1>
+        <p class="hero-lead">Dépannage sur place, remorquage et transport dans tout le 06, de jour comme de nuit. Prix annoncé avant l'intervention, à partir de 70&nbsp;€.</p>
+        <div class="btns">
+          <a href="tel:0617684270" class="btn btn-orange"><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-phone"/></svg>Appeler le 06 17 68 42 70</a>
+          <a href="demande.html" class="btn btn-ghost"><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demander en ligne</a>
         </div>
       </div>
-      <h1 class="hero-title">Dépannage &amp; remorquage auto<br><span>à Nice, 7j/7 24h/24</span></h1>
-      <p class="hero-sub">Dépannage, remorquage et transport sur Nice et tous les Alpes-Maritimes.<br>Tous types de véhicules — toutes assurances.</p>
-      <div class="hero-cta-group">
-        <a href="demande.html" class="btn btn-hero">
-          <i data-lucide="map-pin"></i>
-          Demander un dépannage
-        </a>
-        <a href="tel:0617684270" class="btn-hero-secondary" aria-label="Appeler le 06 17 68 42 70">
-          <i data-lucide="phone-call"></i>
-          <span>06 17 68 42 70</span>
-        </a>
+    </section>
+
+    <section class="wrap" aria-label="L'essentiel en chiffres">
+      <div class="facts">
+        <div class="fact"><b>30 – 60 min</b><span>Délai estimé sur Nice</span></div>
+        <div class="fact"><b>70 €</b><span>Tarif de départ, devis avant départ</span></div>
+        <div class="fact"><b>7j/7 · 24h/24</b><span>Nuits, dimanches, jours fériés</span></div>
+        <div class="fact"><b>Depuis 2004</b><span>Équipe niçoise, toutes assurances</span></div>
       </div>
-      <div class="hero-badges">
-        <span><i data-lucide="tag" class="badge-icon"></i> A partir de 70 €</span>
-        <span><i data-lucide="shield-check" class="badge-icon"></i> Toutes assurances</span>
-        <span><i data-lucide="map-pin" class="badge-icon"></i> Alpes-Maritimes</span>
-        <span><i data-lucide="wrench" class="badge-icon"></i> Atelier sur Nice</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TICKER (contenu cloné par script.js pour la boucle d'animation) -->
-  <div class="ticker-band" aria-hidden="true">
-    <div class="ticker-track">
-      <span>◆ INTERVENTION 30 MIN</span><span>◆ NICE &amp; ALPES-MARITIMES</span>
-      <span>◆ 7J/7 24H/24</span><span>◆ TOUTES ASSURANCES</span>
-      <span>◆ DÉPANNAGE SUR PLACE</span><span>◆ REMORQUAGE &amp; TRANSPORT</span>
-      <span>◆ À PARTIR DE 70€</span><span>◆ DEPUIS 2004</span>
-    </div>
-  </div>
+    <section class="wrap sec" aria-label="Tarifs, zone et services">
+      <div class="panels">
 
-  <!-- MODULE DIAGNOSTIC -->
-  <div class="module-banner">
-    <div class="container module-banner-inner">
-      <div class="module-banner-icon">
-        <i data-lucide="disc"></i>
-      </div>
-      <div class="module-banner-text">
-        <strong>Nouveau — Diagnostic pneus gratuit</strong>
-        <span>Photographiez vos pneus, obtenez une évaluation et une attestation officielle en cas de contrôle.</span>
-      </div>
-      <a href="diagnostic.html" class="btn btn-primary module-banner-btn">
-        Démarrer le diagnostic
-        <i data-lucide="arrow-right" class="icon-sm"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-band">
-    <div class="container stats-grid">
-      <div class="stat-item">
-        <i data-lucide="car" class="stat-icon"></i>
-        <span class="stat-number" data-target="10000">0</span>
-        <span class="stat-label">Interventions réalisées</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <i data-lucide="calendar-check" class="stat-icon"></i>
-        <span class="stat-number">Depuis 2004</span>
-        <span class="stat-label">A votre service</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <i data-lucide="timer" class="stat-icon"></i>
-        <span class="stat-number">30 – 60 min</span>
-        <span class="stat-label">Délai d'intervention</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <i data-lucide="sun" class="stat-icon"></i>
-        <span class="stat-number">7j/7</span>
-        <span class="stat-label">24h sur 24</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="container">
-      <h2>Nos Services</h2>
-      <p class="section-sub">Intervention sur place ou à l'atelier — tous types de véhicules</p>
-      <div class="services-grid">
-
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="truck"></i></div>
-          <h3>Remorquage &amp; Transport</h3>
-          <p>Prise en charge et transport de votre véhicule vers l'atelier ou le lieu de votre choix, en toute sécurité.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="wrench"></i></div>
-          <h3>Dépannage sur Place</h3>
-          <p>Diagnostic et réparation rapide sur place pour vous remettre en route sans délai.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="fuel"></i></div>
-          <h3>Erreur de Carburant</h3>
-          <p>Mauvais carburant mis par erreur ? Vidange du réservoir et remise en route sans endommager le moteur.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3.5"/>
-              <line x1="12" y1="2" x2="12" y2="8.5"/><line x1="12" y1="15.5" x2="12" y2="22"/>
-              <line x1="2" y1="12" x2="8.5" y2="12"/><line x1="15.5" y1="12" x2="22" y2="12"/>
-              <line x1="4.2" y1="4.2" x2="8.5" y2="8.5"/><line x1="15.5" y1="15.5" x2="19.8" y2="19.8"/>
-              <line x1="19.8" y1="4.2" x2="15.5" y2="8.5"/><line x1="8.5" y1="15.5" x2="4.2" y2="19.8"/>
-            </svg>
-          </div>
-          <h3>Changement de Pneu</h3>
-          <p>Crevaison ou pneu endommagé ? Remplacement rapide sur place, tous véhicules.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="battery-low"></i></div>
-          <h3>Batterie &amp; Démarrage</h3>
-          <p>Batterie à plat ou panne de démarrage — diagnostic et remplacement sur place si nécessaire.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="thermometer"></i></div>
-          <h3>Surchauffe Moteur</h3>
-          <p>Moteur en surchauffe ? Arrêtez-vous et appelez-nous — intervention sécurisée, diagnostic immédiat.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- COMMENT ÇA MARCHE -->
-  <section id="comment-ca-marche" class="section-dark">
-    <div class="container">
-      <h2>Comment ça marche ?</h2>
-      <p class="section-sub">Simple, rapide, efficace — nous prenons tout en charge</p>
-      <div class="steps-grid">
-
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <div class="step-icon"><i data-lucide="phone-call"></i></div>
-          <h3>Vous demandez</h3>
-          <p>Décrivez votre panne en <strong>30 secondes</strong> via notre formulaire — ou appelez directement. Disponible 7j/7, 24h/24.</p>
-        </div>
-
-        <div class="step-arrow">
-          <svg viewBox="0 0 40 24" fill="none"><path d="M0 12h36M28 4l8 8-8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <div class="step-icon"><i data-lucide="truck"></i></div>
-          <h3>On arrive vite</h3>
-          <p>Notre dépanneuse est dépêchée immédiatement. Délai d'intervention de <strong>30 minutes à 1 heure</strong> sur Nice et les environs.</p>
-        </div>
-
-        <div class="step-arrow">
-          <svg viewBox="0 0 40 24" fill="none"><path d="M0 12h36M28 4l8 8-8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <div class="step-icon"><i data-lucide="check-circle"></i></div>
-          <h3>Problème résolu</h3>
-          <p>Dépannage sur place ou remorquage à l'atelier. Nous gérons tout — y compris la prise en charge par votre assurance.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- POURQUOI NOUS -->
-  <section id="pourquoi-nous">
-    <div class="container">
-      <h2>Pourquoi nous choisir&nbsp;?</h2>
-      <p class="section-sub">Une équipe locale, expérimentée, transparente — disponible jour et nuit</p>
-      <div class="reasons-grid">
-
-        <div class="reason-card" data-reveal>
-          <div class="reason-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2l2.39 4.84L20 7.7l-4 3.9.94 5.5L12 14.77 7.06 17.1 8 11.6 4 7.7l5.61-.86z"/>
-            </svg>
-          </div>
-          <h3>Plus de 20 ans d'expérience</h3>
-          <p>Une équipe niçoise active depuis 2004 qui connaît chaque rue, chaque tunnel, chaque embouteillage du 06.</p>
-        </div>
-
-        <div class="reason-card" data-reveal>
-          <div class="reason-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94L6.5 19.5a2.12 2.12 0 1 1-3-3l6.04-6.04a6 6 0 0 1 7.94-7.94L13.7 6.3z"/>
-            </svg>
-          </div>
-          <h3>Techniciens certifiés</h3>
-          <p>Permis poids-lourd, formation remorquage et habilitations VL/VUL à jour. Travail propre et sécurisé.</p>
-        </div>
-
-        <div class="reason-card" data-reveal>
-          <div class="reason-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="5" width="20" height="14" rx="2"/>
-              <path d="M2 10h20"/>
-              <path d="M6 15h4"/>
-            </svg>
-          </div>
-          <h3>Assurance directe</h3>
-          <p>Prise en charge avec votre compagnie — vous n'avancez rien quand votre contrat le couvre.</p>
-        </div>
-
-        <div class="reason-card" data-reveal>
-          <div class="reason-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-          </div>
-          <h3>24h/24 sur Nice</h3>
-          <p>Service réellement actif la nuit, dimanche et jours fériés. Pas de répondeur — un technicien décroche.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- TARIFS -->
-  <section id="tarifs">
-    <div class="container">
-      <h2>Tarifs</h2>
-      <p class="section-sub">Tarification claire et transparente — toutes assurances acceptées</p>
-      <div class="tarifs-grid">
-        <div class="tarif-card tarif-featured">
-          <div class="tarif-badge">Le plus choisi</div>
-          <div class="tarif-price">À partir de<br><strong>70 €</strong></div>
-          <div class="tarif-label">Nice &amp; Environs</div>
-          <ul>
-            <li>Dépannage sur place</li>
-            <li>Prise en charge rapide</li>
-            <li>7j/7 — 24h/24</li>
+        <article class="panel">
+          <div class="panel-hd"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-tag"/></svg><h2>Tarifs</h2></div>
+          <p>70&nbsp;€ minimum sur Nice et sa première couronne. Ailleurs dans le 06, devis gratuit annoncé avant que la dépanneuse parte.</p>
+          <ul class="panel-more" id="more-tarifs" hidden>
+            <li>Dépannage sur place ou remorquage jusqu'à l'atelier</li>
+            <li>Prix annoncé = prix facturé, aucun supplément à l'arrivée</li>
+            <li>Réparations mécaniques à l'atelier du Quai de la Blanquière, sur rendez-vous</li>
           </ul>
-          <a href="demande.html" class="btn btn-primary">Demander un dépannage</a>
-        </div>
-        <div class="tarif-card">
-          <div class="tarif-price"><strong>Sur devis</strong></div>
-          <div class="tarif-label">Alpes-Maritimes</div>
-          <ul>
-            <li>Cannes, Antibes, Menton</li>
-            <li>Grasse, Vence, Cagnes…</li>
-            <li>Devis gratuit par tél.</li>
+          <div class="panel-act">
+            <button type="button" class="linkbtn" data-toggle aria-expanded="false" aria-controls="more-tarifs">En savoir plus</button>
+            <a href="services.html#tarifs" class="textlink"><span>Voir les tarifs</span></a>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-hd"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-pin"/></svg><h2>Délai &amp; zone</h2></div>
+          <p>30 à 60 minutes sur Nice. Tout le département des Alpes-Maritimes est couvert, nuits et jours fériés compris.</p>
+          <ul class="panel-more" id="more-zone" hidden>
+            <li>Nice, Cagnes-sur-Mer, Villeneuve-Loubet, Antibes&nbsp;: première couronne</li>
+            <li>Cannes, Grasse, Vence, Mougins, Menton, Roquebrune&nbsp;: délai annoncé à l'appel</li>
+            <li>Sur autoroute, l'intervention passe obligatoirement par le prestataire agréé</li>
           </ul>
-          <a href="demande.html?type=devis" class="btn btn-outline">Estimer mon devis</a>
-        </div>
-        <div class="tarif-card">
-          <div class="tarif-price"><strong>Atelier</strong></div>
-          <div class="tarif-label">Réparations mécaniques</div>
-          <ul>
-            <li>Problèmes importants</li>
-            <li>Quai de la Blanquière, Nice</li>
-            <li>Diagnostic sur rendez-vous</li>
+          <div class="panel-act">
+            <button type="button" class="linkbtn" data-toggle aria-expanded="false" aria-controls="more-zone">En savoir plus</button>
+            <a href="zone.html" class="textlink"><span>Voir la zone</span></a>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-hd"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-wrench"/></svg><h2>Ce qu'on fait</h2></div>
+          <p>Remorquage et transport, dépannage sur place, batterie, changement de pneu, erreur de carburant, surchauffe moteur.</p>
+          <ul class="panel-more" id="more-services" hidden>
+            <li>Voitures, SUV, utilitaires légers, motos et scooters</li>
+            <li>Transport du véhicule vers l'atelier ou le lieu de votre choix</li>
+            <li>Diagnostic immédiat sur place avant toute décision</li>
           </ul>
-          <a href="demande.html?type=rdv" class="btn btn-outline">Prendre rendez-vous</a>
-        </div>
+          <div class="panel-act">
+            <button type="button" class="linkbtn" data-toggle aria-expanded="false" aria-controls="more-services">En savoir plus</button>
+            <a href="services.html" class="textlink"><span>Tous les services</span></a>
+          </div>
+        </article>
+
       </div>
+    </section>
 
-      <!-- Garantie écrite : engagement contractuel et vérifiable -->
-      <div class="tarif-guarantee" role="note" aria-label="Notre garantie">
-        <div class="guarantee-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/>
-            <path d="M9 12l2 2 4-4"/>
-          </svg>
+    <section class="wrap sec" aria-labelledby="h-diag">
+      <div class="promo">
+        <svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-disc"/></svg>
+        <div class="promo-txt">
+          <p class="kicker">Gratuit</p>
+          <h2 id="h-diag">Diagnostic pneus en photo</h2>
+          <p>Photographiez vos pneus, recevez une évaluation de l'usure et une attestation à présenter en cas de contrôle.</p>
         </div>
-        <div class="guarantee-text">
-          <strong>Notre engagement écrit&nbsp;:</strong>
-          <span>devis transmis avant intervention, prix annoncé = prix facturé. Aucun frais caché, aucun supplément à l'arrivée.</span>
-        </div>
+        <a href="diagnostic.html" class="btn btn-dark">Démarrer le diagnostic <svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-arrow-right"/></svg></a>
       </div>
+    </section>
 
-      <p class="tarif-note">Nous travaillons avec toutes les compagnies d'assurance auto. Prise en charge directe possible.</p>
-    </div>
-  </section>
+  </main>
 
-  <!-- ASSURANCES -->
-  <section id="assurances" class="section-dark">
-    <div class="container">
-      <h2>Nos Partenaires Assurances</h2>
-      <p class="section-sub">Nous travaillons avec toutes les compagnies — prise en charge directe</p>
-    </div>
-    <!-- Marquee assurances — contenu cloné par script.js pour la boucle d'animation -->
-    <div class="marquee-wrapper">
-      <div class="marquee-track">
-        <div class="insurer"><span style="color:#c60017">MAIF</span></div>
-        <div class="insurer"><span style="color:#00008F">AXA</span></div>
-        <div class="insurer"><span style="color:#003781">Allianz</span></div>
-        <div class="insurer"><span style="color:#c70025">MACIF</span></div>
-        <div class="insurer"><span style="color:#006e32">GMF</span></div>
-        <div class="insurer"><span style="color:#00703a">Groupama</span></div>
-        <div class="insurer"><span style="color:#C8102E">MMA</span></div>
-        <div class="insurer"><span style="color:#b34700">MAAF</span></div>
-        <div class="insurer"><span style="color:#00668f">Matmut</span></div>
-        <div class="insurer"><span style="color:#CC0000">Generali</span></div>
-        <div class="insurer"><span style="color:#c60017">Direct Assurance</span></div>
-        <div class="insurer"><span style="color:#003087">Covéa</span></div>
+  <footer class="ft">
+    <div class="wrap ft-in">
+      <div>
+        <p class="ft-name">Dépannage Auto Nice</p>
+        <p>Zone industrielle du Quai de la Blanquière, Nice.<br>Équipe niçoise depuis 2004, toutes assurances.</p>
+        <a class="ft-tel" href="tel:0617684270">06 17 68 42 70</a>
       </div>
-    </div>
-  </section>
-
-  <!-- ZONE -->
-  <section id="zone">
-    <div class="container">
-      <h2>Zone d'Intervention</h2>
-      <p class="section-sub">Nous couvrons l'ensemble du département des Alpes-Maritimes (06)</p>
-      <div class="zone-content">
-        <div class="zone-text">
-          <div class="zone-cities">
-            <span>Nice</span>
-            <a href="ville-cannes.html">Cannes</a>
-            <a href="ville-antibes.html">Antibes</a>
-            <a href="ville-menton.html">Menton</a>
-            <a href="ville-grasse.html">Grasse</a>
-            <a href="ville-cagnes-sur-mer.html">Cagnes-sur-Mer</a>
-            <span>Vence</span><span>Villeneuve-Loubet</span>
-            <span>Mougins</span><span>Roquebrune</span><span>+ tout le 06</span>
-          </div>
-          <p class="zone-cities-note">Les communes en orange ont leur page dédiée&nbsp;: délais, accès et pannes les plus fréquentes sur place.</p>
-          <a href="demande.html" class="btn btn-primary btn-zone">
-            <i data-lucide="map-pin" class="icon-sm"></i>
-            Demander un dépannage
-          </a>
-        </div>
-        <div class="zone-map">
-          <div id="zoneMap" style="width:100%; height:360px;"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="section-dark">
-    <div class="container">
-      <h2>Questions Fréquentes</h2>
-      <p class="section-sub">Tout ce que vous devez savoir avant d'appeler</p>
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Quel est votre délai d'intervention ?</span>
-            <i data-lucide="chevron-down" class="faq-chevron"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Nous intervenons en <strong>30 minutes à 1 heure</strong> sur Nice et ses environs. Pour les communes plus éloignées des Alpes-Maritimes, le délai peut varier. Appelez-nous pour une estimation précise.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Mon assurance prend-elle en charge le dépannage ?</span>
-            <i data-lucide="chevron-down" class="faq-chevron"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Dans la majorité des cas, oui. Nous travaillons avec <strong>toutes les compagnies d'assurance auto</strong> (MAIF, AXA, Allianz, MACIF, GMF, Groupama et bien d'autres). Avant d'appeler votre assurance, contactez-nous directement — nous gérons souvent la prise en charge à votre place.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Intervenez-vous la nuit et le week-end ?</span>
-            <i data-lucide="chevron-down" class="faq-chevron"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Oui, absolument. Nous sommes disponibles <strong>7 jours sur 7, 24 heures sur 24</strong>, y compris les nuits, week-ends et jours fériés. Une panne n'attend pas — nous non plus.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Quels types de véhicules prenez-vous en charge ?</span>
-            <i data-lucide="chevron-down" class="faq-chevron"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Nous intervenons sur <strong>tous types de véhicules</strong> : voitures particulières, SUV, monospaces, utilitaires légers, motos et scooters. Pour les poids lourds ou véhicules spéciaux, contactez-nous pour vérifier la faisabilité.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Que faire en cas de panne sur l'autoroute ?</span>
-            <i data-lucide="chevron-down" class="faq-chevron"></i>
-          </button>
-          <div class="faq-answer">
-            <p>En cas de panne sur autoroute, <strong>mettez votre gilet jaune, allumez vos warnings et éloignez-vous du véhicule</strong> en passant la glissière de sécurité. Appelez ensuite le <a href="tel:0617684270">06 17 68 42 70</a>. Attention : sur autoroute, l'intervention passe obligatoirement par un prestataire agréé.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
-      <h2>Nous Contacter</h2>
-      <p class="section-sub">Pour toute urgence, appelez directement — nous répondons 7j/7 24h/24</p>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon-box"><i data-lucide="phone-call"></i></div>
-            <div>
-              <strong>Téléphone</strong>
-              <a href="tel:0617684270">06 17 68 42 70</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon-box"><i data-lucide="map-pin"></i></div>
-            <div>
-              <strong>Atelier</strong>
-              <span>Zone industrielle du Quai de la Blanquière, Nice</span>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon-box"><i data-lucide="clock"></i></div>
-            <div>
-              <strong>Horaires</strong>
-              <span>7 jours sur 7 — 24h/24</span>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon-box"><i data-lucide="timer"></i></div>
-            <div>
-              <strong>Délai d'intervention</strong>
-              <span>30 minutes à 1 heure sur Nice</span>
-            </div>
-          </div>
-          <a href="tel:0617684270" class="btn btn-primary btn-contact-call">
-            <i data-lucide="phone-call" class="icon-sm"></i>
-            <span class="btn-contact-call-text">
-              <span class="btn-contact-call-label">Appel d'urgence</span>
-              <span class="btn-contact-call-number">06 17 68 42 70</span>
-            </span>
-          </a>
-        </div>
-
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label for="name">Nom</label>
-            <input type="text" id="name" name="name" placeholder="Votre nom" autocomplete="name" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Téléphone</label>
-            <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX" autocomplete="tel" inputmode="tel" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" placeholder="Décrivez votre problème (localisation, type de panne…)" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">Envoyer le message</button>
-          <p class="form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></p>
-          <p class="form-note">Pour une urgence, appelez directement le <a href="tel:0617684270">06 17 68 42 70</a></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- STICKY CTA MOBILE — visible uniquement après scroll -->
-  <a href="tel:0617684270" class="sticky-cta-call" id="stickyCtaCall" aria-label="Appeler maintenant le 06 17 68 42 70">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-    <span class="sticky-cta-text">
-      <span class="sticky-cta-label">Appel d'urgence</span>
-      <span class="sticky-cta-number">06 17 68 42 70</span>
-    </span>
-  </a>
-
-  <!-- FLOTTANTS — widget d'aide honnête : 3 canaux explicites -->
-  <div class="floating-buttons" role="navigation" aria-label="Choisir un canal de contact">
-    <a href="https://wa.me/33617684270" target="_blank" rel="noopener" class="floating-btn floating-whatsapp" aria-label="Nous contacter sur WhatsApp">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-      <span class="floating-tip">WhatsApp</span>
-    </a>
-    <a href="demande.html" class="floating-btn floating-form" aria-label="Remplir le formulaire de demande">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="9" y1="13" x2="15" y2="13"/>
-        <line x1="9" y1="17" x2="13" y2="17"/>
-      </svg>
-      <span class="floating-tip">Formulaire</span>
-    </a>
-    <a href="tel:0617684270" class="floating-btn floating-call" aria-label="Appel d'urgence au 06 17 68 42 70">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-      <span class="floating-tip">06 17 68 42 70</span>
-    </a>
-  </div>
-
-  <button id="backToTop" aria-label="Retour en haut">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-logo">DepannageAutoNice.fr</div>
-      <div class="footer-links">
-        <a href="a-propos.html">À propos</a>
-        <span>·</span>
-        <a href="diagnostic.html">Diagnostic pneus</a>
-        <span>·</span>
+      <nav class="ft-col" aria-label="Le site">
+        <p class="ft-h">Le site</p>
+        <a href="services.html">Services &amp; tarifs</a>
+        <a href="zone.html">Zone d'intervention</a>
+        <a href="faq.html">Questions fréquentes</a>
+        <a href="a-propos.html">À propos de l'équipe</a>
+      </nav>
+      <nav class="ft-col" aria-label="Agir">
+        <p class="ft-h">Agir</p>
         <a href="demande.html">Demander un dépannage</a>
-        <span>·</span>
-        <a href="#faq">FAQ</a>
-        <span>·</span>
+        <a href="diagnostic.html">Diagnostic pneus gratuit</a>
+        <a href="contact.html">Contact</a>
         <a href="mentions-legales.html">Mentions légales</a>
-      </div>
-      <div class="footer-phone"><a href="tel:0617684270">06 17 68 42 70</a></div>
-      <div class="footer-copy">&copy; 2026 Dépannage Auto Nice — Tous droits réservés</div>
+      </nav>
+      <nav class="ft-col" aria-label="Villes">
+        <p class="ft-h">Villes</p>
+        <a href="ville-cannes.html">Dépannage Cannes</a>
+        <a href="ville-antibes.html">Dépannage Antibes</a>
+        <a href="ville-menton.html">Dépannage Menton</a>
+        <a href="ville-cagnes-sur-mer.html">Dépannage Cagnes-sur-Mer</a>
+        <a href="ville-grasse.html">Dépannage Grasse</a>
+      </nav>
     </div>
+    <p class="ft-copy">© <span id="year">2026</span> Dépannage Auto Nice</p>
   </footer>
 
-  <script src="config.js"></script>
-  <script src="js/gsap.min.js"></script>
-  <script src="js/ScrollTrigger.min.js"></script>
-  <script src="js/lenis.min.js"></script>
-  <script src="js/leaflet.js"></script>
-  <script src="js/lucide.min.js"></script>
-  <script>if (typeof lucide !== 'undefined') lucide.createIcons();</script>
-  <script src="script.js?v=13"></script>
+  <div class="rail" aria-label="Contact rapide" role="navigation">
+    <a href="tel:0617684270" class="rail-call"><small>Appeler 24h/24</small><strong>06 17 68 42 70</strong></a>
+    <a href="demande.html" class="rail-btn rail-dem"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demander un dépannage</a>
+    <a href="https://wa.me/33617684270" class="rail-btn rail-wa" rel="noopener"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-message"/></svg>WhatsApp</a>
+    <a href="#main" class="rail-top" aria-label="Remonter en haut de page"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-arrow-up"/></svg></a>
+  </div>
+
+  <div class="bar" aria-label="Contact rapide" role="navigation">
+    <a href="tel:0617684270" class="bar-call" aria-label="Appeler le 06 17 68 42 70"><small>Appeler</small><strong>06 17 68 42 70</strong></a>
+    <a href="demande.html"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demande</a>
+    <a href="https://wa.me/33617684270" rel="noopener"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-message"/></svg>WhatsApp</a>
+  </div>
+
+  <script src="site.js"></script>
 </body>
 </html>

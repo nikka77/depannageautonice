@@ -7,12 +7,16 @@ pas être faites depuis le code.
 
 - **Données structurées** `LocalBusiness` + `AutomotiveBusiness` + `EmergencyService`
   sur l'accueil (adresse, téléphone, horaires 24h/24, zone desservie, tarif de départ).
-- **`FAQPage`** sur l'accueil et sur chaque page ville : rend les questions
-  éligibles à l'affichage enrichi dans les résultats Google.
+- **Une page par sujet** — services & tarifs, zone, FAQ, à propos, contact —
+  chacune avec son titre, sa description, son `canonical` et son `BreadcrumbList`.
+- **`FAQPage`** sur la page FAQ, la page À propos et chaque page ville : rend
+  les questions éligibles à l'affichage enrichi dans les résultats Google. Le
+  texte affiché et le balisage viennent de la même source dans
+  `tools/build-pages.js`, ils ne peuvent pas diverger.
 - **Pages locales** pour Cannes, Antibes, Menton, Cagnes-sur-Mer et Grasse.
   Chacune a son propre contenu (accès, pannes fréquentes sur place, quartiers,
   délai réel depuis Nice), son `BreadcrumbList` et son `Service` géolocalisé.
-- **Sitemap** (9 URL) et `robots.txt` pointant dessus.
+- **Sitemap** (14 URL) et `robots.txt` pointant dessus.
 - **Image de partage** `img/og-cover.jpg` au format 1200×630 attendu par
   Facebook, WhatsApp et X.
 
@@ -62,8 +66,21 @@ qui dira quelles villes méritent une page supplémentaire.
 Le site est publié sur `nikka77.github.io/depannageautonice`. Un vrai domaine
 (`depannageautonice.fr`) inspire nettement plus confiance et se retient au
 téléphone. Après l'achat, il faudra remplacer l'adresse de base dans
-`tools/villes.json` (clé `site.base`), relancer le générateur, et mettre à jour
-les `canonical` et `og:url` des autres pages.
+`tools/villes.json` (clé `site.base`), relancer les deux générateurs, et mettre
+à jour les `canonical` et `og:url` de `demande.html`, `diagnostic.html` et
+`mentions-legales.html`, qui ne sont pas générées.
+
+## Modifier un texte du site
+
+Les pages `index`, `services`, `zone`, `faq`, `a-propos` et `contact` sont
+**générées** : le contenu vit dans `tools/pages/`, l'en-tête, le pied de page
+et les questions fréquentes dans `tools/build-pages.js`. Après modification :
+
+```bash
+node tools/build-pages.js
+```
+
+Ne pas éditer ces fichiers HTML à la main, ils sont écrasés.
 
 ## Ajouter une ville
 
@@ -72,6 +89,7 @@ commune, y ajouter une entrée puis relancer :
 
 ```bash
 node tools/build-villes.js
+node tools/build-pages.js   # met à jour le tableau des délais et le pied de page
 ```
 
 Les fichiers `ville-*.html` et `sitemap.xml` sont **générés** : ne pas les

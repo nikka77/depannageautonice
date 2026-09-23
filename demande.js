@@ -252,7 +252,7 @@ btn1Back.addEventListener('click', () => goToStep(0));
 (function applyUrlType() {
   const params = new URLSearchParams(window.location.search);
   const t = params.get('type');
-  if (t === 'pneu' || t === 'batterie' || t === 'carburant' || t === 'remorquage') {
+  if (t === 'pneu' || t === 'batterie' || t === 'carburant' || t === 'remorquage' || t === 'moteur') {
     const match = document.querySelector(`.panne-card[data-type="${t}"]`);
     if (match) match.click();
   }

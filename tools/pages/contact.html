@@ -1,0 +1,41 @@
+<section class="phero">
+  <div class="wrap phero-in">
+    <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">›</span>Contact</nav>
+    <h1>Nous contacter</h1>
+    <p>Pour une panne, appelez&nbsp;: c'est le plus rapide, de jour comme de nuit. Le formulaire sert aux demandes qui peuvent attendre — devis atelier, rendez-vous, question.</p>
+  </div>
+</section>
+
+<section class="wrap sec">
+  <div class="split">
+    <div>
+      <h2 class="sr-only">Coordonnées</h2>
+      <ul class="info">
+        <li>{{ic:phone}}<div><small>Téléphone — 24h/24</small><a class="big" href="tel:{{TEL_HREF}}">{{TEL}}</a></div></li>
+        <li>{{ic:message}}<div><small>WhatsApp</small><a class="solo" href="{{WA}}" rel="noopener">Écrire sur WhatsApp</a></div></li>
+        <li>{{ic:pin}}<div><small>Atelier</small>Zone industrielle du Quai de la Blanquière, Nice</div></li>
+        <li>{{ic:clock}}<div><small>Horaires</small>7 jours sur 7 — 24h/24, jours fériés compris</div></li>
+        <li>{{ic:truck}}<div><small>Délai estimé</small>30 minutes à 1 heure sur Nice — <a href="zone.html">délais par commune</a></div></li>
+      </ul>
+    </div>
+
+    <form class="form" id="contactForm">
+      <h2>Écrire un message</h2>
+      <div class="field">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="phone">Téléphone</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Votre demande : devis atelier, rendez-vous, question…" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-orange">Envoyer le message</button>
+      <p class="form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></p>
+      <p class="form-help">Panne en cours&nbsp;? N'attendez pas une réponse écrite&nbsp;: appelez le <a href="tel:{{TEL_HREF}}">{{TEL}}</a>.</p>
+    </form>
+  </div>
+</section>
