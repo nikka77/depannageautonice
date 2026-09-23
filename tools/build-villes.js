@@ -192,7 +192,7 @@ ${JSON.stringify(schema, null, 2)}
       <li><a href="index.html">Nice et tout le 06</a></li>
     </ul>
     <p class="v-footer-legal">
-      <a href="index.html">Accueil</a> · <a href="diagnostic.html">Diagnostic pneus</a> · <a href="mentions-legales.html">Mentions légales</a>
+      <a href="index.html">Accueil</a> · <a href="a-propos.html">À propos</a> · <a href="diagnostic.html">Diagnostic pneus</a> · <a href="mentions-legales.html">Mentions légales</a>
       <br>© <span id="year"></span> ${esc(site.nom)} — ${esc(site.depart)}
     </p>
   </footer>
@@ -218,6 +218,7 @@ const staticPages = [
   { loc: `${site.base}/`, freq: 'weekly', prio: '1.0' },
   { loc: `${site.base}/demande.html`, freq: 'monthly', prio: '0.9' },
   { loc: `${site.base}/diagnostic.html`, freq: 'monthly', prio: '0.8' },
+  { loc: `${site.base}/a-propos.html`, freq: 'monthly', prio: '0.6' },
   { loc: `${site.base}/mentions-legales.html`, freq: 'yearly', prio: '0.3' },
 ];
 const cityPages = villes.map(v => ({ loc: `${site.base}/ville-${v.slug}.html`, freq: 'monthly', prio: '0.8' }));

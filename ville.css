@@ -47,6 +47,7 @@ a { color: var(--orange); }
 .v-top-logo {
   color: var(--white); text-decoration: none;
   font-weight: 600; letter-spacing: 0.01em;
+  display: inline-flex; align-items: center; min-height: 44px;
 }
 .v-top-logo strong { color: var(--orange); font-weight: 700; }
 .v-top-tel {
@@ -63,7 +64,7 @@ a { color: var(--orange); }
   max-width: 880px; margin: 0 auto; padding: 16px 20px 0;
   font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gray);
 }
-.v-crumb a { color: var(--gray); text-decoration: none; display: inline-block; padding: 6px 2px; }
+.v-crumb a { color: var(--gray); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; }
 .v-crumb a:hover { color: var(--orange); }
 .v-crumb span { margin: 0 6px; }
 
@@ -154,6 +155,33 @@ h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px
 .v-faq[open] summary::after { content: '−'; }
 .v-faq p { padding: 0 16px 16px; margin: 0; color: #3c3c34; font-size: 0.95rem; }
 
+/* ── Page « À propos » ────────────────────── */
+/* Déroulé d'une intervention : une liste ordonnée avec un numéro lisible,
+   pas une puce. Le compteur CSS évite de figer les numéros dans le HTML. */
+/* Un numéro de téléphone coupé en fin de ligne ne se lit plus. */
+.ap-nowrap { white-space: nowrap; }
+
+.ap-steps { list-style: none; counter-reset: ap; display: grid; gap: 18px; }
+.ap-steps li {
+  counter-increment: ap;
+  display: grid; grid-template-columns: 44px 1fr; gap: 0 14px;
+  align-items: start;
+}
+.ap-steps li::before {
+  content: counter(ap, decimal-leading-zero);
+  grid-row: 1 / span 2;
+  font-family: 'Bowlby One', sans-serif; font-size: 1.35rem;
+  color: var(--orange); line-height: 1;
+  padding-top: 2px;
+}
+.ap-steps h3 { margin-bottom: 4px; }
+.ap-steps p { margin: 0; color: #3c3c34; font-size: 0.95rem; }
+
+/* Ce que nous ne faisons pas : même carte, accent neutre plutôt qu'orange,
+   pour que l'œil ne lise pas ces limites comme des offres. */
+.ap-card-no { border-left-color: #8a8a80; }
+.ap-card-no h3 { color: #3c3c34; }
+
 /* ── Rappel final ─────────────────────────── */
 .v-final { padding: 40px 0; text-align: center; }
 .v-final p { color: #3c3c34; margin-bottom: 20px; }
@@ -169,11 +197,20 @@ h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 6px
   text-transform: uppercase; letter-spacing: 2px; color: var(--gray);
   margin-bottom: 14px;
 }
-.v-links { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; margin-bottom: 24px; }
-.v-links a { text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+.v-links { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 10px; margin-bottom: 20px; }
+/* Liens de navigation à part entière : cible tactile d'au moins 44px, pas
+   les 17px d'une ligne de texte. */
+.v-links a {
+  text-decoration: none; font-weight: 600; font-size: 0.92rem;
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0 8px;
+}
 .v-links a:hover { text-decoration: underline; }
-.v-footer-legal { font-size: 0.8rem; color: var(--gray); line-height: 2; }
-.v-footer-legal a { color: var(--gray); text-decoration: none; }
+.v-footer-legal { font-size: 0.8rem; color: var(--gray); line-height: 2.4; }
+.v-footer-legal a {
+  color: var(--gray); text-decoration: none;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px;
+}
 .v-footer-legal a:hover { color: var(--orange); }
 
 /* ── Barre d'appel fixe (mobile d'abord) ──── */

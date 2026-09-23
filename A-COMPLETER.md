@@ -91,3 +91,28 @@ contre vous.
   structurées lues par Google.
 - **« Intervention en 30 min à 1h »** — présenté comme un délai estimé, ce qui
   est la bonne formulation, mais il doit rester réaliste aux heures de pointe.
+
+---
+
+## Page « À propos » — ce que je n'ai pas écrit
+
+`a-propos.html` existe et est complète sur tout ce que le site affirmait déjà :
+zone, services, horaires, atelier, tarif de départ, assurances, déroulé d'une
+intervention, limites. Je n'y ai **rien inventé**.
+
+Manquent donc les éléments qu'on attend d'une page « qui sommes-nous » et que
+vous seul connaissez. Donnez-les-moi et je les intègre :
+
+| Élément | Pourquoi ça compte |
+|---|---|
+| **Année de création réelle** | la page ne dit pas « depuis 2004 » tant que ce n'est pas confirmé (voir ci-dessus) |
+| **Qui tient l'entreprise** | un prénom, un parcours en deux phrases. C'est ce qui distingue un artisan d'une plateforme anonyme |
+| **Taille de l'équipe et du parc** | « 2 camions plateau » est plus crédible qu'un chiffre rond |
+| **Agréments / certifications** | agrément préfectoral, conventions d'assurance, qualifications mécaniques |
+| **Une photo de l'atelier ou du camion** | la page n'a aucune image ; une vraie photo vaut mieux qu'une banque d'images |
+
+Trois affirmations de la page sont à vérifier de votre côté, parce qu'elles
+sont reprises du reste du site et qu'elles vous engagent :
+« pas d'intervention sur autoroute », « pas de carrosserie », « pas de
+désincarcération ». Si l'une est fausse, dites-le-moi : elle envoie
+actuellement des clients ailleurs.

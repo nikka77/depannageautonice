@@ -94,7 +94,15 @@
       text-align: center;
       color: var(--text-dim);
       font-size: 14px;
+      line-height: 2.2;
     }
+    footer a {
+      color: var(--text-dim);
+      /* Cible tactile confortable sur mobile. */
+      display: inline-block;
+      padding: 6px 4px;
+    }
+    footer a:hover { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -155,7 +163,8 @@
   </main>
 
   <footer>
-    © <span id="year"></span> Dépannage Auto Nice — Tous droits réservés
+    <a href="index.html">Accueil</a> · <a href="a-propos.html">À propos</a> · <a href="diagnostic.html">Diagnostic pneus</a>
+    <br>© <span id="year"></span> Dépannage Auto Nice — Tous droits réservés
   </footer>
 
   <script>
