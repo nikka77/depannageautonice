@@ -178,8 +178,13 @@ p { margin: 0; }
   background-size: cover; background-position: center 50%;
 }
 .hero-slide.s1 { background-image: url("img/hero-1.webp"); background-position: center 45%; }
-.hero-slide.s2 { background-image: url("img/hero-2.webp"); background-position: center 55%; opacity: 0; }
-.hero-slide.s3 { background-image: url("img/hero-3.webp"); opacity: 0; }
+/* Les photos 2 et 3 n'apparaissent qu'après 7 et 14 s : elles ne se
+   téléchargent qu'une fois la page affichée (classe posée par site.js),
+   ce qui retire ~290 Ko du chargement initial sur mobile. */
+.hero-slide.s2 { background-position: center 55%; opacity: 0; }
+.hero-slide.s3 { opacity: 0; }
+.hero.ready .hero-slide.s2 { background-image: url("img/hero-2.webp"); }
+.hero.ready .hero-slide.s3 { background-image: url("img/hero-3.webp"); }
 /* La photo 1 est posée en fond et ne s'éteint jamais : les deux autres
    passent par-dessus. Plus de hero noir au chargement. */
 @media (prefers-reduced-motion: no-preference) {
@@ -281,6 +286,7 @@ p { margin: 0; }
 }
 .lead { font-size: 1.05rem; color: var(--ink-2); line-height: 1.65; max-width: 62ch; }
 .lead + .lead { margin-top: 14px; }
+.intro .btns { margin-top: 28px; }
 .intro-split {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 44px; align-items: center; margin-top: 8px;
@@ -305,7 +311,9 @@ p { margin: 0; }
 .cell { background: var(--paper); padding: 28px 26px; display: flex; flex-direction: column; gap: 10px; }
 .cell > .ic { width: 26px; height: 26px; color: var(--accent); }
 .cell h2 { font-size: 1.05rem; letter-spacing: -.01em; }
+.cell h3 { font-size: 1.02rem; letter-spacing: -.01em; }
 .cell p { color: var(--ink-2); font-size: .93rem; line-height: 1.62; }
+.cell .fact-v { color: var(--ink); font-weight: 700; font-size: 1.05rem; }
 
 /* Cartes de service numérotées. */
 .svc { padding: 30px 28px; gap: 12px; }
@@ -341,6 +349,11 @@ p { margin: 0; }
   font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
 }
 .chips a:hover { border-color: var(--accent); color: var(--accent); }
+.chips span {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px;
+  background: var(--soft); border: 1px solid var(--line);
+  font-family: var(--mono); font-size: .74rem; color: var(--ink-2);
+}
 
 /* Encadré sobre (limites, informations légales). */
 .aside {
@@ -360,6 +373,15 @@ p { margin: 0; }
 .band h2 { font-size: 1.2rem; margin-bottom: 4px; }
 .band p { color: var(--foot-text); font-size: .95rem; }
 .band .btn { font-size: 1rem; min-height: 50px; }
+
+/* ── Texte long (mentions légales) ───────── */
+.legal { max-width: 780px; color: var(--ink-2); }
+.legal h2 { font-size: 1.15rem; color: var(--ink); margin: 32px 0 10px; }
+.legal h2:first-child { margin-top: 0; }
+.legal h3 { font-size: 1rem; color: var(--ink); margin: 18px 0 8px; }
+.legal p + p, .legal ul + p { margin-top: 10px; }
+.legal ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.legal strong { color: var(--ink); }
 
 /* ── FAQ ─────────────────────────────────── */
 .faq { max-width: 780px; border-top: 1px solid var(--line); }
@@ -401,6 +423,7 @@ p { margin: 0; }
 }
 .field textarea { resize: vertical; min-height: 130px; }
 .field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid var(--fill); outline-offset: 0; border-color: var(--fill); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .form .btn { width: 100%; font-size: 1rem; min-height: 52px; }
 .form-status { padding: 12px 14px; font-size: .92rem; }
 .form-status.is-ok { background: #eaf6ec; color: #14532d; border-left: 4px solid var(--wa); }

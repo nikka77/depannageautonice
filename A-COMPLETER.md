@@ -155,3 +155,48 @@ je remplace l'illustration et j'ajoute la section.
   appellent directement l'exploitant. Devenu « utilisez une borne d'appel
   d'urgence ou appelez le 112 ».
 
+
+---
+
+## Analyse complète — points qui dépendent de vous
+
+### Majoration de nuit et jours fériés : le site se contredit
+
+Les mentions légales (section 7, texte d'origine) disent que le tarif de
+70 € s'entend « hors prestations spécifiques (remorquage longue distance,
+intervention de nuit, jours fériés) ». Partout ailleurs le site promet « prix
+annoncé = prix facturé, aucun supplément ». Les deux ne sont pas
+incompatibles si la majoration est annoncée au téléphone, mais un client qui
+paie plus la nuit se sentira trompé en relisant la page d'accueil.
+
+Dites-moi s'il y a une majoration de nuit ou de jour férié, et de combien :
+j'écris « majoration de nuit annoncée à l'appel » sur les pages de tarifs, ou
+je retire la mention des mentions légales.
+
+### « Clés enfermées »
+
+Les pages ville annonçaient une septième intervention, « clés enfermées —
+ouverture sans dégât », absente de la page Services. Je l'ai remplacée par
+« dépannage sur place » pour coller aux six interventions de votre maquette.
+Si vous ouvrez réellement les véhicules verrouillés, dites-le : je l'ajoute
+partout, c'est une recherche fréquente.
+
+### Adresse e-mail retirée des mentions légales
+
+`contact@depannageautonice.fr` ne reçoit rien (point 1). Je l'ai retirée des
+mentions légales : l'exercice des droits RGPD passe par courrier à l'atelier
+ou par téléphone en attendant une adresse qui fonctionne.
+
+### Durée de conservation des données
+
+La CNIL demande d'indiquer combien de temps vous gardez les demandes reçues.
+Je ne l'ai pas inventée. Usage courant : le temps de l'intervention et de la
+facturation, puis 3 ans pour un client (10 ans pour les factures, obligation
+comptable). Donnez-moi votre pratique réelle.
+
+### Relais de la plaque : redéploiement
+
+`api/plaque.js` ne recopie plus dans les journaux Vercel la réponse d'erreur
+d'Auto Ways (elle pouvait contenir votre clé et la plaque du client). Le
+relais en ligne n'est mis à jour qu'après un redéploiement du projet Vercel
+`depannage-plaque`.

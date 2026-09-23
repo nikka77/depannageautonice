@@ -21,7 +21,8 @@ const esc = s => String(s).replace(/&(?!(amp|lt|gt|quot|#\d+|nbsp);)/g, '&amp;')
 // Pour le JSON-LD : pas de HTML, donc on retire les entités et le balisage.
 const plain = s => String(s).replace(/&nbsp;/g, ' ').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
 
-const FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath fill='%23ff6b00' d='M18 28c4-7 11-11 18-9l5-3-3 9c2 5 1 11-3 15s-10 5-15 3l-5 3 3-9-2-2-1 1-2-2 1-1c1-2 2-3 4-5z'/%3E%3C/svg%3E";
+const { writePage } = require('./build-pages');
+
 
 function page(v) {
   const url = `${site.base}/ville-${v.slug}.html`;
@@ -70,147 +71,98 @@ function page(v) {
     ],
   };
 
-  return `<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(titre)}</title>
-  <meta name="description" content="${esc(desc)}">
-  <link rel="canonical" href="${url}">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="${url}">
-  <meta property="og:title" content="${esc(titre)}">
-  <meta property="og:description" content="${esc(desc)}">
-  <meta property="og:locale" content="fr_FR">
-  <meta property="og:image" content="${site.base}/img/og-cover.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${esc(titre)}">
-  <meta name="twitter:description" content="${esc(desc)}">
-  <meta name="twitter:image" content="${site.base}/img/og-cover.jpg">
-  <meta name="geo.region" content="FR-06">
-  <meta name="geo.placename" content="${esc(v.nom)}">
-  <meta name="geo.position" content="${v.lat};${v.lng}">
-  <link rel="icon" type="image/svg+xml" href="${FAVICON}">
-  <meta name="theme-color" content="#ff6b00">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="ville.css">
-  <script type="application/ld+json">
-${JSON.stringify(schema, null, 2)}
-  </script>
-</head>
-<body>
+  // Contenu seul : l'en-tête, le pied de page et les actions d'urgence
+  // viennent de la mise en page commune (tools/build-pages.js).
+  const contenu = `<section class="wrap intro">
+  <a href="zone.html" class="back">← Zone d'intervention</a>
+  <p class="kicker">${esc(v.nom)} ${esc(v.cp)} — 7j/7 24h/24</p>
+  <h1>Dépannage auto à ${esc(v.nom)}</h1>
+  <p class="lead">${v.intro}</p>
+  <div class="btns">
+    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
+    <a href="demande.html" class="btn btn-dark">{{ic:file}}Demander en ligne</a>
+  </div>
+</section>
 
-  <header class="v-top">
-    <a class="v-top-logo" href="index.html">← Dépannage<strong>Auto</strong>Nice</a>
-    <a class="v-top-tel" href="tel:${site.telHref}">${site.tel}</a>
-  </header>
+<section class="wrap sec" aria-label="${esc(v.nom)} en bref">
+  <div class="grid">
+    <div class="cell"><p class="svc-num">Distance depuis l'atelier</p><p class="fact-v">${v.distanceKm} km</p></div>
+    <div class="cell"><p class="svc-num">Délai d'intervention estimé</p><p class="fact-v">${esc(v.delai)}</p></div>
+    <div class="cell"><p class="svc-num">Accès</p><p class="fact-v">${esc(v.acces)}</p></div>
+  </div>
+  <p class="small-mono">Nos camions partent de ${esc(site.depart)}. Le délai annoncé est une estimation liée au trafic, pas une garantie&nbsp;: nous vous donnons une fourchette réaliste au téléphone.</p>
+</section>
 
-  <nav class="v-crumb" aria-label="Fil d'Ariane">
-    <a href="index.html">Accueil</a>
-    <span aria-hidden="true">/</span>
-    <span aria-current="page">Dépannage ${esc(v.nom)}</span>
-  </nav>
+<section class="wrap sec" aria-labelledby="h-local">
+  <h2 class="sec-t" id="h-local">Ce que nous voyons le plus souvent à ${esc(v.nom)}</h2>
+  <div class="grid grid-wide">
+    ${v.specificites.map(sp => `<article class="cell"><h3>${esc(sp.titre)}</h3><p>${sp.texte}</p></article>`).join('\n    ')}
+  </div>
+</section>
 
-  <main>
-    <section class="v-hero">
-      <span class="v-badge">◆ ${esc(v.nom)} ${esc(v.cp)} — 7J/7 24H/24</span>
-      <h1>Dépannage auto à ${esc(v.nom)}</h1>
-      <p class="v-lead">${v.intro}</p>
-      <div class="v-cta">
-        <a class="v-btn v-btn-call" href="tel:${site.telHref}">Appeler le ${site.tel}</a>
-        <a class="v-btn v-btn-ghost" href="demande.html">Demander en ligne</a>
-      </div>
-      <dl class="v-facts">
-        <div><dt>Distance depuis notre atelier</dt><dd>${v.distanceKm} km</dd></div>
-        <div><dt>Délai d'intervention estimé</dt><dd>${esc(v.delai)}</dd></div>
-        <div><dt>Accès</dt><dd>${esc(v.acces)}</dd></div>
-      </dl>
-      <p class="v-honest">Nos camions partent de ${esc(site.depart)}. Le délai annoncé est une estimation liée au trafic, pas une garantie&nbsp;: nous vous donnons une fourchette réaliste au téléphone.</p>
-    </section>
+<section class="wrap sec" aria-labelledby="h-inter">
+  <h2 class="sec-t" id="h-inter">Nos interventions</h2>
+  <p class="sec-sub">Les six mêmes qu'à Nice — <a href="services.html">détail des services</a>.</p>
+  <div class="grid grid-wide">
+    <div class="cell"><h3>Remorquage</h3><p>Véhicule non roulant, accident, immobilisation.</p></div>
+    <div class="cell"><h3>Dépannage sur place</h3><p>Diagnostic et remise en route quand c'est possible.</p></div>
+    <div class="cell"><h3>Batterie et démarrage</h3><p>Test, redémarrage, remplacement sur place.</p></div>
+    <div class="cell"><h3>Pneu crevé</h3><p>Roue de secours, kit anti-crevaison, remorquage.</p></div>
+    <div class="cell"><h3>Erreur de carburant</h3><p>Vidange du réservoir avant démarrage.</p></div>
+    <div class="cell"><h3>Surchauffe moteur</h3><p>Diagnostic sur place, remorquage si nécessaire.</p></div>
+  </div>
+</section>
 
-    <section class="v-section">
-      <h2>Ce que nous voyons le plus souvent à ${esc(v.nom)}</h2>
-      <div class="v-cards">
-        ${v.specificites.map(s => `<article class="v-card">
-          <h3>${esc(s.titre)}</h3>
-          <p>${s.texte}</p>
-        </article>`).join('\n        ')}
-      </div>
-    </section>
+<section class="wrap sec" aria-labelledby="h-quartiers">
+  <h2 class="sec-t" id="h-quartiers">Quartiers desservis à ${esc(v.nom)}</h2>
+  <ul class="chips">
+    ${v.quartiers.map(q => `<li><span>${esc(q)}</span></li>`).join('\n    ')}
+  </ul>
+  <p class="small-mono">Cette liste n'est pas limitative&nbsp;: nous intervenons sur l'ensemble de la commune et des communes voisines.</p>
+</section>
 
-    <section class="v-section">
-      <h2>Nos interventions</h2>
-      <ul class="v-services">
-        <li><strong>Remorquage</strong><span>Véhicule non roulant, accident, immobilisation</span></li>
-        <li><strong>Batterie et démarrage</strong><span>Test, redémarrage, remplacement sur place</span></li>
-        <li><strong>Pneu crevé</strong><span>Roue de secours, kit anti-crevaison, remorquage</span></li>
-        <li><strong>Erreur de carburant</strong><span>Vidange du réservoir avant démarrage</span></li>
-        <li><strong>Surchauffe moteur</strong><span>Diagnostic sur place, remorquage si nécessaire</span></li>
-        <li><strong>Clés enfermées</strong><span>Ouverture sans dégât quand c'est possible</span></li>
-      </ul>
-    </section>
+<section class="wrap sec" aria-labelledby="h-tarifs">
+  <h2 class="sec-t" id="h-tarifs">Tarifs</h2>
+  <p class="lead">Notre tarif de base est de <strong>70&nbsp;€</strong> pour Nice et ses environs immédiats. ${v.distanceKm > 20 ? `${esc(v.nom)} étant à ${v.distanceKm}&nbsp;km, un supplément de distance s'applique&nbsp;:` : 'Pour ' + esc(v.nom) + ', le tarif reste proche de ce montant&nbsp;:'} le prix exact vous est annoncé au téléphone <strong>avant</strong> tout déplacement, et c'est celui qui sera facturé. Aucun supplément à l'arrivée.</p>
+  <p class="lead">Nous travaillons avec toutes les compagnies d'assurance auto&nbsp;: la prise en charge directe est souvent possible, demandez-nous.</p>
+</section>
 
-    <section class="v-section">
-      <h2>Quartiers desservis à ${esc(v.nom)}</h2>
-      <ul class="v-quartiers">
-        ${v.quartiers.map(q => `<li>${esc(q)}</li>`).join('\n        ')}
-      </ul>
-      <p class="v-note">Cette liste n'est pas limitative&nbsp;: nous intervenons sur l'ensemble de la commune et des communes voisines.</p>
-    </section>
+<section class="wrap sec" aria-labelledby="h-faq">
+  <h2 class="sec-t" id="h-faq">Questions fréquentes — ${esc(v.nom)}</h2>
+  <div class="faq">
+    ${v.faq.map((f, i) => `<details name="faq"${i === 0 ? ' open' : ''}><summary>${esc(f.q)}{{ic:chevron}}</summary><div><p>${f.r}</p></div></details>`).join('\n    ')}
+  </div>
+</section>
 
-    <section class="v-section">
-      <h2>Tarifs</h2>
-      <p>Notre tarif de base est de <strong>70 €</strong> pour Nice et ses environs immédiats. ${v.distanceKm > 20 ? `${esc(v.nom)} étant à ${v.distanceKm} km, un supplément de distance s'applique&nbsp;:` : 'Pour ' + esc(v.nom) + ', le tarif reste proche de ce montant&nbsp;:'} le prix exact vous est annoncé au téléphone <strong>avant</strong> tout déplacement, et c'est celui qui sera facturé. Aucun supplément à l'arrivée.</p>
-      <p>Nous travaillons avec toutes les compagnies d'assurance auto&nbsp;: la prise en charge directe est souvent possible, demandez-nous.</p>
-    </section>
+<section class="wrap sec" aria-labelledby="h-autres">
+  <h2 class="sec-t" id="h-autres">Nous intervenons aussi à</h2>
+  <ul class="chips">
+    ${autres.map(o => `<li><a href="ville-${o.slug}.html">${esc(o.nom)}</a></li>`).join('\n    ')}
+    <li><a href="zone.html">Tout le 06</a></li>
+  </ul>
+</section>
 
-    <section class="v-section">
-      <h2>Questions fréquentes — ${esc(v.nom)}</h2>
-      ${v.faq.map(f => `<details class="v-faq">
-        <summary>${esc(f.q)}</summary>
-        <p>${f.r}</p>
-      </details>`).join('\n      ')}
-    </section>
-
-    <section class="v-final">
-      <h2>Une panne à ${esc(v.nom)} maintenant&nbsp;?</h2>
-      <p>Appelez-nous, nous répondons 24h/24. Décrivez la panne et votre position&nbsp;: vous saurez tout de suite le délai et le prix.</p>
-      <div class="v-cta">
-        <a class="v-btn v-btn-call" href="tel:${site.telHref}">${site.tel}</a>
-        <a class="v-btn v-btn-ghost" href="demande.html">Formulaire de demande</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="v-footer">
-    <p class="v-footer-title">Nous intervenons aussi à</p>
-    <ul class="v-links">
-      ${autres.map(o => `<li><a href="ville-${o.slug}.html">Dépannage ${esc(o.nom)}</a></li>`).join('\n      ')}
-      <li><a href="index.html">Nice et tout le 06</a></li>
-    </ul>
-    <p class="v-footer-legal">
-      <a href="index.html">Accueil</a> · <a href="a-propos.html">À propos</a> · <a href="diagnostic.html">Diagnostic pneus</a> · <a href="mentions-legales.html">Mentions légales</a>
-      <br>© <span id="year"></span> ${esc(site.nom)} — ${esc(site.depart)}
-    </p>
-  </footer>
-
-  <a class="v-sticky" href="tel:${site.telHref}" aria-label="Appeler le ${site.tel}">Appeler — ${site.tel}</a>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-</body>
-</html>
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">Une panne à ${esc(v.nom)} maintenant&nbsp;?</h2>
+      <p>Décrivez la panne et votre position&nbsp;: vous saurez tout de suite le délai et le prix.</p>
+    </div>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
+  </div>
+</section>
 `;
+
+  writePage({
+    file: `ville-${v.slug}.html`, path: `/ville-${v.slug}.html`, nav: null,
+    place: v.nom, geo: `${v.lat};${v.lng}`,
+    title: titre, desc,
+    schema: () => schema['@graph'],
+  }, contenu);
 }
 
 // ── Écriture des pages ──────────────────────
-villes.forEach(v => {
-  const file = path.join(ROOT, `ville-${v.slug}.html`);
-  fs.writeFileSync(file, page(v));
-  console.log('écrit :', path.basename(file));
-});
+villes.forEach(page);
 
 // ── Sitemap ─────────────────────────────────
 const today = new Date().toISOString().slice(0, 10);

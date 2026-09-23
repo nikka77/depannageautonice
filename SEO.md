@@ -18,7 +18,10 @@ pas être faites depuis le code.
   délai réel depuis Nice), son `BreadcrumbList` et son `Service` géolocalisé.
 - **Sitemap** (14 URL) et `robots.txt` pointant dessus.
 - **Image de partage** `img/og-cover.jpg` au format 1200×630 attendu par
-  Facebook, WhatsApp et X.
+  Facebook, WhatsApp et X, avec le nom et le numéro : un lien partagé sur
+  WhatsApp montre directement qui appeler.
+- **Page 404** qui propose d'appeler plutôt que de laisser un visiteur en
+  panne face à une page d'erreur.
 
 ## À faire hors du site — par ordre d'impact
 
@@ -72,8 +75,8 @@ téléphone. Après l'achat, il faudra remplacer l'adresse de base dans
 
 ## Modifier un texte du site
 
-Les pages `index`, `services`, `zone`, `faq`, `a-propos` et `contact` sont
-**générées** : le contenu vit dans `tools/pages/`, l'en-tête, le pied de page
+Les pages `index`, `services`, `zone`, `faq`, `a-propos`, `contact`,
+`mentions-legales` et `404` sont **générées** : le contenu vit dans `tools/pages/`, l'en-tête, le pied de page
 et les questions fréquentes dans `tools/build-pages.js`. Après modification :
 
 ```bash
@@ -91,6 +94,9 @@ commune, y ajouter une entrée puis relancer :
 node tools/build-villes.js
 node tools/build-pages.js   # met à jour le tableau des délais et le pied de page
 ```
+
+Les pages ville utilisent la même mise en page que le reste du site (en-tête,
+pied de page, barre d'appel) : seul leur contenu vient de `villes.json`.
 
 Les fichiers `ville-*.html` et `sitemap.xml` sont **générés** : ne pas les
 modifier à la main, ils sont écrasés à chaque exécution.

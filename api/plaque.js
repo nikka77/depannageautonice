@@ -174,9 +174,10 @@ module.exports = async function handler(req, res) {
     const texte = await reponse.text();
 
     if (!reponse.ok) {
-      // Le corps amont n'est jamais relayé tel quel hors diagnostic :
-      // il peut contenir l'URL appelée, donc le jeton.
-      console.error('Auto Ways a répondu', reponse.status, texte.slice(0, 300));
+      // Le corps amont n'est ni relayé ni journalisé : il peut contenir
+      // l'URL appelée (donc le jeton) et la plaque du client. Le statut
+      // suffit pour diagnostiquer.
+      console.error('Auto Ways a répondu', reponse.status);
 
       // Un 403 signifie « Token invalide » : clé expirée, révoquée ou quota
       // épuisé. C'est un problème d'exploitation, pas une panne passagère :

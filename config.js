@@ -40,5 +40,5 @@ window.SITE_CONFIG = {
   // ── Contact ───────────────────────────────────────────────
   whatsappNumber: '33617684270',  // format international, sans "+"
   phoneDisplay: '06 17 68 42 70',
-  phoneHref: '0617684270',
+  phoneHref: '+33617684270',
 };

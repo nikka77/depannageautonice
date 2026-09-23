@@ -401,24 +401,18 @@ function requestSummary() {
       ? `Position GPS : https://www.google.com/maps?q=${state.lat},${state.lng}`
       : 'Position GPS : non communiquée (adresse saisie à la main)',
     state.description ? `Description : ${state.description}` : null,
+    // La photo n'est pas transmise par le formulaire (ni par un lien
+    // WhatsApp pré-rempli) : on signale au moins qu'elle existe.
+    state.photoDataUrl ? 'Photo : le client en a pris une, demandez-la-lui sur WhatsApp' : null,
     `Prénom : ${state.firstName || '—'}`,
     `Téléphone : ${state.phone}`,
   ].filter(Boolean).join('\n');
 }
 
-function saveRequestLocally() {
-  try {
-    localStorage.setItem('dan_last_request', JSON.stringify({
-      date: new Date().toISOString(),
-      panne: state.panneLabel,
-      adresse: state.address,
-      phone: state.phone,
-    }));
-  } catch { /* stockage indisponible (navigation privée) → sans conséquence */ }
-}
-
 async function deliverRequest() {
-  saveRequestLocally();
+  // Plus de copie locale de la demande : elle gardait adresse et téléphone
+  // dans le navigateur sans limite de durée, et rien ne la relisait.
+  try { localStorage.removeItem('dan_last_request'); } catch { /* navigation privée */ }
 
   if (!CONFIG.formAccessKey) return 'manual';
 

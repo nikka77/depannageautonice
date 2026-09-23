@@ -26,7 +26,9 @@ const { site, villes } = JSON.parse(fs.readFileSync(path.join(__dirname, 'villes
 const BASE = site.base;
 const TEL = site.tel;
 const TEL_HREF = site.telHref;
-const WA = 'https://wa.me/33617684270';
+// Message pré-rempli : le client n'a plus qu'à compléter sa position, et la
+// conversation arrive identifiée comme une demande de dépannage.
+const WA = 'https://wa.me/33617684270?text=' + encodeURIComponent("Bonjour, j'ai besoin d'un dépannage. Je suis à : ");
 
 const FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath fill='%23ff6b00' d='M18 28c4-7 11-11 18-9l5-3-3 9c2 5 1 11-3 15s-10 5-15 3l-5 3 3-9-2-2-1 1-2-2 1-1c1-2 2-3 4-5z'/%3E%3C/svg%3E";
 
@@ -165,6 +167,21 @@ const PAGES = [
       crumbs(url, 'Contact'),
     ],
   },
+  {
+    file: 'mentions-legales.html', frag: 'mentions-legales.html', nav: null, path: '/mentions-legales.html',
+    title: 'Mentions légales — Dépannage Auto Nice',
+    desc: 'Mentions légales du site Dépannage Auto Nice : éditeur, hébergeur, données personnelles, services tiers, stockage local.',
+    schema: url => [crumbs(url, 'Mentions légales')],
+  },
+  {
+    // GitHub Pages sert 404.html pour toute adresse inconnue, quelle que soit
+    // sa profondeur : les liens et ressources sont réécrits en chemins
+    // absolus (voir writePage). Pas de <base> : il casserait les ancres #main.
+    file: '404.html', frag: '404.html', nav: null, path: '/404.html', base: '/depannageautonice/', noindex: true,
+    title: 'Page introuvable — Dépannage Auto Nice',
+    desc: `Page introuvable. En panne ? Appelez le ${TEL}, 7j/7 24h/24.`,
+    schema: () => [],
+  },
 ];
 
 const NAV = [
@@ -188,8 +205,7 @@ function layout(p, body) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${p.title}</title>
   <meta name="description" content="${escAttr(p.desc)}">
-  <link rel="canonical" href="${url}">
-  <meta property="og:type" content="website">
+${p.noindex ? '  <meta name="robots" content="noindex">\n' : `  <link rel="canonical" href="${url}">\n`}  <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
   <meta property="og:title" content="${escAttr(p.title)}">
   <meta property="og:description" content="${escAttr(p.desc)}">
@@ -200,17 +216,16 @@ function layout(p, body) {
   <meta name="twitter:description" content="${escAttr(p.desc)}">
   <meta name="twitter:image" content="${BASE}/img/og-cover.jpg">
   <meta name="geo.region" content="FR-06">
-  <meta name="geo.placename" content="Nice">
-  <link rel="icon" type="image/svg+xml" href="${FAVICON}">
+  <meta name="geo.placename" content="${p.place || 'Nice'}">
+${p.geo ? `  <meta name="geo.position" content="${p.geo}">\n` : ''}  <link rel="icon" type="image/svg+xml" href="${FAVICON}">
+  <link rel="apple-touch-icon" href="img/icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#ff6b00">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/chakra-400-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/chakra-700-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
 ${p.preload ? `  <link rel="preload" as="image" href="${p.preload}" fetchpriority="high">\n` : ''}${p.leaflet ? '  <link rel="stylesheet" href="vendor/css/leaflet.css">\n' : ''}  <link rel="stylesheet" href="site.css">
-  <script type="application/ld+json">
-${JSON.stringify(graph, null, 2)}
-  </script>
-</head>
+${graph['@graph'].length ? `  <script type="application/ld+json">\n${JSON.stringify(graph, null, 2)}\n  </script>\n` : ''}</head>
 <body>
   <a class="skip" href="#main">Aller au contenu</a>
 
@@ -304,13 +319,21 @@ function fill(p, src) {
       `    <li><a href="ville-${v.slug}.html">${v.nom}</a></li>`).join('\n'));
 }
 
-for (const p of PAGES) {
-  const src = fs.readFileSync(path.join(__dirname, 'pages', p.frag), 'utf8');
-  const html = layout(p, fill(p, src).replace(/^/gm, '    ').replace(/^ +$/gm, ''));
+// Assemble et écrit une page ; réutilisé par build-villes.js pour que les
+// pages ville partagent exactement l'en-tête, le pied et les actions.
+function writePage(p, src) {
+  let html = layout(p, fill(p, src).replace(/^/gm, '    ').replace(/^ +$/gm, ''));
+  if (p.base) {
+    html = html.replace(/\b(href|src)="(?!https?:|tel:|mailto:|data:|#|\/)/g, `$1="${p.base}`);
+  }
   const left = html.match(/\{\{[^}]+\}\}/);
   if (left) throw new Error(`${p.file} : jeton non remplacé ${left[0]}`);
   fs.writeFileSync(path.join(ROOT, p.file), html);
   console.log('écrit :', p.file);
 }
 
-module.exports = { PAGES };
+if (require.main === module) {
+  for (const p of PAGES) writePage(p, fs.readFileSync(path.join(__dirname, 'pages', p.frag), 'utf8'));
+}
+
+module.exports = { PAGES, writePage, ic };

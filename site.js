@@ -79,6 +79,11 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      // Case piège cochée : c'est un robot. On feint le succès sans rien envoyer.
+      if (form.elements.botcheck && form.elements.botcheck.checked) {
+        setStatus('Message envoyé. Nous vous rappelons au plus vite.', 'ok');
+        return;
+      }
       const name = form.elements.name.value.trim();
       const phone = form.elements.phone.value.trim();
       const message = form.elements.message.value.trim();
@@ -105,6 +110,7 @@
           signal: controller.signal,
           body: JSON.stringify({
             access_key: cfg.formAccessKey,
+            botcheck: false,
             subject: `${subject} — ${name}`,
             from_name: 'Dépannage Auto Nice (site)',
             message: body,
@@ -120,6 +126,14 @@
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = label; }
       }
     });
+  }
+
+  // ── Photos 2 et 3 du hero, chargées après l'affichage ──
+  const hero = document.querySelector('.hero');
+  if (hero && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const go = () => hero.classList.add('ready');
+    if (document.readyState === 'complete') go();
+    else window.addEventListener('load', go, { once: true });
   }
 
   // ── Année du pied de page ───────────────────
