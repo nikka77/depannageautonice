@@ -42,7 +42,7 @@ const data = {
   contact: {
     telephone: site.tel, telephoneInternational: site.telIntl,
     whatsapp: 'https://wa.me/33617684270',
-    demandeEnLigne: `${B}/demande.html`,
+    demandeEnLigne: `${B}/#demande`,
     langues: 'Équipe francophone. Pour l\'anglais ou l\'italien, WhatsApp est conseillé (message écrit facile à traduire).',
   },
   disponibilite: '7 jours sur 7, 24 heures sur 24, jours fériés compris',
@@ -79,7 +79,7 @@ Faits utiles :
 ## Contact et demande
 
 ${[
-  ligne('Demander un dépannage en ligne', `${B}/demande.html`, 'position GPS, type de panne, urgence ou rendez-vous'),
+  ligne('Demander un dépannage en ligne', `${B}/#demande`, 'formulaire en 4 étapes sur toutes les pages : position GPS et carte, panne, véhicule et plaque, photo, urgence ou rendez-vous, destination, estimation du prix'),
   ligne('Contact', `${B}/contact.html`),
   ligne('WhatsApp', 'https://wa.me/33617684270'),
 ].join('\n')}

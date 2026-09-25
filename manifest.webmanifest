@@ -29,7 +29,7 @@
   "shortcuts": [
     {
       "name": "Demander un dépannage",
-      "url": "./demande.html"
+      "url": "./#demande"
     }
   ]
 }

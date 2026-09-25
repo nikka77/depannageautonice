@@ -267,70 +267,173 @@
         </div>
         <button type="button" class="qr-x" data-qr-close aria-label="Chiudi"><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-x"/></svg></button>
       </div>
+      <ol class="qr-prog" aria-hidden="true">
+        <li data-n="1" class="is-on"><span>1</span>Luogo</li>
+        <li data-n="2"><span>2</span>Guasto</li>
+        <li data-n="3"><span>3</span>Quando</li>
+        <li data-n="4"><span>4</span>Contatto</li>
+      </ol>
+      <p class="sr-only" id="qrEtape" aria-live="polite"></p>
       <form class="qr-form" id="qrForm" novalidate>
-        <fieldset class="qr-f">
-          <legend>Dove vi trovate?</legend>
-          <button type="button" class="qr-gps" id="qrGps"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-pin"/></svg><span>Usa la mia posizione</span></button>
-          <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
-          <label class="qr-lab" for="qrAdresse">Indirizzo o punto di riferimento</label>
-          <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="Es.: 12 rue de France, parcheggio, uscita…">
-        </fieldset>
-        <fieldset class="qr-f">
-          <legend>Cosa è successo?</legend>
-          <div class="qr-types">
-            <label class="qr-type"><input type="radio" name="type" value="batterie"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-battery"/></svg>Batteria</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="pneu"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wheel"/></svg>Foratura</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="carburant"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-fuel"/></svg>Carburante</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="remorquage"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Traino</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="moteur"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-thermo"/></svg>Surriscaldamento</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="cles"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-key"/></svg>Chiavi</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="accident"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Incidente</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="autre"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wrench"/></svg>Altro</span></label>
+
+        <section class="qr-step" data-step="1" tabindex="-1" aria-label="Luogo">
+          <fieldset class="qr-f">
+            <legend>Dove vi trovate?</legend>
+            <button type="button" class="qr-gps" id="qrGps"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-pin"/></svg><span>Usa la mia posizione</span></button>
+            <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
+            <label class="qr-lab" for="qrAdresse">Indirizzo o punto di riferimento</label>
+            <div class="qr-inline">
+              <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="Es.: 12 rue de France, Nizza">
+              <button type="button" class="qr-mini" id="qrPlacer">Mostra sulla mappa</button>
+            </div>
+            <div class="qr-map" id="qrMap" role="region" aria-label="Mappa della vostra posizione" hidden></div>
+            <p class="qr-aide" id="qrMapAide" hidden>Trascinate il segnaposto arancione se la posizione non è esatta.</p>
+            <p class="qr-dist" id="qrDist" hidden></p>
+          </fieldset>
+          <fieldset class="qr-f">
+            <legend>Accesso</legend>
+            <label class="qr-check"><input type="checkbox" name="sousSol" data-montre="qrHauteur"><span>Parcheggio sotterraneo</span></label>
+            <div class="qr-sub" id="qrHauteur" hidden><label class="qr-lab" for="qrHauteurM">Altezza massima indicata (m)</label><input class="qr-in-txt qr-court" type="number" id="qrHauteurM" name="hauteur" min="1.5" max="3" step="0.05" inputmode="decimal" placeholder="1,90"></div>
+            <label class="qr-check"><input type="checkbox" name="autoroute" data-montre="qrAutorouteMsg"><span>Autostrada o superstrada</span></label>
+            <p class="qr-note" id="qrAutorouteMsg" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Sulle autostrade francesi può intervenire solo il carro attrezzi autorizzato: usate la colonnina SOS arancione o il 112. Possiamo poi trasportare il veicolo dal suo deposito.</p>
+            <label class="qr-check"><input type="checkbox" name="danger"><span>Veicolo che blocca il traffico o in posizione pericolosa</span></label>
+          </fieldset>
+        </section>
+
+        <section class="qr-step" data-step="2" tabindex="-1" aria-label="Guasto" hidden>
+          <fieldset class="qr-f">
+            <legend>Cosa è successo?</legend>
+            <div class="qr-types">
+              <label class="qr-type"><input type="radio" name="type" value="batterie"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-battery"/></svg>Batteria</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="pneu"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wheel"/></svg>Foratura</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="carburant"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-fuel"/></svg>Carburante</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="remorquage"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Traino</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="moteur"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-thermo"/></svg>Surriscaldamento</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="cles"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-key"/></svg>Chiavi</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="accident"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Incidente</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="autre"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wrench"/></svg>Altro</span></label>
+            </div>
+          </fieldset>
+          <div class="qr-sub" data-si="carburant" hidden>
+            <p class="qr-lab">Che problema di carburante?</p><div class="qr-seg"><label><input type="radio" name="carbu" value="seche"><span>Senza carburante</span></label><label><input type="radio" name="carbu" value="erreur"><span>Carburante sbagliato</span></label></div>
+            <div class="qr-sub" data-si-carbu="erreur" hidden><p class="qr-lab">Il motore ha girato dopo il rifornimento?</p><div class="qr-seg"><label><input type="radio" name="demarre" value="oui"><span>Sì</span></label><label><input type="radio" name="demarre" value="non"><span>No</span></label></div><p class="qr-note"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Non avviate più il motore, non girate nemmeno la chiave.</p></div>
           </div>
-        </fieldset>
-        <fieldset class="qr-f">
-          <legend>Quando?</legend>
-          <div class="qr-seg">
-            <label><input type="radio" name="quand" value="maintenant" checked><span>Adesso</span></label>
-            <label><input type="radio" name="quand" value="plus-tard"><span>Più tardi</span></label>
+          <div class="qr-sub" data-si="pneu" hidden><p class="qr-lab">Avete una ruota di scorta?</p><div class="qr-seg qr-seg-3"><label><input type="radio" name="roue" value="oui"><span>Sì</span></label><label><input type="radio" name="roue" value="non"><span>No</span></label><label><input type="radio" name="roue" value="nsp"><span>Non so</span></label></div></div>
+          <div class="qr-sub" data-si="cles" hidden><p class="qr-lab">Cosa succede con le chiavi?</p><div class="qr-seg qr-seg-col"><label><input type="radio" name="cles" value="enfermees"><span>Chiuse nel veicolo</span></label><label><input type="radio" name="cles" value="perdues"><span>Perse o rubate</span></label><label><input type="radio" name="cles" value="cassees"><span>Rotte o bloccate</span></label></div></div>
+          <div class="qr-sub" data-si="accident" hidden>
+            <p class="qr-lab">Ci sono feriti?</p><div class="qr-seg"><label><input type="radio" name="blesses" value="oui"><span>Sì</span></label><label><input type="radio" name="blesses" value="non"><span>No</span></label></div>
+            <p class="qr-note qr-note-rouge" id="qrBlessesMsg" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Chiamate prima il 112. Non spostate i feriti. <a href="tel:112">112</a></p>
+            <p class="qr-lab">Il veicolo può ancora circolare?</p><div class="qr-seg"><label><input type="radio" name="roule" value="oui"><span>Sì</span></label><label><input type="radio" name="roule" value="non"><span>No</span></label></div>
           </div>
-          <div class="qr-rdv" id="qrRdv" hidden>
-            <div><label class="qr-lab" for="qrDate">Data</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
-            <div><label class="qr-lab" for="qrCreneau">Fascia oraria</label><select class="qr-in-txt" id="qrCreneau" name="creneau"><option>Mattina (8 – 12)</option><option>Mezzogiorno (12 – 14)</option><option>Pomeriggio (14 – 18)</option><option>Sera (18 – 21)</option><option>Notte (21 – 8)</option></select></div>
+          <fieldset class="qr-f">
+            <legend>Il vostro veicolo</legend>
+            <div class="qr-cats">
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="voiture" checked><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-car"/></svg>Auto</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="suv"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-car"/></svg>SUV / 4x4</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="utilitaire"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Furgone</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="campingcar"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Camper</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="moto"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-bike"/></svg>Moto / scooter</span></label>
+            </div>
+            <div class="qr-duo">
+              <div><label class="qr-lab" for="qrEnergie">Alimentazione</label><select class="qr-in-txt" id="qrEnergie" name="energie"><option value="">—</option><option value="essence">Benzina</option><option value="diesel">Diesel</option><option value="electrique">Elettrica</option><option value="hybride">Ibrida</option><option value="gpl">GPL</option></select></div>
+              <div class="qr-duo-chk"><label class="qr-check"><input type="checkbox" name="boite"><span>Cambio automatico</span></label></div>
+            </div>
+            <label class="qr-lab" for="qrPlaque">Targa <small>(facoltativo)</small></label>
+            <input class="qr-in-txt champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <p class="plaque-statut" id="qrPlaqueSt" role="status" aria-live="polite" hidden></p>
+            <div class="veh-carte" id="qrPlaqueCarte" role="status" aria-live="polite" hidden></div>
+            <p class="qr-aide">Le targhe francesi vengono riconosciute; per le altre, scrivetela semplicemente.</p>
+          </fieldset>
+          <div class="qr-f">
+            <p class="qr-lab">Foto del guasto <small>(facoltativo)</small></p>
+            <div class="qr-photo" id="qrPhotoZone">
+              <input type="file" id="qrPhoto" accept="image/*" capture="environment" class="sr-only">
+              <label for="qrPhoto" class="qr-photo-add" id="qrPhotoAdd"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-file"/></svg><span>Aggiungi una foto</span></label>
+              <img id="qrPhotoApercu" alt="" hidden src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+              <button type="button" class="qr-mini" id="qrPhotoRetirer" hidden>Rimuovi la foto</button>
+            </div>
+            <p class="qr-aide">Ci aiuta a preparare l'intervento; verrà inviata su WhatsApp.</p>
           </div>
-        </fieldset>
-        <div class="qr-f qr-duo">
-          <div><label class="qr-lab" for="qrPrenom">Nome</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
-          <div><label class="qr-lab" for="qrTel">Telefono</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
-        </div>
-        <div class="qr-f">
-          <label class="qr-lab" for="qrDetails">Dettagli <small>(facoltativo)</small></label>
-          <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="Veicolo, accesso (sotterraneo, altezza), destinazione…"></textarea>
-        </div>
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+          <div class="qr-f">
+            <label class="qr-lab" for="qrDetails">Dettagli <small>(facoltativo)</small></label>
+            <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="Cosa avete notato, spie, rumori, accesso…"></textarea>
+          </div>
+        </section>
+
+        <section class="qr-step" data-step="3" tabindex="-1" aria-label="Quando" hidden>
+          <fieldset class="qr-f">
+            <legend>Quando?</legend>
+            <div class="qr-seg"><label><input type="radio" name="quand" value="maintenant"><span>Adesso</span></label><label><input type="radio" name="quand" value="plus-tard"><span>Più tardi</span></label></div>
+            <div class="qr-duo" id="qrRdv" hidden>
+              <div><label class="qr-lab" for="qrDate">Data</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
+              <div><label class="qr-lab" for="qrCreneau">Fascia oraria</label><select class="qr-in-txt" id="qrCreneau" name="creneau"><option value="0">Mattina (8 – 12)</option><option value="1">Mezzogiorno (12 – 14)</option><option value="2">Pomeriggio (14 – 18)</option><option value="3">Sera (18 – 21)</option><option value="4">Notte (21 – 8)</option></select></div>
+            </div>
+          </fieldset>
+          <fieldset class="qr-f">
+            <legend>Se serve il traino, dove portare il veicolo?</legend>
+            <div class="qr-seg qr-seg-col"><label><input type="radio" name="dest" value="atelier"><span>La nostra officina (Nizza)</span></label><label><input type="radio" name="dest" value="garage"><span>Il mio garage</span></label><label><input type="radio" name="dest" value="domicile"><span>Casa o hotel</span></label><label><input type="radio" name="dest" value="decider"><span>Da decidere insieme</span></label></div>
+            <div class="qr-sub" id="qrDestBloc" hidden><label class="qr-lab" for="qrDestAdresse">Indirizzo di destinazione</label><input class="qr-in-txt" type="text" id="qrDestAdresse" name="destAdresse" autocomplete="off"></div>
+          </fieldset>
+          <div class="qr-duo">
+            <div><label class="qr-lab" for="qrPassagers">Persone da portare nel carro attrezzi</label><select class="qr-in-txt" id="qrPassagers" name="passagers"><option value="0">Nessuna</option><option value="1">1</option><option value="2">2</option><option value="3">3 o più</option></select></div>
+            <div><label class="qr-lab" for="qrAssistance">Avete un'assistenza stradale?</label><select class="qr-in-txt" id="qrAssistance" name="assistance"><option value="non">No / non so</option><option value="assurance">La mia assicurazione</option><option value="loueur">Auto a noleggio</option><option value="constructeur">Il costruttore</option></select></div>
+          </div>
+          <p class="qr-note" id="qrAssistanceMsg" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-info"/></svg>Chiamatela prima se volete che paghi lei: può inviarci direttamente.</p>
+        </section>
+
+        <section class="qr-step" data-step="4" tabindex="-1" aria-label="Contatto" hidden>
+          <div class="qr-duo">
+            <div><label class="qr-lab" for="qrPrenom">Nome</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
+            <div><label class="qr-lab" for="qrTel">Telefono</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
+          </div>
+          <label class="qr-lab" for="qrEmail">E-mail <small>(facoltativo, per ricevere la fattura)</small></label>
+          <input class="qr-in-txt" type="email" id="qrEmail" name="email" autocomplete="email">
+          <div class="qr-recap">
+            <p class="qr-recap-t">La vostra richiesta</p>
+            <dl id="qrRecap"></dl>
+            <div class="qr-estim" id="qrEstim" hidden>
+              <p class="qr-lab">Stima indicativa</p>
+              <p class="qr-estim-v" id="qrEstimV"></p>
+              <ul id="qrEstimDetail"></ul>
+              <p class="qr-aide">Prezzo fisso comunicato al telefono prima della partenza; nulla viene aggiunto sul posto.</p>
+            </div>
+          </div>
+          <p class="qr-aide">I vostri dati servono solo a gestire la richiesta e a emettere la fattura. <a href="../mentions-legales.html" data-qr-skip>Note legali (in francese)</a></p>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+        </section>
+
         <p class="qr-err" id="qrErr" role="alert" hidden></p>
         <div class="qr-ft">
-          <button type="submit" class="btn btn-orange qr-send"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-arrow-right"/></svg>Invia la richiesta</button>
-          <p class="qr-alt">Urgenza? Chiamate il <a href="tel:+33617684270">+33 6 17 68 42 70</a> · <a href="../demande.html" data-qr-skip>Modulo dettagliato con mappa (in francese)</a></p>
+          <div class="qr-nav">
+            <button type="button" class="btn qr-back" id="qrBack" hidden><svg class="ic ic-sm ic-flip" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-arrow-right"/></svg>Indietro</button>
+            <button type="submit" class="btn btn-orange qr-send" id="qrNext" data-suivant="Continua" data-envoyer="Invia la richiesta">Continua<svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-arrow-right"/></svg></button>
+          </div>
+          <p class="qr-alt">Urgenza? Chiamate il <a href="tel:+33617684270">+33 6 17 68 42 70</a></p>
         </div>
       </form>
+
       <div class="qr-done" id="qrDone" hidden>
         <p class="qr-done-ic" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-check"/></svg></p>
         <p class="qr-titre" id="qrDoneTitre" tabindex="-1"></p>
         <p class="qr-done-txt" id="qrDoneTxt"></p>
+        <div class="qr-done-map" id="qrDoneMap" hidden></div>
+        <p class="qr-dist" id="qrDoneDist" hidden></p>
         <div class="qr-done-act">
           <a class="btn btn-wa" id="qrWa" href="https://wa.me/33617684270?text=Buongiorno%2C%20ho%20bisogno%20di%20un%20soccorso%20stradale.%20Mi%20trovo%20a%3A%20" rel="noopener" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-message"/></svg>Invia su WhatsApp</a>
+          <button type="button" class="btn btn-dark" id="qrPhotoShare" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-file"/></svg>Condividi la foto</button>
           <a class="btn btn-orange" href="tel:+33617684270"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-phone"/></svg>Chiama +33 6 17 68 42 70</a>
         </div>
-        <p class="qr-done-photo">Una foto aiuta molto: aggiungetela nella conversazione WhatsApp.</p>
+        <p class="qr-done-photo" id="qrPhotoHint" hidden></p>
         <button type="button" class="linkbtn" id="qrAgain">Nuova richiesta</button>
       </div>
     </div>
-    <script type="application/json" id="qrTxt">{"gpsEnCours":"Localizzazione…","gpsOk":"Posizione GPS ricevuta","gpsKo":"Posizione non disponibile: indicate un indirizzo o un punto di riferimento.","errLieu":"Indicate dove vi trovate, o toccate «Usa la mia posizione».","errType":"Scegliete cosa è successo.","errTel":"Inserite un numero di telefono completo.","envoi":"Invio in corso…","okTitre":"Richiesta inviata","okTexte":"Un tecnico vi richiamerà al {tel}. Tenete il telefono a portata di mano. La squadra parla francese: WhatsApp è il più semplice per i messaggi scritti.","waTitre":"Ultimo passo","waTexte":"La richiesta è pronta: inviatela su WhatsApp, o chiamateci direttamente.","waBtn":"Invia su WhatsApp","appel":"Chiama","photo":"Una foto aiuta molto: aggiungetela nella conversazione WhatsApp.","nouveau":"Nuova richiesta"}</script>
+    <script type="application/json" id="qrTxt">{"gpsEnCours":"Localizzazione…","gpsOk":"Posizione GPS ricevuta","gpsKo":"Posizione non disponibile: indicate un indirizzo o un punto di riferimento.","geoEnCours":"Ricerca dell'indirizzo…","geoKo":"Indirizzo non trovato sulla mappa: precisatelo o descrivete un punto di riferimento.","dist":"{km} km dalla nostra officina","delai":"tempo stimato {d}","errLieu":"Indicate dove vi trovate, o toccate «Usa la mia posizione».","errType":"Scegliete cosa è successo.","errTel":"Inserite un numero di telefono completo.","envoi":"Invio in corso…","okTitre":"Richiesta inviata","okTexte":"Un tecnico vi richiamerà al {tel}. Tenete il telefono a portata di mano. La squadra parla francese: WhatsApp è il più semplice per i messaggi scritti.","waTitre":"Ultimo passo","waTexte":"La richiesta è pronta: inviatela su WhatsApp, o chiamateci direttamente.","waBtn":"Invia su WhatsApp","appel":"Chiama","photo":"Poi inviate la foto nella conversazione WhatsApp.","photoBtn":"Condividi la foto","photoShare":"Inviate prima il messaggio, poi condividete la foto nella nostra conversazione.","nouveau":"Nuova richiesta","surDevis":"Su preventivo, comunicato al telefono","des":"da","rdv":"Appuntamento","urgence":"Adesso","lieu":"Luogo","panne":"Guasto","vehicule":"Veicolo","quand":"Quando","destination":"Destinazione","vous":"Voi","atelier":"La nostra officina","position":"La vostra posizione"}</script>
+    <script type="application/json" id="qrData">{"atelier":[43.7102,7.262],"calcul":{"baseKm":10,"deplacementKm":1.5,"bandes":[[10,70],[20,95],[30,120],[40,145],[50,170]],"kmSupp":2.2,"nuit":40,"sousSol":30,"utilitaire":30,"attente":15,"roueBloquee":30},"presta":{"batterie":70,"roue":70,"meche":80,"panne-seche":70,"batterie-neuve":70,"ouverture":90,"neiman":90,"carburant":150,"diagnostic":60},"delais":[{"km":0,"d":"30–60 minuti"},{"km":33,"d":"45 min–1 h 15","v":"Cannes"},{"km":22,"d":"35 min–1 h","v":"Antibes"},{"km":30,"d":"40 min–1 h 10","v":"Mentone"},{"km":13,"d":"25–45 min","v":"Cagnes-sur-Mer"},{"km":40,"d":"50 min–1 h 20","v":"Grasse"},{"km":8,"d":"20–40 min","v":"Saint-Laurent-du-Var"},{"km":17,"d":"30–50 min","v":"Villeneuve-Loubet"},{"km":24,"d":"35 min–1 h","v":"Vence"}],"fr":{"types":{"batterie":"Batterie","pneu":"Pneu crevé","carburant":"Carburant","remorquage":"Remorquage","moteur":"Surchauffe","cles":"Clés","accident":"Accident","autre":"Autre"},"carbuOpts":{"seche":"Panne sèche","erreur":"Erreur de carburant"},"clesOpts":{"enfermees":"Enfermées dans le véhicule","perdues":"Perdues ou volées","cassees":"Cassées ou bloquées"},"categories":{"voiture":"Voiture","suv":"SUV / 4x4","utilitaire":"Utilitaire","campingcar":"Camping-car","moto":"Moto / scooter"},"energies":{"":"—","essence":"Essence","diesel":"Diesel","electrique":"Électrique","hybride":"Hybride","gpl":"GPL"},"dests":{"atelier":"Notre atelier (Nice)","garage":"Mon garage","domicile":"Mon domicile","decider":"À décider ensemble"},"assistances":{"non":"Non / je ne sais pas","assurance":"Mon assurance","loueur":"Voiture de location","constructeur":"Le constructeur"},"passagersOpts":["Aucune","1","2","3 ou plus"],"creneaux":["Matin (8h – 12h)","Midi (12h – 14h)","Après-midi (14h – 18h)","Soir (18h – 21h)","Nuit (21h – 8h)"]},"loc":{"types":{"batterie":"Batteria","pneu":"Foratura","carburant":"Carburante","remorquage":"Traino","moteur":"Surriscaldamento","cles":"Chiavi","accident":"Incidente","autre":"Altro"},"categories":{"voiture":"Auto","suv":"SUV / 4x4","utilitaire":"Furgone","campingcar":"Camper","moto":"Moto / scooter"},"energies":{"":"—","essence":"Benzina","diesel":"Diesel","electrique":"Elettrica","hybride":"Ibrida","gpl":"GPL"},"dests":{"atelier":"La nostra officina (Nizza)","garage":"Il mio garage","domicile":"Casa o hotel","decider":"Da decidere insieme"},"creneaux":["Mattina (8 – 12)","Mezzogiorno (12 – 14)","Pomeriggio (14 – 18)","Sera (18 – 21)","Notte (21 – 8)"],"carbuOpts":{"seche":"Senza carburante","erreur":"Carburante sbagliato"},"clesOpts":{"enfermees":"Chiuse nel veicolo","perdues":"Perse o rubate","cassees":"Rotte o bloccate"}}}</script>
   </dialog>
 
   <script src="../config.js" defer></script>
   <script src="../js/mesure.js" defer></script>
   <script src="../site.js" defer></script>
+  <script src="../js/demande-rapide.js" defer></script>
 </body>
 </html>

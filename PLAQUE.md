@@ -161,7 +161,7 @@ comportement, même fiche, un seul endroit à modifier.
   de pneus d'origine** sur l'attestation quand Auto Ways la connaît. Ce que le
   client a tapé lui-même n'est jamais écrasé ; seuls les champs posés par une
   recherche précédente le sont.
-- `demande.html` — étape « Détails ». Le véhicule identifié est joint au message
+- Formulaire de demande (fenêtre, `js/demande-rapide.js`) — étape « Panne ». Le véhicule identifié est joint au message
   envoyé au garage et rappelé sur l'écran de confirmation. La plaque est
   conservée même si le client clique « Passer », qui ne concerne que la
   description.

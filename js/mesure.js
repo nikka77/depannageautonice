@@ -5,7 +5,7 @@
 //
 // Au-delà des pages vues, compte les gestes qui font un client :
 //   appel/<endroit>, whatsapp/<endroit>, demande/<endroit>,
-//   diagnostic/<endroit>, et demande-envoyee/<mode> (voir demande.js).
+//   diagnostic/<endroit>, et demande/<étape|envoyee|whatsapp> (voir js/demande-rapide.js).
 // <endroit> : titre, en-tete, barre-mobile, colonne, bandeau, encart, pied, page.
 // =============================================
 

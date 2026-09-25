@@ -54,7 +54,7 @@ function page(v) {
         availableChannel: {
           '@type': 'ServiceChannel',
           servicePhone: { '@type': 'ContactPoint', telephone: site.telIntl, contactType: 'emergency' },
-          serviceUrl: `${site.base}/demande.html`,
+          serviceUrl: `${site.base}/#demande`,
         },
       },
       {
@@ -175,7 +175,6 @@ const staticPages = [
     // Les traductions passent après les pages françaises de même rang.
     prio: p.lang ? '0.6' : (PRIO[p.key] || '0.3'),
   })),
-  { loc: `${site.base}/demande.html`, freq: 'monthly', prio: '0.9' },
   { loc: `${site.base}/diagnostic.html`, freq: 'monthly', prio: '0.8' },
   { loc: `${site.base}/conseils.html`, freq: 'monthly', prio: '0.7' },
   ...SERVICES.map(x => ({ loc: `${site.base}/${x.slug}.html`, freq: 'monthly', prio: '0.8' })),

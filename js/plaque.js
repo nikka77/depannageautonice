@@ -77,7 +77,7 @@ window.Plaque = (function () {
     return [joli(v.marque), joli(v.modele)].filter(Boolean).join(' ');
   }
 
-  function carteHTML(v) {
+  function carteHTML(v, T) {
     const nom = nomComplet(v);
     // La finition n'est pas adoucie : « 1.5 DCI 90 INTENS », « 16V », « KWH »
     // sont des références techniques que la minuscule rendrait illisibles.
@@ -89,7 +89,7 @@ window.Plaque = (function () {
           <strong>${echapper(nom)}</strong>
           ${version ? `<span class="veh-version">${echapper(version)}</span>` : ''}
         </div>
-        <button type="button" class="veh-effacer" aria-label="Ce n'est pas mon véhicule">Ce n'est pas le bon</button>
+        <button type="button" class="veh-effacer" aria-label="${echapper(T.pasMonVehicule)}">${echapper(T.pasLeBon)}</button>
       </div>
       ${faits(v).length ? `<ul class="veh-faits">${faits(v).map(f => `<li>${echapper(f)}</li>`).join('')}</ul>` : ''}
     `;
@@ -127,7 +127,9 @@ window.Plaque = (function () {
   //   carte   : conteneur où s'affiche la fiche du véhicule trouvé
   //   statut  : conteneur des messages (recherche en cours, erreur)
   //   onTrouve(vehicule) / onEfface() : notifient la page hôte
-  function brancher({ champ, carte, statut, onTrouve, onEfface }) {
+  //   textes  : traductions facultatives (fenêtre de demande en anglais…)
+  function brancher({ champ, carte, statut, onTrouve, onEfface, textes }) {
+    const T = Object.assign({ recherche: 'Recherche du véhicule…', pasLeBon: 'Ce n\'est pas le bon', pasMonVehicule: 'Ce n\'est pas mon véhicule' }, MESSAGES, textes || {});
     if (!champ) return null;
     if (!disponible()) return null;
 
@@ -163,7 +165,7 @@ window.Plaque = (function () {
 
     function afficherCarte(v) {
       if (!carte) return;
-      carte.innerHTML = carteHTML(v);
+      carte.innerHTML = carteHTML(v, T);
       carte.hidden = false;
       // Le passage de la classe après insertion déclenche la transition.
       requestAnimationFrame(() => carte.classList.add('is-visible'));
@@ -188,7 +190,7 @@ window.Plaque = (function () {
 
       const expiration = setTimeout(() => monController.abort('delai'), CFG.plaqueTimeoutMs || 10000);
       champ.classList.add('is-recherche');
-      afficherStatut('Recherche du véhicule…', 'attente');
+      afficherStatut(T.recherche, 'attente');
 
       try {
         const vehicule = await rechercher(plaque, monController.signal);
@@ -203,9 +205,9 @@ window.Plaque = (function () {
         if (e.name === 'AbortError') {
           // Annulation provoquée par une nouvelle frappe : on ne dit rien.
           if (monController.signal.reason !== 'delai') return;
-          afficherStatut(MESSAGES['delai'], 'erreur');
+          afficherStatut(T.delai, 'erreur');
         } else {
-          afficherStatut(message(e), 'erreur');
+          afficherStatut(T[e && e.message] || T.indisponible, 'erreur');
         }
         viderCarte();
         champ.classList.remove('is-trouve');

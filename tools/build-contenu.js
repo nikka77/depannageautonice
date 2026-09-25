@@ -115,7 +115,7 @@ ${faqHtml(s.faq)}
     '@type': 'Service', '@id': `${url}#service`, name: plain(s.nom), description: plain(s.desc),
     serviceType: plain(s.nom), provider: { '@id': `${B}/#business` },
     areaServed: [{ '@type': 'City', name: 'Nice' }, { '@type': 'AdministrativeArea', name: 'Alpes-Maritimes' }],
-    availableChannel: { '@type': 'ServiceChannel', servicePhone: { '@type': 'ContactPoint', telephone: site.telIntl, contactType: 'emergency' }, serviceUrl: `${B}/demande.html` },
+    availableChannel: { '@type': 'ServiceChannel', servicePhone: { '@type': 'ContactPoint', telephone: site.telIntl, contactType: 'emergency' }, serviceUrl: `${B}/#demande` },
   };
   if (prixNum) service.offers = { '@type': 'Offer', priceCurrency: 'EUR', priceSpecification: { '@type': 'PriceSpecification', minPrice: +prixNum, priceCurrency: 'EUR', valueAddedTaxIncluded: true } };
   if (/^Gratuit/.test(s.prix)) service.offers = { '@type': 'Offer', price: 0, priceCurrency: 'EUR' };

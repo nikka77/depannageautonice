@@ -198,70 +198,173 @@
         </div>
         <button type="button" class="qr-x" data-qr-close aria-label="Close"><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-x"/></svg></button>
       </div>
+      <ol class="qr-prog" aria-hidden="true">
+        <li data-n="1" class="is-on"><span>1</span>Location</li>
+        <li data-n="2"><span>2</span>Problem</li>
+        <li data-n="3"><span>3</span>When</li>
+        <li data-n="4"><span>4</span>Contact</li>
+      </ol>
+      <p class="sr-only" id="qrEtape" aria-live="polite"></p>
       <form class="qr-form" id="qrForm" novalidate>
-        <fieldset class="qr-f">
-          <legend>Where are you?</legend>
-          <button type="button" class="qr-gps" id="qrGps"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-pin"/></svg><span>Use my location</span></button>
-          <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
-          <label class="qr-lab" for="qrAdresse">Address or landmark</label>
-          <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="E.g. 12 rue de France, car park, exit…">
-        </fieldset>
-        <fieldset class="qr-f">
-          <legend>What happened?</legend>
-          <div class="qr-types">
-            <label class="qr-type"><input type="radio" name="type" value="batterie"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-battery"/></svg>Battery</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="pneu"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wheel"/></svg>Flat tyre</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="carburant"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-fuel"/></svg>Fuel</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="remorquage"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Towing</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="moteur"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-thermo"/></svg>Overheating</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="cles"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-key"/></svg>Keys</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="accident"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Accident</span></label>
-            <label class="qr-type"><input type="radio" name="type" value="autre"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wrench"/></svg>Other</span></label>
+
+        <section class="qr-step" data-step="1" tabindex="-1" aria-label="Location">
+          <fieldset class="qr-f">
+            <legend>Where are you?</legend>
+            <button type="button" class="qr-gps" id="qrGps"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-pin"/></svg><span>Use my location</span></button>
+            <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
+            <label class="qr-lab" for="qrAdresse">Address or landmark</label>
+            <div class="qr-inline">
+              <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="E.g. 12 rue de France, Nice">
+              <button type="button" class="qr-mini" id="qrPlacer">Show on the map</button>
+            </div>
+            <div class="qr-map" id="qrMap" role="region" aria-label="Map of your location" hidden></div>
+            <p class="qr-aide" id="qrMapAide" hidden>Drag the orange pin if the position is not exact.</p>
+            <p class="qr-dist" id="qrDist" hidden></p>
+          </fieldset>
+          <fieldset class="qr-f">
+            <legend>Access</legend>
+            <label class="qr-check"><input type="checkbox" name="sousSol" data-montre="qrHauteur"><span>Underground car park</span></label>
+            <div class="qr-sub" id="qrHauteur" hidden><label class="qr-lab" for="qrHauteurM">Maximum height shown (m)</label><input class="qr-in-txt qr-court" type="number" id="qrHauteurM" name="hauteur" min="1.5" max="3" step="0.05" inputmode="decimal" placeholder="1,90"></div>
+            <label class="qr-check"><input type="checkbox" name="autoroute" data-montre="qrAutorouteMsg"><span>Motorway or expressway</span></label>
+            <p class="qr-note" id="qrAutorouteMsg" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>On French motorways only the approved tow truck may come out: use an orange emergency box or dial 112. We can then transport the vehicle from its depot.</p>
+            <label class="qr-check"><input type="checkbox" name="danger"><span>Vehicle blocking traffic or in a dangerous spot</span></label>
+          </fieldset>
+        </section>
+
+        <section class="qr-step" data-step="2" tabindex="-1" aria-label="Problem" hidden>
+          <fieldset class="qr-f">
+            <legend>What happened?</legend>
+            <div class="qr-types">
+              <label class="qr-type"><input type="radio" name="type" value="batterie"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-battery"/></svg>Battery</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="pneu"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wheel"/></svg>Flat tyre</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="carburant"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-fuel"/></svg>Fuel</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="remorquage"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Towing</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="moteur"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-thermo"/></svg>Overheating</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="cles"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-key"/></svg>Keys</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="accident"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Accident</span></label>
+              <label class="qr-type"><input type="radio" name="type" value="autre"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-wrench"/></svg>Other</span></label>
+            </div>
+          </fieldset>
+          <div class="qr-sub" data-si="carburant" hidden>
+            <p class="qr-lab">What kind of fuel problem?</p><div class="qr-seg"><label><input type="radio" name="carbu" value="seche"><span>Out of fuel</span></label><label><input type="radio" name="carbu" value="erreur"><span>Wrong fuel</span></label></div>
+            <div class="qr-sub" data-si-carbu="erreur" hidden><p class="qr-lab">Has the engine run since filling up?</p><div class="qr-seg"><label><input type="radio" name="demarre" value="oui"><span>Yes</span></label><label><input type="radio" name="demarre" value="non"><span>No</span></label></div><p class="qr-note"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Do not start the engine again, do not even switch on the ignition.</p></div>
           </div>
-        </fieldset>
-        <fieldset class="qr-f">
-          <legend>When?</legend>
-          <div class="qr-seg">
-            <label><input type="radio" name="quand" value="maintenant" checked><span>Now</span></label>
-            <label><input type="radio" name="quand" value="plus-tard"><span>Later</span></label>
+          <div class="qr-sub" data-si="pneu" hidden><p class="qr-lab">Do you have a spare wheel?</p><div class="qr-seg qr-seg-3"><label><input type="radio" name="roue" value="oui"><span>Yes</span></label><label><input type="radio" name="roue" value="non"><span>No</span></label><label><input type="radio" name="roue" value="nsp"><span>Not sure</span></label></div></div>
+          <div class="qr-sub" data-si="cles" hidden><p class="qr-lab">What about the keys?</p><div class="qr-seg qr-seg-col"><label><input type="radio" name="cles" value="enfermees"><span>Locked in the vehicle</span></label><label><input type="radio" name="cles" value="perdues"><span>Lost or stolen</span></label><label><input type="radio" name="cles" value="cassees"><span>Broken or stuck</span></label></div></div>
+          <div class="qr-sub" data-si="accident" hidden>
+            <p class="qr-lab">Is anyone injured?</p><div class="qr-seg"><label><input type="radio" name="blesses" value="oui"><span>Yes</span></label><label><input type="radio" name="blesses" value="non"><span>No</span></label></div>
+            <p class="qr-note qr-note-rouge" id="qrBlessesMsg" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-alert"/></svg>Call 112 first. Do not move injured people. <a href="tel:112">112</a></p>
+            <p class="qr-lab">Can the vehicle still be driven?</p><div class="qr-seg"><label><input type="radio" name="roule" value="oui"><span>Yes</span></label><label><input type="radio" name="roule" value="non"><span>No</span></label></div>
           </div>
-          <div class="qr-rdv" id="qrRdv" hidden>
-            <div><label class="qr-lab" for="qrDate">Date</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
-            <div><label class="qr-lab" for="qrCreneau">Time slot</label><select class="qr-in-txt" id="qrCreneau" name="creneau"><option>Morning (8 am – 12 pm)</option><option>Midday (12 – 2 pm)</option><option>Afternoon (2 – 6 pm)</option><option>Evening (6 – 9 pm)</option><option>Night (9 pm – 8 am)</option></select></div>
+          <fieldset class="qr-f">
+            <legend>Your vehicle</legend>
+            <div class="qr-cats">
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="voiture" checked><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-car"/></svg>Car</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="suv"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-car"/></svg>SUV / 4x4</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="utilitaire"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Van</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="campingcar"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-truck"/></svg>Motorhome</span></label>
+              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="moto"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-bike"/></svg>Motorbike / scooter</span></label>
+            </div>
+            <div class="qr-duo">
+              <div><label class="qr-lab" for="qrEnergie">Fuel type</label><select class="qr-in-txt" id="qrEnergie" name="energie"><option value="">—</option><option value="essence">Petrol</option><option value="diesel">Diesel</option><option value="electrique">Electric</option><option value="hybride">Hybrid</option><option value="gpl">LPG</option></select></div>
+              <div class="qr-duo-chk"><label class="qr-check"><input type="checkbox" name="boite"><span>Automatic gearbox</span></label></div>
+            </div>
+            <label class="qr-lab" for="qrPlaque">Number plate <small>(optional)</small></label>
+            <input class="qr-in-txt champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <p class="plaque-statut" id="qrPlaqueSt" role="status" aria-live="polite" hidden></p>
+            <div class="veh-carte" id="qrPlaqueCarte" role="status" aria-live="polite" hidden></div>
+            <p class="qr-aide">French plates are looked up automatically; for other plates, just type it.</p>
+          </fieldset>
+          <div class="qr-f">
+            <p class="qr-lab">Photo of the problem <small>(optional)</small></p>
+            <div class="qr-photo" id="qrPhotoZone">
+              <input type="file" id="qrPhoto" accept="image/*" capture="environment" class="sr-only">
+              <label for="qrPhoto" class="qr-photo-add" id="qrPhotoAdd"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-file"/></svg><span>Add a photo</span></label>
+              <img id="qrPhotoApercu" alt="" hidden src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+              <button type="button" class="qr-mini" id="qrPhotoRetirer" hidden>Remove the photo</button>
+            </div>
+            <p class="qr-aide">It helps us prepare; it will be sent on WhatsApp.</p>
           </div>
-        </fieldset>
-        <div class="qr-f qr-duo">
-          <div><label class="qr-lab" for="qrPrenom">First name</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
-          <div><label class="qr-lab" for="qrTel">Phone</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
-        </div>
-        <div class="qr-f">
-          <label class="qr-lab" for="qrDetails">Details <small>(optional)</small></label>
-          <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="Vehicle, access (underground, height), destination…"></textarea>
-        </div>
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+          <div class="qr-f">
+            <label class="qr-lab" for="qrDetails">Details <small>(optional)</small></label>
+            <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="What you noticed, warning lights, noises, access…"></textarea>
+          </div>
+        </section>
+
+        <section class="qr-step" data-step="3" tabindex="-1" aria-label="When" hidden>
+          <fieldset class="qr-f">
+            <legend>When?</legend>
+            <div class="qr-seg"><label><input type="radio" name="quand" value="maintenant"><span>Now</span></label><label><input type="radio" name="quand" value="plus-tard"><span>Later</span></label></div>
+            <div class="qr-duo" id="qrRdv" hidden>
+              <div><label class="qr-lab" for="qrDate">Date</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
+              <div><label class="qr-lab" for="qrCreneau">Time slot</label><select class="qr-in-txt" id="qrCreneau" name="creneau"><option value="0">Morning (8 am – 12 pm)</option><option value="1">Midday (12 – 2 pm)</option><option value="2">Afternoon (2 – 6 pm)</option><option value="3">Evening (6 – 9 pm)</option><option value="4">Night (9 pm – 8 am)</option></select></div>
+            </div>
+          </fieldset>
+          <fieldset class="qr-f">
+            <legend>If towing is needed, where should the vehicle go?</legend>
+            <div class="qr-seg qr-seg-col"><label><input type="radio" name="dest" value="atelier"><span>Our workshop (Nice)</span></label><label><input type="radio" name="dest" value="garage"><span>My garage</span></label><label><input type="radio" name="dest" value="domicile"><span>My home or hotel</span></label><label><input type="radio" name="dest" value="decider"><span>Decide together</span></label></div>
+            <div class="qr-sub" id="qrDestBloc" hidden><label class="qr-lab" for="qrDestAdresse">Destination address</label><input class="qr-in-txt" type="text" id="qrDestAdresse" name="destAdresse" autocomplete="off"></div>
+          </fieldset>
+          <div class="qr-duo">
+            <div><label class="qr-lab" for="qrPassagers">People to take in the tow truck</label><select class="qr-in-txt" id="qrPassagers" name="passagers"><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3 or more</option></select></div>
+            <div><label class="qr-lab" for="qrAssistance">Do you have breakdown cover?</label><select class="qr-in-txt" id="qrAssistance" name="assistance"><option value="non">No / not sure</option><option value="assurance">My insurance</option><option value="loueur">Rental car</option><option value="constructeur">The manufacturer</option></select></div>
+          </div>
+          <p class="qr-note" id="qrAssistanceMsg" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-info"/></svg>Call them first if you want them to pay: they can send us directly.</p>
+        </section>
+
+        <section class="qr-step" data-step="4" tabindex="-1" aria-label="Contact" hidden>
+          <div class="qr-duo">
+            <div><label class="qr-lab" for="qrPrenom">First name</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
+            <div><label class="qr-lab" for="qrTel">Phone</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
+          </div>
+          <label class="qr-lab" for="qrEmail">E-mail <small>(optional, to receive the invoice)</small></label>
+          <input class="qr-in-txt" type="email" id="qrEmail" name="email" autocomplete="email">
+          <div class="qr-recap">
+            <p class="qr-recap-t">Your request</p>
+            <dl id="qrRecap"></dl>
+            <div class="qr-estim" id="qrEstim" hidden>
+              <p class="qr-lab">Indicative estimate</p>
+              <p class="qr-estim-v" id="qrEstimV"></p>
+              <ul id="qrEstimDetail"></ul>
+              <p class="qr-aide">Firm price given on the phone before we set off; nothing is added on arrival.</p>
+            </div>
+          </div>
+          <p class="qr-aide">Your details are only used to handle the request and issue the invoice. <a href="../mentions-legales.html" data-qr-skip>Legal notice (in French)</a></p>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+        </section>
+
         <p class="qr-err" id="qrErr" role="alert" hidden></p>
         <div class="qr-ft">
-          <button type="submit" class="btn btn-orange qr-send"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-arrow-right"/></svg>Send request</button>
-          <p class="qr-alt">Emergency? Call <a href="tel:+33617684270">+33 6 17 68 42 70</a> · <a href="../demande.html" data-qr-skip>Detailed form with map (in French)</a></p>
+          <div class="qr-nav">
+            <button type="button" class="btn qr-back" id="qrBack" hidden><svg class="ic ic-sm ic-flip" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-arrow-right"/></svg>Back</button>
+            <button type="submit" class="btn btn-orange qr-send" id="qrNext" data-suivant="Continue" data-envoyer="Send request">Continue<svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-arrow-right"/></svg></button>
+          </div>
+          <p class="qr-alt">Emergency? Call <a href="tel:+33617684270">+33 6 17 68 42 70</a></p>
         </div>
       </form>
+
       <div class="qr-done" id="qrDone" hidden>
         <p class="qr-done-ic" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-check"/></svg></p>
         <p class="qr-titre" id="qrDoneTitre" tabindex="-1"></p>
         <p class="qr-done-txt" id="qrDoneTxt"></p>
+        <div class="qr-done-map" id="qrDoneMap" hidden></div>
+        <p class="qr-dist" id="qrDoneDist" hidden></p>
         <div class="qr-done-act">
           <a class="btn btn-wa" id="qrWa" href="https://wa.me/33617684270?text=Hello%2C%20I%20need%20roadside%20assistance.%20I%20am%20at%3A%20" rel="noopener" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-message"/></svg>Send on WhatsApp</a>
+          <button type="button" class="btn btn-dark" id="qrPhotoShare" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-file"/></svg>Share the photo</button>
           <a class="btn btn-orange" href="tel:+33617684270"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="../img/icons.svg#i-phone"/></svg>Call +33 6 17 68 42 70</a>
         </div>
-        <p class="qr-done-photo">A photo helps: add it to the WhatsApp conversation.</p>
+        <p class="qr-done-photo" id="qrPhotoHint" hidden></p>
         <button type="button" class="linkbtn" id="qrAgain">New request</button>
       </div>
     </div>
-    <script type="application/json" id="qrTxt">{"gpsEnCours":"Locating…","gpsOk":"GPS location received","gpsKo":"Location unavailable: please type an address or landmark.","errLieu":"Tell us where you are, or tap \"Use my location\".","errType":"Choose what happened.","errTel":"Please enter a full phone number.","envoi":"Sending…","okTitre":"Request sent","okTexte":"A technician will call you back on {tel}. Keep your phone at hand. Our team speaks French: WhatsApp is easiest for written messages.","waTitre":"Last step","waTexte":"Your request is written: send it on WhatsApp, or call us directly.","waBtn":"Send on WhatsApp","appel":"Call","photo":"A photo helps: add it to the WhatsApp conversation.","nouveau":"New request"}</script>
+    <script type="application/json" id="qrTxt">{"gpsEnCours":"Locating…","gpsOk":"GPS location received","gpsKo":"Location unavailable: please type an address or landmark.","geoEnCours":"Looking up the address…","geoKo":"Address not found on the map: add details or describe a landmark.","dist":"{km} km from our workshop","delai":"estimated time {d}","errLieu":"Tell us where you are, or tap \"Use my location\".","errType":"Choose what happened.","errTel":"Please enter a full phone number.","envoi":"Sending…","okTitre":"Request sent","okTexte":"A technician will call you back on {tel}. Keep your phone at hand. Our team speaks French: WhatsApp is easiest for written messages.","waTitre":"Last step","waTexte":"Your request is written: send it on WhatsApp, or call us directly.","waBtn":"Send on WhatsApp","appel":"Call","photo":"Then send your photo in the WhatsApp conversation.","photoBtn":"Share the photo","photoShare":"Send the message first, then share the photo in our conversation.","nouveau":"New request","surDevis":"On quotation, given on the phone","des":"from","rdv":"Appointment","urgence":"Right now","lieu":"Location","panne":"Problem","vehicule":"Vehicle","quand":"When","destination":"Destination","vous":"You","atelier":"Our workshop","position":"Your location"}</script>
+    <script type="application/json" id="qrData">{"atelier":[43.7102,7.262],"calcul":{"baseKm":10,"deplacementKm":1.5,"bandes":[[10,70],[20,95],[30,120],[40,145],[50,170]],"kmSupp":2.2,"nuit":40,"sousSol":30,"utilitaire":30,"attente":15,"roueBloquee":30},"presta":{"batterie":70,"roue":70,"meche":80,"panne-seche":70,"batterie-neuve":70,"ouverture":90,"neiman":90,"carburant":150,"diagnostic":60},"delais":[{"km":0,"d":"30–60 minutes"},{"km":33,"d":"45 min–1 h 15","v":"Cannes"},{"km":22,"d":"35 min–1 h","v":"Antibes"},{"km":30,"d":"40 min–1 h 10","v":"Menton"},{"km":13,"d":"25–45 min","v":"Cagnes-sur-Mer"},{"km":40,"d":"50 min–1 h 20","v":"Grasse"},{"km":8,"d":"20–40 min","v":"Saint-Laurent-du-Var"},{"km":17,"d":"30–50 min","v":"Villeneuve-Loubet"},{"km":24,"d":"35 min–1 h","v":"Vence"}],"fr":{"types":{"batterie":"Batterie","pneu":"Pneu crevé","carburant":"Carburant","remorquage":"Remorquage","moteur":"Surchauffe","cles":"Clés","accident":"Accident","autre":"Autre"},"carbuOpts":{"seche":"Panne sèche","erreur":"Erreur de carburant"},"clesOpts":{"enfermees":"Enfermées dans le véhicule","perdues":"Perdues ou volées","cassees":"Cassées ou bloquées"},"categories":{"voiture":"Voiture","suv":"SUV / 4x4","utilitaire":"Utilitaire","campingcar":"Camping-car","moto":"Moto / scooter"},"energies":{"":"—","essence":"Essence","diesel":"Diesel","electrique":"Électrique","hybride":"Hybride","gpl":"GPL"},"dests":{"atelier":"Notre atelier (Nice)","garage":"Mon garage","domicile":"Mon domicile","decider":"À décider ensemble"},"assistances":{"non":"Non / je ne sais pas","assurance":"Mon assurance","loueur":"Voiture de location","constructeur":"Le constructeur"},"passagersOpts":["Aucune","1","2","3 ou plus"],"creneaux":["Matin (8h – 12h)","Midi (12h – 14h)","Après-midi (14h – 18h)","Soir (18h – 21h)","Nuit (21h – 8h)"]},"loc":{"types":{"batterie":"Battery","pneu":"Flat tyre","carburant":"Fuel","remorquage":"Towing","moteur":"Overheating","cles":"Keys","accident":"Accident","autre":"Other"},"categories":{"voiture":"Car","suv":"SUV / 4x4","utilitaire":"Van","campingcar":"Motorhome","moto":"Motorbike / scooter"},"energies":{"":"—","essence":"Petrol","diesel":"Diesel","electrique":"Electric","hybride":"Hybrid","gpl":"LPG"},"dests":{"atelier":"Our workshop (Nice)","garage":"My garage","domicile":"My home or hotel","decider":"Decide together"},"creneaux":["Morning (8 am – 12 pm)","Midday (12 – 2 pm)","Afternoon (2 – 6 pm)","Evening (6 – 9 pm)","Night (9 pm – 8 am)"],"carbuOpts":{"seche":"Out of fuel","erreur":"Wrong fuel"},"clesOpts":{"enfermees":"Locked in the vehicle","perdues":"Lost or stolen","cassees":"Broken or stuck"}}}</script>
   </dialog>
 
   <script src="../config.js" defer></script>
   <script src="../js/mesure.js" defer></script>
   <script src="../site.js" defer></script>
+  <script src="../js/demande-rapide.js" defer></script>
 </body>
 </html>

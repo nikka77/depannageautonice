@@ -224,7 +224,7 @@ const BUSINESS = {
   ],
   serviceType: ['Dépannage automobile', 'Remorquage', 'Transport de véhicule', 'Erreur de carburant',
     'Changement de pneu', 'Batterie et démarrage', 'Surchauffe moteur'],
-  potentialAction: { '@type': 'ReserveAction', target: `${BASE}/demande.html`, name: 'Demander un dépannage' },
+  potentialAction: { '@type': 'ReserveAction', target: `${BASE}/#demande`, name: 'Demander un dépannage' },
   makesOffer: {
     '@type': 'Offer', name: 'Dépannage Nice et environs',
     priceSpecification: { '@type': 'PriceSpecification', minPrice: 70, priceCurrency: 'EUR' },
@@ -331,14 +331,31 @@ for (const lang of ['en', 'it']) {
 }
 
 
-// ── Demande rapide (fenêtre) ──────────────────
+// ── Demande en ligne (fenêtre, 4 étapes) ──────
 // Présente sur toutes les pages : les liens vers demande.html l'ouvrent
-// (site.js) au lieu de changer de page. Sans JavaScript, le lien mène à la
-// page de demande complète, comme avant.
+// (js/demande-rapide.js) au lieu de changer de page. demande.html n'est
+// plus qu'une redirection vers l'accueil qui ouvre cette fenêtre, pour les
+// anciens liens, favoris et QR codes.
 const QR_TYPES = [['batterie', 'battery'], ['pneu', 'wheel'], ['carburant', 'fuel'], ['remorquage', 'truck'], ['moteur', 'thermo'], ['cles', 'key'], ['accident', 'alert'], ['autre', 'wrench']];
+const QR_CATS = [['voiture', 'car'], ['suv', 'car'], ['utilitaire', 'truck'], ['campingcar', 'truck'], ['moto', 'bike']];
 function demandeRapide(lang, to) {
   const q = I18N.T[lang].qr;
   const t = I18N.T[lang];
+  const seg = (name, opts, cls = '') => `<div class="qr-seg${cls}">${opts.map(([v, l]) => `<label><input type="radio" name="${name}" value="${v}"><span>${l}</span></label>`).join('')}</div>`;
+  const ouiNon = name => seg(name, [['oui', q.oui], ['non', q.non]]);
+  const chk = (name, label, extra = '') => `<label class="qr-check"><input type="checkbox" name="${name}"${extra}><span>${label}</span></label>`;
+  // Données de calcul (prix, délais) et libellés français du message envoyé
+  // au garage, quelle que soit la langue du visiteur.
+  const nomV = v => I18N.nomVille(lang, v.slug, v.nom);
+  const data = {
+    atelier: [43.7102, 7.262],
+    calcul: TARIFS.calcul,
+    presta: Object.fromEntries(TARIFS.surPlace.map(x => [x.id, x.prix])),
+    delais: [{ km: 0, d: I18N.DELAI_NICE[lang] }, ...villes.map(v => ({ km: v.distanceKm, d: I18N.delai(lang, v.delai), v: nomV(v) }))],
+    fr: (({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }) => ({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }))(I18N.T.fr.qr),
+    loc: { types: q.types, categories: q.categories, energies: q.energies, dests: q.dests, creneaux: q.creneaux, carbuOpts: q.carbuOpts, clesOpts: q.clesOpts },
+  };
+  const json = o => JSON.stringify(o).replace(/</g, '\\u003c');
   return `
   <dialog class="qr" id="qr" aria-labelledby="qr-titre" data-lang="${lang}">
     <div class="qr-in">
@@ -349,59 +366,154 @@ function demandeRapide(lang, to) {
         </div>
         <button type="button" class="qr-x" data-qr-close aria-label="${q.fermer}">${ic('x')}</button>
       </div>
+      <ol class="qr-prog" aria-hidden="true">
+${q.etapes.map((e, i) => `        <li data-n="${i + 1}"${i === 0 ? ' class="is-on"' : ''}><span>${i + 1}</span>${e}</li>`).join('\n')}
+      </ol>
+      <p class="sr-only" id="qrEtape" aria-live="polite"></p>
       <form class="qr-form" id="qrForm" novalidate>
-        <fieldset class="qr-f">
-          <legend>${q.ou}</legend>
-          <button type="button" class="qr-gps" id="qrGps">${ic('pin', 'ic-sm')}<span>${q.gps}</span></button>
-          <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
-          <label class="qr-lab" for="qrAdresse">${q.adresse}</label>
-          <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="${escAttr(q.adressePh)}">
-        </fieldset>
-        <fieldset class="qr-f">
-          <legend>${q.quoi}</legend>
-          <div class="qr-types">
-${QR_TYPES.map(([id, icon]) => `            <label class="qr-type"><input type="radio" name="type" value="${id}"><span>${ic(icon)}${q.types[id]}</span></label>`).join('\n')}
+
+        <section class="qr-step" data-step="1" tabindex="-1" aria-label="${q.etapes[0]}">
+          <fieldset class="qr-f">
+            <legend>${q.ou}</legend>
+            <button type="button" class="qr-gps" id="qrGps">${ic('pin', 'ic-sm')}<span>${q.gps}</span></button>
+            <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
+            <label class="qr-lab" for="qrAdresse">${q.adresse}</label>
+            <div class="qr-inline">
+              <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="${escAttr(q.adressePh)}">
+              <button type="button" class="qr-mini" id="qrPlacer">${q.placer}</button>
+            </div>
+            <div class="qr-map" id="qrMap" role="region" aria-label="${escAttr(q.carte)}" hidden></div>
+            <p class="qr-aide" id="qrMapAide" hidden>${q.carteAide}</p>
+            <p class="qr-dist" id="qrDist" hidden></p>
+          </fieldset>
+          <fieldset class="qr-f">
+            <legend>${q.acces}</legend>
+            ${chk('sousSol', q.sousSol, ' data-montre="qrHauteur"')}
+            <div class="qr-sub" id="qrHauteur" hidden><label class="qr-lab" for="qrHauteurM">${q.hauteur}</label><input class="qr-in-txt qr-court" type="number" id="qrHauteurM" name="hauteur" min="1.5" max="3" step="0.05" inputmode="decimal" placeholder="1,90"></div>
+            ${chk('autoroute', q.autoroute, ' data-montre="qrAutorouteMsg"')}
+            <p class="qr-note" id="qrAutorouteMsg" hidden>${ic('alert', 'ic-sm')}${q.autorouteMsg}</p>
+            ${chk('danger', q.danger)}
+          </fieldset>
+        </section>
+
+        <section class="qr-step" data-step="2" tabindex="-1" aria-label="${q.etapes[1]}" hidden>
+          <fieldset class="qr-f">
+            <legend>${q.quoi}</legend>
+            <div class="qr-types">
+${QR_TYPES.map(([id, icon]) => `              <label class="qr-type"><input type="radio" name="type" value="${id}"><span>${ic(icon)}${q.types[id]}</span></label>`).join('\n')}
+            </div>
+          </fieldset>
+          <div class="qr-sub" data-si="carburant" hidden>
+            <p class="qr-lab">${q.carbu}</p>${seg('carbu', Object.entries(q.carbuOpts))}
+            <div class="qr-sub" data-si-carbu="erreur" hidden><p class="qr-lab">${q.demarre}</p>${ouiNon('demarre')}<p class="qr-note">${ic('alert', 'ic-sm')}${q.demarreMsg}</p></div>
           </div>
-        </fieldset>
-        <fieldset class="qr-f">
-          <legend>${q.quand}</legend>
-          <div class="qr-seg">
-            <label><input type="radio" name="quand" value="maintenant" checked><span>${q.maintenant}</span></label>
-            <label><input type="radio" name="quand" value="plus-tard"><span>${q.plusTard}</span></label>
+          <div class="qr-sub" data-si="pneu" hidden><p class="qr-lab">${q.roue}</p>${seg('roue', [['oui', q.oui], ['non', q.non], ['nsp', q.nsp]], ' qr-seg-3')}</div>
+          <div class="qr-sub" data-si="cles" hidden><p class="qr-lab">${q.cles}</p>${seg('cles', Object.entries(q.clesOpts), ' qr-seg-col')}</div>
+          <div class="qr-sub" data-si="accident" hidden>
+            <p class="qr-lab">${q.blesses}</p>${ouiNon('blesses')}
+            <p class="qr-note qr-note-rouge" id="qrBlessesMsg" hidden>${ic('alert', 'ic-sm')}${q.blessesMsg} <a href="tel:112">112</a></p>
+            <p class="qr-lab">${q.roule}</p>${ouiNon('roule')}
           </div>
-          <div class="qr-rdv" id="qrRdv" hidden>
-            <div><label class="qr-lab" for="qrDate">${q.date}</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
-            <div><label class="qr-lab" for="qrCreneau">${q.creneau}</label><select class="qr-in-txt" id="qrCreneau" name="creneau">${q.creneaux.map(c => `<option>${c}</option>`).join('')}</select></div>
+          <fieldset class="qr-f">
+            <legend>${q.vehicule}</legend>
+            <div class="qr-cats">
+${QR_CATS.map(([id, icon]) => `              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="${id}"${id === 'voiture' ? ' checked' : ''}><span>${ic(icon)}${q.categories[id]}</span></label>`).join('\n')}
+            </div>
+            <div class="qr-duo">
+              <div><label class="qr-lab" for="qrEnergie">${q.energie}</label><select class="qr-in-txt" id="qrEnergie" name="energie">${Object.entries(q.energies).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+              <div class="qr-duo-chk">${chk('boite', q.boite)}</div>
+            </div>
+            <label class="qr-lab" for="qrPlaque">${q.plaque} <small>(${q.facultatif})</small></label>
+            <input class="qr-in-txt champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <p class="plaque-statut" id="qrPlaqueSt" role="status" aria-live="polite" hidden></p>
+            <div class="veh-carte" id="qrPlaqueCarte" role="status" aria-live="polite" hidden></div>
+            <p class="qr-aide">${q.plaqueAide}</p>
+          </fieldset>
+          <div class="qr-f">
+            <p class="qr-lab">${q.photo} <small>(${q.facultatif})</small></p>
+            <div class="qr-photo" id="qrPhotoZone">
+              <input type="file" id="qrPhoto" accept="image/*" capture="environment" class="sr-only">
+              <label for="qrPhoto" class="qr-photo-add" id="qrPhotoAdd">${ic('file', 'ic-sm')}<span>${q.photoAjout}</span></label>
+              <img id="qrPhotoApercu" alt="" hidden src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+              <button type="button" class="qr-mini" id="qrPhotoRetirer" hidden>${q.photoRetirer}</button>
+            </div>
+            <p class="qr-aide">${q.photoAide}</p>
           </div>
-        </fieldset>
-        <div class="qr-f qr-duo">
-          <div><label class="qr-lab" for="qrPrenom">${q.prenom}</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
-          <div><label class="qr-lab" for="qrTel">${q.tel}</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
-        </div>
-        <div class="qr-f">
-          <label class="qr-lab" for="qrDetails">${q.details} <small>(${q.facultatif})</small></label>
-          <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="${escAttr(q.detailsPh)}"></textarea>
-        </div>
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+          <div class="qr-f">
+            <label class="qr-lab" for="qrDetails">${q.details} <small>(${q.facultatif})</small></label>
+            <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="${escAttr(q.detailsPh)}"></textarea>
+          </div>
+        </section>
+
+        <section class="qr-step" data-step="3" tabindex="-1" aria-label="${q.etapes[2]}" hidden>
+          <fieldset class="qr-f">
+            <legend>${q.quand}</legend>
+            ${seg('quand', [['maintenant', q.maintenant], ['plus-tard', q.plusTard]])}
+            <div class="qr-duo" id="qrRdv" hidden>
+              <div><label class="qr-lab" for="qrDate">${q.date}</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
+              <div><label class="qr-lab" for="qrCreneau">${q.creneau}</label><select class="qr-in-txt" id="qrCreneau" name="creneau">${q.creneaux.map((c, i) => `<option value="${i}">${c}</option>`).join('')}</select></div>
+            </div>
+          </fieldset>
+          <fieldset class="qr-f">
+            <legend>${q.dest}</legend>
+            ${seg('dest', Object.entries(q.dests), ' qr-seg-col')}
+            <div class="qr-sub" id="qrDestBloc" hidden><label class="qr-lab" for="qrDestAdresse">${q.destAdresse}</label><input class="qr-in-txt" type="text" id="qrDestAdresse" name="destAdresse" autocomplete="off"></div>
+          </fieldset>
+          <div class="qr-duo">
+            <div><label class="qr-lab" for="qrPassagers">${q.passagers}</label><select class="qr-in-txt" id="qrPassagers" name="passagers">${q.passagersOpts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}</select></div>
+            <div><label class="qr-lab" for="qrAssistance">${q.assistance}</label><select class="qr-in-txt" id="qrAssistance" name="assistance">${Object.entries(q.assistances).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+          </div>
+          <p class="qr-note" id="qrAssistanceMsg" hidden>${ic('info', 'ic-sm')}${q.assistanceMsg}</p>
+        </section>
+
+        <section class="qr-step" data-step="4" tabindex="-1" aria-label="${q.etapes[3]}" hidden>
+          <div class="qr-duo">
+            <div><label class="qr-lab" for="qrPrenom">${q.prenom}</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
+            <div><label class="qr-lab" for="qrTel">${q.tel}</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
+          </div>
+          <label class="qr-lab" for="qrEmail">${q.email} <small>(${q.facultatif}, ${q.emailAide})</small></label>
+          <input class="qr-in-txt" type="email" id="qrEmail" name="email" autocomplete="email">
+          <div class="qr-recap">
+            <p class="qr-recap-t">${q.recap}</p>
+            <dl id="qrRecap"></dl>
+            <div class="qr-estim" id="qrEstim" hidden>
+              <p class="qr-lab">${q.estim}</p>
+              <p class="qr-estim-v" id="qrEstimV"></p>
+              <ul id="qrEstimDetail"></ul>
+              <p class="qr-aide">${q.estimNote}</p>
+            </div>
+          </div>
+          <p class="qr-aide">${q.rgpd} <a href="${to('mentions-legales.html')}" data-qr-skip>${t.legal}</a></p>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+        </section>
+
         <p class="qr-err" id="qrErr" role="alert" hidden></p>
         <div class="qr-ft">
-          <button type="submit" class="btn btn-orange qr-send">${ic('arrow-right', 'ic-sm')}${q.envoyer}</button>
-          <p class="qr-alt">${q.ouAppel} <a href="tel:${TEL_HREF}">${t.tel}</a> · <a href="${to('demande.html')}" data-qr-skip>${q.complete}</a></p>
+          <div class="qr-nav">
+            <button type="button" class="btn qr-back" id="qrBack" hidden>${ic('arrow-right', 'ic-sm ic-flip')}${q.retour}</button>
+            <button type="submit" class="btn btn-orange qr-send" id="qrNext" data-suivant="${escAttr(q.suivant)}" data-envoyer="${escAttr(q.envoyer)}">${q.suivant}${ic('arrow-right', 'ic-sm')}</button>
+          </div>
+          <p class="qr-alt">${q.ouAppel} <a href="tel:${TEL_HREF}">${t.tel}</a></p>
         </div>
       </form>
+
       <div class="qr-done" id="qrDone" hidden>
         <p class="qr-done-ic" aria-hidden="true">${ic('check')}</p>
         <p class="qr-titre" id="qrDoneTitre" tabindex="-1"></p>
         <p class="qr-done-txt" id="qrDoneTxt"></p>
+        <div class="qr-done-map" id="qrDoneMap" hidden></div>
+        <p class="qr-dist" id="qrDoneDist" hidden></p>
         <div class="qr-done-act">
           <a class="btn btn-wa" id="qrWa" href="${waLink(lang)}" rel="noopener" hidden>${ic('message', 'ic-sm')}${q.js.waBtn}</a>
+          <button type="button" class="btn btn-dark" id="qrPhotoShare" hidden>${ic('file', 'ic-sm')}${q.js.photoBtn}</button>
           <a class="btn btn-orange" href="tel:${TEL_HREF}">${ic('phone', 'ic-sm')}${q.js.appel} ${t.tel}</a>
         </div>
-        <p class="qr-done-photo">${q.js.photo}</p>
+        <p class="qr-done-photo" id="qrPhotoHint" hidden></p>
         <button type="button" class="linkbtn" id="qrAgain">${q.js.nouveau}</button>
       </div>
     </div>
-    <script type="application/json" id="qrTxt">${JSON.stringify(q.js).replace(/</g, '\\u003c')}</script>
+    <script type="application/json" id="qrTxt">${json(q.js)}</script>
+    <script type="application/json" id="qrData">${json(data)}</script>
   </dialog>
 `;
 }
@@ -534,6 +646,7 @@ ${demandeRapide(lang, to)}
   <script src="config.js" defer></script>
   <script src="js/mesure.js" defer></script>
 ${p.leaflet ? '  <script src="js/leaflet.js" defer></script>\n' : ''}  <script src="site.js" defer></script>
+  <script src="js/demande-rapide.js" defer></script>
 </body>
 </html>
 `;

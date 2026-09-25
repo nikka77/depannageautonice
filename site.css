@@ -646,6 +646,119 @@ textarea.qr-in-txt { resize: vertical; min-height: 64px; }
 }
 @media (max-width: 360px) { .qr-types { grid-template-columns: repeat(2, 1fr); } .qr-type span { min-height: 52px; flex-direction: row; } }
 
+/* Formulaire en 4 étapes. */
+.qr-prog { list-style: none; margin: 0; padding: 12px 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; border-bottom: 1px solid var(--line); background: var(--soft); }
+.qr-prog[hidden] { display: none; }
+.qr-prog li {
+  display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: .64rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); position: relative; padding-bottom: 8px;
+}
+.qr-prog li::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--line); }
+.qr-prog li span {
+  flex: none; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line-2); background: #fff; font-weight: 700; letter-spacing: 0;
+}
+.qr-prog li.is-on { color: var(--ink); font-weight: 700; }
+.qr-prog li.is-on span { background: var(--fill); border-color: var(--fill); color: var(--ink); }
+.qr-prog li.is-on::after, .qr-prog li.is-fait::after { background: var(--fill); }
+.qr-prog li.is-fait span { background: var(--ink); border-color: var(--ink); color: #fff; }
+.qr-step { display: flex; flex-direction: column; gap: 18px; outline: none; }
+.qr-step[hidden] { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .qr-step:not([hidden]) { animation: qr-step .28s cubic-bezier(.2, .9, .2, 1); }
+}
+@keyframes qr-step { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+.qr-inline { display: flex; gap: 6px; }
+.qr-inline .qr-in-txt { flex: 1; min-width: 0; }
+.qr-mini {
+  flex: none; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); background: #fff;
+  font: inherit; font-size: .8rem; font-weight: 700; color: var(--ink); cursor: pointer;
+}
+.qr-mini:hover { border-color: var(--accent); color: var(--accent); }
+.qr-mini[hidden] { display: none; }
+.qr-map { height: 190px; border: 1px solid var(--line); background: #eef0ea; }
+.qr-map[hidden], .qr-done-map[hidden] { display: none; }
+.qr-aide { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.qr-aide[hidden], .qr-dist[hidden], .qr-note[hidden], .qr-sub[hidden] { display: none; }
+.qr-aide a { color: var(--accent); }
+.qr-dist { font-family: var(--mono); font-size: .76rem; color: var(--accent-hover); font-weight: 700; }
+.qr-check { display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; position: relative; }
+.qr-check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.qr-check span { display: flex; align-items: center; gap: 12px; font-size: .95rem; }
+.qr-check span::before { content: ''; flex: none; width: 22px; height: 22px; border: 1.5px solid var(--line-2); background: #fff; }
+.qr-check input:checked + span::before {
+  border-color: var(--accent); background: var(--accent)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+.qr-check input:focus-visible + span::before { outline: 3px solid var(--fill); outline-offset: 2px; }
+.qr-sub { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; background: var(--soft); border-left: 3px solid var(--fill); }
+.qr-sub .qr-sub { padding: 10px 0 0; border: 0; background: none; }
+.qr-note { display: flex; gap: 8px; align-items: flex-start; font-size: .84rem; line-height: 1.5; padding: 10px 12px; background: #fff6ef; border: 1px solid #ffd4b3; color: var(--ink); }
+.qr-note .ic { flex: none; color: var(--accent); margin-top: 1px; }
+.qr-note-rouge { background: #fdecee; border-color: #f3b8c1; }
+.qr-note-rouge .ic { color: #cc0026; }
+.qr-note a { color: #9c0020; font-weight: 700; }
+.qr-court { max-width: 140px; }
+.qr-seg-3 { grid-template-columns: repeat(3, 1fr); }
+.qr-seg-col { grid-template-columns: 1fr; }
+.qr-seg-col span { justify-content: flex-start; padding: 0 14px; font-weight: 600; }
+.qr-cats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.qr-cat span { min-height: 64px; font-size: .72rem; }
+.qr-duo-chk { justify-content: flex-end; }
+.qr-photo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.qr-photo-add {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; cursor: pointer;
+  border: 1px dashed var(--line-2); background: #fff; font-weight: 700; font-size: .9rem;
+}
+.qr-photo-add:hover { border-color: var(--accent); color: var(--accent); }
+.qr-photo-add[hidden], .qr-photo img[hidden] { display: none; }
+.qr-photo img { width: 120px; height: 80px; object-fit: cover; border: 1px solid var(--line); }
+#qrPhoto:focus-visible + .qr-photo-add { outline: 3px solid var(--fill); outline-offset: 2px; }
+.qr-recap { border: 1px solid var(--line); background: var(--soft); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.qr-recap-t { font-weight: 700; }
+.qr-recap dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: .88rem; }
+.qr-recap dt { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.qr-recap dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.qr-estim { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.qr-estim[hidden] { display: none; }
+.qr-estim-v { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--ink); line-height: 1.1; }
+.qr-estim ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: .84rem; color: var(--ink-2); }
+.qr-estim li { display: flex; justify-content: space-between; gap: 12px; }
+.qr-estim li b { font-family: var(--mono); white-space: nowrap; }
+.qr-estim .qr-estim-delai { color: var(--accent-hover); font-family: var(--mono); font-size: .76rem; font-weight: 700; }
+.qr-nav { display: flex; gap: 8px; }
+.qr-nav .qr-send { flex: 1; }
+.qr-back { flex: none; background: #fff; border: 1px solid var(--line-2); color: var(--ink); min-height: 54px; padding: 0 16px; font-size: .95rem; }
+.qr-back[hidden] { display: none; }
+.qr-back:hover { border-color: var(--ink); }
+.ic-flip { transform: scaleX(-1); }
+.qr-send .ic { order: 2; }
+.qr-send.is-envoyer { background: var(--ink); color: #fff; }
+.qr-send.is-envoyer:hover { background: #2b2b26; }
+.qr-done-map { width: 100%; height: 200px; border: 1px solid var(--line); }
+.qr-pin { display: block; width: 26px; height: 26px; border-radius: 50%; background: var(--fill); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--accent), 0 4px 10px rgba(0,0,0,.3); }
+.qr-pin-atelier { width: 22px; height: 22px; background: var(--ink); box-shadow: 0 0 0 2px var(--ink), 0 4px 10px rgba(0,0,0,.3); }
+/* Fiche du véhicule trouvé par la plaque (js/plaque.js). */
+.champ-plaque { text-transform: uppercase; font-family: var(--mono); letter-spacing: .08em; }
+.champ-plaque.is-recherche { border-color: var(--accent); }
+.champ-plaque.is-trouve { border-color: var(--wa); }
+.plaque-statut { font-size: .82rem; color: var(--ink-2); }
+.plaque-statut[hidden], .veh-carte[hidden] { display: none; }
+.plaque-statut.is-erreur { color: #9c0020; }
+.veh-carte { border: 1px solid var(--wa); background: #eaf6ec; padding: 10px 12px; }
+.veh-tete { display: flex; align-items: flex-start; gap: 10px; }
+.veh-coche { width: 18px; height: 18px; color: var(--wa); flex: none; margin-top: 2px; }
+.veh-titre { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.veh-version { font-family: var(--mono); font-size: .72rem; color: var(--ink-2); }
+.veh-effacer { background: none; border: 0; padding: 0; min-height: 32px; font: inherit; font-size: .78rem; color: var(--ink-2); text-decoration: underline; cursor: pointer; }
+.veh-faits { list-style: none; margin: 8px 0 0; padding: 0 0 0 28px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-family: var(--mono); font-size: .72rem; color: var(--ink-2); }
+@media (max-width: 420px) {
+  .qr-cats { grid-template-columns: repeat(3, 1fr); }
+  .qr-prog { padding: 10px 16px; }
+  .qr-prog li { font-size: 0; gap: 0; justify-content: center; }
+  .qr-prog li span { font-size: .72rem; }
+}
+
 /* Carte « Décrivez votre panne » dans le hero (écrans larges). */
 .hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
 .hero-card { display: none; }

@@ -71,8 +71,8 @@ Le site est publié sur `nikka77.github.io/depannageautonice`. Un vrai domaine
 (`depannageautonice.fr`) inspire nettement plus confiance et se retient au
 téléphone. Après l'achat, il faudra remplacer l'adresse de base dans
 `tools/villes.json` (clé `site.base`), relancer les deux générateurs, et mettre
-à jour les `canonical` et `og:url` de `demande.html`, `diagnostic.html` et
-`mentions-legales.html`, qui ne sont pas générées.
+à jour le `canonical` de `demande.html` (redirection) et de `diagnostic.html`,
+qui ne sont pas générées.
 
 ## Versions anglaise et italienne
 
@@ -147,11 +147,18 @@ Sources à modifier (jamais les .html générés) :
 | Traductions EN/IT | `tools/i18n.js`, `tools/pages/en|it/` |
 | Villes | `tools/villes.json` |
 
-## Demande rapide (fenêtre)
+## Demande en ligne (fenêtre, 4 étapes)
 
-Chaque page contient un formulaire court (`<dialog id="qr">`, généré par
-`demandeRapide()` dans `tools/build-pages.js`, textes FR/EN/IT dans
-`tools/i18n.js`). Tout lien vers `demande.html` l'ouvre sur place (site.js),
-avec `?type=` et `?quand=plus-tard` pré-remplis ; Ctrl/Cmd-clic ou absence de
-JavaScript mènent toujours à la page complète. Envoi : Web3Forms si la clé est
-renseignée dans `config.js`, sinon message WhatsApp déjà rédigé.
+Le formulaire de demande est une fenêtre présente sur toutes les pages
+(`<dialog id="qr">`, généré par `demandeRapide()` dans `tools/build-pages.js`,
+textes FR/EN/IT dans `tools/i18n.js`, comportement dans `js/demande-rapide.js`) :
+lieu (GPS, adresse, carte à repère déplaçable, accès), panne (questions propres
+à chaque panne, véhicule, plaque, photo), quand (urgence ou rendez-vous,
+destination, passagers, assistance), contact (récapitulatif, estimation du
+prix et du délai calculée avec `tools/tarifs.js`).
+
+Tout lien vers `demande.html` l'ouvre sur place, avec `?type=` et
+`?quand=plus-tard` pré-remplis. L'ancienne page `demande.html` n'est plus
+qu'une redirection vers l'accueil (`./#demande`), pour les anciens liens,
+favoris et QR codes. Envoi : Web3Forms si la clé est renseignée dans
+`config.js`, sinon message WhatsApp déjà rédigé.
