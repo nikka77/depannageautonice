@@ -13,10 +13,20 @@
 // Adresse de chaque page, par langue. La clé relie les traductions entre
 // elles (sélecteur de langue, balises hreflang).
 const ROUTES = {
-  fr: { accueil: 'index.html', services: 'services.html', zone: 'zone.html', faq: 'faq.html', 'a-propos': 'a-propos.html', contact: 'contact.html' },
-  en: { accueil: 'en/index.html', services: 'en/services.html', zone: 'en/service-area.html', faq: 'en/faq.html', 'a-propos': 'en/about.html', contact: 'en/contact.html' },
-  it: { accueil: 'it/index.html', services: 'it/servizi.html', zone: 'it/zona.html', faq: 'it/faq.html', 'a-propos': 'it/chi-siamo.html', contact: 'it/contatti.html' },
+  fr: { accueil: 'index.html', services: 'services.html', tarifs: 'tarifs.html', zone: 'zone.html', faq: 'faq.html', 'a-propos': 'a-propos.html', contact: 'contact.html' },
+  en: { accueil: 'en/index.html', services: 'en/services.html', tarifs: 'en/prices.html', zone: 'en/service-area.html', faq: 'en/faq.html', 'a-propos': 'en/about.html', contact: 'en/contact.html' },
+  it: { accueil: 'it/index.html', services: 'it/servizi.html', tarifs: 'it/prezzi.html', zone: 'it/zona.html', faq: 'it/faq.html', 'a-propos': 'it/chi-siamo.html', contact: 'it/contatti.html' },
 };
+
+// Liens du menu principal, par langue. Les guides n'existent qu'en
+// français : le menu anglais et italien garde « À propos » à la place.
+const NAV = {
+  fr: ['services', 'tarifs', 'zone', 'conseils', 'faq', 'contact'],
+  en: ['services', 'tarifs', 'zone', 'faq', 'a-propos', 'contact'],
+  it: ['services', 'tarifs', 'zone', 'faq', 'a-propos', 'contact'],
+};
+// Pages françaises sans traduction, mais présentes dans le menu.
+const FR_SEULEMENT = { conseils: 'conseils.html' };
 
 const LANGS = [
   { code: 'fr', label: 'FR', name: 'Français' },
@@ -28,11 +38,12 @@ const T = {
   fr: {
     locale: 'fr_FR', inLang: 'fr-FR', skip: 'Aller au contenu', home: 'Accueil',
     brandSub: 'Remorquage &amp; dépannage · 7j/7 24h/24', menu: 'Menu', navAria: 'Navigation principale', langAria: 'Langue',
-    nav: { services: 'Services', zone: 'Zone', faq: 'FAQ', 'a-propos': 'À propos', contact: 'Contact' },
+    nav: { services: 'Services', tarifs: 'Tarifs', zone: 'Zone', conseils: 'Conseils', faq: 'FAQ', 'a-propos': 'À propos', contact: 'Contact' },
     tel: '06 17 68 42 70', urgence: 'Urgence 24h/24', callAria: 'Appeler le', headCta: 'Demander',
     footAddr: 'Zone industrielle du Quai de la Blanquière, Nice.<br>Équipe niçoise depuis 2004, toutes assurances.',
     ftSite: 'Le site', ftAct: 'Agir',
-    ftLinks: { accueil: 'Accueil', services: 'Nos services', zone: "Zone d'intervention", faq: 'Questions fréquentes', 'a-propos': "À propos de l'équipe" },
+    ftLinks: { accueil: 'Accueil', services: 'Nos services', tarifs: 'Tarifs', zone: "Zone d'intervention", conseils: 'Guides et conseils', faq: 'Questions fréquentes', 'a-propos': "À propos de l'équipe" },
+    cgv: 'Conditions de vente',
     demande: 'Demander un dépannage', diag: 'Diagnostic pneus gratuit', contact: 'Contact', legal: 'Mentions légales',
     quick: 'Contact rapide', railCall: 'Appeler 24h/24', railDem: 'Demander un dépannage', top: 'Remonter en haut de page',
     barCall: 'Appeler', barDem: 'Demande',
@@ -42,11 +53,12 @@ const T = {
   en: {
     locale: 'en_GB', inLang: 'en-GB', skip: 'Skip to content', home: 'Home',
     brandSub: 'Towing &amp; roadside assistance · 24/7', menu: 'Menu', navAria: 'Main navigation', langAria: 'Language',
-    nav: { services: 'Services', zone: 'Area', faq: 'FAQ', 'a-propos': 'About', contact: 'Contact' },
+    nav: { services: 'Services', tarifs: 'Prices', zone: 'Area', faq: 'FAQ', 'a-propos': 'About', contact: 'Contact' },
     tel: '+33 6 17 68 42 70', urgence: 'Emergency 24/7', callAria: 'Call', headCta: 'Online form',
     footAddr: 'Industrial zone, Quai de la Blanquière, Nice.<br>A Nice-based team since 2004, all insurers.',
     ftSite: 'This site', ftAct: 'Get help',
-    ftLinks: { accueil: 'Home', services: 'Our services', zone: 'Service area', faq: 'FAQ', 'a-propos': 'About the team' },
+    ftLinks: { accueil: 'Home', services: 'Our services', tarifs: 'Prices', zone: 'Service area', faq: 'FAQ', 'a-propos': 'About the team' },
+    cgv: 'Terms of sale (in French)',
     demande: 'Online request (in French)', diag: 'Free tyre check (in French)', contact: 'Contact', legal: 'Legal notice (in French)',
     quick: 'Quick contact', railCall: 'Call 24/7', railDem: 'Online request (FR)', top: 'Back to top',
     barCall: 'Call', barDem: 'Form',
@@ -56,11 +68,12 @@ const T = {
   it: {
     locale: 'it_IT', inLang: 'it-IT', skip: 'Vai al contenuto', home: 'Home',
     brandSub: 'Soccorso stradale · 24 ore su 24', menu: 'Menu', navAria: 'Navigazione principale', langAria: 'Lingua',
-    nav: { services: 'Servizi', zone: 'Zona', faq: 'FAQ', 'a-propos': 'Chi siamo', contact: 'Contatti' },
+    nav: { services: 'Servizi', tarifs: 'Prezzi', zone: 'Zona', faq: 'FAQ', 'a-propos': 'Chi siamo', contact: 'Contatti' },
     tel: '+33 6 17 68 42 70', urgence: 'Urgenze 24h/24', callAria: 'Chiama il', headCta: 'Modulo online',
     footAddr: 'Zona industriale del Quai de la Blanquière, Nizza.<br>Squadra nizzarda dal 2004, tutte le assicurazioni.',
     ftSite: 'Il sito', ftAct: 'Aiuto',
-    ftLinks: { accueil: 'Home', services: 'I nostri servizi', zone: "Zona d'intervento", faq: 'Domande frequenti', 'a-propos': 'Chi siamo' },
+    ftLinks: { accueil: 'Home', services: 'I nostri servizi', tarifs: 'Prezzi', zone: "Zona d'intervento", faq: 'Domande frequenti', 'a-propos': 'Chi siamo' },
+    cgv: 'Condizioni di vendita (in francese)',
     demande: 'Richiesta online (in francese)', diag: 'Diagnosi pneumatici (in francese)', contact: 'Contatti', legal: 'Note legali (in francese)',
     quick: 'Contatto rapido', railCall: 'Chiama 24h/24', railDem: 'Richiesta online (FR)', top: 'Torna su',
     barCall: 'Chiama', barDem: 'Modulo',
@@ -113,6 +126,24 @@ const FAQ = {
   ],
 };
 
+// Questions de la page Tarifs, traduites.
+const FAQX = {
+  tarifs: {
+    en: [
+      ['Why a "from" price rather than an exact price online?', `<p>The final price depends on the distance, the time of day, access (underground car park, locked wheels) and the vehicle. Give us your location and what happened: the firm price is given on the phone before we set off.</p>`],
+      ['Can the price change on arrival?', `<p>No. Only if the situation turns out to be different from the one described (an underground car park that was not mentioned, for example) do we give you a new price before touching the vehicle, and you are free to refuse it.</p>`],
+      ['I have a rental car or breakdown cover. What should I do?', `<p>Call the rental company or your insurer's assistance line first: the call-out may be covered. If they send us, you pay nothing or only the part that is not covered.</p>`],
+      ['How can I pay?', `<p>By bank card, Apple Pay, Google Pay or cash, at the end of the job. You get an itemised invoice.</p>`],
+    ],
+    it: [
+      ['Perché un prezzo «da» e non un prezzo esatto online?', `<p>Il prezzo finale dipende dalla distanza, dall'orario, dall'accesso (parcheggio sotterraneo, ruote bloccate) e dal veicolo. Diteci dove siete e cosa è successo: il prezzo fisso vi viene comunicato al telefono prima della partenza.</p>`],
+      ['Il prezzo può cambiare sul posto?', `<p>No. Solo se la situazione reale è diversa da quella descritta (un parcheggio sotterraneo non segnalato, per esempio) vi comunichiamo un nuovo prezzo prima di toccare il veicolo, e siete liberi di rifiutarlo.</p>`],
+      ["Ho un'auto a noleggio o un'assistenza stradale. Cosa faccio?", `<p>Chiamate prima il noleggiatore o l'assistenza della vostra assicurazione: l'intervento può essere coperto. Se ci mandano loro, non pagate nulla o solo la parte non coperta.</p>`],
+      ['Come posso pagare?', `<p>Con carta, Apple Pay, Google Pay o contanti, a fine intervento. Ricevete una fattura dettagliata.</p>`],
+    ],
+  },
+};
+
 // ── Titres et descriptions des pages traduites ─
 const META = {
   en: {
@@ -121,6 +152,7 @@ const META = {
     zone: { title: 'Service area: all of the Alpes-Maritimes — Breakdown in Nice', desc: '30–60 min in Nice and the neighbouring towns, and across the whole Alpes-Maritimes: Cannes, Antibes, Menton, Grasse. Arrival time given before we set off.', crumb: 'Service area' },
     faq: { title: 'FAQ — Breakdown & towing in Nice', desc: 'Arrival time, price, insurance, motorways, vehicles, language: what drivers ask most before calling a breakdown service in Nice.', crumb: 'FAQ' },
     'a-propos': { title: 'About us — a Nice-based team | Breakdown in Nice', desc: 'A local team, not a platform: workshop at Quai de la Blanquière in Nice, breakdown and towing 24/7 across the Alpes-Maritimes.', crumb: 'About' },
+    tarifs: { title: 'Prices — Breakdown & towing in Nice, from €70', desc: 'Published price list: roadside repair and towing in Nice from €70, per-kilometre towing rates, night and underground extras, and a price estimator. Card, Apple Pay, Google Pay or cash.', crumb: 'Prices' },
     contact: { title: 'Contact — Breakdown & towing in Nice | +33 6 17 68 42 70', desc: 'Broken down now: call +33 6 17 68 42 70, 24/7, or message us on WhatsApp with your location. Workshop at Quai de la Blanquière, Nice.', crumb: 'Contact' },
   },
   it: {
@@ -129,8 +161,9 @@ const META = {
     zone: { title: "Zona d'intervento: tutte le Alpi Marittime — Soccorso a Nizza", desc: '30–60 minuti a Nizza e nei comuni vicini, e in tutte le Alpi Marittime: Cannes, Antibes, Mentone, Grasse. Tempo di arrivo comunicato prima della partenza.', crumb: "Zona d'intervento" },
     faq: { title: 'Domande frequenti — Soccorso stradale a Nizza', desc: "Tempi, prezzo, assicurazione, autostrada, veicoli, lingua: le domande più frequenti prima di chiamare un soccorso stradale a Nizza.", crumb: 'Domande frequenti' },
     'a-propos': { title: 'Chi siamo — una squadra nizzarda | Soccorso a Nizza', desc: 'Una squadra locale, non una piattaforma: officina al Quai de la Blanquière a Nizza, soccorso e traino 24 ore su 24 in tutte le Alpi Marittime.', crumb: 'Chi siamo' },
+    tarifs: { title: 'Prezzi — Soccorso stradale a Nizza, da 70 €', desc: 'Listino pubblico: soccorso e traino a Nizza da 70 €, tariffe di traino al km, supplementi notte e parcheggi sotterranei, e uno stimatore di prezzo. Carta, Apple Pay, Google Pay o contanti.', crumb: 'Prezzi' },
     contact: { title: 'Contatti — Soccorso stradale a Nizza | +33 6 17 68 42 70', desc: 'In panne adesso: chiamate il +33 6 17 68 42 70, 24 ore su 24, o scriveteci su WhatsApp con la vostra posizione. Officina al Quai de la Blanquière, Nizza.', crumb: 'Contatti' },
   },
 };
 
-module.exports = { ROUTES, LANGS, T, NOMS, nomVille, delai, DELAI_NICE, FAQ, META };
+module.exports = { ROUTES, NAV, FR_SEULEMENT, LANGS, T, NOMS, nomVille, delai, DELAI_NICE, FAQ, FAQX, META };

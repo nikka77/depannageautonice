@@ -1,0 +1,95 @@
+<section class="wrap intro">
+  <a href="index.html" class="back">← Home</a>
+  <h1>Our prices, published and fixed.</h1>
+  <p class="lead">Roadside repair and towing from €70 in Nice. All prices include VAT; the firm price is given on the phone <strong>before</strong> the tow truck sets off, and that is the price you pay.</p>
+  <div class="btns">
+    <a href="#estimer" class="btn btn-orange">{{ic:euro}}Estimate my price</a>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-dark">{{ic:phone}}Call {{TEL}}</a>
+  </div>
+</section>
+
+<section class="wrap sec" id="estimer" aria-labelledby="h-estim">
+  <div class="estim" data-estim data-lang="en">
+    <div class="estim-form">
+      <h2 id="h-estim">Estimate my price</h2>
+      <fieldset class="estim-f">
+        <legend>What you need</legend>
+        <div class="seg">
+          <label><input type="radio" name="e-type" value="sur-place" checked><span>Roadside repair</span></label>
+          <label><input type="radio" name="e-type" value="remorquage"><span>Towing</span></label>
+        </div>
+      </fieldset>
+      <div class="field" data-si="sur-place">
+        <label for="e-presta">Service</label>
+        <select id="e-presta">{{ESTIM_PRESTAS}}</select>
+      </div>
+      <div class="field" data-si="remorquage">
+        <label for="e-km">Towing distance: <output id="e-km-val" for="e-km">8 km</output></label>
+        <input type="range" id="e-km" min="1" max="120" value="8" step="1">
+      </div>
+      <div class="field">
+        <label for="e-ville">Where are you?</label>
+        <select id="e-ville">{{ESTIM_VILLES}}</select>
+      </div>
+      <fieldset class="estim-f">
+        <legend>Situation</legend>
+        <label class="chk"><input type="checkbox" id="e-nuit"><span>Night (8 pm – 8 am), Sunday or public holiday</span></label>
+        <label class="chk"><input type="checkbox" id="e-sous-sol"><span>Underground car park</span></label>
+        <label class="chk"><input type="checkbox" id="e-util"><span>Van or motorhome (up to 3.5&nbsp;t)</span></label>
+      </fieldset>
+    </div>
+    <div class="estim-out" aria-live="polite">
+      <p class="kicker">Estimate incl. VAT</p>
+      <p class="estim-total">€<span id="e-total">70</span></p>
+      <ul class="estim-detail" id="e-detail"></ul>
+      <p class="estim-note">Indicative estimate. The firm price is given on the phone before we set off; nothing is added on arrival.</p>
+      <div class="estim-act">
+        <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Call {{TEL}}</a>
+        <a href="demande.html" class="btn btn-ghost-dark" id="e-demande">{{ic:file}}Online form (French)</a>
+      </div>
+    </div>
+  </div>
+  <noscript><p class="small-mono">The estimator needs JavaScript; the full price list is just below.</p></noscript>
+</section>
+
+{{TARIFS_TABLES}}
+
+<section class="wrap sec" aria-labelledby="h-paiement">
+  <h2 class="sec-t" id="h-paiement">Payment methods</h2>
+  <p class="sec-sub">Payment at the end of the job, invoice given on the spot or by e-mail.</p>
+  {{PAIEMENT}}
+  <p class="small-mono">Cash: French law caps cash payments at €1,000 for French residents (€15,000 for visitors resident abroad).</p>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-inclus">
+  <div class="grid">
+    <article class="cell">{{ic:check}}<h3>Always included</h3><p>Quote on the phone, diagnosis on the spot, loading and securing the vehicle, drop-off at the address you choose, itemised invoice.</p></article>
+    <article class="cell">{{ic:x}}<h3>Never charged</h3><p>Admin fees, call fees, an "emergency surcharge" discovered on arrival. The price quoted is the price paid.</p></article>
+    <article class="cell">{{ic:shield}}<h3>Insurance and rental cars</h3><p>If your insurance or rental contract includes breakdown assistance, call them first or tell us: they may cover all or part of the price.</p></article>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-autoroute">
+  <div class="aside">
+    <h2 id="h-autoroute">On the A8 motorway, the price is set by the State</h2>
+    <p>On French toll motorways, only the tow truck approved for that section may come out, at a regulated price set each year by ministerial order, higher at night, at weekends and on public holidays. Use an orange emergency call box or dial 112: we cannot recover you there ourselves.</p>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-faq-tarifs">
+  <h2 class="sec-t" id="h-faq-tarifs">Questions about prices</h2>
+  <div class="faq">
+{{FAQ_LIST}}
+  </div>
+  <p class="small-mono">Full terms: <a href="cgv.html">terms and conditions (in French)</a>.</p>
+</section>
+
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">An exact price, right now?</h2>
+      <p>Tell us where you are and what happened: you get the firm price straight away.</p>
+    </div>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Call {{TEL}}</a>
+  </div>
+</section>

@@ -1,5 +1,67 @@
 # À compléter avant publication
 
+## 0. Rappels du 25 septembre 2026 — à faire de votre côté
+
+### Référencement local : inscrire l'entreprise partout (gratuit)
+
+C'est ce qui fait gagner les concurrents locaux (Millo : 174 avis Google),
+plus que leur site. À faire dans cet ordre, **avec exactement le même nom,
+la même adresse et le même numéro partout** (Google compare) :
+
+1. **Google Business Profile** (business.google.com) — le plus important.
+   Catégorie « Service de dépannage automobile », horaires 24h/24, zone
+   desservie, lien du site, photos réelles (camions, atelier, équipe).
+   Ensuite, demandez un avis après **chaque** intervention (lien court par
+   SMS ou WhatsApp) et répondez à chaque avis. Envoyez-moi le lien de la
+   fiche : j'ajoute les avis réels au site.
+2. **PagesJaunes / Solocal** (pagesjaunes.fr, fiche gratuite) — alimente aussi
+   **Mappy**.
+3. **Apple Business Connect** (businessconnect.apple.com) — Apple Plans et Siri,
+   indispensable pour les iPhone.
+4. **Bing Places** (bingplaces.com) — Bing, Qwant, DuckDuckGo et certains
+   assistants IA s'en servent. Import possible depuis la fiche Google.
+5. **Waze** (via Waze Ads / fiche lieu) et **OpenStreetMap** (openstreetmap.org,
+   gratuit : c'est la carte utilisée sur notre page Zone).
+6. Annuaires secondaires : Facebook (page entreprise), 118 712, Hoodspot,
+   Cylex, Justacoté, Yelp, Trustpilot (avis).
+
+### Grille tarifaire — à valider
+
+Les prix publiés (page Tarifs, pages services, estimateur) sont une
+**proposition** alignée sur la concurrence : départ à 70 €, remorquage
+95 € jusqu'à 20 km, 2,20 €/km au-delà de 50 km, nuit/dimanche +40 €,
+sous-sol +30 €, ouverture de porte 90 €, erreur de carburant 150 €,
+gardiennage 48 h offertes puis 10 €/jour, annulation après départ 40 €.
+Un prix affiché engage : relisez-les. Tout est dans **un seul fichier**,
+`tools/tarifs.js` ; changez un chiffre puis lancez `npm run build`.
+
+Si l'entreprise est en **franchise de TVA** (micro-entreprise), dites-le-moi :
+« TTC » doit alors devenir « TVA non applicable, art. 293 B du CGI ».
+
+### Services — à confirmer
+
+Le site annonce désormais les mêmes services que les concurrents (21 pages) :
+clés perdues et reproduction de clé/carte, écrou antivol, parking souterrain,
+aéroport, moto/scooter, utilitaires et camping-cars (poids lourds sur devis),
+électriques, treuillage, transport Monaco/Italie, épave gratuite, gardiennage,
+diagnostic électronique, recharge de clim, mécanique à l'atelier.
+Retirez-moi ceux que vous ne faites pas vraiment (liste : `tools/services.js`).
+
+### Conditions générales de vente
+
+Rédigées sur le modèle du secteur (page `cgv.html`). Elles renvoient aux
+mentions légales pour le SIRET et le **médiateur de la consommation** (point 2
+ci-dessous, toujours manquants). Elles affirment aussi que l'entreprise est
+**assurée** pour les dommages pendant le transport : confirmez-le. Une
+relecture par votre comptable ou un juriste reste conseillée.
+
+### Photos
+
+Aucune photo réelle pour l'instant : dès que vous en avez (camions, atelier,
+équipe, interventions), envoyez-les, elles remplaceront les illustrations.
+
+---
+
 Trois points bloquent une mise en ligne commerciale propre. Aucun ne peut être
 réglé depuis le code : il faut des informations que vous seul détenez.
 

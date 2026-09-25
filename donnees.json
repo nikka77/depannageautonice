@@ -89,9 +89,359 @@
     "Espèces"
   ],
   "tarifs": {
-    "principe": "À partir de 70 € sur Nice. Prix ferme annoncé au téléphone avant le départ."
+    "principe": "Prix TTC. Le prix ferme est annoncé au téléphone avant le départ de la dépanneuse : c'est le prix facturé. Devis gratuit, aucun frais de dossier.",
+    "page": "https://nikka77.github.io/depannageautonice/tarifs.html",
+    "lignes": [
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Démarrage batterie à plat (booster)",
+        "prix": "70 €"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Pose de la roue de secours",
+        "prix": "70 €"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Réparation de crevaison (mèche)",
+        "prix": "80 €"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Panne sèche : livraison de carburant",
+        "prix": "70 € + carburant"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Remplacement de batterie sur place",
+        "prix": "70 € + prix de la batterie"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Ouverture de porte (clés enfermées)",
+        "prix": "90 €"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Déblocage direction / écrou antivol",
+        "prix": "90 €"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Erreur de carburant : vidange du réservoir",
+        "prix": "150 €"
+      },
+      {
+        "groupe": "Dépannage sur place",
+        "prestation": "Diagnostic électronique (valise) sur place",
+        "prix": "60 €"
+      },
+      {
+        "groupe": "Remorquage",
+        "prestation": "Jusqu'à 10 km",
+        "prix": "70 €"
+      },
+      {
+        "groupe": "Remorquage",
+        "prestation": "De 10 à 20 km",
+        "prix": "95 €"
+      },
+      {
+        "groupe": "Remorquage",
+        "prestation": "De 20 à 30 km",
+        "prix": "120 €"
+      },
+      {
+        "groupe": "Remorquage",
+        "prestation": "De 30 à 40 km",
+        "prix": "145 €"
+      },
+      {
+        "groupe": "Remorquage",
+        "prestation": "De 40 à 50 km",
+        "prix": "170 €"
+      },
+      {
+        "groupe": "Remorquage",
+        "prestation": "Au-delà de 50 km",
+        "prix": "170 € + 2,20 € par km"
+      },
+      {
+        "groupe": "Suppléments",
+        "prestation": "Nuit (20 h – 8 h), dimanche et jour férié",
+        "prix": "+ 40 €"
+      },
+      {
+        "groupe": "Suppléments",
+        "prestation": "Déplacement au-delà de 10 km de l'atelier",
+        "prix": "1,50 € par km"
+      },
+      {
+        "groupe": "Suppléments",
+        "prestation": "Sortie de parking souterrain",
+        "prix": "+ 30 €"
+      },
+      {
+        "groupe": "Suppléments",
+        "prestation": "Utilitaire ou camping-car jusqu'à 3,5 t",
+        "prix": "+ 30 €"
+      },
+      {
+        "groupe": "Suppléments",
+        "prestation": "Roues bloquées (chariots porte-roues)",
+        "prix": "+ 30 €"
+      },
+      {
+        "groupe": "Suppléments",
+        "prestation": "Attente due au client, au-delà de 15 min",
+        "prix": "15 € par quart d'heure"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Enlèvement d'épave (véhicule complet, papiers en règle)",
+        "prix": "Gratuit"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Gardiennage sécurisé à l'atelier",
+        "prix": "48 h offertes, puis 10 € / jour"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Recharge de climatisation (atelier)",
+        "prix": "dès 50 €"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Diagnostic électronique à l'atelier",
+        "prix": "dès 49 €"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Reproduction de clé ou de carte",
+        "prix": "Sur devis"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Treuillage, véhicule embourbé ou en contrebas",
+        "prix": "Sur devis"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Transport longue distance, Monaco, Italie",
+        "prix": "Sur devis"
+      },
+      {
+        "groupe": "Autres services",
+        "prestation": "Camping-car ou véhicule de plus de 3,5 t",
+        "prix": "Sur devis"
+      }
+    ]
   },
+  "services": [
+    {
+      "nom": "Batterie à plat",
+      "resume": "Démarrage au booster, test de la batterie et de l'alternateur, remplacement sur place.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-batterie-nice.html"
+    },
+    {
+      "nom": "Pneu crevé",
+      "resume": "Pose de la roue de secours, réparation par mèche, remorquage vers un pneumaticien.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/pneu-creve-nice.html"
+    },
+    {
+      "nom": "Panne sèche",
+      "resume": "Nous apportons de quoi rejoindre la station et redémarrons le moteur.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/panne-seche-nice.html"
+    },
+    {
+      "nom": "Erreur de carburant",
+      "resume": "Vidange du réservoir, rinçage du circuit et remise en route, sans démarrer le moteur.",
+      "prix": "dès 150 €",
+      "page": "https://nikka77.github.io/depannageautonice/erreur-carburant-nice.html"
+    },
+    {
+      "nom": "Surchauffe moteur",
+      "resume": "Diagnostic sur place (fuite, ventilateur, courroie, thermostat), remorquage si le moteur ne doit pas tourner.",
+      "prix": "dès 60 €",
+      "page": "https://nikka77.github.io/depannageautonice/surchauffe-moteur-nice.html"
+    },
+    {
+      "nom": "Remorquage",
+      "resume": "Chargement sur plateau et dépose à l'atelier, chez votre garagiste ou à l'adresse de votre choix.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/remorquage-voiture-nice.html"
+    },
+    {
+      "nom": "Accident",
+      "resume": "Enlèvement du véhicule accidenté, roues bloquées comprises, vers le garage, le carrossier ou l'expert.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-accident-nice.html"
+    },
+    {
+      "nom": "Parking souterrain",
+      "resume": "Matériel adapté aux hauteurs limitées, chariots porte-roues, sortie de sous-sol.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-parking-souterrain-nice.html"
+    },
+    {
+      "nom": "Aéroport et gares",
+      "resume": "Batterie à plat au retour de voyage, crevaison, remorquage depuis les parkings de l'aéroport et des gares.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-aeroport-nice.html"
+    },
+    {
+      "nom": "Transport longue distance",
+      "resume": "Transport sur plateau, sur rendez-vous : garage à garage, achat, collection, rapatriement, Monaco, Italie.",
+      "prix": "Sur devis",
+      "page": "https://nikka77.github.io/depannageautonice/transport-vehicule-nice.html"
+    },
+    {
+      "nom": "Treuillage, véhicule embourbé",
+      "resume": "Treuillage et relevage d'un véhicule embourbé, dans un fossé ou en contrebas, sur devis.",
+      "prix": "Sur devis",
+      "page": "https://nikka77.github.io/depannageautonice/treuillage-vehicule-embourbe-nice.html"
+    },
+    {
+      "nom": "Clés enfermées",
+      "resume": "Ouverture par technique non destructive, sur présentation des papiers du véhicule.",
+      "prix": "dès 90 €",
+      "page": "https://nikka77.github.io/depannageautonice/ouverture-porte-voiture-nice.html"
+    },
+    {
+      "nom": "Clé perdue ou cassée",
+      "resume": "Reproduction de clé, de carte ou de télécommande, clé cassée, direction bloquée, écrou antivol.",
+      "prix": "dès 90 €",
+      "page": "https://nikka77.github.io/depannageautonice/perte-cle-voiture-nice.html"
+    },
+    {
+      "nom": "Moto et scooter",
+      "resume": "Dépannage sur place ou transport sur plateau, deux-roues calé sur rail et sanglé.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-moto-scooter-nice.html"
+    },
+    {
+      "nom": "Utilitaire, camping-car, poids lourd",
+      "resume": "Utilitaires et fourgons jusqu'à 3,5 t, camping-cars et véhicules plus lourds sur devis.",
+      "prix": "dès 100 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-utilitaire-camping-car-nice.html"
+    },
+    {
+      "nom": "Électrique et hybride",
+      "resume": "Batterie 12 V, transport sur plateau obligatoire, dépose à une borne ou chez le concessionnaire.",
+      "prix": "dès 70 €",
+      "page": "https://nikka77.github.io/depannageautonice/depannage-voiture-electrique-nice.html"
+    },
+    {
+      "nom": "Enlèvement d'épave",
+      "resume": "Gratuit pour un véhicule complet : remise à un centre VHU agréé et certificat de destruction.",
+      "prix": "Gratuit",
+      "page": "https://nikka77.github.io/depannageautonice/enlevement-epave-nice.html"
+    },
+    {
+      "nom": "Gardiennage",
+      "resume": "Lieu fermé à l'atelier : 48 h offertes, puis 10 € par jour.",
+      "prix": "48 h offertes, puis 10 € / jour",
+      "page": "https://nikka77.github.io/depannageautonice/gardiennage-vehicule-nice.html"
+    },
+    {
+      "nom": "Diagnostic électronique",
+      "resume": "Valise multimarque, lecture et explication des codes défauts : 49 € à l'atelier, 60 € sur place.",
+      "prix": "dès 49 €",
+      "page": "https://nikka77.github.io/depannageautonice/diagnostic-electronique-nice.html"
+    },
+    {
+      "nom": "Recharge de climatisation",
+      "resume": "Contrôle d'étanchéité et recharge à l'atelier, dès 50 €, sur rendez-vous.",
+      "prix": "dès 50 €",
+      "page": "https://nikka77.github.io/depannageautonice/recharge-climatisation-nice.html"
+    },
+    {
+      "nom": "Réparations mécaniques",
+      "resume": "Démarreur, alternateur, freins, courroies, échappement, entretien : sur devis, sur rendez-vous.",
+      "prix": "Sur devis",
+      "page": "https://nikka77.github.io/depannageautonice/reparation-mecanique-nice.html"
+    }
+  ],
   "limites": [
     "Autoroutes concédées (A8…) : seul le dépanneur agréé du réseau peut intervenir ; utiliser une borne d'appel ou le 112."
+  ],
+  "guides": [
+    {
+      "titre": "Panne de voiture : les bons réflexes pour rester en sécurité",
+      "page": "https://nikka77.github.io/depannageautonice/guide-que-faire-en-cas-de-panne.html"
+    },
+    {
+      "titre": "Panne sur l'autoroute A8 : qui appeler, combien ça coûte",
+      "page": "https://nikka77.github.io/depannageautonice/guide-panne-autoroute-a8.html"
+    },
+    {
+      "titre": "Panne dans un tunnel : les réflexes qui sauvent",
+      "page": "https://nikka77.github.io/depannageautonice/guide-panne-tunnel.html"
+    },
+    {
+      "titre": "Accident de voiture : sécurité, constat amiable, remorquage",
+      "page": "https://nikka77.github.io/depannageautonice/guide-accident-constat-amiable.html"
+    },
+    {
+      "titre": "Voiture de location en panne sur la Côte d'Azur",
+      "page": "https://nikka77.github.io/depannageautonice/guide-voiture-de-location-en-panne.html"
+    },
+    {
+      "titre": "Ma voiture ne démarre pas : trouver la cause en 5 questions",
+      "page": "https://nikka77.github.io/depannageautonice/guide-voiture-ne-demarre-pas.html"
+    },
+    {
+      "titre": "Batterie à plat : redémarrer, recharger ou changer ?",
+      "page": "https://nikka77.github.io/depannageautonice/guide-batterie-a-plat.html"
+    },
+    {
+      "titre": "Pneu crevé : réparer, changer la roue ou appeler ?",
+      "page": "https://nikka77.github.io/depannageautonice/guide-pneu-creve.html"
+    },
+    {
+      "titre": "Erreur de carburant : essence, gazole ou AdBlue, que faire ?",
+      "page": "https://nikka77.github.io/depannageautonice/guide-erreur-de-carburant.html"
+    },
+    {
+      "titre": "Panne sèche : que faire quand il n'y a plus de carburant",
+      "page": "https://nikka77.github.io/depannageautonice/guide-panne-seche.html"
+    },
+    {
+      "titre": "Surchauffe moteur et canicule : protéger sa voiture l'été",
+      "page": "https://nikka77.github.io/depannageautonice/guide-surchauffe-moteur.html"
+    },
+    {
+      "titre": "Voyants du tableau de bord : lesquels imposent de s'arrêter",
+      "page": "https://nikka77.github.io/depannageautonice/guide-voyants-tableau-de-bord.html"
+    },
+    {
+      "titre": "Voiture électrique ou hybride en panne : ce qu'il faut savoir",
+      "page": "https://nikka77.github.io/depannageautonice/guide-voiture-electrique-en-panne.html"
+    },
+    {
+      "titre": "Les pannes les plus fréquentes sur la Côte d'Azur",
+      "page": "https://nikka77.github.io/depannageautonice/guide-pannes-frequentes-cote-d-azur.html"
+    },
+    {
+      "titre": "Assurance et assistance : qui paie le dépannage ?",
+      "page": "https://nikka77.github.io/depannageautonice/guide-assurance-assistance.html"
+    },
+    {
+      "titre": "Clés de voiture perdues, enfermées ou cassées : que faire ?",
+      "page": "https://nikka77.github.io/depannageautonice/guide-cles-perdues-ou-enfermees.html"
+    },
+    {
+      "titre": "Se débarrasser d'une épave : démarches et certificat de destruction",
+      "page": "https://nikka77.github.io/depannageautonice/guide-epave-demarches.html"
+    },
+    {
+      "titre": "Choisir un dépanneur et éviter les arnaques",
+      "page": "https://nikka77.github.io/depannageautonice/guide-choisir-un-depanneur.html"
+    }
   ]
 }

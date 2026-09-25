@@ -5,8 +5,8 @@
 //
 //   node tools/build-llms.js      (lancé par « npm run build »)
 //
-// Tout vient des mêmes données que le site (villes.json, tarifs.json,
-// services.json, guides.json) : ce qui est dit aux IA ne peut pas
+// Tout vient des mêmes données que le site (villes.json, tarifs.js,
+// services.js, guides.js) : ce qui est dit aux IA ne peut pas
 // contredire ce qui est affiché. Format llms.txt : https://llmstxt.org
 // =============================================
 
@@ -16,9 +16,10 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const lire = f => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, f), 'utf8')); } catch { return null; } };
 const { site, villes } = lire('villes.json');
-const tarifs = lire('tarifs.json');
-const services = lire('services.json');
-const guides = lire('guides.json');
+const T = require('./tarifs');
+const tarifs = { principe: T.principe.fr, paiement: T.paiement.fr, groupes: T.groupes('fr') };
+const services = require('./services').SERVICES.map(s => ({ ...s, nom: s.nom.replace(/&nbsp;/g, ' '), resume: s.resume.replace(/&nbsp;/g, ' ') }));
+const guides = require('./guides').GUIDES.map(g => ({ slug: g.slug, titre: g.titre, desc: g.desc }));
 const B = site.base;
 const today = new Date().toISOString().slice(0, 10);
 
@@ -46,7 +47,7 @@ const data = {
   },
   disponibilite: '7 jours sur 7, 24 heures sur 24, jours fériés compris',
   zone: { departement: 'Alpes-Maritimes (06)', delais: zone },
-  paiement: tarifs ? tarifs.paiement : ['Carte bancaire', 'Apple Pay', 'Google Pay', 'Espèces'],
+  paiement: tarifs.paiement,
   tarifs: tarifs ? {
     principe: tarifs.principe,
     page: `${B}/tarifs.html`,

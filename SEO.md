@@ -122,3 +122,27 @@ Une mise en garde : une page ville n'apporte quelque chose que si elle dit des
 choses vraies et spécifiques à la commune. Dupliquer un même texte en changeant
 le nom de la ville est traité par Google comme une page satellite et peut
 pénaliser l'ensemble du site. Mieux vaut cinq bonnes pages que vingt vides.
+
+## Générer le site (depuis septembre 2026)
+
+Une seule commande régénère toutes les pages :
+
+```
+npm run build
+```
+
+Elle enchaîne `build-pages.js` (pages principales FR/EN/IT, Tarifs, CGV),
+`build-contenu.js` (21 pages services, 18 guides, page Conseils),
+`build-villes.js` (pages ville + sitemap.xml) et `build-llms.js`
+(llms.txt et donnees.json pour les assistants IA).
+
+Sources à modifier (jamais les .html générés) :
+
+| Quoi | Fichier |
+|---|---|
+| Prix (tableaux, estimateur, « dès … ») | `tools/tarifs.js` |
+| Pages services | `tools/services.js` |
+| Guides et conseils | `tools/guides.js` |
+| Questions fréquentes (FR) | `tools/build-pages.js` (FAQ_GROUPES) |
+| Traductions EN/IT | `tools/i18n.js`, `tools/pages/en|it/` |
+| Villes | `tools/villes.json` |

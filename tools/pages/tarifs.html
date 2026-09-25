@@ -1,0 +1,95 @@
+<section class="wrap intro">
+  <a href="index.html" class="back">← Accueil</a>
+  <h1>Nos tarifs, publiés et fermes.</h1>
+  <p class="lead">Dépannage et remorquage dès 70&nbsp;€ sur Nice. Tous les prix sont TTC&nbsp;; le prix ferme vous est annoncé au téléphone <strong>avant</strong> le départ de la dépanneuse, et c'est celui qui est facturé.</p>
+  <div class="btns">
+    <a href="#estimer" class="btn btn-orange">{{ic:euro}}Estimer mon prix</a>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-dark">{{ic:phone}}Appeler le {{TEL}}</a>
+  </div>
+</section>
+
+<section class="wrap sec" id="estimer" aria-labelledby="h-estim">
+  <div class="estim" data-estim data-lang="fr">
+    <div class="estim-form">
+      <h2 id="h-estim">Estimer mon prix</h2>
+      <fieldset class="estim-f">
+        <legend>Besoin</legend>
+        <div class="seg">
+          <label><input type="radio" name="e-type" value="sur-place" checked><span>Dépannage sur place</span></label>
+          <label><input type="radio" name="e-type" value="remorquage"><span>Remorquage</span></label>
+        </div>
+      </fieldset>
+      <div class="field" data-si="sur-place">
+        <label for="e-presta">Prestation</label>
+        <select id="e-presta">{{ESTIM_PRESTAS}}</select>
+      </div>
+      <div class="field" data-si="remorquage">
+        <label for="e-km">Distance de remorquage&nbsp;: <output id="e-km-val" for="e-km">8 km</output></label>
+        <input type="range" id="e-km" min="1" max="120" value="8" step="1">
+      </div>
+      <div class="field">
+        <label for="e-ville">Où êtes-vous&nbsp;?</label>
+        <select id="e-ville">{{ESTIM_VILLES}}</select>
+      </div>
+      <fieldset class="estim-f">
+        <legend>Situation</legend>
+        <label class="chk"><input type="checkbox" id="e-nuit"><span>Nuit (20&nbsp;h – 8&nbsp;h), dimanche ou jour férié</span></label>
+        <label class="chk"><input type="checkbox" id="e-sous-sol"><span>Parking souterrain</span></label>
+        <label class="chk"><input type="checkbox" id="e-util"><span>Utilitaire ou camping-car (jusqu'à 3,5&nbsp;t)</span></label>
+      </fieldset>
+    </div>
+    <div class="estim-out" aria-live="polite">
+      <p class="kicker">Estimation TTC</p>
+      <p class="estim-total"><span id="e-total">70</span>&nbsp;€</p>
+      <ul class="estim-detail" id="e-detail"></ul>
+      <p class="estim-note">Estimation indicative. Le prix ferme vous est annoncé au téléphone avant le départ&nbsp;; rien n'est ajouté sur place.</p>
+      <div class="estim-act">
+        <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
+        <a href="demande.html" class="btn btn-ghost-dark" id="e-demande">{{ic:file}}Demander en ligne</a>
+      </div>
+    </div>
+  </div>
+  <noscript><p class="small-mono">L'estimateur a besoin de JavaScript&nbsp;; la grille complète est juste en dessous.</p></noscript>
+</section>
+
+{{TARIFS_TABLES}}
+
+<section class="wrap sec" aria-labelledby="h-paiement">
+  <h2 class="sec-t" id="h-paiement">Moyens de paiement</h2>
+  <p class="sec-sub">Réglement à la fin de l'intervention, facture remise sur place ou par e-mail.</p>
+  {{PAIEMENT}}
+  <p class="small-mono">Espèces&nbsp;: dans la limite légale de 1&nbsp;000&nbsp;€ par paiement pour un particulier résidant en France.</p>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-inclus">
+  <div class="grid">
+    <article class="cell">{{ic:check}}<h3>Toujours inclus</h3><p>Devis au téléphone, diagnostic sur place, chargement et arrimage du véhicule, dépose à l'adresse choisie, facture détaillée.</p></article>
+    <article class="cell">{{ic:x}}<h3>Jamais facturé</h3><p>Frais de dossier, frais d'appel, «&nbsp;majoration d'urgence&nbsp;» découverte sur place. Le prix annoncé est le prix payé.</p></article>
+    <article class="cell">{{ic:shield}}<h3>Assurance</h3><p>Si votre contrat comprend une assistance, appelez-la d'abord ou dites-le-nous&nbsp;: la prise en charge peut couvrir tout ou partie du prix.</p></article>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-autoroute">
+  <div class="aside">
+    <h2 id="h-autoroute">Sur l'autoroute A8, un tarif fixé par l'État</h2>
+    <p>Sur les autoroutes concédées, seul le dépanneur agréé du secteur peut intervenir, à un tarif réglementé fixé chaque année par arrêté ministériel et majoré la nuit, le week-end et les jours fériés. Utilisez la borne d'appel orange ou le 112&nbsp;: nous ne pouvons pas vous y dépanner nous-mêmes. <a href="guide-panne-autoroute-a8.html">Que faire en panne sur l'A8</a>.</p>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-faq-tarifs">
+  <h2 class="sec-t" id="h-faq-tarifs">Questions sur les prix</h2>
+  <div class="faq">
+{{FAQ_LIST}}
+  </div>
+  <p class="small-mono">Conditions complètes&nbsp;: <a href="cgv.html">conditions générales de vente</a>.</p>
+</section>
+
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">Un prix exact, maintenant&nbsp;?</h2>
+      <p>Donnez-nous votre position et votre panne&nbsp;: le prix ferme vous est annoncé tout de suite.</p>
+    </div>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
+  </div>
+</section>

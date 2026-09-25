@@ -34,6 +34,11 @@
           rappelTel: 'Inserite un numero di telefono completo.' },
   };
   const tx = TXT[LANG] || TXT.fr;
+  const TXT_ESTIM = {
+    fr: { rem: d => `Remorquage sur ${d} km`, depl: k => `Déplacement (${k} km au-delà de Nice)`, nuit: 'Nuit, dimanche ou férié', sousSol: 'Parking souterrain', util: 'Utilitaire ou camping-car' },
+    en: { rem: d => `Towing over ${d} km`, depl: k => `Travel (${k} km beyond Nice)`, nuit: 'Night, Sunday or holiday', sousSol: 'Underground car park', util: 'Van or motorhome' },
+    it: { rem: d => `Traino per ${d} km`, depl: k => `Spostamento (${k} km oltre Nizza)`, nuit: 'Notte, domenica o festivo', sousSol: 'Parcheggio sotterraneo', util: 'Furgone o camper' },
+  };
 
   // ── Menu mobile ─────────────────────────────
   const menuBtn = document.querySelector('.menu-btn');
@@ -201,6 +206,67 @@
       }
     });
   });
+
+  // ── Estimateur de prix (page Tarifs) ──────
+  // Même grille que les tableaux : tools/tarifs.js, injectée dans la page.
+  const est = document.querySelector('[data-estim]');
+  const dataEl = document.getElementById('tarifsData');
+  if (est && dataEl) {
+    let D = null;
+    try { D = JSON.parse(dataEl.textContent); } catch { D = null; }
+    if (D) {
+      const E = TXT_ESTIM[LANG] || TXT_ESTIM.fr;
+      const c = D.calcul;
+      const $ = id => document.getElementById(id);
+      const eur = n => (LANG === 'en' ? '€' + n : n + ' €');
+      const typeSel = () => est.querySelector('input[name="e-type"]:checked').value;
+      const km = $('e-km'), kmVal = $('e-km-val');
+
+      // Nuit, dimanche : pré-coché selon l'heure du visiteur (modifiable).
+      const now = new Date();
+      if (now.getHours() >= 20 || now.getHours() < 8 || now.getDay() === 0) $('e-nuit').checked = true;
+      // ?presta=ouverture ou ?type=remorquage depuis une page service.
+      const qs = new URLSearchParams(location.search);
+      if (qs.get('presta') && D.presta[qs.get('presta')]) $('e-presta').value = qs.get('presta');
+      if (qs.get('type') === 'remorquage') est.querySelector('input[value="remorquage"]').checked = true;
+
+      const calculer = () => {
+        const type = typeSel();
+        est.querySelectorAll('[data-si]').forEach(el => { el.hidden = el.dataset.si !== type; });
+        const lignes = [];
+        let total = 0;
+        if (type === 'sur-place') {
+          const pr = D.presta[$('e-presta').value];
+          total = pr.prix; lignes.push([pr.nom + (pr.plus ? ' ' + pr.plus : ''), pr.prix]);
+        } else {
+          const d = +km.value;
+          kmVal.textContent = d + ' km';
+          const b = c.bandes.find(([max]) => d <= max);
+          const dernier = c.bandes[c.bandes.length - 1];
+          total = b ? b[1] : Math.round(dernier[1] + (d - dernier[0]) * c.kmSupp);
+          lignes.push([E.rem(d), total]);
+        }
+        const loin = Math.max(0, +$('e-ville').value - c.baseKm);
+        if (loin) { const x = Math.round(loin * c.deplacementKm); total += x; lignes.push([E.depl(loin), x]); }
+        if ($('e-nuit').checked) { total += c.nuit; lignes.push([E.nuit, c.nuit]); }
+        if ($('e-sous-sol').checked) { total += c.sousSol; lignes.push([E.sousSol, c.sousSol]); }
+        if ($('e-util').checked) { total += c.utilitaire; lignes.push([E.util, c.utilitaire]); }
+        $('e-total').textContent = total;
+        const ul = $('e-detail');
+        ul.textContent = '';
+        lignes.forEach(([n, v]) => {
+          const li = document.createElement('li');
+          li.append(n); const b = document.createElement('b'); b.textContent = eur(v); li.append(b);
+          ul.append(li);
+        });
+        const dem = $('e-demande');
+        if (dem) dem.setAttribute('href', dem.getAttribute('href').split('?')[0] + (type === 'remorquage' ? '?type=remorquage' : ''));
+      };
+      est.addEventListener('input', calculer);
+      est.addEventListener('change', calculer);
+      calculer();
+    }
+  }
 
   // ── Titre de l'accueil : une ville toutes les 3 secondes ──
   // Chaque ville garde son propre délai. ?ville=grasse (annonce, QR code,

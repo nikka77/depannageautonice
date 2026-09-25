@@ -29,6 +29,8 @@ const TEL_HREF = site.telHref;
 // Message pré-rempli : le client n'a plus qu'à compléter sa position, et la
 // conversation arrive identifiée comme une demande de dépannage.
 const I18N = require('./i18n');
+const TARIFS = require('./tarifs');
+const { CATS: SCATS, SERVICES } = require('./services');
 const waLink = lang => 'https://wa.me/33617684270?text=' + encodeURIComponent(I18N.T[lang].wa);
 const WA = waLink('fr');
 
@@ -52,29 +54,89 @@ const ic = (name, cls) => `<svg class="ic${cls ? ' ' + cls : ''}" aria-hidden="t
 // Une seule source pour le texte affiché ET le balisage FAQPage : les deux
 // ne peuvent pas diverger (Google pénalise un FAQPage qui ne correspond pas
 // à la page).
-const FAQ = {
-  faq: [
+// Questions de la page FAQ, par thème. La page affiche les thèmes ; le
+// balisage FAQPage reprend toutes les questions (FAQ.faq).
+const FAQ_GROUPES = [
+  { id: 'intervention', titre: "L'intervention", items: [
     ['Quel est votre délai d\'intervention&nbsp;?',
-      `<p>Nous intervenons en 30 minutes à 1 heure sur Nice et ses environs. Pour les communes plus éloignées des Alpes-Maritimes, le délai peut varier selon l'heure et la circulation&nbsp;; il vous est annoncé au téléphone avant le départ de la dépanneuse.</p>`],
+      `<p>Nous intervenons en 30 minutes à 1 heure sur Nice et ses environs. Pour les communes plus éloignées des Alpes-Maritimes, le délai peut varier selon l'heure et la circulation&nbsp;; il vous est annoncé au téléphone avant le départ de la dépanneuse. <a href="zone.html">Délais par commune</a>.</p>`],
+    ['Intervenez-vous la nuit et le week-end&nbsp;?',
+      `<p>Oui. Nous sommes disponibles 7 jours sur 7, 24 heures sur 24, y compris les nuits, week-ends et jours fériés. Un technicien décroche — il n'y a pas de répondeur.</p>`],
+    ['Comment se passe une intervention&nbsp;?',
+      `<p>Vous appelez (ou envoyez la <a href="demande.html">demande en ligne</a>), nous vous localisons, le prix ferme vous est annoncé, puis le technicien part. Sur place, il répare quand c'est possible&nbsp;; sinon, il remorque le véhicule où vous le souhaitez.</p>`],
+    ['Que faut-il dire au téléphone&nbsp;?',
+      `<p>Où vous êtes (adresse, repère ou position GPS), le modèle du véhicule, ce qui s'est passé, l'accès (parking souterrain, hauteur limite) et où emmener la voiture si elle doit être remorquée. <a href="guide-que-faire-en-cas-de-panne.html">Les bons réflexes en cas de panne</a>.</p>`],
+    ['Puis-je choisir où va mon véhicule&nbsp;?',
+      `<p>Oui, toujours&nbsp;: notre atelier du Quai de la Blanquière, votre garagiste, un concessionnaire, votre domicile. Nous pouvons aussi le garder en attendant&nbsp;: 48 heures de <a href="gardiennage-vehicule-nice.html">gardiennage</a> offertes.</p>`],
+    ['Puis-je monter dans la dépanneuse&nbsp;?',
+      `<p>Dans la limite des places de la cabine, oui. Dites combien vous êtes au moment de l'appel.</p>`],
+    ['Peut-on prendre rendez-vous plutôt qu\'une intervention immédiate&nbsp;?',
+      `<p>Oui, pour un transport au garage, un enlèvement d'épave ou un véhicule immobilisé sans urgence&nbsp;: choisissez «&nbsp;Plus tard&nbsp;» dans la <a href="demande.html?quand=plus-tard">demande en ligne</a>, avec la date et le créneau.</p>`],
+  ] },
+  { id: 'prix', titre: 'Prix et paiement', items: [
+    ['Comment le prix est-il fixé&nbsp;?',
+      `<p>Le tarif de départ est de 70&nbsp;€ sur Nice et sa première couronne. Au-delà, un devis vous est annoncé au téléphone avant que la dépanneuse parte. Le prix annoncé est le prix facturé&nbsp;: pas de supplément à l'arrivée. <a href="tarifs.html">Voir la grille complète et l'estimateur</a>.</p>`],
+    ['Quels moyens de paiement acceptez-vous&nbsp;?',
+      `<p>Carte bancaire, Apple&nbsp;Pay, Google&nbsp;Pay et espèces, à la fin de l'intervention. Une facture détaillée vous est remise sur place ou envoyée par e-mail.</p>`],
+    ['Y a-t-il des frais cachés&nbsp;?',
+      `<p>Non&nbsp;: ni frais de dossier, ni frais d'appel. Les suppléments (nuit, dimanche, parking souterrain, utilitaire) sont publiés et annoncés avant le départ.</p>`],
+    ['Que se passe-t-il si j\'annule&nbsp;?',
+      `<p>Avant le départ de la dépanneuse, rien. Après, un forfait de déplacement de 40&nbsp;€ est dû, comme le prévoient nos <a href="cgv.html">conditions de vente</a>.</p>`],
+  ] },
+  { id: 'assurance', titre: 'Assurance et location', items: [
     ['Mon assurance prend-elle en charge le dépannage&nbsp;?',
       // La maquette conseillait d'appeler le dépanneur « avant votre
       // assurance ». Or un contrat avec assistance peut refuser de rembourser
       // une intervention qu'il n'a pas missionnée : la réponse protège le client.
       `<p>Dans la majorité des cas, oui. Nous travaillons avec toutes les compagnies d'assurance auto (MAIF, AXA, Allianz, MACIF, GMF, Groupama et bien d'autres). Si votre contrat comprend une assistance, dites-le-nous à l'appel&nbsp;: nous vérifions avec vous ce qui est couvert avant d'intervenir, et nous gérons souvent la prise en charge à votre place.</p>`],
-    ['Intervenez-vous la nuit et le week-end&nbsp;?',
-      `<p>Oui. Nous sommes disponibles 7 jours sur 7, 24 heures sur 24, y compris les nuits, week-ends et jours fériés. Un technicien décroche — il n'y a pas de répondeur.</p>`],
-    ['Quels types de véhicules prenez-vous en charge&nbsp;?',
-      `<p>Voitures particulières, SUV, monospaces, utilitaires légers, motos et scooters. Pour les poids lourds ou véhicules spéciaux, contactez-nous pour vérifier la faisabilité.</p>`],
+    ['Faut-il appeler son assurance avant le dépanneur&nbsp;?',
+      `<p>Si votre contrat comprend une assistance et que vous voulez être pris en charge, oui&nbsp;: la plupart des contrats ne paient que les interventions qu'ils ont organisées. <a href="guide-assurance-assistance.html">Assurance et assistance&nbsp;: qui paie&nbsp;?</a></p>`],
+    ['Qu\'est-ce que l\'assistance «&nbsp;0&nbsp;km&nbsp;»&nbsp;?',
+      `<p>Une assistance qui intervient même devant votre domicile. Sans elle, beaucoup de contrats ne couvrent une panne qu'à partir d'une certaine distance de chez vous (souvent 25 ou 50&nbsp;km).</p>`],
+    ['Je suis en voiture de location.',
+      `<p>Appelez d'abord le numéro d'assistance du loueur&nbsp;: une intervention qu'il n'a pas autorisée peut rester à votre charge. <a href="guide-voiture-de-location-en-panne.html">Voiture de location en panne</a>.</p>`],
+  ] },
+  { id: 'situations', titre: 'Situations particulières', items: [
     ['Que faire en cas de panne sur l\'autoroute&nbsp;?',
-      `<p>Mettez votre gilet jaune, allumez vos warnings et éloignez-vous du véhicule en passant la glissière de sécurité. Sur autoroute, l'intervention passe obligatoirement par le prestataire agréé du réseau&nbsp;: utilisez une borne d'appel d'urgence ou appelez le 112.</p>`],
-    ['Comment le prix est-il fixé&nbsp;?',
-      `<p>Le tarif de départ est de 70&nbsp;€ sur Nice et sa première couronne. Au-delà, un devis vous est annoncé au téléphone avant que la dépanneuse parte. Le prix annoncé est le prix facturé&nbsp;: pas de supplément à l'arrivée.</p>`],
+      `<p>Mettez votre gilet jaune, allumez vos warnings et éloignez-vous du véhicule en passant la glissière de sécurité. Sur autoroute, l'intervention passe obligatoirement par le prestataire agréé du réseau&nbsp;: utilisez une borne d'appel d'urgence ou appelez le 112. <a href="guide-panne-autoroute-a8.html">Panne sur l'A8</a>.</p>`],
+    ['Je me suis trompé de carburant.',
+      `<p>Ne démarrez pas, ne mettez même pas le contact, et appelez-nous&nbsp;: une <a href="erreur-carburant-nice.html">vidange du réservoir</a> sur place suffit tant que le moteur n'a pas tourné.</p>`],
+    ['Mes clés sont enfermées dans la voiture.',
+      `<p>Nous ouvrons le véhicule sans casse dans la très grande majorité des cas, dès 90&nbsp;€, sur présentation des papiers. Un enfant ou un animal enfermé au soleil&nbsp;: appelez le 112. <a href="ouverture-porte-voiture-nice.html">Ouverture de porte</a>.</p>`],
+    ['Ma voiture est dans un parking souterrain.',
+      `<p>Nous venons avec un matériel adapté aux hauteurs limitées. Donnez-nous la hauteur affichée à l'entrée, le niveau et le numéro de place. <a href="depannage-parking-souterrain-nice.html">Dépannage en sous-sol</a>.</p>`],
+    ['Dépannez-vous les voitures électriques&nbsp;?',
+      `<p>Oui&nbsp;: batterie 12&nbsp;V sur place, et transport sur plateau (jamais roues au sol) vers une borne ou le concessionnaire. <a href="depannage-voiture-electrique-nice.html">Électriques et hybrides</a>.</p>`],
+  ] },
+  { id: 'vehicules', titre: 'Véhicules et démarches', items: [
+    ['Quels types de véhicules prenez-vous en charge&nbsp;?',
+      `<p>Voitures, SUV, monospaces, utilitaires, motos et scooters, électriques et hybrides. Camping-cars et véhicules de plus de 3,5&nbsp;t sur devis&nbsp;: nous vous confirmons la faisabilité à l'appel.</p>`],
+    ['Enlevez-vous les épaves&nbsp;?',
+      `<p>Oui, gratuitement pour un véhicule complet dont vous êtes le titulaire&nbsp;: il est remis à un centre VHU agréé qui délivre le certificat de destruction. <a href="enlevement-epave-nice.html">Enlèvement d'épave</a>.</p>`],
+    ['Réparez-vous les véhicules&nbsp;?',
+      `<p>Oui, à l'atelier du Quai de la Blanquière, sur rendez-vous&nbsp;: diagnostic électronique, réparations mécaniques courantes, recharge de climatisation. Toujours sur devis.</p>`],
+  ] },
+];
+
+const FAQ = {
+  faq: FAQ_GROUPES.flatMap(g => g.items),
+  tarifs: [
+    ['Pourquoi un prix «&nbsp;dès&nbsp;» et pas un prix exact en ligne&nbsp;?',
+      `<p>Le prix final dépend de la distance, de l'heure, de l'accès (parking souterrain, roues bloquées) et du véhicule. Donnez-nous votre position et la panne&nbsp;: le prix ferme vous est annoncé au téléphone avant le départ. L'estimateur ci-dessus applique la même grille.</p>`],
+    ['Le prix peut-il changer une fois sur place&nbsp;?',
+      `<p>Non. Seulement si la situation réelle diffère de celle décrite (un parking souterrain non signalé, par exemple), nous vous annonçons un nouveau prix <strong>avant</strong> de toucher au véhicule, et vous êtes libre de refuser.</p>`],
+    ['Que se passe-t-il si j\'annule&nbsp;?',
+      `<p>Avant le départ de la dépanneuse&nbsp;: rien, l'appel et le devis sont gratuits. Après le départ, un forfait de déplacement de 40&nbsp;€ est dû (plus les frais kilométriques au-delà de 10&nbsp;km de l'atelier), comme le prévoient nos <a href="cgv.html">conditions de vente</a>.</p>`],
+    ['Mon assurance ou mon loueur peut-il payer&nbsp;?',
+      `<p>Souvent, oui. Si votre contrat d'assurance ou de location comprend une assistance, appelez-la d'abord&nbsp;: si elle nous missionne, vous n'avancez rien ou seulement la part non couverte. Sinon, notre facture détaillée vous permet de demander un remboursement.</p>`],
+    ['Comment payer&nbsp;?',
+      `<p>Par carte bancaire, Apple&nbsp;Pay, Google&nbsp;Pay ou en espèces, à la fin de l'intervention. Une facture détaillée vous est remise sur place ou envoyée par e-mail.</p>`],
   ],
 };
 
 // name="faq" : une seule réponse ouverte à la fois, sans JavaScript.
-const faqHtml = items => items.map(([q, a], i) =>
-  `    <details name="faq"${i === 0 ? ' open' : ''}>\n      <summary>${q}${ic('chevron')}</summary>\n      <div>${a}</div>\n    </details>`).join('\n');
+const faqHtml = (items, ouvrir = true) => items.map(([q, a], i) =>
+  `    <details name="faq"${ouvrir && i === 0 ? ' open' : ''}>\n      <summary>${q}${ic('chevron')}</summary>\n      <div>${a}</div>\n    </details>`).join('\n');
 const faqSchema = (items, url) => ({
   '@type': 'FAQPage',
   '@id': `${url}#faq`,
@@ -91,6 +153,42 @@ const crumbs = (url, name, lang = 'fr') => ({
     { '@type': 'ListItem', position: 2, name, item: url },
   ],
 });
+
+// Questions d'une page, dans sa langue.
+const faqListe = (lang, cle) => lang === 'fr' ? FAQ[cle] : (cle === 'faq' ? I18N.FAQ[lang] : I18N.FAQX[cle][lang]);
+
+// Catalogue des prix (page Tarifs) : les prestations à prix fixe.
+const offerCatalog = (url, lang) => ({
+  '@type': 'OfferCatalog', '@id': `${url}#tarifs`, name: I18N.T[lang].nav.tarifs,
+  itemListElement: TARIFS.surPlace.map(s => ({
+    '@type': 'Offer', priceCurrency: 'EUR', price: s.prix,
+    priceSpecification: { '@type': 'PriceSpecification', minPrice: s.prix, priceCurrency: 'EUR', valueAddedTaxIncluded: true },
+    itemOffered: { '@type': 'Service', name: s.nom[lang], provider: { '@id': `${BASE}/#business` } },
+  })),
+});
+
+// Tableaux de la grille, paiement et données de l'estimateur (page Tarifs).
+function tarifsTables(lang) {
+  return TARIFS.groupes(lang).map(g => `<section class="wrap sec" aria-labelledby="h-g-${g.id}">
+  <h2 class="sec-t" id="h-g-${g.id}">${g.titre}</h2>
+  <p class="sec-sub">${g.note}</p>
+  <table class="prix">
+    <tbody>
+${g.lignes.map(l => `      <tr${l.id ? ` id="t-${l.id}"` : ''}><th scope="row">${l.nom}</th><td>${l.prix}</td></tr>`).join('\n')}
+    </tbody>
+  </table>
+</section>`).join('\n\n');
+}
+const PAY_IC = ['card', 'phone', 'phone', 'euro'];
+const paiementHtml = lang => `<ul class="pay">${TARIFS.paiement[lang].map((m, i) => `<li>${ic(PAY_IC[i])}${m}</li>`).join('')}</ul>`;
+function estimData(lang) {
+  const nomV = v => I18N.nomVille(lang, v.slug, v.nom);
+  return {
+    calcul: TARIFS.calcul,
+    presta: Object.fromEntries(TARIFS.surPlace.map(s => [s.id, { prix: s.prix, nom: s.nom[lang], plus: s.plus ? s.plus[lang] : '' }])),
+    villes: [{ nom: I18N.nomVille(lang, 'nice', 'Nice'), km: 0 }, ...[...villes].sort((a, b) => a.distanceKm - b.distanceKm).map(v => ({ nom: nomV(v), km: v.distanceKm }))],
+  };
+}
 
 // Fiche entreprise — repris de l'ancien accueil. « foundingDate » reste à
 // confirmer par le gérant (voir A-COMPLETER.md).
@@ -113,6 +211,8 @@ const BUSINESS = {
     opens: '00:00', closes: '23:59',
   }],
   priceRange: '€',
+  paymentAccepted: 'Carte bancaire, Apple Pay, Google Pay, Espèces',
+  currenciesAccepted: 'EUR',
   description: 'Dépannage, remorquage et transport auto 7j/7 24h/24 sur Nice et les Alpes-Maritimes. Délai estimé de 30 à 60 minutes sur Nice. À partir de 70 €. Toutes assurances.',
   image: `${BASE}/img/og-cover.jpg`,
   logo: `${BASE}/img/logo.png`,
@@ -142,9 +242,15 @@ const PAGES = [
   },
   {
     file: 'services.html', frag: 'services.html', key: 'services', nav: 'services', path: '/services.html',
-    title: `Nos services — Dépannage Auto Nice | ${TEL}`,
-    desc: 'Remorquage, dépannage sur place, erreur de carburant, pneu, batterie, surchauffe moteur : diagnostic sur place et prix annoncé avant toute manipulation. 7j/7 24h/24.',
-    schema: url => [crumbs(url, 'Nos services')],
+    title: `Nos services de dépannage à Nice — prix publiés | ${TEL}`,
+    desc: 'Batterie, pneu, panne sèche, erreur de carburant, remorquage, accident, parking souterrain, clés perdues, moto, utilitaire, électrique, épave, gardiennage : 21 services, prix publiés, 7j/7 24h/24.',
+    schema: url => [crumbs(url, 'Nos services'), { '@type': 'ItemList', '@id': `${url}#services`, itemListElement: SERVICES.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.nom.replace(/&nbsp;/g, ' '), url: `${BASE}/${x.slug}.html` })) }],
+  },
+  {
+    file: 'tarifs.html', frag: 'tarifs.html', key: 'tarifs', nav: 'tarifs', path: '/tarifs.html', faq: 'tarifs',
+    title: `Tarifs dépannage et remorquage à Nice — dès 70 € | ${TEL}`,
+    desc: 'Grille tarifaire publiée : dépannage et remorquage dès 70 € à Nice, prix du remorquage au km, suppléments nuit et sous-sol, estimateur en ligne. Carte, Apple Pay, Google Pay, espèces.',
+    schema: (url, p) => [crumbs(url, 'Tarifs'), faqSchema(FAQ[p.faq], url), offerCatalog(url, 'fr')],
   },
   {
     file: 'zone.html', frag: 'zone.html', key: 'zone', nav: 'zone', path: '/zone.html',
@@ -156,7 +262,7 @@ const PAGES = [
   {
     file: 'faq.html', frag: 'faq.html', key: 'faq', nav: 'faq', path: '/faq.html', faq: 'faq',
     title: 'Questions fréquentes — Dépannage Auto Nice',
-    desc: "Délai d'intervention, prix, assurance, autoroute, types de véhicules : ce que les clients demandent le plus souvent avant d'appeler un dépanneur à Nice.",
+    desc: "Délai, prix, paiement, assurance, location, autoroute, clés, carburant, parking souterrain, épave : 23 réponses aux questions posées avant d'appeler un dépanneur à Nice.",
     schema: (url, p) => [crumbs(url, 'Questions fréquentes'), faqSchema(FAQ[p.faq], url)],
   },
   {
@@ -184,6 +290,12 @@ const PAGES = [
     schema: url => [crumbs(url, 'Mentions légales')],
   },
   {
+    file: 'cgv.html', frag: 'cgv.html', nav: null, path: '/cgv.html',
+    title: 'Conditions générales de vente — Dépannage Auto Nice',
+    desc: 'Conditions générales de vente : devis et prix ferme avant départ, annulation, paiement (carte, Apple Pay, Google Pay, espèces), gardiennage, épave, médiation.',
+    schema: url => [crumbs(url, 'Conditions générales de vente')],
+  },
+  {
     // GitHub Pages sert 404.html pour toute adresse inconnue, quelle que soit
     // sa profondeur : les liens et ressources sont réécrits en chemins
     // absolus (voir writePage). Pas de <base> : il casserait les ancres #main.
@@ -208,9 +320,12 @@ for (const lang of ['en', 'it']) {
     if (key === 'accueil') page.preload = 'img/hero-1.webp';
     if (key === 'zone') page.leaflet = true;
     if (key === 'faq') page.faq = 'faq';
+    if (key === 'tarifs') page.faq = 'tarifs';
     page.schema = url => key === 'accueil'
       ? [{ '@type': 'WebPage', '@id': `${url}#page`, url, name: m.title, inLanguage: I18N.T[lang].inLang, about: { '@id': `${BASE}/#business` } }]
-      : [crumbs(url, m.crumb, lang), ...(key === 'faq' ? [faqSchema(I18N.FAQ[lang], url)] : [])];
+      : [crumbs(url, m.crumb, lang),
+        ...(page.faq ? [faqSchema(faqListe(lang, page.faq), url)] : []),
+        ...(key === 'tarifs' ? [offerCatalog(url, lang)] : [])];
     PAGES.push(page);
   }
 }
@@ -225,8 +340,9 @@ function layout(p, body) {
   const graph = { '@context': 'https://schema.org', '@graph': p.schema(url, p) };
   const to = target => rel(p.file, target);
 
-  const nav = ['services', 'zone', 'faq', 'a-propos', 'contact'].map(key =>
-    `<a href="${to(R[key])}"${p.nav === key ? ' aria-current="page"' : ''}>${t.nav[key]}</a>`).join('\n        ');
+  const route = key => R[key] || I18N.FR_SEULEMENT[key];
+  const nav = I18N.NAV[lang].map(key =>
+    `<a href="${to(route(key))}"${p.nav === key ? ' aria-current="page"' : ''}>${t.nav[key]}</a>`).join('\n        ');
 
   // Sélecteur de langue : page équivalente si elle existe, sinon l'accueil.
   const langs = I18N.LANGS.map(l => {
@@ -310,13 +426,14 @@ ${body}
       </div>
       <nav class="ft-col" aria-label="${t.ftSite}">
         <p class="ft-h">${t.ftSite}</p>
-        ${['accueil', 'services', 'zone', 'faq', 'a-propos'].map(k => `<a href="${to(R[k])}">${t.ftLinks[k]}</a>`).join('\n        ')}
+        ${Object.keys(t.ftLinks).filter(k => route(k)).map(k => `<a href="${to(route(k))}">${t.ftLinks[k]}</a>`).join('\n        ')}
       </nav>
       <nav class="ft-col" aria-label="${t.ftAct}">
         <p class="ft-h">${t.ftAct}</p>
         <a href="demande.html">${t.demande}</a>
         <a href="diagnostic.html">${t.diag}</a>
         <a href="${to(R.contact)}">${t.contact}</a>
+        <a href="cgv.html">${t.cgv}</a>
         <a href="mentions-legales.html">${t.legal}</a>
       </nav>
     </div>
@@ -354,7 +471,24 @@ function fill(p, src) {
     .replace(/\{\{TEL_HREF\}\}/g, TEL_HREF)
     .replace(/\{\{TEL\}\}/g, t.tel)
     .replace(/\{\{WA\}\}/g, waLink(lang))
-    .replace('{{FAQ_LIST}}', p.faq ? faqHtml(lang === 'fr' ? FAQ[p.faq] : I18N.FAQ[lang]) : '')
+    .replace('{{FAQ_LIST}}', p.faq ? faqHtml(faqListe(lang, p.faq)) : '')
+    .replace('{{FAQ_GROUPES}}', () => FAQ_GROUPES.map(g => `<section class="wrap sec" aria-labelledby="h-f-${g.id}">
+  <h2 class="sec-t" id="h-f-${g.id}">${g.titre}</h2>
+  <div class="faq">
+${faqHtml(g.items, g === FAQ_GROUPES[0])}
+  </div>
+</section>`).join('\n\n'))
+    .replace('{{TARIFS_TABLES}}', () => `<script type="application/json" id="tarifsData">${JSON.stringify(estimData(lang)).replace(/</g, '\\u003c')}</script>\n\n` + tarifsTables(lang))
+    .replace('{{PAIEMENT}}', () => paiementHtml(lang))
+    .replace('{{SERVICES_GRID}}', () => SCATS.map(c => `<section class="wrap sec svc-cat" aria-labelledby="h-c-${c.id}">
+  <h2 class="sec-t" id="h-c-${c.id}">${c.titre}</h2>
+  <p class="sec-sub">${c.sub}</p>
+  <div class="grid grid-wide svc-list">
+${SERVICES.filter(x => x.cat === c.id).map(x => `    <a class="cell cell-link" href="${x.slug}.html">${ic(x.ic)}<h3>${x.nom}</h3><p>${x.resume}</p><span class="svc-meta"><span>${x.prix}</span><span>Voir →</span></span></a>`).join('\n')}
+  </div>
+</section>`).join('\n\n'))
+    .replace('{{ESTIM_PRESTAS}}', () => TARIFS.surPlace.map(s => `<option value="${s.id}">${s.nom[lang]}</option>`).join(''))
+    .replace('{{ESTIM_VILLES}}', () => estimData(lang).villes.map((v, i) => `<option value="${v.km}"${i === 0 ? ' selected' : ''}>${v.nom}</option>`).join(''))
     .replace(/\{\{V:([a-z-]+)\}\}/g, (_, slug) => {
       const v = villes.find(x => x.slug === slug);
       if (!v) throw new Error(`ville inconnue : ${slug}`);

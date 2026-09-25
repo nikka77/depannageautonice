@@ -1,0 +1,95 @@
+<section class="wrap intro">
+  <a href="index.html" class="back">← Home</a>
+  <h1>Le nostre tariffe, pubbliche e fisse.</h1>
+  <p class="lead">Soccorso e traino da 70&nbsp;€ a Nizza. Tutti i prezzi sono IVA inclusa; il prezzo fisso vi viene comunicato al telefono <strong>prima</strong> della partenza del carro attrezzi, ed è quello fatturato.</p>
+  <div class="btns">
+    <a href="#estimer" class="btn btn-orange">{{ic:euro}}Stima il prezzo</a>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-dark">{{ic:phone}}Chiama il {{TEL}}</a>
+  </div>
+</section>
+
+<section class="wrap sec" id="estimer" aria-labelledby="h-estim">
+  <div class="estim" data-estim data-lang="it">
+    <div class="estim-form">
+      <h2 id="h-estim">Stima il prezzo</h2>
+      <fieldset class="estim-f">
+        <legend>Di cosa avete bisogno</legend>
+        <div class="seg">
+          <label><input type="radio" name="e-type" value="sur-place" checked><span>Riparazione sul posto</span></label>
+          <label><input type="radio" name="e-type" value="remorquage"><span>Traino</span></label>
+        </div>
+      </fieldset>
+      <div class="field" data-si="sur-place">
+        <label for="e-presta">Servizio</label>
+        <select id="e-presta">{{ESTIM_PRESTAS}}</select>
+      </div>
+      <div class="field" data-si="remorquage">
+        <label for="e-km">Distanza di traino: <output id="e-km-val" for="e-km">8 km</output></label>
+        <input type="range" id="e-km" min="1" max="120" value="8" step="1">
+      </div>
+      <div class="field">
+        <label for="e-ville">Dove vi trovate?</label>
+        <select id="e-ville">{{ESTIM_VILLES}}</select>
+      </div>
+      <fieldset class="estim-f">
+        <legend>Situazione</legend>
+        <label class="chk"><input type="checkbox" id="e-nuit"><span>Notte (20 – 8), domenica o festivo</span></label>
+        <label class="chk"><input type="checkbox" id="e-sous-sol"><span>Parcheggio sotterraneo</span></label>
+        <label class="chk"><input type="checkbox" id="e-util"><span>Furgone o camper (fino a 3,5&nbsp;t)</span></label>
+      </fieldset>
+    </div>
+    <div class="estim-out" aria-live="polite">
+      <p class="kicker">Stima IVA inclusa</p>
+      <p class="estim-total"><span id="e-total">70</span>&nbsp;€</p>
+      <ul class="estim-detail" id="e-detail"></ul>
+      <p class="estim-note">Stima indicativa. Il prezzo fisso vi viene comunicato al telefono prima della partenza; nulla viene aggiunto sul posto.</p>
+      <div class="estim-act">
+        <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Chiama il {{TEL}}</a>
+        <a href="demande.html" class="btn btn-ghost-dark" id="e-demande">{{ic:file}}Modulo online (in francese)</a>
+      </div>
+    </div>
+  </div>
+  <noscript><p class="small-mono">Lo stimatore richiede JavaScript; il listino completo è qui sotto.</p></noscript>
+</section>
+
+{{TARIFS_TABLES}}
+
+<section class="wrap sec" aria-labelledby="h-paiement">
+  <h2 class="sec-t" id="h-paiement">Metodi di pagamento</h2>
+  <p class="sec-sub">Pagamento a fine intervento, fattura consegnata sul posto o via e-mail.</p>
+  {{PAIEMENT}}
+  <p class="small-mono">Contanti: la legge francese li limita a 1.000&nbsp;€ per i residenti in Francia (15.000&nbsp;€ per chi risiede all'estero).</p>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-inclus">
+  <div class="grid">
+    <article class="cell">{{ic:check}}<h3>Sempre incluso</h3><p>Preventivo al telefono, diagnosi sul posto, carico e fissaggio del veicolo, consegna all'indirizzo scelto, fattura dettagliata.</p></article>
+    <article class="cell">{{ic:x}}<h3>Mai fatturato</h3><p>Spese di pratica, costi di chiamata, «supplementi d'urgenza» scoperti sul posto. Il prezzo annunciato è quello pagato.</p></article>
+    <article class="cell">{{ic:shield}}<h3>Assicurazione e noleggio</h3><p>Se l'assicurazione o il contratto di noleggio comprende l'assistenza stradale, chiamateli prima o ditecelo: possono coprire tutto o parte del prezzo.</p></article>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-autoroute">
+  <div class="aside">
+    <h2 id="h-autoroute">Sull'autostrada A8, la tariffa è fissata dallo Stato</h2>
+    <p>Sulle autostrade francesi a pedaggio può intervenire solo il carro attrezzi autorizzato per quel tratto, a una tariffa regolamentata fissata ogni anno per decreto e maggiorata di notte, nel fine settimana e nei festivi. Usate la colonnina SOS arancione o il 112: non possiamo intervenire noi.</p>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-faq-tarifs">
+  <h2 class="sec-t" id="h-faq-tarifs">Domande sui prezzi</h2>
+  <div class="faq">
+{{FAQ_LIST}}
+  </div>
+  <p class="small-mono">Condizioni complete: <a href="cgv.html">condizioni generali di vendita (in francese)</a>.</p>
+</section>
+
+<section class="wrap sec sec-end" aria-labelledby="h-band">
+  <div class="band">
+    <div>
+      <h2 id="h-band">Un prezzo esatto, adesso?</h2>
+      <p>Diteci dove siete e cosa è successo: il prezzo fisso vi viene comunicato subito.</p>
+    </div>
+    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Chiama il {{TEL}}</a>
+  </div>
+</section>

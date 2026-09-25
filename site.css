@@ -139,7 +139,10 @@ p { margin: 0; }
   font-family: var(--mono); line-height: 1.2;
 }
 .hd-call small { font-size: .56rem; letter-spacing: .16em; text-transform: uppercase; }
-.hd-call strong { font-size: .95rem; }
+.hd-call strong { font-size: .95rem; white-space: nowrap; }
+.brand-name { white-space: nowrap; }
+/* Ancres : le titre visé ne passe pas sous l'en-tête collant. */
+[id] { scroll-margin-top: 84px; }
 .hd-call:hover { background: var(--fill); border-color: var(--fill); color: var(--ink); }
 .hd-cta {
   display: inline-flex; align-items: center; gap: 8px;
@@ -386,6 +389,7 @@ p { margin: 0; }
 }
 .band h2 { font-size: 1.2rem; margin-bottom: 4px; }
 .band p { color: var(--foot-text); font-size: .95rem; }
+.band p a { color: var(--on-dark-accent); }
 .band .btn { font-size: 1rem; min-height: 50px; }
 
 /* Étapes numérotées (accueil). */
@@ -410,6 +414,99 @@ p { margin: 0; }
 .callback-form .btn, .callback-form .form-status { grid-column: 1 / -1; }
 .callback-form .btn { width: 100%; min-height: 52px; }
 @media (max-width: 420px) { .callback-form { grid-template-columns: 1fr; } .callback { padding: 22px 18px; } }
+
+/* ── Tarifs : estimateur ─────────────────── */
+.estim {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  border: 1px solid var(--line); border-top: 3px solid var(--fill);
+}
+.estim-form { padding: 28px; display: flex; flex-direction: column; gap: 18px; background: var(--soft); }
+.estim-form h2 { font-size: 1.2rem; }
+.estim-f { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.estim-f legend {
+  font-family: var(--mono); font-size: .66rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px; padding: 0;
+}
+.estim [hidden] { display: none; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.seg label, .chk { position: relative; cursor: pointer; }
+.seg input, .chk input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg span {
+  display: flex; align-items: center; justify-content: center; text-align: center; min-height: 48px; padding: 8px 10px;
+  border: 1px solid var(--line-2); background: #fff; font-weight: 700; font-size: .95rem;
+}
+.seg input:checked + span { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: #fff6ef; color: var(--accent-hover); }
+.chk span { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: .95rem; color: var(--ink); }
+.chk span::before {
+  content: ''; flex: none; width: 22px; height: 22px; border: 1.5px solid var(--line-2); background: #fff;
+}
+.chk input:checked + span::before {
+  border-color: var(--accent); background: var(--accent)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+.seg input:focus-visible + span, .chk input:focus-visible + span::before { outline: 3px solid var(--fill); outline-offset: 2px; }
+.estim input[type=range] { width: 100%; min-height: 44px; accent-color: var(--fill); }
+.estim output { color: var(--accent); font-family: var(--mono); letter-spacing: 0; text-transform: none; font-size: .8rem; }
+.estim-out { background: var(--ink); color: #fff; padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+.estim-out .kicker { color: var(--on-dark-accent); }
+.estim-total { font-family: var(--mono); font-size: clamp(2.6rem, 7vw, 3.4rem); font-weight: 700; line-height: 1; }
+.estim-detail { list-style: none; margin: 0; padding: 12px 0 0; border-top: 1px solid rgba(255,255,255,.18); display: flex; flex-direction: column; gap: 6px; }
+.estim-detail li { display: flex; justify-content: space-between; gap: 16px; font-size: .9rem; color: var(--foot-text); }
+.estim-detail li b { color: #fff; font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+.estim-note { font-size: .82rem; color: var(--foot-text); line-height: 1.55; }
+.estim-act { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.estim-act .btn { width: 100%; }
+.btn-ghost-dark { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.5); }
+.btn-ghost-dark:hover { border-color: #fff; color: #fff; }
+
+/* Grille de prix. */
+.prix { width: 100%; max-width: 780px; border-collapse: collapse; border-top: 1px solid var(--line); }
+.prix th, .prix td { padding: 14px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: .97rem; }
+.prix th { font-weight: 400; color: var(--ink-2); padding-right: 20px; }
+.prix td { font-family: var(--mono); font-weight: 700; color: var(--ink); white-space: nowrap; text-align: right; }
+.prix tr:target th, .prix tr:target td { background: #fff6ef; }
+@media (max-width: 520px) { .prix td { white-space: normal; } }
+
+/* Moyens de paiement. */
+.pay { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.pay li {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 18px;
+  border: 1px solid var(--line-2); background: #fff; font-weight: 700;
+}
+.pay .ic { color: var(--accent); }
+
+/* ── Guides ──────────────────────────────── */
+.essentiel {
+  max-width: 780px; border: 1px solid var(--line); border-left: 6px solid var(--fill);
+  background: var(--soft); padding: 22px 26px;
+}
+.essentiel h2 { display: flex; align-items: center; gap: 10px; font-size: 1.05rem; margin-bottom: 10px; }
+.essentiel h2 .ic { color: var(--accent); }
+.essentiel ul { margin: 0 0 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--ink); line-height: 1.55; }
+.essentiel p { font-size: .92rem; color: var(--ink-2); }
+.prose { max-width: 720px; color: var(--ink-2); font-size: 1.02rem; line-height: 1.75; }
+.prose h2 { font-size: 1.25rem; color: var(--ink); margin: 36px 0 10px; line-height: 1.3; }
+.prose h2:first-child { margin-top: 0; }
+.prose p + p { margin-top: 12px; }
+.prose ul, .prose ol { margin: 10px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+.prose ul + p, .prose ol + p { margin-top: 14px; }
+.prose strong { color: var(--ink); }
+.prose .maj { margin-top: 32px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: .72rem; color: var(--muted); line-height: 1.7; }
+.cell-link { text-decoration: none; color: inherit; }
+.cell-link:hover h3 { color: var(--accent); }
+.cell-link .svc-meta { margin-top: auto; }
+.links { list-style: none; margin: 0; padding: 0; max-width: 780px; border-top: 1px solid var(--line); }
+.links a {
+  display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 10px 0;
+  border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600;
+}
+.links a:hover { color: var(--accent); }
+.links .ic { color: var(--accent); flex: none; }
+
+/* Catalogue des services (page Services). */
+.svc-cat + .svc-cat { margin-top: 8px; }
+.svc-list .cell { gap: 8px; }
+.svc-list .svc-meta { display: flex; justify-content: space-between; gap: 12px; }
 
 /* ── Texte long (mentions légales) ───────── */
 .legal { max-width: 780px; color: var(--ink-2); }
@@ -537,13 +634,24 @@ p { margin: 0; }
 /* Portable et tablette paysage : numéro + demande dans l'en-tête. */
 @media (min-width: 901px) and (max-width: 1400px) {
   .hd-actions { display: flex; }
-  .nav { gap: 16px; }
+  .nav { gap: 14px; }
+  .brand-sub { display: none; }
 }
 @media (min-width: 901px) and (max-width: 1100px) {
   .brand-sub { display: none; }
-  .nav a { font-size: .68rem; letter-spacing: .08em; }
-  .nav { gap: 12px; }
+  .brand-name { font-size: .92rem; }
+  .hd-in { gap: 12px; }
+  .nav a { font-size: .64rem; letter-spacing: .04em; }
+  .nav { gap: 10px; }
+  .langs { padding-left: 8px; }
+  .nav .langs a { min-width: 26px; }
   .hd-call small { display: none; }
+  .hd-call strong { font-size: .85rem; }
+  .hd-cta { padding: 0 12px; font-size: .82rem; }
+}
+/* Entre 901 et 980 px : l'appel reste, le bouton « Demander » cède la place. */
+@media (min-width: 901px) and (max-width: 980px) {
+  .hd-cta { display: none; }
 }
 
 /* Mobile : menu repliable + barre d'actions en bas. */

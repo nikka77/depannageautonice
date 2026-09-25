@@ -18,9 +18,62 @@ Faits utiles :
 - [Contact](https://nikka77.github.io/depannageautonice/contact.html)
 - [WhatsApp](https://wa.me/33617684270)
 
+## Tarifs
+
+- [Grille tarifaire complète](https://nikka77.github.io/depannageautonice/tarifs.html): Prix TTC. Le prix ferme est annoncé au téléphone avant le départ de la dépanneuse : c'est le prix facturé. Devis gratuit, aucun frais de dossier.
+- Démarrage batterie à plat (booster) : 70 €
+- Pose de la roue de secours : 70 €
+- Réparation de crevaison (mèche) : 80 €
+- Panne sèche : livraison de carburant : 70 € + carburant
+- Remplacement de batterie sur place : 70 € + prix de la batterie
+- Ouverture de porte (clés enfermées) : 90 €
+- Déblocage direction / écrou antivol : 90 €
+- Erreur de carburant : vidange du réservoir : 150 €
+- Diagnostic électronique (valise) sur place : 60 €
+- Jusqu'à 10 km : 70 €
+- De 10 à 20 km : 95 €
+- De 20 à 30 km : 120 €
+- De 30 à 40 km : 145 €
+- De 40 à 50 km : 170 €
+- Au-delà de 50 km : 170 € + 2,20 € par km
+- Nuit (20 h – 8 h), dimanche et jour férié : + 40 €
+- Déplacement au-delà de 10 km de l'atelier : 1,50 € par km
+- Sortie de parking souterrain : + 30 €
+- Utilitaire ou camping-car jusqu'à 3,5 t : + 30 €
+- Roues bloquées (chariots porte-roues) : + 30 €
+- Attente due au client, au-delà de 15 min : 15 € par quart d'heure
+- Enlèvement d'épave (véhicule complet, papiers en règle) : Gratuit
+- Gardiennage sécurisé à l'atelier : 48 h offertes, puis 10 € / jour
+- Recharge de climatisation (atelier) : dès 50 €
+- Diagnostic électronique à l'atelier : dès 49 €
+- Reproduction de clé ou de carte : Sur devis
+- Treuillage, véhicule embourbé ou en contrebas : Sur devis
+- Transport longue distance, Monaco, Italie : Sur devis
+- Camping-car ou véhicule de plus de 3,5 t : Sur devis
+
 ## Services
 
-- [Tous les services](https://nikka77.github.io/depannageautonice/services.html)
+- [Batterie à plat](https://nikka77.github.io/depannageautonice/depannage-batterie-nice.html): Démarrage au booster, test de la batterie et de l'alternateur, remplacement sur place. dès 70 €.
+- [Pneu crevé](https://nikka77.github.io/depannageautonice/pneu-creve-nice.html): Pose de la roue de secours, réparation par mèche, remorquage vers un pneumaticien. dès 70 €.
+- [Panne sèche](https://nikka77.github.io/depannageautonice/panne-seche-nice.html): Nous apportons de quoi rejoindre la station et redémarrons le moteur. dès 70 €.
+- [Erreur de carburant](https://nikka77.github.io/depannageautonice/erreur-carburant-nice.html): Vidange du réservoir, rinçage du circuit et remise en route, sans démarrer le moteur. dès 150 €.
+- [Surchauffe moteur](https://nikka77.github.io/depannageautonice/surchauffe-moteur-nice.html): Diagnostic sur place (fuite, ventilateur, courroie, thermostat), remorquage si le moteur ne doit pas tourner. dès 60 €.
+- [Remorquage](https://nikka77.github.io/depannageautonice/remorquage-voiture-nice.html): Chargement sur plateau et dépose à l'atelier, chez votre garagiste ou à l'adresse de votre choix. dès 70 €.
+- [Accident](https://nikka77.github.io/depannageautonice/depannage-accident-nice.html): Enlèvement du véhicule accidenté, roues bloquées comprises, vers le garage, le carrossier ou l'expert. dès 70 €.
+- [Parking souterrain](https://nikka77.github.io/depannageautonice/depannage-parking-souterrain-nice.html): Matériel adapté aux hauteurs limitées, chariots porte-roues, sortie de sous-sol. dès 70 €.
+- [Aéroport et gares](https://nikka77.github.io/depannageautonice/depannage-aeroport-nice.html): Batterie à plat au retour de voyage, crevaison, remorquage depuis les parkings de l'aéroport et des gares. dès 70 €.
+- [Transport longue distance](https://nikka77.github.io/depannageautonice/transport-vehicule-nice.html): Transport sur plateau, sur rendez-vous : garage à garage, achat, collection, rapatriement, Monaco, Italie. Sur devis.
+- [Treuillage, véhicule embourbé](https://nikka77.github.io/depannageautonice/treuillage-vehicule-embourbe-nice.html): Treuillage et relevage d'un véhicule embourbé, dans un fossé ou en contrebas, sur devis. Sur devis.
+- [Clés enfermées](https://nikka77.github.io/depannageautonice/ouverture-porte-voiture-nice.html): Ouverture par technique non destructive, sur présentation des papiers du véhicule. dès 90 €.
+- [Clé perdue ou cassée](https://nikka77.github.io/depannageautonice/perte-cle-voiture-nice.html): Reproduction de clé, de carte ou de télécommande, clé cassée, direction bloquée, écrou antivol. dès 90 €.
+- [Moto et scooter](https://nikka77.github.io/depannageautonice/depannage-moto-scooter-nice.html): Dépannage sur place ou transport sur plateau, deux-roues calé sur rail et sanglé. dès 70 €.
+- [Utilitaire, camping-car, poids lourd](https://nikka77.github.io/depannageautonice/depannage-utilitaire-camping-car-nice.html): Utilitaires et fourgons jusqu'à 3,5 t, camping-cars et véhicules plus lourds sur devis. dès 100 €.
+- [Électrique et hybride](https://nikka77.github.io/depannageautonice/depannage-voiture-electrique-nice.html): Batterie 12 V, transport sur plateau obligatoire, dépose à une borne ou chez le concessionnaire. dès 70 €.
+- [Enlèvement d'épave](https://nikka77.github.io/depannageautonice/enlevement-epave-nice.html): Gratuit pour un véhicule complet : remise à un centre VHU agréé et certificat de destruction. Gratuit.
+- [Gardiennage](https://nikka77.github.io/depannageautonice/gardiennage-vehicule-nice.html): Lieu fermé à l'atelier : 48 h offertes, puis 10 € par jour. 48 h offertes, puis 10 € / jour.
+- [Diagnostic électronique](https://nikka77.github.io/depannageautonice/diagnostic-electronique-nice.html): Valise multimarque, lecture et explication des codes défauts : 49 € à l'atelier, 60 € sur place. dès 49 €.
+- [Recharge de climatisation](https://nikka77.github.io/depannageautonice/recharge-climatisation-nice.html): Contrôle d'étanchéité et recharge à l'atelier, dès 50 €, sur rendez-vous. dès 50 €.
+- [Réparations mécaniques](https://nikka77.github.io/depannageautonice/reparation-mecanique-nice.html): Démarreur, alternateur, freins, courroies, échappement, entretien : sur devis, sur rendez-vous. Sur devis.
 
 ## Zone d'intervention
 
@@ -33,6 +86,27 @@ Faits utiles :
 - [Dépannage Saint-Laurent-du-Var](https://nikka77.github.io/depannageautonice/ville-saint-laurent-du-var.html): 8 km de l'atelier, 20 à 40 min
 - [Dépannage Villeneuve-Loubet](https://nikka77.github.io/depannageautonice/ville-villeneuve-loubet.html): 17 km de l'atelier, 30 à 50 min
 - [Dépannage Vence](https://nikka77.github.io/depannageautonice/ville-vence.html): 24 km de l'atelier, 35 min à 1 h
+
+## Guides et conseils
+
+- [Panne de voiture : les bons réflexes pour rester en sécurité](https://nikka77.github.io/depannageautonice/guide-que-faire-en-cas-de-panne.html): Panne sur la route à Nice ou ailleurs : se garer, gilet, warnings, triangle, s'abriter, appeler. Et ce qu'il faut dire au dépanneur pour qu'il arrive vite avec le bon matériel.
+- [Panne sur l'autoroute A8 : qui appeler, combien ça coûte](https://nikka77.github.io/depannageautonice/guide-panne-autoroute-a8.html): En panne sur l'A8 entre Nice, Cannes et Menton : derrière la glissière, borne d'appel orange ou 112. Seul le dépanneur agréé peut intervenir, au tarif réglementé. Et après ?
+- [Panne dans un tunnel : les réflexes qui sauvent](https://nikka77.github.io/depannageautonice/guide-panne-tunnel.html): Tunnels de la Côte d'Azur, de Monaco ou de l'A8 : warnings, se garer, couper le moteur, rejoindre une niche de sécurité. Et en cas de fumée, évacuer à pied sans attendre.
+- [Accident de voiture : sécurité, constat amiable, remorquage](https://nikka77.github.io/depannageautonice/guide-accident-constat-amiable.html): Après un accident : protéger, alerter, secourir, puis remplir le constat amiable, prendre des photos et déclarer le sinistre sous 5 jours ouvrés. Et que faire du véhicule qui ne roule plus.
+- [Voiture de location en panne sur la Côte d'Azur](https://nikka77.github.io/depannageautonice/guide-voiture-de-location-en-panne.html): Vacances sur la Côte d'Azur, voiture de location en panne : appelez d'abord l'assistance du loueur. Pourquoi, et que faire si elle ne répond pas ou tarde trop.
+- [Ma voiture ne démarre pas : trouver la cause en 5 questions](https://nikka77.github.io/depannageautonice/guide-voiture-ne-demarre-pas.html): Rien ne s'allume, un clic, le démarreur tourne mais le moteur ne part pas : chaque symptôme oriente vers une cause. Batterie, démarreur, carburant, antidémarrage.
+- [Batterie à plat : redémarrer, recharger ou changer ?](https://nikka77.github.io/depannageautonice/guide-batterie-a-plat.html): Batterie à plat : comment brancher des câbles sans risque, que vaut un booster, comment savoir si la batterie est morte, combien de temps elle dure et laquelle choisir (Start & Stop).
+- [Pneu crevé : réparer, changer la roue ou appeler ?](https://nikka77.github.io/depannageautonice/guide-pneu-creve.html): Pneu crevé : quand il se répare, quand il faut le changer, les limites d'une roue galette et d'un kit anti-crevaison, et comment changer une roue en sécurité.
+- [Erreur de carburant : essence, gazole ou AdBlue, que faire ?](https://nikka77.github.io/depannageautonice/guide-erreur-de-carburant.html): Essence dans un diesel, gazole dans une essence, AdBlue dans le réservoir : ne démarrez pas. Ce qui se passe, ce que coûte une vidange et ce que couvre l'assurance.
+- [Panne sèche : que faire quand il n'y a plus de carburant](https://nikka77.github.io/depannageautonice/guide-panne-seche.html): Plus d'essence ou de gazole : se mettre en sécurité, ne pas insister sur le démarreur, se faire livrer du carburant. Autonomie sur la réserve et cas des voitures électriques.
+- [Surchauffe moteur et canicule : protéger sa voiture l'été](https://nikka77.github.io/depannageautonice/guide-surchauffe-moteur.html): Voyant de température rouge, vapeur sous le capot : s'arrêter, couper le moteur, ne pas ouvrir le vase d'expansion. Et comment préparer sa voiture aux étés de la Côte d'Azur.
+- [Voyants du tableau de bord : lesquels imposent de s'arrêter](https://nikka77.github.io/depannageautonice/guide-voyants-tableau-de-bord.html): Voyant rouge : arrêt immédiat. Voyant orange : anomalie à faire vérifier. Huile, température, freins, batterie, moteur, airbag, pression des pneus : la conduite à tenir pour chacun.
+- [Voiture électrique ou hybride en panne : ce qu'il faut savoir](https://nikka77.github.io/depannageautonice/guide-voiture-electrique-en-panne.html): Voiture électrique « chargée » qui ne démarre pas, batterie vide, accident : la batterie 12 V, le remorquage sur plateau obligatoire et les précautions liées à la haute tension.
+- [Les pannes les plus fréquentes sur la Côte d'Azur](https://nikka77.github.io/depannageautonice/guide-pannes-frequentes-cote-d-azur.html): Chaleur, bouchons, routes de montagne, parkings souterrains, voitures de location : les pannes que nous rencontrons le plus souvent à Nice et dans le 06, et comment les éviter.
+- [Assurance et assistance : qui paie le dépannage ?](https://nikka77.github.io/depannageautonice/guide-assurance-assistance.html): Assistance incluse ou non, franchise kilométrique, assistance 0 km, faut-il appeler l'assurance avant le dépanneur, comment se faire rembourser : ce qu'il faut vérifier dans son contrat.
+- [Clés de voiture perdues, enfermées ou cassées : que faire ?](https://nikka77.github.io/depannageautonice/guide-cles-perdues-ou-enfermees.html): Clés enfermées dans la voiture, perdues, volées ou cassées : les bons réflexes, les papiers à prévoir, refaire une clé ou une carte sans l'original, ce que couvre l'assurance.
+- [Se débarrasser d'une épave : démarches et certificat de destruction](https://nikka77.github.io/depannageautonice/guide-epave-demarches.html): Faire détruire une voiture hors d'usage : centre VHU agréé, documents à fournir, certificat de destruction, gratuité, résiliation de l'assurance, épave sans carte grise ou abandonnée.
+- [Choisir un dépanneur et éviter les arnaques](https://nikka77.github.io/depannageautonice/guide-choisir-un-depanneur.html): Numéros surtaxés, plateformes qui revendent l'appel, prix gonflés sur place : comment reconnaître un dépanneur sérieux et ce que vous êtes en droit de demander.
 
 ## Optional
 

@@ -22,6 +22,10 @@ const esc = s => String(s).replace(/&(?!(amp|lt|gt|quot|#\d+|nbsp);)/g, '&amp;')
 const plain = s => String(s).replace(/&nbsp;/g, ' ').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
 
 const { writePage, PAGES } = require('./build-pages');
+const { SERVICES } = require('./services');
+const { GUIDES } = require('./guides');
+// Services mis en avant sur chaque page ville.
+const VILLE_SERVICES = ['remorquage-voiture-nice', 'depannage-batterie-nice', 'pneu-creve-nice', 'ouverture-porte-voiture-nice', 'erreur-carburant-nice', 'depannage-accident-nice'].map(sl => SERVICES.find(x => x.slug === sl));
 
 
 function page(v) {
@@ -101,15 +105,10 @@ function page(v) {
 </section>
 
 <section class="wrap sec" aria-labelledby="h-inter">
-  <h2 class="sec-t" id="h-inter">Nos interventions</h2>
-  <p class="sec-sub">Les six mêmes qu'à Nice — <a href="services.html">détail des services</a>.</p>
+  <h2 class="sec-t" id="h-inter">Nos interventions à ${esc(v.nom)}</h2>
+  <p class="sec-sub">Les mêmes qu'à Nice, avec les mêmes prix publiés (plus le déplacement au-delà de 10&nbsp;km) — <a href="services.html">les ${SERVICES.length} services</a>.</p>
   <div class="grid grid-wide">
-    <div class="cell"><h3>Remorquage</h3><p>Véhicule non roulant, accident, immobilisation.</p></div>
-    <div class="cell"><h3>Dépannage sur place</h3><p>Diagnostic et remise en route quand c'est possible.</p></div>
-    <div class="cell"><h3>Batterie et démarrage</h3><p>Test, redémarrage, remplacement sur place.</p></div>
-    <div class="cell"><h3>Pneu crevé</h3><p>Roue de secours, kit anti-crevaison, remorquage.</p></div>
-    <div class="cell"><h3>Erreur de carburant</h3><p>Vidange du réservoir avant démarrage.</p></div>
-    <div class="cell"><h3>Surchauffe moteur</h3><p>Diagnostic sur place, remorquage si nécessaire.</p></div>
+    ${VILLE_SERVICES.map(x => `<a class="cell cell-link" href="${x.slug}.html"><h3>${x.nom}</h3><p>${x.resume}</p><span class="svc-meta">${x.prix}</span></a>`).join('\n    ')}
   </div>
 </section>
 
@@ -123,7 +122,7 @@ function page(v) {
 
 <section class="wrap sec" aria-labelledby="h-tarifs">
   <h2 class="sec-t" id="h-tarifs">Tarifs</h2>
-  <p class="lead">Notre tarif de base est de <strong>70&nbsp;€</strong> pour Nice et ses environs immédiats. ${v.distanceKm > 20 ? `${esc(v.nom)} étant à ${v.distanceKm}&nbsp;km, un supplément de distance s'applique&nbsp;:` : 'Pour ' + esc(v.nom) + ', le tarif reste proche de ce montant&nbsp;:'} le prix exact vous est annoncé au téléphone <strong>avant</strong> tout déplacement, et c'est celui qui sera facturé. Aucun supplément à l'arrivée.</p>
+  <p class="lead">Notre tarif de base est de <strong>70&nbsp;€</strong> pour Nice et ses environs immédiats (<a href="tarifs.html">grille complète</a>). ${v.distanceKm > 20 ? `${esc(v.nom)} étant à ${v.distanceKm}&nbsp;km, un supplément de distance s'applique&nbsp;:` : 'Pour ' + esc(v.nom) + ', le tarif reste proche de ce montant&nbsp;:'} le prix exact vous est annoncé au téléphone <strong>avant</strong> tout déplacement, et c'est celui qui sera facturé. Aucun supplément à l'arrivée.</p>
   <p class="lead">Nous travaillons avec toutes les compagnies d'assurance auto&nbsp;: la prise en charge directe est souvent possible, demandez-nous.</p>
 </section>
 
@@ -168,7 +167,7 @@ villes.forEach(page);
 const today = new Date().toISOString().slice(0, 10);
 // Pages du générateur principal (toutes langues), sauf celles exclues de
 // l'index (404) : une seule source, le sitemap ne peut plus oublier une page.
-const PRIO = { accueil: '1.0', services: '0.9', zone: '0.8', faq: '0.7', contact: '0.7', 'a-propos': '0.6' };
+const PRIO = { accueil: '1.0', services: '0.9', tarifs: '0.9', zone: '0.8', faq: '0.7', contact: '0.7', 'a-propos': '0.6' };
 const staticPages = [
   ...PAGES.filter(p => !p.noindex).map(p => ({
     loc: `${site.base}/${p.file.replace(/(^|\/)index\.html$/, '$1')}`,
@@ -178,6 +177,9 @@ const staticPages = [
   })),
   { loc: `${site.base}/demande.html`, freq: 'monthly', prio: '0.9' },
   { loc: `${site.base}/diagnostic.html`, freq: 'monthly', prio: '0.8' },
+  { loc: `${site.base}/conseils.html`, freq: 'monthly', prio: '0.7' },
+  ...SERVICES.map(x => ({ loc: `${site.base}/${x.slug}.html`, freq: 'monthly', prio: '0.8' })),
+  ...GUIDES.map(g => ({ loc: `${site.base}/${g.slug}.html`, freq: 'monthly', prio: '0.6' })),
 ];
 const cityPages = villes.map(v => ({ loc: `${site.base}/ville-${v.slug}.html`, freq: 'monthly', prio: '0.8' }));
 
