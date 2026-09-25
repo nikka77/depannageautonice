@@ -26,6 +26,17 @@
   </div>
 </section>
 
+<section class="wrap sec" aria-labelledby="h-etapes">
+  <h2 class="sec-t" id="h-etapes">Comment ça se passe</h2>
+  <p class="sec-sub">Quatre étapes, et vous connaissez le prix avant que la dépanneuse parte.</p>
+  <ol class="steps">
+    <li><span class="step-n">01</span><h3>Vous appelez ou écrivez</h3><p>Au {{TEL}}, sur WhatsApp ou <a href="demande.html">en ligne en 2&nbsp;minutes</a>, avec votre position GPS.</p></li>
+    <li><span class="step-n">02</span><h3>On vous localise</h3><p>Position, véhicule, panne&nbsp;: le technicien sait ce qui l'attend et part avec le bon matériel.</p></li>
+    <li><span class="step-n">03</span><h3>Prix ferme avant le départ</h3><p>Le prix vous est annoncé au téléphone. C'est celui qui sera facturé, sans supplément à l'arrivée.</p></li>
+    <li><span class="step-n">04</span><h3>On intervient</h3><p>Réparation sur place quand c'est possible, sinon remorquage. Paiement par carte, Apple&nbsp;Pay, Google&nbsp;Pay ou espèces.</p></li>
+  </ol>
+</section>
+
 <section class="wrap sec" aria-label="Tarifs, zone et services">
   <div class="panels">
 
@@ -71,6 +82,38 @@
       </div>
     </article>
 
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-pourquoi">
+  <h2 class="sec-t" id="h-pourquoi">Pourquoi nous appeler plutôt qu'une plateforme</h2>
+  <div class="grid">
+    <article class="cell">{{ic:pin}}<h3>Une équipe niçoise, pas une centrale d'appels</h3><p>Certaines plateformes nationales prennent votre appel à des centaines de kilomètres, puis le confient au dépanneur disponible. Ici, vous parlez directement à l'équipe qui se déplace, depuis l'atelier du Quai de la Blanquière.</p></article>
+    <article class="cell">{{ic:tag}}<h3>Le prix avant le départ</h3><p>Tarif de départ 70&nbsp;€ sur Nice. Le prix annoncé au téléphone est le prix facturé&nbsp;: pas de «&nbsp;frais de dossier&nbsp;» ni de supplément découvert sur place.</p></article>
+    <article class="cell">{{ic:lock}}<h3>Aucun cookie, aucun pistage</h3><p>Pas de bandeau à fermer en pleine panne&nbsp;: ce site ne dépose aucun cookie et ne vous suit pas pour la publicité. Le bouton d'appel est visible tout de suite.</p></article>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-rappel">
+  <div class="callback">
+    <div class="callback-txt">
+      <p class="kicker">Gratuit</p>
+      <h2 id="h-rappel">On vous rappelle</h2>
+      <p>Vous ne pouvez pas parler maintenant&nbsp;? Laissez un prénom et un numéro, un technicien vous rappelle, 7j/7 24h/24.</p>
+    </div>
+    <form class="callback-form" data-rappel>
+      <div class="field">
+        <label for="rappel-prenom">Prénom</label>
+        <input type="text" id="rappel-prenom" name="prenom" autocomplete="given-name" placeholder="Votre prénom">
+      </div>
+      <div class="field">
+        <label for="rappel-tel">Téléphone</label>
+        <input type="tel" id="rappel-tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required>
+      </div>
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn btn-orange">{{ic:phone}}Être rappelé</button>
+      <p class="form-status" role="status" aria-live="polite" hidden></p>
+    </form>
   </div>
 </section>
 

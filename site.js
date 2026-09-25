@@ -14,15 +14,24 @@
     fr: { pause: 'Pause', reprendre: 'Reprendre', pauseAria: 'Pause — mettre en pause le défilement des villes', reprendreAria: 'Reprendre — relancer le défilement des villes',
           ok: 'Message envoyé. Nous vous rappelons au plus vite.', envoi: 'Envoi en cours…',
           wa: 'Votre message est prêt dans WhatsApp — appuyez sur Envoyer. Sinon, appelez le 06 17 68 42 70.',
-          echec: "L'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez." },
+          echec: "L'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez.",
+          rappelOk: 'C\'est noté : un technicien vous rappelle dès que possible.',
+          rappelWa: 'Votre demande de rappel est prête dans WhatsApp — appuyez sur Envoyer.',
+          rappelTel: 'Indiquez un numéro de téléphone complet.' },
     en: { pause: 'Pause', reprendre: 'Resume', pauseAria: 'Pause — stop the rotating town names', reprendreAria: 'Resume — restart the rotating town names',
           ok: 'Message sent. We will call you back as soon as possible.', envoi: 'Sending…',
           wa: 'Your message is ready in WhatsApp — tap Send. Otherwise, call +33 6 17 68 42 70.',
-          echec: 'Sending failed. Call us on +33 6 17 68 42 70 or try again.' },
+          echec: 'Sending failed. Call us on +33 6 17 68 42 70 or try again.',
+          rappelOk: 'Done: a technician will call you back as soon as possible.',
+          rappelWa: 'Your call-back request is ready in WhatsApp — tap Send.',
+          rappelTel: 'Please enter a full phone number.' },
     it: { pause: 'Pausa', reprendre: 'Riprendi', pauseAria: 'Pausa — ferma lo scorrimento delle città', reprendreAria: 'Riprendi — riavvia lo scorrimento delle città',
           ok: 'Messaggio inviato. Vi richiameremo al più presto.', envoi: 'Invio in corso…',
           wa: 'Il messaggio è pronto su WhatsApp — premete Invia. Altrimenti chiamate il +33 6 17 68 42 70.',
-          echec: "L'invio non è riuscito. Chiamateci al +33 6 17 68 42 70 o riprovate." },
+          echec: "L'invio non è riuscito. Chiamateci al +33 6 17 68 42 70 o riprovate.",
+          rappelOk: 'Fatto: un tecnico vi richiamerà al più presto.',
+          rappelWa: 'La richiesta di richiamata è pronta su WhatsApp — premete Invia.',
+          rappelTel: 'Inserite un numero di telefono completo.' },
   };
   const tx = TXT[LANG] || TXT.fr;
 
@@ -145,6 +154,53 @@
       }
     });
   }
+
+  // ── « On vous rappelle » : prénom + téléphone ──
+  // Même relais que le formulaire de contact ; sans relais, le message part
+  // par WhatsApp (déjà rédigé) plutôt que de faire croire à un envoi.
+  document.querySelectorAll('form[data-rappel]').forEach((f) => {
+    const cfg = window.SITE_CONFIG || {};
+    const st = f.querySelector('.form-status');
+    const btn = f.querySelector('button[type="submit"]');
+    const tel = f.elements.tel;
+    const dire = (text, kind) => { if (!st) return; st.textContent = text; st.className = `form-status is-${kind}`; st.hidden = !text; };
+
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (f.elements.botcheck && f.elements.botcheck.checked) { dire(tx.rappelOk, 'ok'); return; }
+      const chiffres = tel.value.replace(/[^\d+]/g, '');
+      if (chiffres.replace(/\D/g, '').length < 9) { dire(tx.rappelTel, 'error'); tel.focus(); return; }
+      const prenom = (f.elements.prenom.value || '').trim();
+      const texte = `Demande de rappel depuis le site\nPrénom : ${prenom || '—'}\nTéléphone : ${tel.value.trim()}\nPage : ${location.pathname}`;
+      if (window.mesurer) window.mesurer('rappel');
+
+      if (!cfg.formAccessKey) {
+        const numero = cfg.whatsappNumber || '33617684270';
+        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(`Bonjour, pouvez-vous me rappeler au ${tel.value.trim()} ? ${prenom}`.trim())}`, '_blank', 'noopener');
+        dire(tx.rappelWa, 'ok');
+        return;
+      }
+      const label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = tx.envoi;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), cfg.formTimeoutMs || 8000);
+      try {
+        const res = await fetch(cfg.formEndpoint, {
+          method: 'POST', signal: ctrl.signal,
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ access_key: cfg.formAccessKey, botcheck: false, subject: `📞 Rappel — ${tel.value.trim()}`, from_name: 'Dépannage Auto Nice (site)', message: texte }),
+        });
+        if (!res.ok) throw new Error('relais');
+        f.reset();
+        dire(tx.rappelOk, 'ok');
+      } catch {
+        dire(tx.echec, 'error');
+      } finally {
+        clearTimeout(timer);
+        btn.disabled = false; btn.innerHTML = label;
+      }
+    });
+  });
 
   // ── Titre de l'accueil : une ville toutes les 3 secondes ──
   // Chaque ville garde son propre délai. ?ville=grasse (annonce, QR code,

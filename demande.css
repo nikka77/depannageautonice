@@ -229,6 +229,35 @@ body {
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: var(--text-dim); }
 .field-hint { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim); }
+
+/* Urgence ou rendez-vous */
+fieldset.quand { border: 0; min-width: 0; }
+.quand legend {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--gray); text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+.quand-choix { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.quand-opt { position: relative; cursor: pointer; }
+.quand-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.quand-opt span {
+  display: flex; flex-direction: column; gap: 2px; min-height: 56px; justify-content: center;
+  padding: 10px 12px; border: 1.5px solid var(--border); background: var(--bg-card);
+  font-weight: 700; color: var(--white); text-transform: none; letter-spacing: 0;
+}
+.quand-opt small { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 400; color: var(--text-dim); }
+.quand-opt input:checked + span { border-color: var(--orange); box-shadow: inset 0 0 0 1px var(--orange); background: #fff6ef; }
+.quand-opt input:focus-visible + span { outline: 3px solid var(--orange); outline-offset: 2px; }
+.quand-rdv { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; margin-top: 12px; }
+.quand-rdv[hidden] { display: none; }
+.quand-rdv .form-group { margin-bottom: 8px; }
+.quand-rdv .field-hint { grid-column: 1 / -1; }
+.quand-rdv select {
+  background: var(--bg-card); border: 1.5px solid var(--border); padding: 12px 10px; min-height: 48px;
+  color: var(--white); font-family: 'Chakra Petch', monospace; font-size: 0.95rem; border-radius: 0;
+}
+@media (max-width: 380px) { .quand-rdv { grid-template-columns: 1fr; } }
 .required-star { color: var(--orange); }
 
 .privacy-note {

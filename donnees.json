@@ -1,0 +1,97 @@
+{
+  "version": "2026-09-25",
+  "source": "https://nikka77.github.io/depannageautonice/",
+  "note": "Données publiées par l'entreprise. Délais : estimations liées au trafic, pas des garanties. Prix TTC.",
+  "entreprise": {
+    "nom": "Dépannage Auto Nice",
+    "activite": "Dépannage, remorquage et transport de véhicules",
+    "depuis": 2004,
+    "atelier": "Zone industrielle du Quai de la Blanquière, 06000 Nice, France",
+    "modele": "Entreprise locale : l'équipe qui répond au téléphone est celle qui se déplace (pas une plateforme d'intermédiation)."
+  },
+  "contact": {
+    "telephone": "06 17 68 42 70",
+    "telephoneInternational": "+33617684270",
+    "whatsapp": "https://wa.me/33617684270",
+    "demandeEnLigne": "https://nikka77.github.io/depannageautonice/demande.html",
+    "langues": "Équipe francophone. Pour l'anglais ou l'italien, WhatsApp est conseillé (message écrit facile à traduire)."
+  },
+  "disponibilite": "7 jours sur 7, 24 heures sur 24, jours fériés compris",
+  "zone": {
+    "departement": "Alpes-Maritimes (06)",
+    "delais": [
+      {
+        "ville": "Nice",
+        "delai": "30 à 60 min"
+      },
+      {
+        "ville": "Saint-Laurent-du-Var",
+        "cp": "06700",
+        "distanceKm": 8,
+        "delai": "20 à 40 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-saint-laurent-du-var.html"
+      },
+      {
+        "ville": "Cagnes-sur-Mer",
+        "cp": "06800",
+        "distanceKm": 13,
+        "delai": "25 à 45 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-cagnes-sur-mer.html"
+      },
+      {
+        "ville": "Villeneuve-Loubet",
+        "cp": "06270",
+        "distanceKm": 17,
+        "delai": "30 à 50 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-villeneuve-loubet.html"
+      },
+      {
+        "ville": "Antibes",
+        "cp": "06600",
+        "distanceKm": 22,
+        "delai": "35 min à 1 h",
+        "page": "https://nikka77.github.io/depannageautonice/ville-antibes.html"
+      },
+      {
+        "ville": "Vence",
+        "cp": "06140",
+        "distanceKm": 24,
+        "delai": "35 min à 1 h",
+        "page": "https://nikka77.github.io/depannageautonice/ville-vence.html"
+      },
+      {
+        "ville": "Menton",
+        "cp": "06500",
+        "distanceKm": 30,
+        "delai": "40 min à 1 h 10",
+        "page": "https://nikka77.github.io/depannageautonice/ville-menton.html"
+      },
+      {
+        "ville": "Cannes",
+        "cp": "06400",
+        "distanceKm": 33,
+        "delai": "45 min à 1 h 15",
+        "page": "https://nikka77.github.io/depannageautonice/ville-cannes.html"
+      },
+      {
+        "ville": "Grasse",
+        "cp": "06130",
+        "distanceKm": 40,
+        "delai": "50 min à 1 h 20",
+        "page": "https://nikka77.github.io/depannageautonice/ville-grasse.html"
+      }
+    ]
+  },
+  "paiement": [
+    "Carte bancaire",
+    "Apple Pay",
+    "Google Pay",
+    "Espèces"
+  ],
+  "tarifs": {
+    "principe": "À partir de 70 € sur Nice. Prix ferme annoncé au téléphone avant le départ."
+  },
+  "limites": [
+    "Autoroutes concédées (A8…) : seul le dépanneur agréé du réseau peut intervenir ; utiliser une borne d'appel ou le 112."
+  ]
+}

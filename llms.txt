@@ -1,0 +1,43 @@
+# Dépannage Auto Nice
+
+> Dépannage, remorquage et transport de véhicules à Nice et dans les Alpes-Maritimes, 7j/7 24h/24. Entreprise niçoise depuis 2004, atelier Quai de la Blanquière à Nice. Téléphone : 06 17 68 42 70 (+33617684270). Prix ferme annoncé avant le départ, à partir de 70 € TTC sur Nice.
+
+Faits utiles :
+
+- Disponibilité : 24h/24, 7j/7, jours fériés compris. Un technicien décroche.
+- Délai estimé : 30 à 60 min sur Nice ; Saint-Laurent-du-Var 20 à 40 min ; Cagnes-sur-Mer 25 à 45 min ; Villeneuve-Loubet 30 à 50 min ; Antibes 35 min à 1 h ; Vence 35 min à 1 h ; Menton 40 min à 1 h 10 ; Cannes 45 min à 1 h 15 ; Grasse 50 min à 1 h 20. Estimations, selon le trafic.
+- Paiement : Carte bancaire, Apple Pay, Google Pay, Espèces.
+- Véhicules : voitures, SUV, utilitaires, camping-cars, motos et scooters.
+- Langues : équipe francophone ; WhatsApp conseillé pour l'anglais ou l'italien.
+- Autoroute A8 : seul le dépanneur agréé du réseau peut intervenir (borne d'appel orange ou 112).
+- Données structurées complètes : https://nikka77.github.io/depannageautonice/donnees.json
+
+## Contact et demande
+
+- [Demander un dépannage en ligne](https://nikka77.github.io/depannageautonice/demande.html): position GPS, type de panne, urgence ou rendez-vous
+- [Contact](https://nikka77.github.io/depannageautonice/contact.html)
+- [WhatsApp](https://wa.me/33617684270)
+
+## Services
+
+- [Tous les services](https://nikka77.github.io/depannageautonice/services.html)
+
+## Zone d'intervention
+
+- [Zone et délais](https://nikka77.github.io/depannageautonice/zone.html)
+- [Dépannage Cannes](https://nikka77.github.io/depannageautonice/ville-cannes.html): 33 km de l'atelier, 45 min à 1 h 15
+- [Dépannage Antibes](https://nikka77.github.io/depannageautonice/ville-antibes.html): 22 km de l'atelier, 35 min à 1 h
+- [Dépannage Menton](https://nikka77.github.io/depannageautonice/ville-menton.html): 30 km de l'atelier, 40 min à 1 h 10
+- [Dépannage Cagnes-sur-Mer](https://nikka77.github.io/depannageautonice/ville-cagnes-sur-mer.html): 13 km de l'atelier, 25 à 45 min
+- [Dépannage Grasse](https://nikka77.github.io/depannageautonice/ville-grasse.html): 40 km de l'atelier, 50 min à 1 h 20
+- [Dépannage Saint-Laurent-du-Var](https://nikka77.github.io/depannageautonice/ville-saint-laurent-du-var.html): 8 km de l'atelier, 20 à 40 min
+- [Dépannage Villeneuve-Loubet](https://nikka77.github.io/depannageautonice/ville-villeneuve-loubet.html): 17 km de l'atelier, 30 à 50 min
+- [Dépannage Vence](https://nikka77.github.io/depannageautonice/ville-vence.html): 24 km de l'atelier, 35 min à 1 h
+
+## Optional
+
+- [Questions fréquentes](https://nikka77.github.io/depannageautonice/faq.html)
+- [À propos](https://nikka77.github.io/depannageautonice/a-propos.html)
+- [Diagnostic pneus en photo (gratuit)](https://nikka77.github.io/depannageautonice/diagnostic.html)
+- [English](https://nikka77.github.io/depannageautonice/en/)
+- [Italiano](https://nikka77.github.io/depannageautonice/it/)

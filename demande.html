@@ -184,10 +184,22 @@
           <div class="panne-desc">Moteur surchauffé, fumée</div>
         </button>
 
-        <button class="panne-card" data-type="autre" aria-label="Autre problème">
+        <button class="panne-card" data-type="cles" aria-label="Clés perdues ou porte bloquée">
+          <div class="panne-icon"><i data-lucide="key-round"></i></div>
+          <div class="panne-label">Clés</div>
+          <div class="panne-desc">Perdues, enfermées, porte bloquée</div>
+        </button>
+
+        <button class="panne-card" data-type="accident" aria-label="Accident">
+          <div class="panne-icon"><i data-lucide="triangle-alert"></i></div>
+          <div class="panne-label">Accident</div>
+          <div class="panne-desc">Choc, véhicule non roulant</div>
+        </button>
+
+        <button class="panne-card" data-type="autre" aria-label="Autre besoin">
           <div class="panne-icon"><i data-lucide="wrench"></i></div>
           <div class="panne-label">Autre</div>
-          <div class="panne-desc">Verrouillage, accident…</div>
+          <div class="panne-desc">Épave, transport, moto…</div>
         </button>
 
       </div>
@@ -275,6 +287,32 @@
         <input type="tel" id="phoneNumber" placeholder="06 12 34 56 78" autocomplete="tel" required>
         <span class="field-hint">Pour que le technicien vous joigne</span>
       </div>
+
+      <!-- Urgence ou rendez-vous : transport au garage, épave, contrôle technique… -->
+      <fieldset class="form-group quand">
+        <legend>Quand&nbsp;?</legend>
+        <div class="quand-choix">
+          <label class="quand-opt"><input type="radio" name="quand" value="maintenant" checked><span>Maintenant<small>Urgence, on part dès l'appel</small></span></label>
+          <label class="quand-opt"><input type="radio" name="quand" value="plus-tard"><span>Plus tard<small>Sur rendez-vous</small></span></label>
+        </div>
+        <div class="quand-rdv" id="quandRdv" hidden>
+          <div class="form-group">
+            <label for="rdvDate">Date souhaitée</label>
+            <input type="date" id="rdvDate">
+          </div>
+          <div class="form-group">
+            <label for="rdvCreneau">Créneau</label>
+            <select id="rdvCreneau">
+              <option>Matin (8h – 12h)</option>
+              <option>Midi (12h – 14h)</option>
+              <option>Après-midi (14h – 18h)</option>
+              <option>Soir (18h – 21h)</option>
+              <option>Nuit (21h – 8h)</option>
+            </select>
+          </div>
+          <span class="field-hint">Transport au garage, épave, contrôle technique, véhicule immobilisé sans urgence. Nous vous rappelons pour confirmer l'heure exacte.</span>
+        </div>
+      </fieldset>
 
       <div class="privacy-note">
         <i data-lucide="lock"></i>

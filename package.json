@@ -1,4 +1,8 @@
 {
+  "private": true,
+  "scripts": {
+    "build": "node tools/build-pages.js && node tools/build-villes.js && node tools/build-llms.js"
+  },
   "dependencies": {
     "gsap": "^3.15.0",
     "leaflet": "^1.9.4",

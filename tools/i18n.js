@@ -37,6 +37,7 @@ const T = {
     quick: 'Contact rapide', railCall: 'Appeler 24h/24', railDem: 'Demander un dépannage', top: 'Remonter en haut de page',
     barCall: 'Appeler', barDem: 'Demande',
     wa: "Bonjour, j'ai besoin d'un dépannage. Je suis à : ",
+    noCookie: 'Site sans cookie ni pistage publicitaire',
   },
   en: {
     locale: 'en_GB', inLang: 'en-GB', skip: 'Skip to content', home: 'Home',
@@ -50,6 +51,7 @@ const T = {
     quick: 'Quick contact', railCall: 'Call 24/7', railDem: 'Online request (FR)', top: 'Back to top',
     barCall: 'Call', barDem: 'Form',
     wa: 'Hello, I need roadside assistance. I am at: ',
+    noCookie: 'No cookies, no advertising tracking',
   },
   it: {
     locale: 'it_IT', inLang: 'it-IT', skip: 'Vai al contenuto', home: 'Home',
@@ -63,6 +65,7 @@ const T = {
     quick: 'Contatto rapido', railCall: 'Chiama 24h/24', railDem: 'Richiesta online (FR)', top: 'Torna su',
     barCall: 'Chiama', barDem: 'Modulo',
     wa: 'Buongiorno, ho bisogno di un soccorso stradale. Mi trovo a: ',
+    noCookie: 'Nessun cookie, nessun tracciamento pubblicitario',
   },
 };
 

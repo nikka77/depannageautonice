@@ -19,6 +19,7 @@ const state = {
   photoDataUrl: null,
   firstName: '',
   phone: '',
+  rdv: null,      // null = urgence ; sinon { date: 'AAAA-MM-JJ', creneau }
   hasGps: false,  // false = lat/lng sont le repli « centre de Nice », pas la position réelle
   delivery: null, // 'sent' = reçue par le garage | 'manual' = au client de l'envoyer
 };
@@ -232,7 +233,9 @@ const panneLabels = {
   carburant: 'Panne carburant',
   remorquage:'Remorquage',
   moteur:    'Surchauffe moteur',
-  autre:     'Autre panne',
+  cles:      'Clés perdues / porte bloquée',
+  accident:  'Accident',
+  autre:     'Autre besoin',
 };
 
 panneCards.forEach(card => {
@@ -252,7 +255,7 @@ btn1Back.addEventListener('click', () => goToStep(0));
 (function applyUrlType() {
   const params = new URLSearchParams(window.location.search);
   const t = params.get('type');
-  if (t === 'pneu' || t === 'batterie' || t === 'carburant' || t === 'remorquage' || t === 'moteur') {
+  if (t && Object.prototype.hasOwnProperty.call(panneLabels, t)) {
     const match = document.querySelector(`.panne-card[data-type="${t}"]`);
     if (match) match.click();
   }
@@ -348,7 +351,44 @@ phoneInput.addEventListener('input', () => {
   phoneInput.style.borderColor = '';
 });
 
+// Urgence ou rendez-vous. ?quand=plus-tard (liens des pages épave,
+// gardiennage, transport) pré-sélectionne le rendez-vous.
+const rdvBox   = document.getElementById('quandRdv');
+const rdvDate  = document.getElementById('rdvDate');
+const rdvCren  = document.getElementById('rdvCreneau');
+const quandRadios = document.querySelectorAll('input[name="quand"]');
+
+function dateLocale(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function majQuand() {
+  const plusTard = document.querySelector('input[name="quand"]:checked').value === 'plus-tard';
+  if (rdvBox) rdvBox.hidden = !plusTard;
+  if (plusTard && rdvDate && !rdvDate.value) {
+    const demain = new Date(); demain.setDate(demain.getDate() + 1);
+    rdvDate.min = dateLocale(new Date());
+    rdvDate.value = dateLocale(demain);
+  }
+}
+quandRadios.forEach(r => r.addEventListener('change', majQuand));
+if (new URLSearchParams(window.location.search).get('quand') === 'plus-tard') {
+  const r = document.querySelector('input[name="quand"][value="plus-tard"]');
+  if (r) { r.checked = true; majQuand(); }
+}
+
+// « Maintenant » ou « Rendez-vous : jeudi 2 octobre, matin (8h – 12h) ».
+function libelleQuand() {
+  if (!state.rdv) return 'Maintenant (urgence)';
+  const d = state.rdv.date ? new Date(state.rdv.date + 'T12:00:00') : null;
+  const jour = d && !isNaN(d) ? d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : 'date à convenir';
+  return `Rendez-vous : ${jour}, ${state.rdv.creneau.toLowerCase()}`;
+}
+
 btn3Next.addEventListener('click', async () => {
+  const quand = document.querySelector('input[name="quand"]:checked');
+  state.rdv = quand && quand.value === 'plus-tard'
+    ? { date: rdvDate ? rdvDate.value : '', creneau: rdvCren ? rdvCren.value : '' }
+    : null;
   const phone = phoneInput.value.replace(/\s/g, '');
   if (phone.length < 10) {
     phoneInput.style.borderColor = 'var(--danger)';
@@ -400,6 +440,7 @@ function libelleVehicule() {
 function requestSummary() {
   return [
     `Panne : ${state.panneLabel || '—'}`,
+    `Quand : ${libelleQuand()}`,
     libelleVehicule() ? `Véhicule : ${libelleVehicule()}` : null,
     `Adresse : ${state.address || '—'}`,
     state.hasGps
@@ -431,7 +472,7 @@ async function deliverRequest() {
       signal: controller.signal,
       body: JSON.stringify({
         access_key: CONFIG.formAccessKey,
-        subject: `🚨 Dépannage — ${state.panneLabel || 'demande'} — ${state.phone}`,
+        subject: `${state.rdv ? '📅 Rendez-vous' : '🚨 Dépannage'} — ${state.panneLabel || 'demande'} — ${state.phone}`,
         from_name: 'depannageautonice.fr',
         message: requestSummary(),
       }),
@@ -477,6 +518,15 @@ function buildConfirmation() {
     const libelle = libelleVehicule();
     recapVeh.textContent = libelle ? `Véhicule transmis : ${libelle}` : '';
     recapVeh.hidden = !libelle;
+  }
+
+  // Rendez-vous : le délai « 30–60 min » n'a pas de sens, on affiche la date.
+  const etaLabel = document.querySelector('.eta-label');
+  const etaValue = document.querySelector('.eta-value');
+  if (state.rdv && etaLabel && etaValue) {
+    etaLabel.textContent = 'Rendez-vous demandé';
+    const d = state.rdv.date ? new Date(state.rdv.date + 'T12:00:00') : null;
+    etaValue.textContent = d && !isNaN(d) ? d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : 'À convenir';
   }
 
   applyDeliveryState();
@@ -637,7 +687,8 @@ async function drawRoute(map, from, to) {
 function buildWhatsApp() {
   const prenom = state.firstName || 'Client';
   const lines  = [
-    `🚨 DEMANDE DE DÉPANNAGE`,
+    state.rdv ? `📅 DEMANDE DE RENDEZ-VOUS` : `🚨 DEMANDE DE DÉPANNAGE`,
+    state.rdv ? `🗓 ${libelleQuand()}` : null,
     ``,
     `📍 Position : ${state.address}`,
     state.hasGps ? `🗺 https://www.google.com/maps?q=${state.lat},${state.lng}` : null,

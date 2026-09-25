@@ -320,7 +320,7 @@ ${body}
         <a href="mentions-legales.html">${t.legal}</a>
       </nav>
     </div>
-    <p class="ft-copy">© <span id="year">2026</span> Dépannage Auto Nice</p>
+    <p class="ft-copy">© <span id="year">2026</span> Dépannage Auto Nice · ${t.noCookie}</p>
   </footer>
 
   <div class="rail" aria-label="${t.quick}" role="navigation">
