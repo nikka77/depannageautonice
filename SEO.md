@@ -146,3 +146,12 @@ Sources à modifier (jamais les .html générés) :
 | Questions fréquentes (FR) | `tools/build-pages.js` (FAQ_GROUPES) |
 | Traductions EN/IT | `tools/i18n.js`, `tools/pages/en|it/` |
 | Villes | `tools/villes.json` |
+
+## Demande rapide (fenêtre)
+
+Chaque page contient un formulaire court (`<dialog id="qr">`, généré par
+`demandeRapide()` dans `tools/build-pages.js`, textes FR/EN/IT dans
+`tools/i18n.js`). Tout lien vers `demande.html` l'ouvre sur place (site.js),
+avec `?type=` et `?quand=plus-tard` pré-remplis ; Ctrl/Cmd-clic ou absence de
+JavaScript mènent toujours à la page complète. Envoi : Web3Forms si la clé est
+renseignée dans `config.js`, sinon message WhatsApp déjà rédigé.

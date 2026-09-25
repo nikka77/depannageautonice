@@ -6,6 +6,8 @@
   </div>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap hero-in">
+  <div class="hero-grid">
+  <div class="hero-main">
     <p class="live"><span class="live-dot" aria-hidden="true"></span>Disponibili adesso — risponde un tecnico</p>
     <h1 id="h-hero" data-villes="{{HERO_VILLES}}">Un carro attrezzi a <span class="h-ville">Nizza</span> in <em class="h-delai">30–60&nbsp;minuti</em>.</h1>
     <p class="hero-lead">Riparazione sul posto, traino e trasporto del veicolo in tutte le Alpi Marittime, giorno e notte. Prezzo comunicato prima della partenza, da 70&nbsp;€.</p>
@@ -14,6 +16,17 @@
       <a href="{{WA}}" class="btn btn-ghost" rel="noopener">{{ic:message}}Scrivici su WhatsApp</a>
     </div>
     <button type="button" class="rot-pause" aria-pressed="false" aria-label="Pausa — ferma lo scorrimento delle città" hidden>Pausa</button>
+  </div>
+  <aside class="hero-card" aria-labelledby="h-card">
+    <h2 id="h-card">Cosa è successo?</h2>
+    <p>Scegliete il problema: un breve modulo si apre qui, e un tecnico vi richiama.</p>
+    <ul class="hero-types">
+{{HERO_TYPES}}
+    </ul>
+    <a href="demande.html" class="btn btn-dark">{{ic:file:ic-sm}}Richiedere un soccorso</a>
+    <p class="hero-card-alt">Urgenza? <a href="tel:{{TEL_HREF}}">{{TEL}}</a></p>
+  </aside>
+  </div>
   </div>
 </section>
 

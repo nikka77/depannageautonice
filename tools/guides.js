@@ -199,8 +199,8 @@ const G = [
     slug: 'guide-batterie-a-plat', cat: 'diagnostic', ic: 'battery', min: 5,
     titre: 'Batterie à plat : redémarrer, recharger ou changer ?',
     title: 'Batterie de voiture à plat : câbles, booster, quand la changer',
-    desc: 'Batterie à plat : comment brancher des câbles sans risque, que vaut un booster, comment savoir si la batterie est morte, combien de temps elle dure et laquelle choisir (Start & Stop).',
-    essentiel: ['Câbles : + sur +, puis − sur une masse métallique, jamais l\'inverse.', 'Une batterie dure en général 4 à 6 ans, moins avec la chaleur.', 'Start & Stop : batterie EFB ou AGM obligatoire.', 'Une batterie qui se vide à répétition cache souvent un autre problème.'],
+    desc: 'Batterie à plat : comment brancher des câbles sans risque, que vaut un booster, comment savoir si la batterie est morte, combien de temps elle dure et laquelle choisir (Start &amp; Stop).',
+    essentiel: ['Câbles : + sur +, puis − sur une masse métallique, jamais l\'inverse.', 'Une batterie dure en général 4 à 6 ans, moins avec la chaleur.', 'Start &amp; Stop : batterie EFB ou AGM obligatoire.', 'Une batterie qui se vide à répétition cache souvent un autre problème.'],
     services: ['depannage-batterie-nice', 'diagnostic-electronique-nice'],
     corps: `
 <h2>Pourquoi une batterie se décharge</h2>
@@ -221,14 +221,14 @@ const G = [
 <h2>Quelle batterie choisir ?</h2>
 <ul>
 <li>Respectez la capacité (Ah) et le courant de démarrage (A) indiqués par le constructeur, et le format.</li>
-<li><strong>Start & Stop</strong> : batterie <strong>EFB</strong> ou <strong>AGM</strong> obligatoire (celle d'origine l'indique). Une batterie classique y meurt en quelques mois.</li>
+<li><strong>Start &amp; Stop</strong> : batterie <strong>EFB</strong> ou <strong>AGM</strong> obligatoire (celle d'origine l'indique). Une batterie classique y meurt en quelques mois.</li>
 <li>Sur certains véhicules, la nouvelle batterie doit être déclarée au calculateur, avec une valise de diagnostic.</li>
 </ul>
 <h2>L'ancienne batterie</h2>
 <p>Elle contient du plomb et de l'acide : elle se rapporte chez un professionnel ou en déchetterie, jamais à la poubelle. Quand nous remplaçons une batterie, nous reprenons l'ancienne.</p>`,
     faq: [
       ['Combien de temps dure une batterie de voiture ?', 'En général 4 à 6 ans. La chaleur, les petits trajets et les longues périodes sans rouler réduisent cette durée.'],
-      ['Peut-on démarrer une voiture Start & Stop avec des câbles ?', 'Oui dans la plupart des cas, en suivant le manuel : certains modèles imposent un point de branchement précis sous le capot.'],
+      ['Peut-on démarrer une voiture Start &amp; Stop avec des câbles ?', 'Oui dans la plupart des cas, en suivant le manuel : certains modèles imposent un point de branchement précis sous le capot.'],
     ],
   },
   {

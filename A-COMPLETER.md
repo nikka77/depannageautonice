@@ -25,6 +25,14 @@ la même adresse et le même numéro partout** (Google compare) :
 6. Annuaires secondaires : Facebook (page entreprise), 118 712, Hoodspot,
    Cylex, Justacoté, Yelp, Trustpilot (avis).
 
+### Recevoir les demandes par e-mail (5 minutes)
+
+Le formulaire de demande s'ouvre désormais sur toutes les pages. Tant que la
+clé Web3Forms n'est pas renseignée dans `config.js`, chaque demande se termine
+par un message WhatsApp que le client doit encore envoyer lui-même. Avec la
+clé, la demande arrive directement dans votre boîte mail. Procédure dans
+`config.js` (web3forms.com, gratuit).
+
 ### Grille tarifaire — à valider
 
 Les prix publiés (page Tarifs, pages services, estimateur) sont une

@@ -17,21 +17,21 @@
           echec: "L'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez.",
           rappelOk: 'C\'est noté : un technicien vous rappelle dès que possible.',
           rappelWa: 'Votre demande de rappel est prête dans WhatsApp — appuyez sur Envoyer.',
-          rappelTel: 'Indiquez un numéro de téléphone complet.' },
+          rappelTel: 'Indiquez un numéro de téléphone complet.', plus: 'En savoir plus', reduire: 'Réduire' },
     en: { pause: 'Pause', reprendre: 'Resume', pauseAria: 'Pause — stop the rotating town names', reprendreAria: 'Resume — restart the rotating town names',
           ok: 'Message sent. We will call you back as soon as possible.', envoi: 'Sending…',
           wa: 'Your message is ready in WhatsApp — tap Send. Otherwise, call +33 6 17 68 42 70.',
           echec: 'Sending failed. Call us on +33 6 17 68 42 70 or try again.',
           rappelOk: 'Done: a technician will call you back as soon as possible.',
           rappelWa: 'Your call-back request is ready in WhatsApp — tap Send.',
-          rappelTel: 'Please enter a full phone number.' },
+          rappelTel: 'Please enter a full phone number.', plus: 'Learn more', reduire: 'Show less' },
     it: { pause: 'Pausa', reprendre: 'Riprendi', pauseAria: 'Pausa — ferma lo scorrimento delle città', reprendreAria: 'Riprendi — riavvia lo scorrimento delle città',
           ok: 'Messaggio inviato. Vi richiameremo al più presto.', envoi: 'Invio in corso…',
           wa: 'Il messaggio è pronto su WhatsApp — premete Invia. Altrimenti chiamate il +33 6 17 68 42 70.',
           echec: "L'invio non è riuscito. Chiamateci al +33 6 17 68 42 70 o riprovate.",
           rappelOk: 'Fatto: un tecnico vi richiamerà al più presto.',
           rappelWa: 'La richiesta di richiamata è pronta su WhatsApp — premete Invia.',
-          rappelTel: 'Inserite un numero di telefono completo.' },
+          rappelTel: 'Inserite un numero di telefono completo.', plus: 'Scopri di più', reduire: 'Riduci' },
   };
   const tx = TXT[LANG] || TXT.fr;
   const TXT_ESTIM = {
@@ -66,7 +66,7 @@
       const open = btn.getAttribute('aria-expanded') !== 'true';
       btn.setAttribute('aria-expanded', String(open));
       target.hidden = !open;
-      btn.textContent = open ? 'Réduire' : 'En savoir plus';
+      btn.textContent = open ? tx.reduire : tx.plus;
     });
   });
 
@@ -268,6 +268,144 @@
     }
   }
 
+  // ── Demande rapide dans une fenêtre ────────
+  // Tous les liens vers demande.html ouvrent le formulaire court sur place.
+  // Clic avec Ctrl/Cmd ou clic milieu : comportement normal (nouvel onglet).
+  const qr = document.getElementById('qr');
+  if (qr && typeof qr.showModal === 'function') {
+    const Q = JSON.parse(document.getElementById('qrTxt').textContent);
+    const cfg = window.SITE_CONFIG || {};
+    const f = document.getElementById('qrForm');
+    const done = document.getElementById('qrDone');
+    const err = document.getElementById('qrErr');
+    const gpsBtn = document.getElementById('qrGps');
+    const gpsSt = document.getElementById('qrGpsSt');
+    const rdv = document.getElementById('qrRdv');
+    const date = document.getElementById('qrDate');
+    const LIB = { batterie: 'Batterie / démarrage', pneu: 'Pneu crevé', carburant: 'Carburant', remorquage: 'Remorquage', moteur: 'Surchauffe moteur', cles: 'Clés perdues / porte bloquée', accident: 'Accident', autre: 'Autre besoin' };
+    const LANGUE = { en: 'anglais', it: 'italien' };
+    let gps = null;
+    let dernierDeclencheur = null;
+
+    const jour = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const majQuand = () => {
+      const tard = f.elements.quand.value === 'plus-tard';
+      rdv.hidden = !tard;
+      if (tard && !date.value) { const d = new Date(); date.min = jour(d); d.setDate(d.getDate() + 1); date.value = jour(d); }
+    };
+    f.addEventListener('change', e => { if (e.target.name === 'quand') majQuand(); if (!err.hidden) err.hidden = true; });
+
+    const ouvrir = (href, declencheur) => {
+      const u = new URL(href, location.href);
+      const type = u.searchParams.get('type');
+      const radio = type && f.querySelector(`input[name="type"][value="${type}"]`);
+      if (radio) radio.checked = true;
+      if (u.searchParams.get('quand') === 'plus-tard') { f.elements.quand.value = 'plus-tard'; majQuand(); }
+      dernierDeclencheur = declencheur;
+      qr.showModal();
+      // Premier champ utile : le lieu si rien n'est rempli, sinon le téléphone.
+      (radio ? document.getElementById(gps || f.elements.adresse.value ? 'qrTel' : 'qrAdresse') : gpsBtn).focus();
+      if (window.mesurer) window.mesurer('demande-rapide/ouverture');
+    };
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href]');
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.hasAttribute('data-qr-skip')) return;
+      if (!/(^|\/)demande\.html(\?|#|$)/.test(a.getAttribute('href'))) return;
+      e.preventDefault();
+      ouvrir(a.href, a);
+    });
+    qr.addEventListener('click', e => {
+      // Clic sur le fond (hors du panneau) ou sur un bouton de fermeture.
+      if (e.target === qr || e.target.closest('[data-qr-close]')) qr.close();
+    });
+    qr.addEventListener('close', () => { if (dernierDeclencheur) dernierDeclencheur.focus(); });
+
+    gpsBtn.addEventListener('click', () => {
+      if (!navigator.geolocation) { gpsSt.hidden = false; gpsSt.textContent = Q.gpsKo; return; }
+      gpsSt.hidden = false; gpsSt.textContent = Q.gpsEnCours;
+      navigator.geolocation.getCurrentPosition(async pos => {
+        gps = { lat: pos.coords.latitude, lng: pos.coords.longitude, prec: Math.round(pos.coords.accuracy) };
+        gpsBtn.classList.add('is-ok');
+        gpsSt.textContent = `${Q.gpsOk} (± ${gps.prec} m)`;
+        // Adresse lisible, si le champ est vide : OpenStreetMap (Nominatim).
+        if (!f.elements.adresse.value) {
+          try {
+            const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&accept-language=fr&lat=${gps.lat}&lon=${gps.lng}`, { headers: { Accept: 'application/json' } });
+            const j = await r.json();
+            const a = j.address || {};
+            const rue = [a.house_number, a.road].filter(Boolean).join(' ');
+            const ville = a.city || a.town || a.village || a.municipality || '';
+            if (rue || ville) f.elements.adresse.value = [rue, ville].filter(Boolean).join(', ');
+          } catch { /* l'adresse reste à saisir, la position GPS suffit */ }
+        }
+        document.getElementById('qrTel').focus();
+      }, () => { gpsSt.textContent = Q.gpsKo; f.elements.adresse.focus(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 });
+    });
+
+    const montrer = (msg, champ) => { err.textContent = msg; err.hidden = false; if (champ) champ.focus(); };
+    f.addEventListener('submit', async e => {
+      e.preventDefault();
+      const el = f.elements;
+      const tel = el.tel.value.trim();
+      if (!gps && !el.adresse.value.trim()) return montrer(Q.errLieu, el.adresse);
+      if (!el.type.value) return montrer(Q.errType, f.querySelector('input[name="type"]'));
+      if (tel.replace(/\D/g, '').length < 9) return montrer(Q.errTel, el.tel);
+      err.hidden = true;
+
+      const tard = el.quand.value === 'plus-tard';
+      const quand = tard ? `Rendez-vous : ${el.date.value ? new Date(el.date.value + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : 'à convenir'}, ${el.creneau.value}` : 'Maintenant (urgence)';
+      const estim = document.getElementById('e-total');
+      const lignes = [
+        tard ? '📅 DEMANDE DE RENDEZ-VOUS' : '🚨 DEMANDE DE DÉPANNAGE',
+        `Quand : ${quand}`,
+        `Panne : ${LIB[el.type.value] || el.type.value}`,
+        `Lieu : ${el.adresse.value.trim() || '—'}`,
+        gps ? `GPS : https://www.google.com/maps?q=${gps.lat.toFixed(5)},${gps.lng.toFixed(5)} (± ${gps.prec} m)` : 'GPS : non communiqué',
+        el.details.value.trim() ? `Précisions : ${el.details.value.trim()}` : null,
+        estim ? `Estimation vue sur le site : ${estim.textContent} €` : null,
+        `Prénom : ${el.prenom.value.trim() || '—'}`,
+        `Téléphone : ${tel}`,
+        LANGUE[LANG] ? `Langue du client : ${LANGUE[LANG]}` : null,
+        `Page : ${location.pathname.split('/').pop() || 'accueil'}`,
+      ].filter(Boolean);
+      const texte = lignes.join('\n');
+
+      const fin = (envoye) => {
+        f.hidden = true; done.hidden = false;
+        done.classList.toggle('is-manual', !envoye);
+        const wa = document.getElementById('qrWa');
+        wa.hidden = envoye;
+        wa.href = `https://wa.me/${cfg.whatsappNumber || '33617684270'}?text=${encodeURIComponent(texte)}`;
+        document.getElementById('qrDoneTitre').textContent = envoye ? Q.okTitre : Q.waTitre;
+        document.getElementById('qrDoneTxt').textContent = envoye ? Q.okTexte.replace('{tel}', tel) : Q.waTexte;
+        document.getElementById('qrDoneTitre').focus();
+        if (window.mesurer) window.mesurer(`demande-rapide/${envoye ? 'envoyee' : 'whatsapp'}`);
+      };
+      if (el.botcheck.checked) return fin(true);
+      if (!cfg.formAccessKey) return fin(false);
+
+      const btn = f.querySelector('.qr-send');
+      const label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = Q.envoi;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), cfg.formTimeoutMs || 8000);
+      try {
+        const res = await fetch(cfg.formEndpoint, {
+          method: 'POST', signal: ctrl.signal,
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ access_key: cfg.formAccessKey, botcheck: false, subject: `${tard ? '📅 Rendez-vous' : '🚨 Dépannage'} — ${LIB[el.type.value]} — ${tel}`, from_name: 'Dépannage Auto Nice (site)', message: texte }),
+        });
+        fin(res.ok);
+      } catch { fin(false); }
+      finally { clearTimeout(timer); btn.disabled = false; btn.innerHTML = label; }
+    });
+    document.getElementById('qrAgain').addEventListener('click', () => {
+      f.reset(); gps = null; gpsBtn.classList.remove('is-ok'); gpsSt.hidden = true; rdv.hidden = true;
+      done.hidden = true; f.hidden = false; gpsBtn.focus();
+    });
+  }
+
   // ── Titre de l'accueil : une ville toutes les 3 secondes ──
   // Chaque ville garde son propre délai. ?ville=grasse (annonce, QR code,
   // lien envoyé) fixe le titre sur cette ville. Pas de défilement si
@@ -278,7 +416,29 @@
     try { liste = JSON.parse(h1.dataset.villes); } catch { liste = []; }
     const vEl = h1.querySelector('.h-ville');
     const dEl = h1.querySelector('.h-delai');
-    const poser = (c) => { vEl.textContent = c.v; dEl.textContent = c.d.replace(/ (min|h|minutes|minuti)\b/g, '\u00a0$1'); };
+    const joli = d => d.replace(/ (min|h|minutes|minuti)\b/g, '\u00a0$1');
+    // Texte découpé pour l'animation : chaque mot (et chaque morceau de
+    // nom composé, « Saint-/Laurent-/du-/Var ») reste insécable, chaque
+    // lettre s'anime avec un léger décalage. Le texte complet reste lisible
+    // par les lecteurs d'écran (span sr-only), les lettres sont masquées.
+    let lettre = 0;
+    const decouper = (el, texte) => {
+      el.textContent = '';
+      const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = texte;
+      const vis = document.createElement('span'); vis.className = 'fx'; vis.setAttribute('aria-hidden', 'true');
+      lettre = 0;
+      texte.split(/(\s+)/).forEach(mot => {
+        if (/^\s+$/.test(mot)) { vis.append(mot.includes('\u00a0') ? '\u00a0' : ' '); return; }
+        mot.split(/(?<=-)/).forEach((morceau, k) => {
+          if (k) vis.append(document.createElement('wbr'));
+          const w = document.createElement('span'); w.className = 'fx-w';
+          [...morceau].forEach(ch => { const l = document.createElement('span'); l.className = 'fx-l'; l.style.setProperty('--i', lettre++); l.textContent = ch; w.append(l); });
+          vis.append(w);
+        });
+      });
+      el.append(sr, vis);
+    };
+    const poser = (c) => { decouper(vEl, c.v); decouper(dEl, joli(c.d)); };
     const voulue = new URLSearchParams(location.search).get('ville');
     const fixe = liste.find(c => c.s === (voulue || '').toLowerCase());
 
@@ -298,10 +458,21 @@
       reserver();
       let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(reserver, 150); });
 
+      // « After effect » : les lettres de l'ancienne ville sortent vers le
+      // haut en se floutant, les nouvelles entrent une à une par le bas,
+      // puis un trait orange balaie le nom (classes fx-out / fx-in, site.css).
       const suivant = () => {
         if (pause || survol || document.hidden) return;
-        h1.classList.add('swap');
-        setTimeout(() => { i = (i + 1) % liste.length; poser(liste[i]); h1.classList.remove('swap'); }, 180);
+        const n = Math.max(vEl.querySelectorAll('.fx-l').length, 1);
+        h1.classList.remove('fx-in');
+        h1.classList.add('fx-out');
+        setTimeout(() => {
+          i = (i + 1) % liste.length;
+          poser(liste[i]);
+          h1.classList.remove('fx-out');
+          void h1.offsetWidth; // relance l'animation d'entrée
+          h1.classList.add('fx-in');
+        }, 240 + Math.min(n, 20) * 14);
       };
       t = setInterval(suivant, 3000);
 

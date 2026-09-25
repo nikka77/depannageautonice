@@ -64,27 +64,27 @@
   <div class="step-progress" id="stepProgress" role="region" aria-label="Étapes">
     <div class="step-progress-inner">
       <div class="step-dot active" data-step="0">
-        <i data-lucide="map-pin"></i>
+        <svg class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
         <span>Position</span>
       </div>
       <div class="step-line" id="line-0"></div>
       <div class="step-dot" data-step="1">
-        <i data-lucide="car"></i>
+        <svg class="lucide lucide-car" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
         <span>Panne</span>
       </div>
       <div class="step-line" id="line-1"></div>
       <div class="step-dot" data-step="2">
-        <i data-lucide="edit-3"></i>
+        <svg class="lucide lucide-edit-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 21h8"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
         <span>Détails</span>
       </div>
       <div class="step-line" id="line-2"></div>
       <div class="step-dot" data-step="3">
-        <i data-lucide="phone"></i>
+        <svg class="lucide lucide-phone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
         <span>Contact</span>
       </div>
       <div class="step-line" id="line-3"></div>
       <div class="step-dot" data-step="4">
-        <i data-lucide="check"></i>
+        <svg class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>
         <span>Confirmé</span>
       </div>
     </div>
@@ -111,8 +111,8 @@
         </div>
       </div>
 
-      <button class="btn-geo" id="btnGeo">
-        <i data-lucide="crosshair"></i>
+      <button type="button" class="btn-geo" id="btnGeo">
+        <svg class="lucide lucide-crosshair" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
         <span id="btnGeoText">Activer ma position GPS</span>
       </button>
 
@@ -124,7 +124,7 @@
       <div class="geo-found hidden" id="geoFound">
         <div id="geoMiniMap" style="width:100%;height:180px;"></div>
         <div class="geo-address-box" id="geoAddressBox">
-          <i data-lucide="map-pin"></i>
+          <svg class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
           <span id="geoAddressText">Localisation trouvée</span>
         </div>
       </div>
@@ -133,12 +133,12 @@
 
       <div class="form-group">
         <label for="manualAddress">Saisir l'adresse manuellement</label>
-        <input type="text" id="manualAddress" placeholder="Ex: 15 rue de France, Nice" autocomplete="street-address">
+        <input type="text" id="manualAddress" placeholder="Ex: 15 rue de France, Nice" autocomplete="address-line1">
       </div>
 
-      <button class="btn-dem btn-primary-dem" id="btn0Next">
+      <button type="button" class="btn-dem btn-primary-dem" id="btn0Next">
         Continuer
-        <i data-lucide="arrow-right"></i>
+        <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </button>
     </div>
 
@@ -154,64 +154,64 @@
 
       <div class="panne-grid" id="panneGrid">
 
-        <button class="panne-card" data-type="pneu" aria-label="Pneu crevé">
-          <div class="panne-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3.5"/><line x1="12" y1="2" x2="12" y2="8.5"/><line x1="12" y1="15.5" x2="12" y2="22"/><line x1="2" y1="12" x2="8.5" y2="12"/><line x1="15.5" y1="12" x2="22" y2="12"/><line x1="4.2" y1="4.2" x2="8.5" y2="8.5"/><line x1="15.5" y1="15.5" x2="19.8" y2="19.8"/><line x1="19.8" y1="4.2" x2="15.5" y2="8.5"/><line x1="8.5" y1="15.5" x2="4.2" y2="19.8"/></svg></div>
-          <div class="panne-label">Pneu crevé</div>
-          <div class="panne-desc">Crevaison, pneu à plat</div>
+        <button type="button" class="panne-card" data-type="pneu" aria-label="Pneu crevé">
+          <span class="panne-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3.5"/><line x1="12" y1="2" x2="12" y2="8.5"/><line x1="12" y1="15.5" x2="12" y2="22"/><line x1="2" y1="12" x2="8.5" y2="12"/><line x1="15.5" y1="12" x2="22" y2="12"/><line x1="4.2" y1="4.2" x2="8.5" y2="8.5"/><line x1="15.5" y1="15.5" x2="19.8" y2="19.8"/><line x1="19.8" y1="4.2" x2="15.5" y2="8.5"/><line x1="8.5" y1="15.5" x2="4.2" y2="19.8"/></svg></span>
+          <span class="panne-label">Pneu crevé</span>
+          <span class="panne-desc">Crevaison, pneu à plat</span>
         </button>
 
-        <button class="panne-card" data-type="batterie" aria-label="Batterie / Démarrage">
-          <div class="panne-icon"><i data-lucide="battery-low"></i></div>
-          <div class="panne-label">Batterie</div>
-          <div class="panne-desc">Démarrage, batterie à plat</div>
+        <button type="button" class="panne-card" data-type="batterie" aria-label="Batterie / Démarrage">
+          <span class="panne-icon"><svg class="lucide lucide-battery-low" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 14v-4"/><path d="M6 14v-4"/><rect x="2" y="6" width="16" height="12" rx="2"/></svg></span>
+          <span class="panne-label">Batterie</span>
+          <span class="panne-desc">Démarrage, batterie à plat</span>
         </button>
 
-        <button class="panne-card" data-type="carburant" aria-label="Panne de carburant">
-          <div class="panne-icon"><i data-lucide="fuel"></i></div>
-          <div class="panne-label">Carburant</div>
-          <div class="panne-desc">Panne sèche, mauvais carburant</div>
+        <button type="button" class="panne-card" data-type="carburant" aria-label="Panne de carburant">
+          <span class="panne-icon"><svg class="lucide lucide-fuel" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5"/><path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16"/><path d="M2 21h13"/><path d="M3 9h11"/></svg></span>
+          <span class="panne-label">Carburant</span>
+          <span class="panne-desc">Panne sèche, mauvais carburant</span>
         </button>
 
-        <button class="panne-card" data-type="remorquage" aria-label="Remorquage">
-          <div class="panne-icon"><i data-lucide="truck"></i></div>
-          <div class="panne-label">Remorquage</div>
-          <div class="panne-desc">Transport vers garage</div>
+        <button type="button" class="panne-card" data-type="remorquage" aria-label="Remorquage">
+          <span class="panne-icon"><svg class="lucide lucide-truck" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></span>
+          <span class="panne-label">Remorquage</span>
+          <span class="panne-desc">Transport vers garage</span>
         </button>
 
-        <button class="panne-card" data-type="moteur" aria-label="Surchauffe moteur">
-          <div class="panne-icon"><i data-lucide="thermometer"></i></div>
-          <div class="panne-label">Surchauffe</div>
-          <div class="panne-desc">Moteur surchauffé, fumée</div>
+        <button type="button" class="panne-card" data-type="moteur" aria-label="Surchauffe moteur">
+          <span class="panne-icon"><svg class="lucide lucide-thermometer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg></span>
+          <span class="panne-label">Surchauffe</span>
+          <span class="panne-desc">Moteur surchauffé, fumée</span>
         </button>
 
-        <button class="panne-card" data-type="cles" aria-label="Clés perdues ou porte bloquée">
-          <div class="panne-icon"><i data-lucide="key-round"></i></div>
-          <div class="panne-label">Clés</div>
-          <div class="panne-desc">Perdues, enfermées, porte bloquée</div>
+        <button type="button" class="panne-card" data-type="cles" aria-label="Clés perdues ou porte bloquée">
+          <span class="panne-icon"><svg class="lucide lucide-key-round" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg></span>
+          <span class="panne-label">Clés</span>
+          <span class="panne-desc">Perdues, enfermées, porte bloquée</span>
         </button>
 
-        <button class="panne-card" data-type="accident" aria-label="Accident">
-          <div class="panne-icon"><i data-lucide="triangle-alert"></i></div>
-          <div class="panne-label">Accident</div>
-          <div class="panne-desc">Choc, véhicule non roulant</div>
+        <button type="button" class="panne-card" data-type="accident" aria-label="Accident">
+          <span class="panne-icon"><svg class="lucide lucide-triangle-alert" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+          <span class="panne-label">Accident</span>
+          <span class="panne-desc">Choc, véhicule non roulant</span>
         </button>
 
-        <button class="panne-card" data-type="autre" aria-label="Autre besoin">
-          <div class="panne-icon"><i data-lucide="wrench"></i></div>
-          <div class="panne-label">Autre</div>
-          <div class="panne-desc">Épave, transport, moto…</div>
+        <button type="button" class="panne-card" data-type="autre" aria-label="Autre besoin">
+          <span class="panne-icon"><svg class="lucide lucide-wrench" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg></span>
+          <span class="panne-label">Autre</span>
+          <span class="panne-desc">Épave, transport, moto…</span>
         </button>
 
       </div>
 
       <div class="nav-row">
-        <button class="btn-dem btn-back-dem" id="btn1Back">
-          <i data-lucide="chevron-left"></i>
+        <button type="button" class="btn-dem btn-back-dem" id="btn1Back">
+          <svg class="lucide lucide-chevron-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg>
           Retour
         </button>
-        <button class="btn-dem btn-primary-dem" id="btn1Next" disabled>
+        <button type="button" class="btn-dem btn-primary-dem" id="btn1Next" disabled>
           Continuer
-          <i data-lucide="arrow-right"></i>
+          <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
       </div>
     </div>
@@ -228,7 +228,7 @@
 
       <div class="form-group">
         <label for="plaqueInput">Plaque d'immatriculation</label>
-        <input type="text" id="plaqueInput" class="champ-plaque" placeholder="AB-123-CD" maxlength="9" autocomplete="off" inputmode="latin" style="text-transform:uppercase">
+        <input type="text" id="plaqueInput" class="champ-plaque" placeholder="AB-123-CD" maxlength="9" autocomplete="off" inputmode="text" style="text-transform:uppercase">
         <p class="plaque-statut" id="plaqueStatut" role="status" aria-live="polite" hidden></p>
         <div class="veh-carte" id="plaqueCarte" role="status" aria-live="polite" hidden></div>
         <p class="plaque-aide">Nous saurons quel véhicule nous attend et partirons avec le bon matériel.</p>
@@ -242,30 +242,30 @@
       <div class="photo-upload-area" id="photoUploadArea">
         <input type="file" id="photoInput" accept="image/*" capture="environment" aria-label="Ajouter une photo de la panne">
         <label for="photoInput" class="photo-upload-content" id="photoUploadContent">
-          <div class="photo-upload-icon">
-            <i data-lucide="camera"></i>
-          </div>
+          <span class="photo-upload-icon">
+            <svg class="lucide lucide-camera" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
+          </span>
           <strong>Ajouter une photo</strong>
           <span>Optionnel — vous pourrez nous l'envoyer sur WhatsApp à la dernière étape</span>
         </label>
-        <img class="photo-preview hidden" id="photoPreview" alt="Aperçu panne">
+        <img class="photo-preview hidden" id="photoPreview" alt="Aperçu de la photo de la panne" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
         <button class="photo-remove hidden" id="photoRemove" type="button" aria-label="Supprimer la photo">
-          <i data-lucide="x"></i>
+          <svg class="lucide lucide-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
       </div>
 
       <div class="nav-row">
-        <button class="btn-dem btn-back-dem" id="btn2Back">
-          <i data-lucide="chevron-left"></i>
+        <button type="button" class="btn-dem btn-back-dem" id="btn2Back">
+          <svg class="lucide lucide-chevron-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg>
           Retour
         </button>
-        <button class="btn-dem btn-primary-dem" id="btn2Next">
+        <button type="button" class="btn-dem btn-primary-dem" id="btn2Next">
           Continuer
-          <i data-lucide="arrow-right"></i>
+          <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
       </div>
 
-      <button class="btn-skip" id="btn2Skip">Passer cette étape →</button>
+      <button type="button" class="btn-skip" id="btn2Skip">Passer cette étape →</button>
     </div>
 
     <!-- ═══ ÉTAPE 3 — COORDONNÉES ═══ -->
@@ -315,18 +315,18 @@
       </fieldset>
 
       <div class="privacy-note">
-        <i data-lucide="lock"></i>
+        <svg class="lucide lucide-lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Vos données sont utilisées uniquement pour votre demande de dépannage
       </div>
 
       <div class="nav-row">
-        <button class="btn-dem btn-back-dem" id="btn3Back">
-          <i data-lucide="chevron-left"></i>
+        <button type="button" class="btn-dem btn-back-dem" id="btn3Back">
+          <svg class="lucide lucide-chevron-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg>
           Retour
         </button>
-        <button class="btn-dem btn-primary-dem" id="btn3Next">
+        <button type="button" class="btn-dem btn-primary-dem" id="btn3Next">
           Envoyer la demande
-          <i data-lucide="send"></i>
+          <svg class="lucide lucide-send" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
         </button>
       </div>
     </div>
@@ -336,7 +336,7 @@
 
       <div class="confirm-banner" id="confirmBanner" role="status" aria-live="polite">
         <div class="confirm-check">
-          <i data-lucide="check-circle"></i>
+          <svg class="lucide lucide-check-circle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
         </div>
         <div>
           <div class="confirm-title" id="confirmTitle">Demande transmise</div>
@@ -350,7 +350,7 @@
 
       <!-- Avertissement affiché tant que la demande n'est pas réellement partie -->
       <div class="confirm-notice" id="confirmNotice" role="alert" hidden>
-        <i data-lucide="alert-triangle" aria-hidden="true"></i>
+        <svg class="lucide lucide-alert-triangle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
         <span class="confirm-notice-text"></span>
       </div>
 
@@ -358,7 +358,7 @@
       <div class="tech-card">
         <div class="tech-avatar">
           <div class="tech-avatar-fallback">
-            <i data-lucide="wrench"></i>
+            <svg class="lucide lucide-wrench" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>
           </div>
           <div class="tech-online-dot"></div>
         </div>
@@ -411,7 +411,7 @@
           <span class="wa-label">Envoyer via WhatsApp</span>
         </a>
         <a class="btn-dem btn-call-dem" href="tel:+33617684270">
-          <i data-lucide="phone-call"></i>
+          <svg class="lucide lucide-phone-call" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 2a9 9 0 0 1 9 9"/><path d="M13 6a5 5 0 0 1 5 5"/><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
           Appeler directement
         </a>
       </div>
@@ -419,7 +419,7 @@
       <!-- Photo jointe : envoyée par le partage natif du téléphone -->
       <div class="photo-share" id="photoShare" hidden>
         <button type="button" class="btn-dem btn-photo-dem" id="btnPhotoShare">
-          <i data-lucide="image-up"></i>
+          <svg class="lucide lucide-image-up" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
           Joindre la photo sur WhatsApp
         </button>
         <p class="photo-share-hint" id="photoShareHint"></p>
@@ -448,8 +448,6 @@
   <script src="js/mesure.js"></script>
   <script src="js/plaque.js"></script>
   <script src="js/leaflet.js"></script>
-  <script src="js/lucide.min.js"></script>
-  <script>if (typeof lucide !== 'undefined') lucide.createIcons();</script>
   <script src="demande.js"></script>
   <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 </body>

@@ -6,14 +6,27 @@
   </div>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap hero-in">
+  <div class="hero-grid">
+  <div class="hero-main">
     <p class="live"><span class="live-dot" aria-hidden="true"></span>Disponible maintenant — un technicien décroche</p>
     <h1 id="h-hero" data-villes="{{HERO_VILLES}}">Une dépanneuse à <span class="h-ville">Nice</span> en <em class="h-delai">30 à 60&nbsp;minutes</em>.</h1>
     <p class="hero-lead">Dépannage sur place, remorquage et transport dans tout le 06, de jour comme de nuit. Prix annoncé avant l'intervention, à partir de 70&nbsp;€.</p>
     <div class="btns">
       <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
-      <a href="demande.html" class="btn btn-ghost">{{ic:file}}Demander en ligne</a>
+      <a href="demande.html" class="btn btn-ghost js-qr-hide">{{ic:file}}Demander en ligne</a>
     </div>
     <button type="button" class="rot-pause" aria-pressed="false" aria-label="Pause — mettre en pause le défilement des villes" hidden>Pause</button>
+  </div>
+  <aside class="hero-card" aria-labelledby="h-card">
+    <h2 id="h-card">Décrivez votre panne</h2>
+    <p>Choisissez ce qui se passe&nbsp;: le formulaire s'ouvre ici, en 30&nbsp;secondes, et un technicien vous rappelle.</p>
+    <ul class="hero-types">
+{{HERO_TYPES}}
+    </ul>
+    <a href="demande.html" class="btn btn-dark">{{ic:file:ic-sm}}Demander un dépannage</a>
+    <p class="hero-card-alt">Urgence&nbsp;? <a href="tel:{{TEL_HREF}}">{{TEL}}</a></p>
+  </aside>
+  </div>
   </div>
 </section>
 
@@ -110,7 +123,7 @@
         <label for="rappel-tel">Téléphone</label>
         <input type="tel" id="rappel-tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required>
       </div>
-      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
       <button type="submit" class="btn btn-orange">{{ic:phone}}Être rappelé</button>
       <p class="form-status" role="status" aria-live="polite" hidden></p>
     </form>

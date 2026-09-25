@@ -146,7 +146,7 @@
         <span class="langs" role="group" aria-label="Langue"><a href="index.html" hreflang="fr" lang="fr" aria-current="true" title="Français">FR</a><a href="en/index.html" hreflang="en" lang="en" title="English">EN</a><a href="it/index.html" hreflang="it" lang="it" title="Italiano">IT</a></span>
       </nav>
       <div class="hd-actions">
-        <a href="tel:+33617684270" class="hd-call" aria-label="Appeler le 06 17 68 42 70"><small>Urgence 24h/24</small><strong>06 17 68 42 70</strong></a>
+        <a href="tel:+33617684270" class="hd-call"><small>Urgence 24h/24</small><strong>06 17 68 42 70</strong></a>
         <a href="demande.html" class="hd-cta"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demander</a>
       </div>
     </div>
@@ -261,22 +261,94 @@
     <p class="ft-copy">© <span id="year">2026</span> Dépannage Auto Nice · Site sans cookie ni pistage publicitaire</p>
   </footer>
 
-  <div class="rail" aria-label="Contact rapide" role="navigation">
+  <div class="rail" aria-label="Contact rapide (colonne)" role="navigation">
     <a href="tel:+33617684270" class="rail-call"><small>Appeler 24h/24</small><strong>06 17 68 42 70</strong></a>
     <a href="demande.html" class="rail-btn rail-dem"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demander un dépannage</a>
     <a href="https://wa.me/33617684270?text=Bonjour%2C%20j'ai%20besoin%20d'un%20d%C3%A9pannage.%20Je%20suis%20%C3%A0%20%3A%20" class="rail-btn rail-wa" rel="noopener"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-message"/></svg>WhatsApp</a>
     <a href="#main" class="rail-top" aria-label="Remonter en haut de page"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-arrow-up"/></svg></a>
   </div>
 
-  <div class="bar" aria-label="Contact rapide" role="navigation">
-    <a href="tel:+33617684270" class="bar-call" aria-label="Appeler le 06 17 68 42 70"><small>Appeler</small><strong>06 17 68 42 70</strong></a>
+  <div class="bar" aria-label="Contact rapide (barre du bas)" role="navigation">
+    <a href="tel:+33617684270" class="bar-call"><small>Appeler</small><strong>06 17 68 42 70</strong></a>
     <a href="demande.html"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-file"/></svg>Demande</a>
     <a href="https://wa.me/33617684270?text=Bonjour%2C%20j'ai%20besoin%20d'un%20d%C3%A9pannage.%20Je%20suis%20%C3%A0%20%3A%20" rel="noopener"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-message"/></svg>WhatsApp</a>
     <a href="#main" class="bar-top" aria-label="Remonter en haut de page"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-arrow-up"/></svg></a>
   </div>
 
-  <script src="config.js"></script>
-  <script src="js/mesure.js"></script>
-  <script src="site.js"></script>
+
+  <dialog class="qr" id="qr" aria-labelledby="qr-titre" data-lang="fr">
+    <div class="qr-in">
+      <div class="qr-hd">
+        <div>
+          <p class="qr-titre" id="qr-titre">Demander un dépannage</p>
+          <p class="qr-sous">Un technicien vous rappelle, 7j/7 24h/24.</p>
+        </div>
+        <button type="button" class="qr-x" data-qr-close aria-label="Fermer"><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-x"/></svg></button>
+      </div>
+      <form class="qr-form" id="qrForm" novalidate>
+        <fieldset class="qr-f">
+          <legend>Où êtes-vous ?</legend>
+          <button type="button" class="qr-gps" id="qrGps"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-pin"/></svg><span>Me localiser</span></button>
+          <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
+          <label class="qr-lab" for="qrAdresse">Adresse ou repère</label>
+          <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="Ex. : 12 rue de France, parking, sortie…">
+        </fieldset>
+        <fieldset class="qr-f">
+          <legend>Que se passe-t-il ?</legend>
+          <div class="qr-types">
+            <label class="qr-type"><input type="radio" name="type" value="batterie"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-battery"/></svg>Batterie</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="pneu"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-wheel"/></svg>Pneu crevé</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="carburant"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-fuel"/></svg>Carburant</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="remorquage"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-truck"/></svg>Remorquage</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="moteur"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-thermo"/></svg>Surchauffe</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="cles"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-key"/></svg>Clés</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="accident"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-alert"/></svg>Accident</span></label>
+            <label class="qr-type"><input type="radio" name="type" value="autre"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-wrench"/></svg>Autre</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="qr-f">
+          <legend>Quand ?</legend>
+          <div class="qr-seg">
+            <label><input type="radio" name="quand" value="maintenant" checked><span>Maintenant</span></label>
+            <label><input type="radio" name="quand" value="plus-tard"><span>Plus tard</span></label>
+          </div>
+          <div class="qr-rdv" id="qrRdv" hidden>
+            <div><label class="qr-lab" for="qrDate">Date</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
+            <div><label class="qr-lab" for="qrCreneau">Créneau</label><select class="qr-in-txt" id="qrCreneau" name="creneau"><option>Matin (8h – 12h)</option><option>Midi (12h – 14h)</option><option>Après-midi (14h – 18h)</option><option>Soir (18h – 21h)</option><option>Nuit (21h – 8h)</option></select></div>
+          </div>
+        </fieldset>
+        <div class="qr-f qr-duo">
+          <div><label class="qr-lab" for="qrPrenom">Prénom</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
+          <div><label class="qr-lab" for="qrTel">Téléphone</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
+        </div>
+        <div class="qr-f">
+          <label class="qr-lab" for="qrDetails">Précisions <small>(facultatif)</small></label>
+          <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="Véhicule, accès (sous-sol, hauteur), destination…"></textarea>
+        </div>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+        <p class="qr-err" id="qrErr" role="alert" hidden></p>
+        <div class="qr-ft">
+          <button type="submit" class="btn btn-orange qr-send"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-arrow-right"/></svg>Envoyer la demande</button>
+          <p class="qr-alt">Urgence ? Appelez le <a href="tel:+33617684270">06 17 68 42 70</a> · <a href="demande.html" data-qr-skip>Version détaillée (carte, plaque, photo)</a></p>
+        </div>
+      </form>
+      <div class="qr-done" id="qrDone" hidden>
+        <p class="qr-done-ic" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-check"/></svg></p>
+        <p class="qr-titre" id="qrDoneTitre" tabindex="-1"></p>
+        <p class="qr-done-txt" id="qrDoneTxt"></p>
+        <div class="qr-done-act">
+          <a class="btn btn-wa" id="qrWa" href="https://wa.me/33617684270?text=Bonjour%2C%20j'ai%20besoin%20d'un%20d%C3%A9pannage.%20Je%20suis%20%C3%A0%20%3A%20" rel="noopener" hidden><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-message"/></svg>Envoyer sur WhatsApp</a>
+          <a class="btn btn-orange" href="tel:+33617684270"><svg class="ic ic-sm" aria-hidden="true" focusable="false"><use href="img/icons.svg#i-phone"/></svg>Appeler 06 17 68 42 70</a>
+        </div>
+        <p class="qr-done-photo">Une photo aide beaucoup : ajoutez-la dans la conversation WhatsApp.</p>
+        <button type="button" class="linkbtn" id="qrAgain">Nouvelle demande</button>
+      </div>
+    </div>
+    <script type="application/json" id="qrTxt">{"gpsEnCours":"Localisation en cours…","gpsOk":"Position GPS reçue","gpsKo":"Position indisponible : indiquez une adresse ou un repère.","errLieu":"Indiquez où vous êtes, ou touchez « Me localiser ».","errType":"Choisissez ce qui se passe.","errTel":"Indiquez un numéro de téléphone complet.","envoi":"Envoi en cours…","okTitre":"Demande transmise","okTexte":"Un technicien vous rappelle au {tel}. Gardez votre téléphone à portée de main.","waTitre":"Dernière étape","waTexte":"Votre demande est rédigée : envoyez-la sur WhatsApp, ou appelez-nous directement.","waBtn":"Envoyer sur WhatsApp","appel":"Appeler","photo":"Une photo aide beaucoup : ajoutez-la dans la conversation WhatsApp.","nouveau":"Nouvelle demande"}</script>
+  </dialog>
+
+  <script src="config.js" defer></script>
+  <script src="js/mesure.js" defer></script>
+  <script src="site.js" defer></script>
 </body>
 </html>

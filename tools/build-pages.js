@@ -330,6 +330,82 @@ for (const lang of ['en', 'it']) {
   }
 }
 
+
+// ── Demande rapide (fenêtre) ──────────────────
+// Présente sur toutes les pages : les liens vers demande.html l'ouvrent
+// (site.js) au lieu de changer de page. Sans JavaScript, le lien mène à la
+// page de demande complète, comme avant.
+const QR_TYPES = [['batterie', 'battery'], ['pneu', 'wheel'], ['carburant', 'fuel'], ['remorquage', 'truck'], ['moteur', 'thermo'], ['cles', 'key'], ['accident', 'alert'], ['autre', 'wrench']];
+function demandeRapide(lang, to) {
+  const q = I18N.T[lang].qr;
+  const t = I18N.T[lang];
+  return `
+  <dialog class="qr" id="qr" aria-labelledby="qr-titre" data-lang="${lang}">
+    <div class="qr-in">
+      <div class="qr-hd">
+        <div>
+          <p class="qr-titre" id="qr-titre">${q.titre}</p>
+          <p class="qr-sous">${q.sous}</p>
+        </div>
+        <button type="button" class="qr-x" data-qr-close aria-label="${q.fermer}">${ic('x')}</button>
+      </div>
+      <form class="qr-form" id="qrForm" novalidate>
+        <fieldset class="qr-f">
+          <legend>${q.ou}</legend>
+          <button type="button" class="qr-gps" id="qrGps">${ic('pin', 'ic-sm')}<span>${q.gps}</span></button>
+          <p class="qr-gps-st" id="qrGpsSt" role="status" aria-live="polite" hidden></p>
+          <label class="qr-lab" for="qrAdresse">${q.adresse}</label>
+          <input class="qr-in-txt" type="text" id="qrAdresse" name="adresse" autocomplete="address-line1" placeholder="${escAttr(q.adressePh)}">
+        </fieldset>
+        <fieldset class="qr-f">
+          <legend>${q.quoi}</legend>
+          <div class="qr-types">
+${QR_TYPES.map(([id, icon]) => `            <label class="qr-type"><input type="radio" name="type" value="${id}"><span>${ic(icon)}${q.types[id]}</span></label>`).join('\n')}
+          </div>
+        </fieldset>
+        <fieldset class="qr-f">
+          <legend>${q.quand}</legend>
+          <div class="qr-seg">
+            <label><input type="radio" name="quand" value="maintenant" checked><span>${q.maintenant}</span></label>
+            <label><input type="radio" name="quand" value="plus-tard"><span>${q.plusTard}</span></label>
+          </div>
+          <div class="qr-rdv" id="qrRdv" hidden>
+            <div><label class="qr-lab" for="qrDate">${q.date}</label><input class="qr-in-txt" type="date" id="qrDate" name="date"></div>
+            <div><label class="qr-lab" for="qrCreneau">${q.creneau}</label><select class="qr-in-txt" id="qrCreneau" name="creneau">${q.creneaux.map(c => `<option>${c}</option>`).join('')}</select></div>
+          </div>
+        </fieldset>
+        <div class="qr-f qr-duo">
+          <div><label class="qr-lab" for="qrPrenom">${q.prenom}</label><input class="qr-in-txt" type="text" id="qrPrenom" name="prenom" autocomplete="given-name"></div>
+          <div><label class="qr-lab" for="qrTel">${q.tel}</label><input class="qr-in-txt" type="tel" id="qrTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
+        </div>
+        <div class="qr-f">
+          <label class="qr-lab" for="qrDetails">${q.details} <small>(${q.facultatif})</small></label>
+          <textarea class="qr-in-txt" id="qrDetails" name="details" rows="2" placeholder="${escAttr(q.detailsPh)}"></textarea>
+        </div>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+        <p class="qr-err" id="qrErr" role="alert" hidden></p>
+        <div class="qr-ft">
+          <button type="submit" class="btn btn-orange qr-send">${ic('arrow-right', 'ic-sm')}${q.envoyer}</button>
+          <p class="qr-alt">${q.ouAppel} <a href="tel:${TEL_HREF}">${t.tel}</a> · <a href="${to('demande.html')}" data-qr-skip>${q.complete}</a></p>
+        </div>
+      </form>
+      <div class="qr-done" id="qrDone" hidden>
+        <p class="qr-done-ic" aria-hidden="true">${ic('check')}</p>
+        <p class="qr-titre" id="qrDoneTitre" tabindex="-1"></p>
+        <p class="qr-done-txt" id="qrDoneTxt"></p>
+        <div class="qr-done-act">
+          <a class="btn btn-wa" id="qrWa" href="${waLink(lang)}" rel="noopener" hidden>${ic('message', 'ic-sm')}${q.js.waBtn}</a>
+          <a class="btn btn-orange" href="tel:${TEL_HREF}">${ic('phone', 'ic-sm')}${q.js.appel} ${t.tel}</a>
+        </div>
+        <p class="qr-done-photo">${q.js.photo}</p>
+        <button type="button" class="linkbtn" id="qrAgain">${q.js.nouveau}</button>
+      </div>
+    </div>
+    <script type="application/json" id="qrTxt">${JSON.stringify(q.js).replace(/</g, '\\u003c')}</script>
+  </dialog>
+`;
+}
+
 function layout(p, body) {
   const lang = p.lang || 'fr';
   const t = I18N.T[lang];
@@ -383,7 +459,7 @@ ${p.geo ? `  <meta name="geo.position" content="${p.geo}">\n` : ''}  <link rel="
   <link rel="preload" as="font" type="font/woff2" href="fonts/chakra-400-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/chakra-700-latin.woff2" crossorigin>
   <link rel="stylesheet" href="fonts/fonts.css">
-${p.preload ? `  <link rel="preload" as="image" href="${p.preload}" fetchpriority="high">\n` : ''}${p.leaflet ? '  <link rel="stylesheet" href="vendor/css/leaflet.css">\n' : ''}  <link rel="stylesheet" href="site.css">
+${p.preload ? `  <link rel="preload" as="image" href="${p.preload.replace('.webp', '-m.webp')}" media="(max-width: 700px)" fetchpriority="high">\n  <link rel="preload" as="image" href="${p.preload}" media="(min-width: 701px)" fetchpriority="high">\n` : ''}${p.leaflet ? '  <link rel="stylesheet" href="vendor/css/leaflet.css">\n' : ''}  <link rel="stylesheet" href="site.css">
 ${graph['@graph'].length ? `  <script type="application/ld+json">\n${JSON.stringify(graph, null, 2)}\n  </script>\n` : ''}</head>
 <body>
   <a class="skip" href="#main">${t.skip}</a>
@@ -407,7 +483,7 @@ ${graph['@graph'].length ? `  <script type="application/ld+json">\n${JSON.string
         <span class="langs" role="group" aria-label="${t.langAria}">${langs}</span>
       </nav>
       <div class="hd-actions">
-        <a href="tel:${TEL_HREF}" class="hd-call" aria-label="${t.callAria} ${tel}"><small>${t.urgence}</small><strong>${tel}</strong></a>
+        <a href="tel:${TEL_HREF}" class="hd-call"><small>${t.urgence}</small><strong>${tel}</strong></a>
         <a href="demande.html" class="hd-cta">${ic('file', 'ic-sm')}${t.headCta}</a>
       </div>
     </div>
@@ -440,23 +516,24 @@ ${body}
     <p class="ft-copy">© <span id="year">2026</span> Dépannage Auto Nice · ${t.noCookie}</p>
   </footer>
 
-  <div class="rail" aria-label="${t.quick}" role="navigation">
+  <div class="rail" aria-label="${t.quick} (${t.railName})" role="navigation">
     <a href="tel:${TEL_HREF}" class="rail-call"><small>${t.railCall}</small><strong>${tel}</strong></a>
     <a href="demande.html" class="rail-btn rail-dem">${ic('file', 'ic-sm')}${t.railDem}</a>
     <a href="${wa}" class="rail-btn rail-wa" rel="noopener">${ic('message', 'ic-sm')}WhatsApp</a>
     <a href="#main" class="rail-top" aria-label="${t.top}">${ic('arrow-up', 'ic-sm')}</a>
   </div>
 
-  <div class="bar" aria-label="${t.quick}" role="navigation">
-    <a href="tel:${TEL_HREF}" class="bar-call" aria-label="${t.callAria} ${tel}"><small>${t.barCall}</small><strong>${tel}</strong></a>
+  <div class="bar" aria-label="${t.quick} (${t.barName})" role="navigation">
+    <a href="tel:${TEL_HREF}" class="bar-call"><small>${t.barCall}</small><strong>${tel}</strong></a>
     <a href="demande.html">${ic('file', 'ic-sm')}${t.barDem}</a>
     <a href="${wa}" rel="noopener">${ic('message', 'ic-sm')}WhatsApp</a>
     <a href="#main" class="bar-top" aria-label="${t.top}">${ic('arrow-up', 'ic-sm')}</a>
   </div>
 
-  <script src="config.js"></script>
-  <script src="js/mesure.js"></script>
-${p.leaflet ? '  <script src="js/leaflet.js"></script>\n' : ''}  <script src="site.js"></script>
+${demandeRapide(lang, to)}
+  <script src="config.js" defer></script>
+  <script src="js/mesure.js" defer></script>
+${p.leaflet ? '  <script src="js/leaflet.js" defer></script>\n' : ''}  <script src="site.js" defer></script>
 </body>
 </html>
 `;
@@ -480,6 +557,7 @@ ${faqHtml(g.items, g === FAQ_GROUPES[0])}
 </section>`).join('\n\n'))
     .replace('{{TARIFS_TABLES}}', () => `<script type="application/json" id="tarifsData">${JSON.stringify(estimData(lang)).replace(/</g, '\\u003c')}</script>\n\n` + tarifsTables(lang))
     .replace('{{PAIEMENT}}', () => paiementHtml(lang))
+    .replace('{{HERO_TYPES}}', () => QR_TYPES.map(([id, icon]) => `      <li><a href="demande.html?type=${id}">${ic(icon)}${I18N.T[lang].qr.types[id]}</a></li>`).join('\n'))
     .replace('{{SERVICES_GRID}}', () => SCATS.map(c => `<section class="wrap sec svc-cat" aria-labelledby="h-c-${c.id}">
   <h2 class="sec-t" id="h-c-${c.id}">${c.titre}</h2>
   <p class="sec-sub">${c.sub}</p>
