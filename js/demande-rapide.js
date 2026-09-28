@@ -22,6 +22,10 @@
   if (!qr || typeof qr.showModal !== 'function') return;
 
   const RACINE = new URL('..', document.currentScript ? document.currentScript.src : location.href);
+  // Même numéro de version que ce script (?v=…, ajouté par le générateur) pour
+  // les fichiers chargés à la demande : une mise à jour n'est jamais masquée
+  // par une ancienne copie gardée par le navigateur.
+  const VERSION = document.currentScript ? new URL(document.currentScript.src).search : '';
   const LANG = qr.dataset.lang || 'fr';
   const Q = JSON.parse(document.getElementById('qrTxt').textContent);
   const D = JSON.parse(document.getElementById('qrData').textContent);
@@ -41,10 +45,10 @@
   const charges = {};
   function charger(src, css) {
     if (charges[src]) return charges[src];
-    if (css) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = new URL(css, RACINE).href; document.head.append(l); }
+    if (css) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = new URL(css + VERSION, RACINE).href; document.head.append(l); }
     charges[src] = new Promise((ok, ko) => {
       const s = document.createElement('script');
-      s.src = new URL(src, RACINE).href; s.onload = ok; s.onerror = ko;
+      s.src = new URL(src + VERSION, RACINE).href; s.onload = ok; s.onerror = ko;
       document.head.append(s);
     });
     return charges[src];

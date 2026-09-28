@@ -19,6 +19,7 @@
 // =============================================
 
 const fs = require('fs');
+const crypto = require('crypto');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
@@ -698,18 +699,30 @@ ${SERVICES.filter(x => x.cat === c.id).map(x => `    <a class="cell cell-link" h
 
 // Assemble et écrit une page ; réutilisé par build-villes.js pour que les
 // pages ville partagent exactement l'en-tête, le pied et les actions.
+// Numéro de version des feuilles de style, scripts et icônes : empreinte de
+// leur contenu, ajoutée en ?v=… à chaque lien. GitHub Pages laisse les
+// navigateurs garder ces fichiers 10 minutes ; sans ce numéro, une page à
+// jour pouvait s'afficher avec l'ancien style ou sans les nouvelles icônes.
+const ASSETS = ['site.css', 'site.js', 'config.js', 'js/mesure.js', 'js/leaflet.js', 'js/demande-rapide.js', 'js/plaque.js', 'vendor/css/leaflet.css', 'img/icons.svg'];
+const VERSION = crypto.createHash('sha1').update(Buffer.concat(ASSETS.map(f => fs.readFileSync(path.join(ROOT, f))))).digest('hex').slice(0, 8);
+const versionner = html => html.replace(
+  /\b(href|src)="((?:site\.(?:css|js)|config\.js|js\/[a-z-]+\.js|vendor\/css\/leaflet\.css|img\/icons\.svg))(#[^"]*)?"/g,
+  (_, attr, u, ancre) => `${attr}="${u}?v=${VERSION}${ancre || ''}"`);
+// Liens qui ne sont pas des fichiers du site : jamais préfixés.
+const EXTERNE = '(?!https?:|tel:|sms:|mailto:|data:|#|\\/';
+
 function writePage(p, src) {
-  let html = layout(p, fill(p, src).replace(/^/gm, '    ').replace(/^ +$/gm, ''));
+  let html = versionner(layout(p, fill(p, src).replace(/^/gm, '    ').replace(/^ +$/gm, '')));
   // Pages traduites (sous-dossier) : les liens vers les pages de la même
   // langue restent tels quels ; tout le reste (styles, images, pages en
   // français : demande, villes, mentions) remonte d'un dossier.
   if (p.lang && p.lang !== 'fr') {
     const propres = new Set(Object.values(I18N.ROUTES[p.lang]).map(f => path.basename(f)));
-    html = html.replace(/\b(href|src)="(?!https?:|tel:|mailto:|data:|#|\/|\.\.\/)([^"]*)"/g,
+    html = html.replace(new RegExp(`\\b(href|src)="${EXTERNE}|\\.\\.\\/)([^"]*)"`, 'g'),
       (m, attr, u) => propres.has(u.split(/[?#]/)[0]) ? m : `${attr}="../${u}"`);
   }
   if (p.base) {
-    html = html.replace(/\b(href|src)="(?!https?:|tel:|mailto:|data:|#|\/)/g, `$1="${p.base}`);
+    html = html.replace(new RegExp(`\\b(href|src)="${EXTERNE})`, 'g'), `$1="${p.base}`);
   }
   const left = html.match(/\{\{[^}]+\}\}/);
   if (left) throw new Error(`${p.file} : jeton non remplacé ${left[0]}`);
