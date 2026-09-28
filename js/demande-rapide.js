@@ -138,10 +138,15 @@
   qr.addEventListener('click', e => { if (e.target === qr || e.target.closest('[data-qr-close]')) qr.close(); });
   qr.addEventListener('close', () => { if (etat.declencheur) etat.declencheur.focus(); });
   // demande.html (ancienne page) redirige ici avec #demande.
-  if (location.hash === '#demande') {
-    ouvrir(new URLSearchParams(location.search));
+  // Le même lien #demande suivi depuis la page courante (ou tapé dans la barre
+  // d'adresse) ne recharge pas la page : on écoute aussi hashchange.
+  const parAncre = () => {
+    if (location.hash !== '#demande') return;
     history.replaceState(null, '', location.pathname + location.search);
-  }
+    if (!qr.open) ouvrir(new URLSearchParams(location.search));
+  };
+  parAncre();
+  window.addEventListener('hashchange', parAncre);
 
   // ── Navigation entre étapes ────────────────
   function aller(n, sansFocus) {
@@ -386,6 +391,10 @@
       const wa = $('qrWa');
       wa.hidden = envoye && !etat.photo;
       wa.href = `https://wa.me/${CFG.whatsappNumber || '33617684270'}?text=${encodeURIComponent(envoye ? `Photo pour ma demande de dépannage (${tel})` : texte)}`;
+      // SMS : même message, sans la photo (voir window.lienSms dans site.js).
+      const sms = $('qrSms');
+      sms.hidden = envoye;
+      if (window.lienSms) sms.href = window.lienSms(texte);
       $('qrDoneTitre').textContent = envoye ? Q.okTitre : Q.waTitre;
       $('qrDoneTxt').textContent = envoye ? Q.okTexte.replace('{tel}', tel) : Q.waTexte;
       // Photo : partage natif (mobile) si possible, sinon consigne.
@@ -417,6 +426,7 @@
     } catch { fin(false); }
     finally { clearTimeout(timer); nextBtn.disabled = false; nextBtn.textContent = nextBtn.dataset.envoyer; }
   }
+  $('qrSms').addEventListener('click', () => mesurer('sms'));
   $('qrPhotoShare').addEventListener('click', async () => {
     try { await navigator.share({ files: [etat.photo], title: 'Photo de la panne', text: 'Photo de ma panne (demande faite sur le site).' }); mesurer('photo-partagee'); }
     catch (e) { if (e && e.name !== 'AbortError') $('qrPhotoHint').textContent = Q.photo; }

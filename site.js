@@ -13,27 +13,58 @@
   const TXT = {
     fr: { pause: 'Pause', reprendre: 'Reprendre', pauseAria: 'Pause — mettre en pause le défilement des villes', reprendreAria: 'Reprendre — relancer le défilement des villes',
           ok: 'Message envoyé. Nous vous rappelons au plus vite.', envoi: 'Envoi en cours…',
-          wa: 'Votre message est prêt dans WhatsApp — appuyez sur Envoyer. Sinon, appelez le 06 17 68 42 70.',
+          wa: 'Votre message est prêt. Envoyez-le par WhatsApp ou par SMS, ou appelez le 06 17 68 42 70.',
           echec: "L'envoi a échoué. Appelez-nous au 06 17 68 42 70 ou réessayez.",
           rappelOk: 'C\'est noté : un technicien vous rappelle dès que possible.',
-          rappelWa: 'Votre demande de rappel est prête dans WhatsApp — appuyez sur Envoyer.',
+          rappelWa: 'Votre demande de rappel est prête. Envoyez-la par WhatsApp ou par SMS :', sms: 'SMS',
           rappelTel: 'Indiquez un numéro de téléphone complet.', plus: 'En savoir plus', reduire: 'Réduire' },
     en: { pause: 'Pause', reprendre: 'Resume', pauseAria: 'Pause — stop the rotating town names', reprendreAria: 'Resume — restart the rotating town names',
           ok: 'Message sent. We will call you back as soon as possible.', envoi: 'Sending…',
-          wa: 'Your message is ready in WhatsApp — tap Send. Otherwise, call +33 6 17 68 42 70.',
+          wa: 'Your message is ready. Send it by WhatsApp or text message, or call +33 6 17 68 42 70.',
           echec: 'Sending failed. Call us on +33 6 17 68 42 70 or try again.',
           rappelOk: 'Done: a technician will call you back as soon as possible.',
-          rappelWa: 'Your call-back request is ready in WhatsApp — tap Send.',
+          rappelWa: 'Your call-back request is ready. Send it by WhatsApp or text message:', sms: 'Text message',
           rappelTel: 'Please enter a full phone number.', plus: 'Learn more', reduire: 'Show less' },
     it: { pause: 'Pausa', reprendre: 'Riprendi', pauseAria: 'Pausa — ferma lo scorrimento delle città', reprendreAria: 'Riprendi — riavvia lo scorrimento delle città',
           ok: 'Messaggio inviato. Vi richiameremo al più presto.', envoi: 'Invio in corso…',
-          wa: 'Il messaggio è pronto su WhatsApp — premete Invia. Altrimenti chiamate il +33 6 17 68 42 70.',
+          wa: 'Il messaggio è pronto. Inviatelo su WhatsApp o via SMS, oppure chiamate il +33 6 17 68 42 70.',
           echec: "L'invio non è riuscito. Chiamateci al +33 6 17 68 42 70 o riprovate.",
           rappelOk: 'Fatto: un tecnico vi richiamerà al più presto.',
-          rappelWa: 'La richiesta di richiamata è pronta su WhatsApp — premete Invia.',
+          rappelWa: 'La richiesta di richiamata è pronta. Inviatela su WhatsApp o via SMS:', sms: 'SMS',
           rappelTel: 'Inserite un numero di telefono completo.', plus: 'Scopri di più', reduire: 'Riduci' },
   };
   const tx = TXT[LANG] || TXT.fr;
+
+  // ── Envoi manuel : WhatsApp ou SMS ────────
+  // Sans relais d'e-mail (config.formAccessKey vide), le message déjà rédigé
+  // part depuis le téléphone du client, par WhatsApp ou par SMS. Le SMS
+  // s'ouvre avec le texte pré-rempli : « sms:numéro?body= » (Android) ou
+  // « &body= » (iPhone). Les émojis sont retirés : ils font passer un SMS en
+  // encodage Unicode et le découpent en plusieurs messages.
+  const CFG = window.SITE_CONFIG || {};
+  const estIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const lienWa = texte => `https://wa.me/${CFG.whatsappNumber || '33617684270'}?text=${encodeURIComponent(texte)}`;
+  const lienSms = texte => {
+    const corps = texte.replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}]\uFE0F?\s?/gu, '').replace(/\uFE0F/g, '');
+    return `sms:${CFG.phoneHref || '+33617684270'}${estIOS ? '&' : '?'}body=${encodeURIComponent(corps)}`;
+  };
+  window.lienSms = lienSms;
+  // Affiche le texte et les deux boutons d'envoi dans la zone d'état.
+  const choixEnvoi = (zone, intro, texte) => {
+    zone.textContent = '';
+    zone.className = 'form-status is-ok';
+    const p = document.createElement('span'); p.textContent = intro;
+    const act = document.createElement('span'); act.className = 'envoi-choix';
+    [[lienWa(texte), 'btn-wa', 'WhatsApp'], [lienSms(texte), 'btn-sms', tx.sms]].forEach(([href, cls, nom]) => {
+      const a = document.createElement('a');
+      a.href = href; a.className = `btn btn-sm ${cls}`; a.textContent = nom;
+      if (cls === 'btn-wa') { a.target = '_blank'; a.rel = 'noopener'; }
+      a.addEventListener('click', () => { if (window.mesurer) window.mesurer(cls === 'btn-wa' ? 'whatsapp' : 'sms'); });
+      act.append(a);
+    });
+    zone.append(p, act);
+    zone.hidden = false;
+  };
   const TXT_ESTIM = {
     fr: { rem: d => `Remorquage sur ${d} km`, depl: k => `Déplacement (${k} km au-delà de Nice)`, nuit: 'Nuit, dimanche ou férié', sousSol: 'Parking souterrain', util: 'Utilitaire ou camping-car' },
     en: { rem: d => `Towing over ${d} km`, depl: k => `Travel (${k} km beyond Nice)`, nuit: 'Night, Sunday or holiday', sousSol: 'Underground car park', util: 'Van or motorhome' },
@@ -123,9 +154,7 @@
       const body = `Sujet : ${subject}\nNom : ${name}\nTéléphone : ${phone}\n\nMessage :\n${message}`;
 
       if (!cfg.formAccessKey) {
-        const numero = cfg.whatsappNumber || '33617684270';
-        window.open(`https://wa.me/${numero}?text=${encodeURIComponent('Message depuis le site\n\n' + body)}`, '_blank', 'noopener');
-        setStatus(tx.wa, 'ok');
+        if (statusEl) choixEnvoi(statusEl, tx.wa, 'Message depuis le site\n\n' + body);
         return;
       }
 
@@ -180,9 +209,7 @@
       if (window.mesurer) window.mesurer('rappel');
 
       if (!cfg.formAccessKey) {
-        const numero = cfg.whatsappNumber || '33617684270';
-        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(`Bonjour, pouvez-vous me rappeler au ${tel.value.trim()} ? ${prenom}`.trim())}`, '_blank', 'noopener');
-        dire(tx.rappelWa, 'ok');
+        if (st) choixEnvoi(st, tx.rappelWa, `Bonjour, pouvez-vous me rappeler au ${tel.value.trim()} ? ${prenom}`.trim());
         return;
       }
       const label = btn.innerHTML;
@@ -363,6 +390,33 @@
     const go = () => hero.classList.add('ready');
     if (document.readyState === 'complete') go();
     else window.addEventListener('load', go, { once: true });
+  }
+
+  // ── Apparition légère au défilement ─────────
+  // Seuls les blocs encore sous la ligne de flottaison au chargement sont
+  // concernés : rien ne clignote en haut de page. Sans JavaScript, ou avec
+  // « réduire les animations », tout reste affiché normalement.
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const SEL = 'main .sec-t, main .sec-sub, .fact, .steps > li, .panels, .grid, .callback, .promo, .band, .chips, .split > *, .faq, .prix';
+    const cascade = '.fact, .steps > li, .split > *';
+    const bas = window.innerHeight * 0.92;
+    const vu = new IntersectionObserver((entrees) => entrees.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-vu');
+      vu.unobserve(e.target);
+    }), { rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll(SEL).forEach((n) => {
+      if (n.closest('.hero, dialog') || n.getBoundingClientRect().top < bas) return;
+      if (n.matches(cascade)) {
+        const i = [...n.parentElement.children].indexOf(n);
+        if (i > 0) n.style.setProperty('--rv-d', `${Math.min(i, 5) * 80}ms`);
+      }
+      if (n.matches('.grid, .panels')) {
+        [...n.children].forEach((c, i) => c.style.setProperty('--rv-i', `${Math.min(i, 8) * 70}ms`));
+      }
+      n.classList.add('rv');
+      vu.observe(n);
+    });
   }
 
   // ── Année du pied de page ───────────────────

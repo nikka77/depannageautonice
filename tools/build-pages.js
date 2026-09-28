@@ -505,6 +505,7 @@ ${QR_CATS.map(([id, icon]) => `              <label class="qr-type qr-cat"><inpu
         <p class="qr-dist" id="qrDoneDist" hidden></p>
         <div class="qr-done-act">
           <a class="btn btn-wa" id="qrWa" href="${waLink(lang)}" rel="noopener" hidden>${ic('message', 'ic-sm')}${q.js.waBtn}</a>
+          <a class="btn btn-sms" id="qrSms" href="sms:${TEL_HREF}" hidden>${ic('sms', 'ic-sm')}${q.js.smsBtn}</a>
           <button type="button" class="btn btn-dark" id="qrPhotoShare" hidden>${ic('file', 'ic-sm')}${q.js.photoBtn}</button>
           <a class="btn btn-orange" href="tel:${TEL_HREF}">${ic('phone', 'ic-sm')}${q.js.appel} ${t.tel}</a>
         </div>
@@ -657,7 +658,7 @@ function fill(p, src) {
   const t = I18N.T[lang];
   const nom = v => I18N.nomVille(lang, v.slug, v.nom);
   return src
-    .replace(/\{\{ic:([a-z-]+)(?::([a-z- ]+))?\}\}/g, (_, n, c) => ic(n, c))
+    .replace(/\{\{ic:([a-z0-9-]+)(?::([a-z0-9- ]+))?\}\}/g, (_, n, c) => ic(n, c))
     .replace(/\{\{TEL_HREF\}\}/g, TEL_HREF)
     .replace(/\{\{TEL\}\}/g, t.tel)
     .replace(/\{\{WA\}\}/g, waLink(lang))

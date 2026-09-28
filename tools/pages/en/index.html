@@ -10,7 +10,13 @@
   <div class="hero-main">
     <p class="live"><span class="live-dot" aria-hidden="true"></span>Available now — a technician answers</p>
     <h1 id="h-hero" data-villes="{{HERO_VILLES}}">A tow truck in <span class="h-ville">Nice</span> within <em class="h-delai">30–60&nbsp;minutes</em>.</h1>
-    <p class="hero-lead">Roadside repair, towing and vehicle transport across the Alpes-Maritimes, day and night. Price given before we set off, from €70.</p>
+    <ul class="hero-points">
+      <li><span class="hp-ic">{{ic:sur-place}}</span><span>Roadside repair</span></li>
+      <li><span class="hp-ic">{{ic:remorquage}}</span><span>Towing and transport</span></li>
+      <li><span class="hp-ic">{{ic:dept06}}</span><span>Across the 06 (Alpes-Maritimes)</span></li>
+      <li><span class="hp-ic">{{ic:jour-nuit}}</span><span>Day and night</span></li>
+      <li class="hp-prix"><span class="hp-ic">{{ic:prix}}</span><span>Price given before we set off, <b>from €70</b></span></li>
+    </ul>
     <div class="btns">
       <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Call {{TEL}}</a>
       <a href="{{WA}}" class="btn btn-ghost" rel="noopener">{{ic:message}}Message us on WhatsApp</a>

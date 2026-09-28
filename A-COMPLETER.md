@@ -25,13 +25,19 @@ la même adresse et le même numéro partout** (Google compare) :
 6. Annuaires secondaires : Facebook (page entreprise), 118 712, Hoodspot,
    Cylex, Justacoté, Yelp, Trustpilot (avis).
 
-### Recevoir les demandes par e-mail (5 minutes)
+### Réception des demandes : WhatsApp ou SMS (fait), e-mail ou SMS automatique (facultatif)
 
-Le formulaire de demande s'ouvre désormais sur toutes les pages. Tant que la
-clé Web3Forms n'est pas renseignée dans `config.js`, chaque demande se termine
-par un message WhatsApp que le client doit encore envoyer lui-même. Avec la
-clé, la demande arrive directement dans votre boîte mail. Procédure dans
-`config.js` (web3forms.com, gratuit).
+Le formulaire de demande s'ouvre sur toutes les pages. Sans clé Web3Forms dans
+`config.js`, chaque demande (et chaque demande de rappel ou message de
+contact) se termine par deux boutons : « Envoyer sur WhatsApp » et « Envoyer
+par SMS ». Le message complet est déjà rédigé, le client appuie sur Envoyer.
+
+Pour la suite, au choix :
+- **E-mail automatique** : clé Web3Forms gratuite, procédure dans `config.js`.
+- **SMS automatique**, sans action du client : petit relais sur le projet
+  Vercel déjà en place. Gratuit avec une ligne Free Mobile (option
+  « Notifications par SMS »), sinon OVH SMS ou Brevo (environ 5 à 8 centimes
+  par SMS).
 
 ### Grille tarifaire — à valider
 
