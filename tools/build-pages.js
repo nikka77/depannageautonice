@@ -358,7 +358,7 @@ function demandeRapide(lang, to) {
     calcul: TARIFS.calcul,
     presta: Object.fromEntries(TARIFS.surPlace.map(x => [x.id, x.prix])),
     delais: [{ km: 0, d: I18N.DELAI_NICE[lang] }, ...villes.map(v => ({ km: v.distanceKm, d: I18N.delai(lang, v.delai), v: nomV(v) }))],
-    fr: (({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }) => ({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }))(I18N.T.fr.qr),
+    fr: (({ types, carbuOpts, carbuMisOpts, clesOpts, typeCleOpts, categories, energies, dests, assistances, passagersOpts, creneaux }) => ({ types, carbuOpts, carbuMisOpts, clesOpts, typeCleOpts, categories, energies, dests, assistances, passagersOpts, creneaux }))(I18N.T.fr.qr),
     loc: { auto: q.auto, types: q.types, categories: q.categories, energies: q.energies, dests: q.dests, creneaux: q.creneaux, carbuOpts: q.carbuOpts, clesOpts: q.clesOpts },
   };
   const json = o => JSON.stringify(o).replace(/</g, '\\u003c');
@@ -411,10 +411,20 @@ ${QR_TYPES.map(([id, icon]) => `              <label class="qr-type"><input type
           </fieldset>
           <div class="qr-sub" data-si="carburant" hidden>
             <p class="qr-lab">${q.carbu}</p>${seg('carbu', Object.entries(q.carbuOpts))}
-            <div class="qr-sub" data-si-carbu="erreur" hidden><p class="qr-lab">${q.demarre}</p>${ouiNon('demarre')}<p class="qr-note">${ic('alert', 'ic-sm')}${q.demarreMsg}</p></div>
+            <div class="qr-sub" data-si-carbu="erreur" hidden>
+              <div class="qr-f qr-auto"><label class="qr-lab" for="qrCarbuMis">${q.carbuMis}</label><select class="qr-in-txt" id="qrCarbuMis" name="carbuMis">${Object.entries(q.carbuMisOpts).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+              <p class="qr-lab">${q.demarre}</p>${ouiNon('demarre')}<p class="qr-note">${ic('alert', 'ic-sm')}${q.demarreMsg}</p>
+            </div>
           </div>
-          <div class="qr-sub" data-si="pneu" hidden><p class="qr-lab">${q.roue}</p>${seg('roue', [['oui', q.oui], ['non', q.non], ['nsp', q.nsp]], ' qr-seg-3')}</div>
-          <div class="qr-sub" data-si="cles" hidden><p class="qr-lab">${q.cles}</p>${seg('cles', Object.entries(q.clesOpts), ' qr-seg-col')}</div>
+          <div class="qr-sub" data-si="pneu" hidden>
+            <p class="qr-lab">${q.roue}</p>${seg('roue', [['oui', q.oui], ['non', q.non], ['nsp', q.nsp]], ' qr-seg-3')}
+            <div class="qr-f qr-auto"><label class="qr-lab" for="qrPneuDim">${q.pneuDim} <small>(${q.facultatif})</small></label><input class="qr-in-txt" type="text" id="qrPneuDim" name="pneuDim" list="qrPneuListe" placeholder="205/55 R16 91V" autocomplete="off" autocapitalize="characters" spellcheck="false"><datalist id="qrPneuListe"></datalist></div>
+            <p class="qr-aide">${q.pneuAide}</p>
+          </div>
+          <div class="qr-sub" data-si="cles" hidden>
+            <p class="qr-lab">${q.cles}</p>${seg('cles', Object.entries(q.clesOpts), ' qr-seg-col')}
+            <div class="qr-f"><label class="qr-lab" for="qrTypeCle">${q.typeCle}</label><select class="qr-in-txt" id="qrTypeCle" name="typeCle">${Object.entries(q.typeCleOpts).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+          </div>
           <div class="qr-sub" data-si="accident" hidden>
             <p class="qr-lab">${q.blesses}</p>${ouiNon('blesses')}
             <p class="qr-note qr-note-rouge" id="qrBlessesMsg" hidden>${ic('alert', 'ic-sm')}${q.blessesMsg} <a href="tel:112">112</a></p>
@@ -446,6 +456,7 @@ ${QR_CATS.map(([id, icon]) => `                <label class="qr-type qr-cat"><in
               <div class="qr-auto"><label class="qr-lab" for="qrEnergie">${q.energie}</label><select class="qr-in-txt" id="qrEnergie" name="energie">${Object.entries(q.energies).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
               <div class="qr-duo-chk qr-auto">${chk('boite', q.boite)}</div>
             </div>
+            <div class="qr-conseil" id="qrConseil" aria-live="polite" hidden></div>
           </fieldset>
           <div class="qr-f">
             <p class="qr-lab">${q.photo} <small>(${q.facultatif})</small></p>

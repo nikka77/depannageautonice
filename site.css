@@ -821,6 +821,15 @@ textarea.qr-in-txt { resize: vertical; min-height: 64px; }
 @keyframes pf-ok { from { transform: scale(0); } to { transform: scale(1); } }
 @media (max-width: 380px) { .pf-band { width: 38px; } .pf-scan { inset: 0 38px; } .plaque-fr:has(.is-trouve)::after { right: 42px; } }
 
+/* Conseils « Pour votre véhicule » selon la panne (plateau, batterie, pneu…). */
+.qr-conseil { border: 1px solid #f3c9a6; border-left: 4px solid var(--fill); background: #fff6ef; padding: 10px 12px; }
+.qr-conseil[hidden] { display: none; }
+.qr-conseil-t { font-family: var(--mono); font-size: .64rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.qr-conseil ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.qr-conseil li { position: relative; padding-left: 16px; font-size: .86rem; line-height: 1.45; color: var(--ink); }
+.qr-conseil li::before { content: "›"; position: absolute; left: 2px; top: -1px; font-weight: 700; color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) { .qr-conseil li { animation: hp-in .35s ease-out both; } }
+
 /* Champs remplis d'après la plaque : liseré vert, petit éclair, étiquette. */
 .qr-auto { position: relative; }
 .qr-auto.is-auto::after {

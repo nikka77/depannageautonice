@@ -38,6 +38,99 @@
   const nextBtn = $('qrNext');
   const backBtn = $('qrBack');
   const mesurer = n => { if (window.mesurer) window.mesurer('demande/' + n); };
+  // Utilisés dès l'ouverture (lien ?type=… traité au chargement) : déclarés ici.
+  const sansAccent = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+  const autoVals = new Map();     // champ → valeur posée automatiquement
+
+  // ── Profil du véhicule et préparation de l'intervention ──
+  // Tout part des champs du formulaire (remplis par la plaque ou à la main),
+  // complétés par la fiche Auto Ways quand elle existe. Les estimations
+  // (batterie) sont présentées comme indicatives : le technicien vérifie.
+  const PREMIUM = /^(BMW|MERCEDES|AUDI|VOLVO|LAND ROVER|JAGUAR|PORSCHE|MINI|LEXUS|TESLA|DS\b)/;
+  const REMORQUE = ['remorquage', 'accident', 'moteur', 'autre'];
+  const BAT_FR = { agm: 'AGM', efb: 'EFB (Start & Stop)', std: 'plomb classique', ss: 'EFB ou AGM si Start & Stop', moto: 'batterie moto 12 V' };
+  const PLATEAU_FR = { elec: 'électrique ou hybride', '4x4': 'transmission intégrale', auto: 'boîte automatique' };
+  function profil() {
+    const v = etat.vehicule || {};
+    const energie = el.energie.value, cat = el.categorie.value, auto = el.boite.checked;
+    const fin = sansAccent([v.version, v.carrosserie].filter(Boolean).join(' '));
+    const x4 = /\b(4X4|4WD|AWD|QUATTRO|XDRIVE|4MOTION|ALL4|4MATIC|ALLGRIP|Q4|INTEGRALE)\b/.test(fin);
+    const plateau = ['electrique', 'hybride'].includes(energie) ? 'elec' : x4 ? '4x4' : auto ? 'auto' : '';
+    return { v, energie, cat, auto, plateau, annee: +v.annee || 0, ch: +v.puissanceCh || 0, grand: ['utilitaire', 'campingcar'].includes(cat) };
+  }
+  // Batterie 12 V probable : type selon l'âge, le Start & Stop et
+  // l'hybridation ; capacité selon l'énergie, le gabarit et la puissance.
+  function batterieEstimee(p) {
+    if (p.cat === 'moto') return { t: 'moto', a: [6, 14] };
+    if (['electrique', 'hybride'].includes(p.energie)) return { t: 'agm', a: [45, 70] };
+    const fin = sansAccent(p.v.version), marque = sansAccent(p.v.marque);
+    const t = !p.annee ? 'ss' : p.annee < 2012 ? 'std'
+      : (/MHEV|48V|MILD|HYBRID/.test(fin) || (PREMIUM.test(marque) && p.annee >= 2015)) ? 'agm' : 'efb';
+    let a;
+    if (p.energie === 'diesel') a = p.grand ? [90, 110] : p.cat === 'suv' ? [80, 95] : p.ch > 130 ? [74, 90] : [60, 80];
+    else if (p.energie) a = p.grand ? [70, 95] : p.cat === 'suv' ? [70, 80] : p.ch > 150 ? [70, 80] : p.ch > 100 ? [60, 72] : [44, 60];
+    else a = p.grand ? [80, 110] : [60, 80];
+    return { t, a };
+  }
+  const batTxt = (b, T) => `${T[b.t]} ${b.a[0]}–${b.a[1]} Ah`;
+  // Montes de pneus d'origine (Auto Ways en donne parfois plusieurs).
+  function pneusOrigine() {
+    const v = etat.vehicule || {};
+    const liste = Array.isArray(v.pneus) ? v.pneus.map(x => x && (x.label || (x.width ? `${x.width}/${x.height} R${x.diameter} ${x.load_index || ''}${x.speed_index || ''}` : ''))) : [];
+    if (v.pneu) liste.unshift(v.pneu);
+    return [...new Set(liste.filter(Boolean).map(x => String(x).replace(/\s+/g, ' ').trim()))];
+  }
+  const echap = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const tracte = (t, p) => REMORQUE.includes(t) || (t === 'carburant' && p.energie === 'electrique' && el.carbu.value === 'seche');
+  // Conseils affichés sous le véhicule, selon la panne choisie.
+  function conseils() {
+    const box = $('qrConseil');
+    const t = el.type.value;
+    if (!t) { box.hidden = true; return; }
+    const p = profil(), C = Q.cs, out = [];
+    if (t === 'pneu') {
+      const o = pneusOrigine();
+      $('qrPneuListe').innerHTML = o.map(x => `<option value="${echap(x)}"></option>`).join('');
+      if (o.length) {
+        if (!el.pneuDim.value.trim()) poserAuto(el.pneuDim, o[0]);
+        out.push(C.pneu.replace('{p}', o[0]));
+        if (o.length > 1) out.push(C.pneuPlus);
+      }
+    }
+    if (t === 'carburant' && p.energie) {
+      out.push(C.energie.replace('{e}', C.energieOpts[p.energie]));
+      if (p.energie === 'electrique' && el.carbu.value === 'seche') out.push(C.elecSeche);
+      const oppose = { diesel: 'essence', essence: 'gazole' }[p.energie];
+      if (oppose && !el.carbuMis.value) poserAuto(el.carbuMis, oppose);
+    }
+    if (t === 'batterie' && (p.energie || etat.vehicule)) {
+      out.push(C.batterie.replace('{b}', batTxt(batterieEstimee(p), C.bat)));
+      if (['electrique', 'hybride'].includes(p.energie)) out.push(C.batElec);
+    }
+    if (tracte(t, p) && p.plateau) out.push(C.plateau.replace('{r}', { elec: C.rElec, '4x4': C.r4x4, auto: C.rAuto }[p.plateau]));
+    if (tracte(t, p) && p.grand) out.push(C.grand);
+    if (t === 'cles' && p.annee >= 2010) out.push(C.cleRecente);
+    if (el.sousSol.checked && p.grand) out.push(C.hauteur);
+    box.hidden = !out.length;
+    box.innerHTML = out.length ? `<p class="qr-conseil-t">${echap(C.titre)}</p><ul>${out.map(x => `<li>${echap(x)}</li>`).join('')}</ul>` : '';
+  }
+  // Fiche technique en tête du message reçu par le technicien (en français).
+  function ficheTechnique() {
+    const t = el.type.value, p = profil(), v = p.v, F = D.fr, L = [];
+    const nom = [el.marque.value.trim(), el.modele.value.trim()].filter(Boolean).join(' ');
+    const det = [[v.version, v.annee && `(${v.annee})`].filter(Boolean).join(' '), p.energie && F.energies[p.energie], p.auto && 'boîte auto', v.puissanceCh && `${v.puissanceCh} ch`].filter(Boolean).join(', ');
+    if (nom || det) L.push(`   Véhicule : ${[nom, det].filter(Boolean).join(' — ')}`);
+    if (t === 'pneu') {
+      const d = el.pneuDim.value.trim(), o = pneusOrigine(), ref = d || o[0];
+      if (ref) L.push(`   Pneu : ${ref}${!d || o.includes(d) ? ' (monte d\'origine)' : ' (indiqué par le client)'}${o.length > 1 ? ' — autres montes : ' + o.filter(x => x !== ref).join(', ') : ''}`);
+    }
+    if (t === 'batterie' && (p.energie || etat.vehicule)) L.push(`   Batterie probable : ${batTxt(batterieEstimee(p), BAT_FR)} (indicatif)${['electrique', 'hybride'].includes(p.energie) ? ' — batterie 12 V de servitude' : ''}`);
+    if (t === 'carburant' && el.carbu.value === 'erreur' && el.carbuMis.value) L.push(`   Carburant mis par erreur : ${F.carbuMisOpts[el.carbuMis.value]}${p.energie ? ` (véhicule ${F.energies[p.energie].toLowerCase()})` : ''}`);
+    if (t === 'cles' && el.typeCle.value) L.push(`   Clé : ${F.typeCleOpts[el.typeCle.value]}`);
+    if (tracte(t, p) && p.plateau) L.push(`   Transport : PLATEAU OBLIGATOIRE (${PLATEAU_FR[p.plateau]})`);
+    if (p.grand) L.push(`   Gabarit : ${F.categories[p.cat]}${el.sousSol.checked ? ` en sous-sol${el.hauteur.value ? `, hauteur max ${el.hauteur.value} m` : ''}` : ''}`);
+    return L.length ? ['', '🧰 FICHE TECHNIQUE (préparation, indicatif)', ...L] : [];
+  }
 
   const etat = { etape: 1, gps: null, photo: null, vehicule: null, carte: null, repere: null, declencheur: null };
 
@@ -201,6 +294,7 @@
     if (tard && !el.date.value) { const d = new Date(); el.date.min = jour(d); d.setDate(d.getDate() + 1); el.date.value = jour(d); }
     $('qrDestBloc').hidden = !['garage', 'domicile'].includes(el.dest.value);
     $('qrAssistanceMsg').hidden = el.assistance.value === 'non';
+    conseils();
   }
   f.addEventListener('change', () => { majConditions(); err.hidden = true; });
   el.quand.value = 'maintenant';
@@ -292,7 +386,6 @@
   // ── Remplissage automatique d'après la plaque ──
   // Auto Ways renvoie des libellés en majuscules, parfois accentués
   // (« ÉLECTRICITÉ », « FOURGON », « 1.2 PURETECH 130 EAT8 »).
-  const sansAccent = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
   function energieDe(v) {
     const e = sansAccent(v.energie);
     if (!e) return '';
@@ -323,7 +416,6 @@
     if (/\b(BVM\d*|MANUELLE)\b/.test(f)) return false;
     return null;
   }
-  const autoVals = new Map();     // champ → valeur posée automatiquement
   function marquer(bloc) {
     if (!bloc) return;
     bloc.classList.remove('is-auto');
@@ -380,7 +472,7 @@
         if (document.activeElement === el.plaque && matchMedia('(pointer: coarse)').matches) el.plaque.blur();
         $('qrPlaqueCarte').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       },
-      onEfface: () => { etat.vehicule = null; viderAuto(); },
+      onEfface: () => { etat.vehicule = null; viderAuto(); majConditions(); },
     });
   }
   const photoIn = $('qrPhoto'), apercu = $('qrPhotoApercu'), retirer = $('qrPhotoRetirer'), ajout = $('qrPhotoAdd');
@@ -431,6 +523,7 @@
     return [
       tard ? '📅 DEMANDE DE RENDEZ-VOUS' : '🚨 DEMANDE DE DÉPANNAGE',
       `Quand : ${tard ? `rendez-vous ${el.date.value ? new Date(el.date.value + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : 'à convenir'}, ${FR.creneaux[+el.creneau.value]}` : 'maintenant (urgence)'}`,
+      ...ficheTechnique(),
       '',
       `📍 Lieu : ${el.adresse.value.trim() || '—'}`,
       etat.gps ? `🗺 https://www.google.com/maps?q=${etat.gps.lat.toFixed(5)},${etat.gps.lng.toFixed(5)} (${etat.gps.source}${etat.gps.prec ? ', ± ' + etat.gps.prec + ' m' : ''})` : '🗺 Position GPS : non communiquée',
