@@ -500,12 +500,12 @@
       "distanceKm": 20,
       "delai": "35 min à 1 h",
       "acces": "A8 sortie Monaco, ou Basse Corniche par Cap-d'Ail, ou Moyenne Corniche.",
-      "intro": "Monaco est à vingt kilomètres de Nice, mais c'est un autre pays, avec ses propres règles de circulation et de stationnement. Nous partons de Nice&nbsp;: le prix et le délai vous sont annoncés au téléphone avant le départ.",
+      "intro": "Monaco est à vingt kilomètres de Nice. Nous y faisons les mêmes interventions qu'en France&nbsp;: dépannage sur place, remorquage, ouverture de porte, batterie, pneu, erreur de carburant. Le prix et le délai vous sont annoncés au téléphone avant le départ.",
       "specTitre": "Bon à savoir à Monaco",
       "specificites": [
         {
-          "titre": "Une réglementation monégasque",
-          "texte": "Monaco a sa propre police, la Sûreté publique, et sa propre fourrière. Si votre véhicule gêne la circulation, suivez d'abord les consignes des agents sur place, puis appelez-nous&nbsp;: nous vous disons au téléphone ce que nous pouvons faire dans votre situation."
+          "titre": "Un autre pays, les mêmes services",
+          "texte": "Monaco a sa propre police, la Sûreté publique, et sa propre fourrière. Si votre véhicule gêne la circulation, suivez d'abord les consignes des agents sur place, puis appelez-nous&nbsp;: nous intervenons comme à Nice, avec les mêmes prix publiés et le trajet annoncé avant le départ."
         },
         {
           "titre": "Parkings souterrains",
@@ -527,11 +527,11 @@
       "faq": [
         {
           "q": "Intervenez-vous à Monaco ?",
-          "r": "Oui, depuis notre atelier de Nice, à environ 20 km. Comptez 35 minutes à 1 heure selon l'heure et le quartier. Le prix, trajet compris, vous est annoncé avant le départ."
+          "r": "Oui, avec les mêmes services qu'en France, depuis notre atelier de Nice à environ 20 km. Comptez 35 minutes à 1 heure selon l'heure et le quartier. Le prix, trajet compris, vous est annoncé avant le départ."
         },
         {
-          "q": "Pouvez-vous ramener ma voiture de Monaco vers un garage en France ?",
-          "r": "Oui, c'est le cas le plus fréquent&nbsp;: nous chargeons le véhicule et le transportons vers le garage de votre choix, à Nice ou ailleurs. Le prix dépend de la distance et vous est donné avant le départ."
+          "q": "Pouvez-vous réparer sur place ou faut-il remorquer ?",
+          "r": "Comme en France, nous essayons d'abord de vous dépanner sur place&nbsp;: batterie, roue, carburant, ouverture de porte. Si ce n'est pas possible, nous remorquons le véhicule vers le garage de votre choix, à Monaco, à Nice ou ailleurs."
         }
       ]
     }
