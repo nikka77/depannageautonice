@@ -5,7 +5,7 @@
 Faits utiles :
 
 - Disponibilité : 24h/24, 7j/7, jours fériés compris. Un technicien décroche.
-- Délai estimé : 30 à 60 min sur Nice ; Saint-Laurent-du-Var 20 à 40 min ; Cagnes-sur-Mer 25 à 45 min ; Villeneuve-Loubet 30 à 50 min ; Antibes 35 min à 1 h ; Vence 35 min à 1 h ; Menton 40 min à 1 h 10 ; Cannes 45 min à 1 h 15 ; Grasse 50 min à 1 h 20. Estimations, selon le trafic.
+- Délai estimé : 30 à 60 min sur Nice ; Saint-Laurent-du-Var 20 à 40 min ; Beaulieu-sur-Mer 20 à 40 min ; Cagnes-sur-Mer 25 à 45 min ; Saint-Jean-Cap-Ferrat 25 à 45 min ; Èze 25 à 45 min ; Villeneuve-Loubet 30 à 50 min ; Monaco 35 min à 1 h ; Antibes 35 min à 1 h ; Vence 35 min à 1 h ; Menton 40 min à 1 h 10 ; Cannes 45 min à 1 h 15 ; Grasse 50 min à 1 h 20. Estimations, selon le trafic.
 - Paiement : Carte bancaire, Apple Pay, Google Pay, Espèces.
 - Véhicules : voitures, SUV, utilitaires, camping-cars, motos et scooters.
 - Langues : équipe francophone ; WhatsApp conseillé pour l'anglais ou l'italien.
@@ -86,6 +86,10 @@ Faits utiles :
 - [Dépannage Saint-Laurent-du-Var](https://nikka77.github.io/depannageautonice/ville-saint-laurent-du-var.html): 8 km de l'atelier, 20 à 40 min
 - [Dépannage Villeneuve-Loubet](https://nikka77.github.io/depannageautonice/ville-villeneuve-loubet.html): 17 km de l'atelier, 30 à 50 min
 - [Dépannage Vence](https://nikka77.github.io/depannageautonice/ville-vence.html): 24 km de l'atelier, 35 min à 1 h
+- [Dépannage Beaulieu-sur-Mer](https://nikka77.github.io/depannageautonice/ville-beaulieu-sur-mer.html): 10 km de l'atelier, 20 à 40 min
+- [Dépannage Saint-Jean-Cap-Ferrat](https://nikka77.github.io/depannageautonice/ville-saint-jean-cap-ferrat.html): 13 km de l'atelier, 25 à 45 min
+- [Dépannage Èze](https://nikka77.github.io/depannageautonice/ville-eze.html): 13 km de l'atelier, 25 à 45 min
+- [Dépannage Monaco](https://nikka77.github.io/depannageautonice/ville-monaco.html): 20 km de l'atelier, 35 min à 1 h
 
 ## Guides et conseils
 
