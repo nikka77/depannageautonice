@@ -1,6 +1,6 @@
 {
   "version": "2026-10-10",
-  "source": "https://depannageautonice.fr/",
+  "source": "https://depanneuse-riviera.fr/",
   "note": "Données publiées par l'entreprise. Délais : estimations liées au trafic, pas des garanties. Prix TTC.",
   "entreprise": {
     "nom": "Dépannage Auto Nice",
@@ -13,7 +13,7 @@
     "telephone": "06 17 68 42 70",
     "telephoneInternational": "+33617684270",
     "whatsapp": "https://wa.me/33617684270",
-    "demandeEnLigne": "https://depannageautonice.fr/#demande",
+    "demandeEnLigne": "https://depanneuse-riviera.fr/#demande",
     "langues": "Équipe francophone. Pour l'anglais ou l'italien, WhatsApp est conseillé (message écrit facile à traduire)."
   },
   "disponibilite": "7 jours sur 7, 24 heures sur 24, jours fériés compris",
@@ -29,56 +29,56 @@
         "cp": "06700",
         "distanceKm": 8,
         "delai": "20 à 40 min",
-        "page": "https://depannageautonice.fr/ville-saint-laurent-du-var.html"
+        "page": "https://depanneuse-riviera.fr/ville-saint-laurent-du-var.html"
       },
       {
         "ville": "Cagnes-sur-Mer",
         "cp": "06800",
         "distanceKm": 13,
         "delai": "25 à 45 min",
-        "page": "https://depannageautonice.fr/ville-cagnes-sur-mer.html"
+        "page": "https://depanneuse-riviera.fr/ville-cagnes-sur-mer.html"
       },
       {
         "ville": "Villeneuve-Loubet",
         "cp": "06270",
         "distanceKm": 17,
         "delai": "30 à 50 min",
-        "page": "https://depannageautonice.fr/ville-villeneuve-loubet.html"
+        "page": "https://depanneuse-riviera.fr/ville-villeneuve-loubet.html"
       },
       {
         "ville": "Antibes",
         "cp": "06600",
         "distanceKm": 22,
         "delai": "35 min à 1 h",
-        "page": "https://depannageautonice.fr/ville-antibes.html"
+        "page": "https://depanneuse-riviera.fr/ville-antibes.html"
       },
       {
         "ville": "Vence",
         "cp": "06140",
         "distanceKm": 24,
         "delai": "35 min à 1 h",
-        "page": "https://depannageautonice.fr/ville-vence.html"
+        "page": "https://depanneuse-riviera.fr/ville-vence.html"
       },
       {
         "ville": "Menton",
         "cp": "06500",
         "distanceKm": 30,
         "delai": "40 min à 1 h 10",
-        "page": "https://depannageautonice.fr/ville-menton.html"
+        "page": "https://depanneuse-riviera.fr/ville-menton.html"
       },
       {
         "ville": "Cannes",
         "cp": "06400",
         "distanceKm": 33,
         "delai": "45 min à 1 h 15",
-        "page": "https://depannageautonice.fr/ville-cannes.html"
+        "page": "https://depanneuse-riviera.fr/ville-cannes.html"
       },
       {
         "ville": "Grasse",
         "cp": "06130",
         "distanceKm": 40,
         "delai": "50 min à 1 h 20",
-        "page": "https://depannageautonice.fr/ville-grasse.html"
+        "page": "https://depanneuse-riviera.fr/ville-grasse.html"
       }
     ]
   },
@@ -90,7 +90,7 @@
   ],
   "tarifs": {
     "principe": "Prix TTC. Le prix ferme est annoncé au téléphone avant le départ de la dépanneuse : c'est le prix facturé. Devis gratuit, aucun frais de dossier.",
-    "page": "https://depannageautonice.fr/tarifs.html",
+    "page": "https://depanneuse-riviera.fr/tarifs.html",
     "lignes": [
       {
         "groupe": "Dépannage sur place",
@@ -244,127 +244,127 @@
       "nom": "Batterie à plat",
       "resume": "Démarrage au booster, test de la batterie et de l'alternateur, remplacement sur place.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/depannage-batterie-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-batterie-nice.html"
     },
     {
       "nom": "Pneu crevé",
       "resume": "Pose de la roue de secours, réparation par mèche, remorquage vers un pneumaticien.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/pneu-creve-nice.html"
+      "page": "https://depanneuse-riviera.fr/pneu-creve-nice.html"
     },
     {
       "nom": "Panne sèche",
       "resume": "Nous apportons de quoi rejoindre la station et redémarrons le moteur.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/panne-seche-nice.html"
+      "page": "https://depanneuse-riviera.fr/panne-seche-nice.html"
     },
     {
       "nom": "Erreur de carburant",
       "resume": "Vidange du réservoir, rinçage du circuit et remise en route, sans démarrer le moteur.",
       "prix": "dès 150 €",
-      "page": "https://depannageautonice.fr/erreur-carburant-nice.html"
+      "page": "https://depanneuse-riviera.fr/erreur-carburant-nice.html"
     },
     {
       "nom": "Surchauffe moteur",
       "resume": "Diagnostic sur place (fuite, ventilateur, courroie, thermostat), remorquage si le moteur ne doit pas tourner.",
       "prix": "dès 60 €",
-      "page": "https://depannageautonice.fr/surchauffe-moteur-nice.html"
+      "page": "https://depanneuse-riviera.fr/surchauffe-moteur-nice.html"
     },
     {
       "nom": "Remorquage",
       "resume": "Chargement sur plateau et dépose à l'atelier, chez votre garagiste ou à l'adresse de votre choix.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/remorquage-voiture-nice.html"
+      "page": "https://depanneuse-riviera.fr/remorquage-voiture-nice.html"
     },
     {
       "nom": "Accident",
       "resume": "Enlèvement du véhicule accidenté, roues bloquées comprises, vers le garage, le carrossier ou l'expert.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/depannage-accident-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-accident-nice.html"
     },
     {
       "nom": "Parking souterrain",
       "resume": "Matériel adapté aux hauteurs limitées, chariots porte-roues, sortie de sous-sol.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/depannage-parking-souterrain-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-parking-souterrain-nice.html"
     },
     {
       "nom": "Aéroport et gares",
       "resume": "Batterie à plat au retour de voyage, crevaison, remorquage depuis les parkings de l'aéroport et des gares.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/depannage-aeroport-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-aeroport-nice.html"
     },
     {
       "nom": "Transport longue distance",
       "resume": "Transport sur plateau, sur rendez-vous : garage à garage, achat, collection, rapatriement, Monaco, Italie.",
       "prix": "Sur devis",
-      "page": "https://depannageautonice.fr/transport-vehicule-nice.html"
+      "page": "https://depanneuse-riviera.fr/transport-vehicule-nice.html"
     },
     {
       "nom": "Treuillage, véhicule embourbé",
       "resume": "Treuillage et relevage d'un véhicule embourbé, dans un fossé ou en contrebas, sur devis.",
       "prix": "Sur devis",
-      "page": "https://depannageautonice.fr/treuillage-vehicule-embourbe-nice.html"
+      "page": "https://depanneuse-riviera.fr/treuillage-vehicule-embourbe-nice.html"
     },
     {
       "nom": "Clés enfermées",
       "resume": "Ouverture par technique non destructive, sur présentation des papiers du véhicule.",
       "prix": "dès 90 €",
-      "page": "https://depannageautonice.fr/ouverture-porte-voiture-nice.html"
+      "page": "https://depanneuse-riviera.fr/ouverture-porte-voiture-nice.html"
     },
     {
       "nom": "Clé perdue ou cassée",
       "resume": "Reproduction de clé, de carte ou de télécommande, clé cassée, direction bloquée, écrou antivol.",
       "prix": "dès 90 €",
-      "page": "https://depannageautonice.fr/perte-cle-voiture-nice.html"
+      "page": "https://depanneuse-riviera.fr/perte-cle-voiture-nice.html"
     },
     {
       "nom": "Moto et scooter",
       "resume": "Dépannage sur place ou transport sur plateau, deux-roues calé sur rail et sanglé.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/depannage-moto-scooter-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-moto-scooter-nice.html"
     },
     {
       "nom": "Utilitaire, camping-car, poids lourd",
       "resume": "Utilitaires et fourgons jusqu'à 3,5 t, camping-cars et véhicules plus lourds sur devis.",
       "prix": "dès 100 €",
-      "page": "https://depannageautonice.fr/depannage-utilitaire-camping-car-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-utilitaire-camping-car-nice.html"
     },
     {
       "nom": "Électrique et hybride",
       "resume": "Batterie 12 V, transport sur plateau obligatoire, dépose à une borne ou chez le concessionnaire.",
       "prix": "dès 70 €",
-      "page": "https://depannageautonice.fr/depannage-voiture-electrique-nice.html"
+      "page": "https://depanneuse-riviera.fr/depannage-voiture-electrique-nice.html"
     },
     {
       "nom": "Enlèvement d'épave",
       "resume": "Gratuit pour un véhicule complet : remise à un centre VHU agréé et certificat de destruction.",
       "prix": "Gratuit",
-      "page": "https://depannageautonice.fr/enlevement-epave-nice.html"
+      "page": "https://depanneuse-riviera.fr/enlevement-epave-nice.html"
     },
     {
       "nom": "Gardiennage",
       "resume": "Lieu fermé à l'atelier : 48 h offertes, puis 10 € par jour.",
       "prix": "48 h offertes, puis 10 € / jour",
-      "page": "https://depannageautonice.fr/gardiennage-vehicule-nice.html"
+      "page": "https://depanneuse-riviera.fr/gardiennage-vehicule-nice.html"
     },
     {
       "nom": "Diagnostic électronique",
       "resume": "Valise multimarque, lecture et explication des codes défauts : 49 € à l'atelier, 60 € sur place.",
       "prix": "dès 49 €",
-      "page": "https://depannageautonice.fr/diagnostic-electronique-nice.html"
+      "page": "https://depanneuse-riviera.fr/diagnostic-electronique-nice.html"
     },
     {
       "nom": "Recharge de climatisation",
       "resume": "Contrôle d'étanchéité et recharge à l'atelier, dès 50 €, sur rendez-vous.",
       "prix": "dès 50 €",
-      "page": "https://depannageautonice.fr/recharge-climatisation-nice.html"
+      "page": "https://depanneuse-riviera.fr/recharge-climatisation-nice.html"
     },
     {
       "nom": "Réparations mécaniques",
       "resume": "Démarreur, alternateur, freins, courroies, échappement, entretien : sur devis, sur rendez-vous.",
       "prix": "Sur devis",
-      "page": "https://depannageautonice.fr/reparation-mecanique-nice.html"
+      "page": "https://depanneuse-riviera.fr/reparation-mecanique-nice.html"
     }
   ],
   "limites": [
@@ -373,75 +373,75 @@
   "guides": [
     {
       "titre": "Panne de voiture : les bons réflexes pour rester en sécurité",
-      "page": "https://depannageautonice.fr/guide-que-faire-en-cas-de-panne.html"
+      "page": "https://depanneuse-riviera.fr/guide-que-faire-en-cas-de-panne.html"
     },
     {
       "titre": "Panne sur l'autoroute A8 : qui appeler, combien ça coûte",
-      "page": "https://depannageautonice.fr/guide-panne-autoroute-a8.html"
+      "page": "https://depanneuse-riviera.fr/guide-panne-autoroute-a8.html"
     },
     {
       "titre": "Panne dans un tunnel : les réflexes qui sauvent",
-      "page": "https://depannageautonice.fr/guide-panne-tunnel.html"
+      "page": "https://depanneuse-riviera.fr/guide-panne-tunnel.html"
     },
     {
       "titre": "Accident de voiture : sécurité, constat amiable, remorquage",
-      "page": "https://depannageautonice.fr/guide-accident-constat-amiable.html"
+      "page": "https://depanneuse-riviera.fr/guide-accident-constat-amiable.html"
     },
     {
       "titre": "Voiture de location en panne sur la Côte d'Azur",
-      "page": "https://depannageautonice.fr/guide-voiture-de-location-en-panne.html"
+      "page": "https://depanneuse-riviera.fr/guide-voiture-de-location-en-panne.html"
     },
     {
       "titre": "Ma voiture ne démarre pas : trouver la cause en 5 questions",
-      "page": "https://depannageautonice.fr/guide-voiture-ne-demarre-pas.html"
+      "page": "https://depanneuse-riviera.fr/guide-voiture-ne-demarre-pas.html"
     },
     {
       "titre": "Batterie à plat : redémarrer, recharger ou changer ?",
-      "page": "https://depannageautonice.fr/guide-batterie-a-plat.html"
+      "page": "https://depanneuse-riviera.fr/guide-batterie-a-plat.html"
     },
     {
       "titre": "Pneu crevé : réparer, changer la roue ou appeler ?",
-      "page": "https://depannageautonice.fr/guide-pneu-creve.html"
+      "page": "https://depanneuse-riviera.fr/guide-pneu-creve.html"
     },
     {
       "titre": "Erreur de carburant : essence, gazole ou AdBlue, que faire ?",
-      "page": "https://depannageautonice.fr/guide-erreur-de-carburant.html"
+      "page": "https://depanneuse-riviera.fr/guide-erreur-de-carburant.html"
     },
     {
       "titre": "Panne sèche : que faire quand il n'y a plus de carburant",
-      "page": "https://depannageautonice.fr/guide-panne-seche.html"
+      "page": "https://depanneuse-riviera.fr/guide-panne-seche.html"
     },
     {
       "titre": "Surchauffe moteur et canicule : protéger sa voiture l'été",
-      "page": "https://depannageautonice.fr/guide-surchauffe-moteur.html"
+      "page": "https://depanneuse-riviera.fr/guide-surchauffe-moteur.html"
     },
     {
       "titre": "Voyants du tableau de bord : lesquels imposent de s'arrêter",
-      "page": "https://depannageautonice.fr/guide-voyants-tableau-de-bord.html"
+      "page": "https://depanneuse-riviera.fr/guide-voyants-tableau-de-bord.html"
     },
     {
       "titre": "Voiture électrique ou hybride en panne : ce qu'il faut savoir",
-      "page": "https://depannageautonice.fr/guide-voiture-electrique-en-panne.html"
+      "page": "https://depanneuse-riviera.fr/guide-voiture-electrique-en-panne.html"
     },
     {
       "titre": "Les pannes les plus fréquentes sur la Côte d'Azur",
-      "page": "https://depannageautonice.fr/guide-pannes-frequentes-cote-d-azur.html"
+      "page": "https://depanneuse-riviera.fr/guide-pannes-frequentes-cote-d-azur.html"
     },
     {
       "titre": "Assurance et assistance : qui paie le dépannage ?",
-      "page": "https://depannageautonice.fr/guide-assurance-assistance.html"
+      "page": "https://depanneuse-riviera.fr/guide-assurance-assistance.html"
     },
     {
       "titre": "Clés de voiture perdues, enfermées ou cassées : que faire ?",
-      "page": "https://depannageautonice.fr/guide-cles-perdues-ou-enfermees.html"
+      "page": "https://depanneuse-riviera.fr/guide-cles-perdues-ou-enfermees.html"
     },
     {
       "titre": "Se débarrasser d'une épave : démarches et certificat de destruction",
-      "page": "https://depannageautonice.fr/guide-epave-demarches.html"
+      "page": "https://depanneuse-riviera.fr/guide-epave-demarches.html"
     },
     {
       "titre": "Choisir un dépanneur et éviter les arnaques",
-      "page": "https://depannageautonice.fr/guide-choisir-un-depanneur.html"
+      "page": "https://depanneuse-riviera.fr/guide-choisir-un-depanneur.html"
     }
   ]
 }

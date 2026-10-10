@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://depannageautonice.fr/sitemap.xml
+Sitemap: https://depanneuse-riviera.fr/sitemap.xml
