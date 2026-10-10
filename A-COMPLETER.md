@@ -313,13 +313,17 @@ Au passage, la page Cagnes-sur-Mer indique « A8 sortie 47 (Cagnes-sur-Mer)
 ou 48 (Villeneuve-Loubet) » : il me semble que c'est l'inverse (47
 Villeneuve-Loubet, 48 Cagnes-sur-Mer). À vérifier sur place.
 
-### Pas de page Monaco
+### Monaco, Beaulieu-sur-Mer, Èze, Saint-Jean-Cap-Ferrat — à valider
 
-Monaco est un autre pays, avec sa propre réglementation du remorquage et de
-la fourrière. Une page « Dépannage Monaco » risquerait de promettre une
-intervention que vous n'avez pas le droit de faire. Dites-moi ce que vous y
-faites réellement (dépannage sur place ? remorquage vers la France ?) et je
-l'écris.
+Ces quatre pages sont écrites avec des faits publics (routes, accès, lieux),
+sous « Bon à savoir à… ». **Les délais sont mes estimations** : Beaulieu-sur-Mer
+20 à 40 min, Saint-Jean-Cap-Ferrat et Èze 25 à 45 min, Monaco 35 min à 1 h.
+
+Monaco est un autre pays, avec sa propre police et sa propre fourrière. La
+page dit seulement que vous intervenez depuis Nice, prix et délai annoncés
+avant le départ, et que vous pouvez ramener un véhicule vers un garage en
+France. **Si vous ne faites pas de dépannage sur place à Monaco, dites-le** :
+je reformule la page ou je la retire (`tools/villes.json`, entrée `monaco`).
 
 ### Versions anglaise et italienne — une question
 
