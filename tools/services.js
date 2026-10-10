@@ -111,7 +111,8 @@ const S = [
       ['Combien coûte un remorquage à Nice&nbsp;?', '70&nbsp;€ jusqu\'à 10&nbsp;km, 95&nbsp;€ jusqu\'à 20&nbsp;km, 120&nbsp;€ jusqu\'à 30&nbsp;km, puis selon la <a href="tarifs.html">grille publiée</a>. Nuit, dimanche et jour férié&nbsp;: +40&nbsp;€.'],
       ['Puis-je choisir le garage où va ma voiture&nbsp;?', 'Oui, toujours. Nous pouvons aussi la garder à l\'atelier en attendant votre rendez-vous&nbsp;: les 48 premières heures de gardiennage sont offertes.'],
     ],
-    guides: ['guide-que-faire-en-cas-de-panne', 'guide-choisir-un-depanneur'],
+    guides: ['guide-que-faire-en-cas-de-panne', 'guide-choisir-un-depanneur', 'guide-panne-autoroute-a8'],
+    encadre: '{{AUTOROUTE}}',
   },
   {
     slug: 'depannage-accident-nice', cat: 'remorquage', ic: 'alert', presta: 'remorquage', type: 'accident', estim: 'type=remorquage',
@@ -233,6 +234,8 @@ const S = [
     faq: [
       ['Combien coûte le remorquage d\'une moto&nbsp;?', 'La même grille que pour une voiture&nbsp;: 70&nbsp;€ jusqu\'à 10&nbsp;km, puis selon la distance.'],
       ['Transportez-vous les gros cubes et les maxi-scooters&nbsp;?', 'Oui, toutes cylindrées. Précisez le modèle à l\'appel pour que nous venions avec le bon rail.'],
+      ['Comment la moto est-elle attachée&nbsp;?', 'Debout, roue avant bloquée dans le rail, sangles fixées aux points d\'ancrage du cadre et du guidon avec des protections pour ne rien marquer. Elle n\'est jamais couchée ni sanglée sur la selle ou les carénages.'],
+      ['Je n\'ai pas de garage moto.', 'Dites-le à l\'appel&nbsp;: nous vous aidons à trouver un atelier deux-roues près de chez vous ou du lieu de la panne, ou nous gardons la moto à notre atelier en attendant (48&nbsp;heures offertes).'],
     ],
     guides: ['guide-que-faire-en-cas-de-panne', 'guide-accident-constat-amiable'],
   },

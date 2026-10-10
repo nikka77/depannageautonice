@@ -5,7 +5,7 @@
 Faits utiles :
 
 - Disponibilité : 24h/24, 7j/7, jours fériés compris. Un technicien décroche.
-- Délai estimé : 30 à 60 min sur Nice ; Saint-Laurent-du-Var 20 à 40 min ; Beaulieu-sur-Mer 20 à 40 min ; Cagnes-sur-Mer 25 à 45 min ; Saint-Jean-Cap-Ferrat 25 à 45 min ; Èze 25 à 45 min ; Villeneuve-Loubet 30 à 50 min ; Monaco 35 min à 1 h ; Antibes 35 min à 1 h ; Vence 35 min à 1 h ; Menton 40 min à 1 h 10 ; Cannes 45 min à 1 h 15 ; Grasse 50 min à 1 h 20. Estimations, selon le trafic.
+- Délai estimé : 30 à 60 min sur Nice ; Villefranche-sur-Mer 20 à 40 min ; Saint-Laurent-du-Var 20 à 40 min ; Beaulieu-sur-Mer 20 à 40 min ; Cagnes-sur-Mer 25 à 45 min ; Saint-Jean-Cap-Ferrat 25 à 45 min ; Èze 25 à 45 min ; Villeneuve-Loubet 30 à 50 min ; Monaco 35 min à 1 h ; Antibes 35 min à 1 h ; Vence 35 min à 1 h ; Carros 35 min à 1 h ; Saint-Martin-du-Var 40 min à 1 h 10 ; Menton 40 min à 1 h 10 ; Mougins 45 min à 1 h 15 ; Cannes 45 min à 1 h 15 ; Grasse 50 min à 1 h 20. Estimations, selon le trafic.
 - Paiement : Carte bancaire, Apple Pay, Google Pay, Espèces.
 - Véhicules : voitures, SUV, utilitaires, camping-cars, motos et scooters.
 - Langues : équipe francophone ; WhatsApp conseillé pour l'anglais ou l'italien.
@@ -90,6 +90,10 @@ Faits utiles :
 - [Dépannage Saint-Jean-Cap-Ferrat](https://nikka77.github.io/depannageautonice/ville-saint-jean-cap-ferrat.html): 13 km de l'atelier, 25 à 45 min
 - [Dépannage Èze](https://nikka77.github.io/depannageautonice/ville-eze.html): 13 km de l'atelier, 25 à 45 min
 - [Dépannage Monaco](https://nikka77.github.io/depannageautonice/ville-monaco.html): 20 km de l'atelier, 35 min à 1 h
+- [Dépannage Villefranche-sur-Mer](https://nikka77.github.io/depannageautonice/ville-villefranche-sur-mer.html): 7 km de l'atelier, 20 à 40 min
+- [Dépannage Mougins](https://nikka77.github.io/depannageautonice/ville-mougins.html): 32 km de l'atelier, 45 min à 1 h 15
+- [Dépannage Carros](https://nikka77.github.io/depannageautonice/ville-carros.html): 24 km de l'atelier, 35 min à 1 h
+- [Dépannage Saint-Martin-du-Var](https://nikka77.github.io/depannageautonice/ville-saint-martin-du-var.html): 27 km de l'atelier, 40 min à 1 h 10
 
 ## Guides et conseils
 
@@ -111,10 +115,12 @@ Faits utiles :
 - [Clés de voiture perdues, enfermées ou cassées : que faire ?](https://nikka77.github.io/depannageautonice/guide-cles-perdues-ou-enfermees.html): Clés enfermées dans la voiture, perdues, volées ou cassées : les bons réflexes, les papiers à prévoir, refaire une clé ou une carte sans l'original, ce que couvre l'assurance.
 - [Se débarrasser d'une épave : démarches et certificat de destruction](https://nikka77.github.io/depannageautonice/guide-epave-demarches.html): Faire détruire une voiture hors d'usage : centre VHU agréé, documents à fournir, certificat de destruction, gratuité, résiliation de l'assurance, épave sans carte grise ou abandonnée.
 - [Choisir un dépanneur et éviter les arnaques](https://nikka77.github.io/depannageautonice/guide-choisir-un-depanneur.html): Numéros surtaxés, plateformes qui revendent l'appel, prix gonflés sur place : comment reconnaître un dépanneur sérieux et ce que vous êtes en droit de demander.
+- [Combien coûte une dépanneuse à Nice ?](https://nikka77.github.io/depannageautonice/guide-prix-depanneuse-nice.html): Prix d'un dépannage et d'un remorquage à Nice : ce qui fait le prix (distance, nuit, sous-sol, utilitaire), exemples chiffrés et pièges à éviter.
 
 ## Optional
 
 - [Questions fréquentes](https://nikka77.github.io/depannageautonice/faq.html)
+- [Professionnels (flottes, utilitaires, compte pro)](https://nikka77.github.io/depannageautonice/professionnels.html)
 - [À propos](https://nikka77.github.io/depannageautonice/a-propos.html)
 - [Diagnostic pneus en photo (gratuit)](https://nikka77.github.io/depannageautonice/diagnostic.html)
 - [English](https://nikka77.github.io/depannageautonice/en/)

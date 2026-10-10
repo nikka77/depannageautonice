@@ -180,6 +180,68 @@ ${g.lignes.map(l => `      <tr${l.id ? ` id="t-${l.id}"` : ''}><th scope="row">$
   </table>
 </section>`).join('\n\n');
 }
+// Routes et points noirs du 06 : accueil (version courte) et zone (complète).
+// Textes propres au site ; chaque axe renvoie vers le guide ou la page utile.
+const ROUTES_06 = [
+  { t: 'A8, la Provençale', txt: 'De Cannes à Menton, sans arrêt possible hors bande d\'arrêt d\'urgence. Sur l\'autoroute, le dépannage est réservé au dépanneur agréé&nbsp;: nous reprenons ensuite votre véhicule à la sortie.', href: 'guide-panne-autoroute-a8.html', lien: 'Panne sur l\'A8' },
+  { t: 'Voie Pierre-Mathis', txt: 'La voie rapide qui traverse Nice, avec ses tunnels et ses bretelles courtes. On ne s\'arrête jamais dans un tunnel si la voiture roule encore&nbsp;: on sort d\'abord.', href: 'guide-panne-tunnel.html', lien: 'Panne dans un tunnel' },
+  { t: 'Promenade des Anglais', txt: 'Six voies, des feux, des bus et des vélos. Garez-vous hors des voies de circulation si vous le pouvez et donnez-nous le numéro le plus proche.', href: 'ville-saint-laurent-du-var.html', lien: 'Vers Saint-Laurent-du-Var' },
+  { t: 'Basse Corniche', txt: 'Le long de la mer vers Villefranche, Beaulieu et Monaco&nbsp;: pas d\'accotement et beaucoup de deux-roues. Feux de détresse et à l\'abri côté trottoir.', href: 'ville-villefranche-sur-mer.html', lien: 'Villefranche-sur-Mer' },
+  { t: 'Moyenne Corniche', txt: 'Par le col de Villefranche et Èze, une route en lacets avec peu d\'endroits pour s\'arrêter. Un repère (virage, belvédère, borne) nous fait gagner du temps.', href: 'ville-eze.html', lien: 'Èze' },
+  { t: 'Grande Corniche', txt: 'La plus haute, par La Turbie&nbsp;: route de montagne, virages serrés, peu de réseau par endroits. Envoyez votre position dès que vous captez.', href: 'ville-monaco.html', lien: 'Monaco' },
+  { t: 'Plaine du Var (M6202 et M6202bis)', txt: 'Routes rapides de la vallée, poids lourds, zones industrielles de Carros et Saint-Laurent. Sortez par la droite et attendez derrière la glissière.', href: 'ville-carros.html', lien: 'Carros' },
+  { t: 'Pénétrante Cannes-Grasse', txt: 'Voie rapide chargée aux heures de pointe entre Cannes, Mougins et Grasse. Donnez le sens de circulation et la sortie la plus proche.', href: 'ville-mougins.html', lien: 'Mougins' },
+  { t: 'Parkings souterrains', txt: 'Nice et la côte en comptent des centaines, souvent bas de plafond. Notez le niveau, la place et la hauteur maximale affichée à l\'entrée.', href: 'depannage-parking-souterrain-nice.html', lien: 'Parking souterrain' },
+];
+const routesHtml = court => court
+  ? `<section class="wrap sec" aria-labelledby="h-routes">
+  <h2 class="sec-t" id="h-routes">Nous connaissons vos routes</h2>
+  <p class="sec-sub">A8, corniches, voie Mathis, plaine du Var, parkings bas&nbsp;: chaque axe a ses pièges. Les bons réflexes, route par route.</p>
+  <ul class="chips">
+${ROUTES_06.map(r => `    <li><a href="zone.html#routes">${r.t}</a></li>`).join('\n')}
+  </ul>
+</section>`
+  : `<section class="wrap sec" id="routes" aria-labelledby="h-routes">
+  <h2 class="sec-t" id="h-routes">Routes et points noirs du 06</h2>
+  <p class="sec-sub">Où les pannes arrivent le plus souvent, et ce qu'il faut faire en attendant la dépanneuse.</p>
+  <div class="grid grid-wide">
+${ROUTES_06.map(r => `    <article class="cell">${ic('route')}<h3>${r.t}</h3><p>${r.txt}</p><a class="textlink" href="${r.href}"><span>${r.lien}</span></a></article>`).join('\n')}
+  </div>
+</section>`;
+// Panne sur autoroute : encadré de l'accueil et de la page remorquage.
+const AUTOROUTE = `<section class="wrap sec" aria-labelledby="h-autoroute">
+  <div class="alerte">
+    ${ic('alert')}
+    <div>
+      <h2 id="h-autoroute">En panne sur l'autoroute&nbsp;?</h2>
+      <ol>
+        <li><strong>Mettez-vous à l'abri&nbsp;:</strong> feux de détresse, gilet, et tout le monde derrière la glissière, loin du véhicule.</li>
+        <li><strong>Appelez depuis une borne orange</strong> (tous les 2&nbsp;km) ou le <a href="tel:112">112</a>&nbsp;: sur l'autoroute, seul le dépanneur agréé pour ce tronçon peut intervenir, à un tarif réglementé.</li>
+        <li><strong>Ensuite, appelez-nous&nbsp;:</strong> nous reprenons le véhicule là où il a été déposé et l'emmenons au garage de votre choix.</li>
+      </ol>
+      <a class="textlink" href="guide-panne-autoroute-a8.html"><span>Le guide complet : panne sur l'A8</span></a>
+    </div>
+  </div>
+</section>`;
+
+// Exemples de trajets chiffrés (tools/tarifs.js) : page Tarifs et guide prix.
+const EX_T = {
+  fr: { t: 'Exemples de prix', sub: 'Calculés avec la grille ci-dessous, pour une voiture. Le prix ferme vous est confirmé au téléphone avant le départ.', total: 'Total TTC' },
+  en: { t: 'Price examples', sub: 'Worked out with the grid below, for a car. The firm price is confirmed on the phone before we set off.', total: 'Total incl. VAT' },
+  it: { t: 'Esempi di prezzo', sub: 'Calcolati con la tabella qui sotto, per un\'auto. Il prezzo fisso viene confermato al telefono prima della partenza.', total: 'Totale IVA incl.' },
+};
+const exemplesHtml = lang => `<section class="wrap sec" id="exemples" aria-labelledby="h-exemples">
+  <h2 class="sec-t" id="h-exemples">${EX_T[lang].t}</h2>
+  <p class="sec-sub">${EX_T[lang].sub}</p>
+  <div class="ex-grid">
+${TARIFS.exemples(lang).map(e => `    <article class="ex-card">
+      <h3>${e.titre}</h3>
+      <p class="ex-sous">${e.sous}</p>
+      <ul>${e.lignes.map(l => `<li><span>${l.nom}</span><b>${l.prix}</b></li>`).join('')}</ul>
+      <p class="ex-total"><span>${EX_T[lang].total}</span><b>${e.total}</b></p>
+    </article>`).join('\n')}
+  </div>
+</section>`;
 const PAY_IC = ['card', 'phone', 'phone', 'euro'];
 const paiementHtml = lang => `<ul class="pay">${TARIFS.paiement[lang].map((m, i) => `<li>${ic(PAY_IC[i])}${m}</li>`).join('')}</ul>`;
 function estimData(lang) {
@@ -284,6 +346,12 @@ const PAGES = [
       { '@type': 'ContactPage', '@id': `${url}#page`, url, name: 'Contact — Dépannage Auto Nice', inLanguage: 'fr-FR', about: { '@id': `${BASE}/#business` } },
       crumbs(url, 'Contact'),
     ],
+  },
+  {
+    file: 'professionnels.html', frag: 'professionnels.html', nav: null, path: '/professionnels.html',
+    title: `Dépannage pour professionnels à Nice — flottes, utilitaires | ${TEL}`,
+    desc: 'Loueurs, VTC, taxis, artisans, garages, parkings : dépannage et remorquage de voitures et utilitaires jusqu\'à 3,5 t dans tout le 06, 7j/7 24h/24, compte professionnel sur demande.',
+    schema: url => [crumbs(url, 'Professionnels')],
   },
   {
     file: 'mentions-legales.html', frag: 'mentions-legales.html', nav: null, path: '/mentions-legales.html',
@@ -700,6 +768,10 @@ ${faqHtml(g.items, g === FAQ_GROUPES[0])}
 </section>`).join('\n\n'))
     .replace('{{TARIFS_TABLES}}', () => `<script type="application/json" id="tarifsData">${JSON.stringify(estimData(lang)).replace(/</g, '\\u003c')}</script>\n\n` + tarifsTables(lang))
     .replace('{{PAIEMENT}}', () => paiementHtml(lang))
+    .replace('{{EXEMPLES}}', () => exemplesHtml(lang))
+    .replace('{{ROUTES_06}}', () => routesHtml(false))
+    .replace('{{ROUTES_06_COURT}}', () => routesHtml(true))
+    .replace('{{AUTOROUTE}}', () => AUTOROUTE)
     .replace('{{HERO_TYPES}}', () => QR_TYPES.map(([id, icon]) => `      <li><a href="demande.html?type=${id}">${ic(icon)}${I18N.T[lang].qr.types[id]}</a></li>`).join('\n'))
     .replace('{{SERVICES_GRID}}', () => SCATS.map(c => `<section class="wrap sec svc-cat" aria-labelledby="h-c-${c.id}">
   <h2 class="sec-t" id="h-c-${c.id}">${c.titre}</h2>

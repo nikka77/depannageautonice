@@ -25,6 +25,13 @@
         "delai": "30 à 60 min"
       },
       {
+        "ville": "Villefranche-sur-Mer",
+        "cp": "06230",
+        "distanceKm": 7,
+        "delai": "20 à 40 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-villefranche-sur-mer.html"
+      },
+      {
         "ville": "Saint-Laurent-du-Var",
         "cp": "06700",
         "distanceKm": 8,
@@ -88,11 +95,32 @@
         "page": "https://nikka77.github.io/depannageautonice/ville-vence.html"
       },
       {
+        "ville": "Carros",
+        "cp": "06510",
+        "distanceKm": 24,
+        "delai": "35 min à 1 h",
+        "page": "https://nikka77.github.io/depannageautonice/ville-carros.html"
+      },
+      {
+        "ville": "Saint-Martin-du-Var",
+        "cp": "06670",
+        "distanceKm": 27,
+        "delai": "40 min à 1 h 10",
+        "page": "https://nikka77.github.io/depannageautonice/ville-saint-martin-du-var.html"
+      },
+      {
         "ville": "Menton",
         "cp": "06500",
         "distanceKm": 30,
         "delai": "40 min à 1 h 10",
         "page": "https://nikka77.github.io/depannageautonice/ville-menton.html"
+      },
+      {
+        "ville": "Mougins",
+        "cp": "06250",
+        "distanceKm": 32,
+        "delai": "45 min à 1 h 15",
+        "page": "https://nikka77.github.io/depannageautonice/ville-mougins.html"
       },
       {
         "ville": "Cannes",
@@ -470,6 +498,10 @@
     {
       "titre": "Choisir un dépanneur et éviter les arnaques",
       "page": "https://nikka77.github.io/depannageautonice/guide-choisir-un-depanneur.html"
+    },
+    {
+      "titre": "Combien coûte une dépanneuse à Nice ?",
+      "page": "https://nikka77.github.io/depannageautonice/guide-prix-depanneuse-nice.html"
     }
   ]
 }

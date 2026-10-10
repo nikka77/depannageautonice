@@ -39,6 +39,29 @@ Pour la suite, au choix :
   « Notifications par SMS »), sinon OVH SMS ou Brevo (environ 5 à 8 centimes
   par SMS).
 
+### Ajouts du 10 octobre 2026 (idées concurrents) — à relire
+
+- **Page Professionnels** (`professionnels.html`) : elle propose un « compte
+  professionnel » avec facturation regroupée en fin de mois, « conditions à
+  définir ensemble ». Si vous ne voulez pas le proposer, dites-le : la carte
+  se retire.
+- **Pages Mougins, Villefranche-sur-Mer, Carros, Saint-Martin-du-Var** :
+  distances et délais estimés (32, 7, 24 et 27 km). À corriger si vos délais
+  réels diffèrent (`tools/villes.json`).
+- **Accueil** : nouveau chiffre « Tout le 06 — 163 communes, et Monaco ».
+  À retirer si vous n'allez pas partout.
+- **Moto** : la FAQ décrit l'arrimage (rail, sangles avec protections, jamais
+  couchée). À ajuster à votre matériel réel.
+- **Estimation dans la demande en ligne** : elle ajoutait le déplacement
+  sauf si le véhicule allait à notre atelier, alors que la page Tarifs
+  l'ajoute toujours. Les deux suivent maintenant la page Tarifs. Si vous
+  voulez offrir le déplacement quand le véhicule vient à l'atelier, dites-le :
+  la règle s'ajoute aux deux estimateurs et à la grille publiée.
+- **Toujours en attente de votre côté** pour les idées les plus fortes :
+  photos et courte vidéo du camion, lien de la fiche Google (avis), vos
+  agréments réels (assistances, préfecture voies express, AFNOR), nombre de
+  camions. Rien n'est affiché tant que ce n'est pas confirmé.
+
 ### Grille tarifaire — à valider
 
 Les prix publiés (page Tarifs, pages services, estimateur) sont une

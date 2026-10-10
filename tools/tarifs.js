@@ -139,4 +139,62 @@ function des(id, lang = 'fr') {
   return `${L[lang].des} ${euro(s.prix, lang)}`;
 }
 
-module.exports = { calcul, surPlace, autres, paiement, principe, groupes, des, euro };
+// ── Exemples de trajets chiffrés ──────────────
+// Calculés avec la grille ci-dessus : un changement de prix les met à jour.
+// Distances tirées de villes.json (route, depuis l'atelier).
+function prixRemorquage(km) {
+  const c = calcul;
+  const b = c.bandes.find(([max]) => km <= max);
+  const der = c.bandes[c.bandes.length - 1];
+  return b ? b[1] : Math.round(der[1] + (km - der[0]) * c.kmSupp);
+}
+const prixDeplacement = kmLieu => Math.round(Math.max(0, kmLieu - calcul.baseKm) * calcul.deplacementKm);
+function exemples(lang = 'fr') {
+  const { villes } = require('./villes.json');
+  const km = slug => villes.find(v => v.slug === slug).distanceKm;
+  const c = calcul;
+  const T = {
+    fr: { rem: k => `Remorquage sur ${k} km`, depl: k => `Déplacement (${k} km au-delà de Nice)`, nuit: 'Nuit, dimanche ou férié', sousSol: 'Sortie de parking souterrain', boost: 'Démarrage au booster',
+      cas: [
+        ['Panne dans Nice, remorquage vers un garage niçois', '5 km, en journée'],
+        ['Panne à Nice, remorquage vers un garage de Cagnes-sur-Mer', `${km('cagnes-sur-mer')} km, en journée`],
+        ['Panne à Antibes, remorquage jusqu\'à notre atelier de Nice', `${km('antibes')} km, en journée`],
+        ['Panne à Cannes, remorquage vers un garage cannois', '5 km, en journée'],
+        ['Batterie à plat à Nice, un dimanche soir', 'sur place, sans remorquage'],
+        ['Voiture bloquée dans un parking souterrain de Nice, remorquage vers un garage', '8 km, en journée'],
+      ] },
+    en: { rem: k => `Towing over ${k} km`, depl: k => `Travel (${k} km beyond Nice)`, nuit: 'Night, Sunday or holiday', sousSol: 'Underground car park exit', boost: 'Jump-start',
+      cas: [
+        ['Breakdown in Nice, towed to a garage in Nice', '5 km, daytime'],
+        ['Breakdown in Nice, towed to a garage in Cagnes-sur-Mer', `${km('cagnes-sur-mer')} km, daytime`],
+        ['Breakdown in Antibes, towed to our workshop in Nice', `${km('antibes')} km, daytime`],
+        ['Breakdown in Cannes, towed to a garage in Cannes', '5 km, daytime'],
+        ['Flat battery in Nice, on a Sunday evening', 'on the spot, no towing'],
+        ['Car stuck in an underground car park in Nice, towed to a garage', '8 km, daytime'],
+      ] },
+    it: { rem: k => `Traino per ${k} km`, depl: k => `Spostamento (${k} km oltre Nizza)`, nuit: 'Notte, domenica o festivo', sousSol: 'Uscita da parcheggio sotterraneo', boost: 'Avviamento con booster',
+      cas: [
+        ['Guasto a Nizza, traino verso un garage di Nizza', '5 km, di giorno'],
+        ['Guasto a Nizza, traino verso un garage di Cagnes-sur-Mer', `${km('cagnes-sur-mer')} km, di giorno`],
+        ['Guasto ad Antibes, traino fino alla nostra officina di Nizza', `${km('antibes')} km, di giorno`],
+        ['Guasto a Cannes, traino verso un garage di Cannes', '5 km, di giorno'],
+        ['Batteria scarica a Nizza, una domenica sera', 'sul posto, senza traino'],
+        ['Auto bloccata in un parcheggio sotterraneo di Nizza, traino verso un garage', '8 km, di giorno'],
+      ] },
+  }[lang];
+  const boost = surPlace.find(s => s.id === 'batterie').prix;
+  const lignes = [
+    [[T.rem(5), prixRemorquage(5)]],
+    [[T.rem(km('cagnes-sur-mer')), prixRemorquage(km('cagnes-sur-mer'))]],
+    [[T.rem(km('antibes')), prixRemorquage(km('antibes'))], [T.depl(km('antibes') - c.baseKm), prixDeplacement(km('antibes'))]],
+    [[T.rem(5), prixRemorquage(5)], [T.depl(km('cannes') - c.baseKm), prixDeplacement(km('cannes'))]],
+    [[T.boost, boost], [T.nuit, c.nuit]],
+    [[T.rem(8), prixRemorquage(8)], [T.sousSol, c.sousSol]],
+  ];
+  return T.cas.map(([titre, sous], i) => {
+    const l = lignes[i].filter(([, v]) => v > 0);
+    return { titre, sous, lignes: l.map(([n, v]) => ({ nom: n, prix: euro(v, lang) })), total: euro(l.reduce((t, [, v]) => t + v, 0), lang) };
+  });
+}
+
+module.exports = { calcul, surPlace, autres, paiement, principe, groupes, des, euro, exemples, prixRemorquage, prixDeplacement };

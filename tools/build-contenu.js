@@ -70,7 +70,7 @@ function pageService(s) {
   </ol>
 </section>
 
-<section class="wrap sec" aria-labelledby="h-attente">
+${s.encadre ? s.encadre + '\n\n' : ''}<section class="wrap sec" aria-labelledby="h-attente">
   <div class="aside">
     <h2 id="h-attente">${s.quand ? 'Avant le rendez-vous' : 'En attendant la dépanneuse'}</h2>
     <ul>

@@ -197,7 +197,9 @@
     if (base == null) return null;
     lignes.push([libelle, base]);
     let total = base;
-    if (km != null && km > c.baseKm && !(el.dest.value === 'atelier' && (type === 'remorquage' || type === 'accident'))) {
+    // Même règle que la grille publiée (page Tarifs) : déplacement compté
+    // au-delà de baseKm depuis l'atelier, quelle que soit la destination.
+    if (km != null && km > c.baseKm) {
       const x = Math.round((km - c.baseKm) * c.deplacementKm); total += x; lignes.push([`+ ${km - c.baseKm} km`, x]);
     }
     if (nuitPrevue()) { total += c.nuit; lignes.push([LANG === 'fr' ? 'Nuit, dimanche ou férié' : LANG === 'it' ? 'Notte, domenica o festivo' : 'Night, Sunday or holiday', c.nuit]); }

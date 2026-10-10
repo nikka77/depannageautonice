@@ -9,6 +9,9 @@
 // insécables automatiquement au moment de la génération.
 // =============================================
 
+// Le guide prix calcule ses chiffres avec la grille : jamais de prix en double.
+const TARIFS = require('./tarifs');
+
 const MAJ = '2026-09-25';
 
 const CATS = [
@@ -536,6 +539,41 @@ const G = [
 <p>N'appelez pas un dépanneur trouvé sur internet : seul le dépanneur agréé peut intervenir, au tarif réglementé. <a href="guide-panne-autoroute-a8.html">Panne sur l'A8</a>.</p>
 <h2>En cas de litige</h2>
 <p>Adressez d'abord une réclamation écrite à l'entreprise. Sans réponse satisfaisante, vous pouvez saisir gratuitement le médiateur de la consommation dont elle relève, ou signaler le problème à la DGCCRF sur la plateforme SignalConso.</p>`,
+  },
+  {
+    slug: 'guide-prix-depanneuse-nice', cat: 'demarches', ic: 'euro', min: 4,
+    titre: 'Combien coûte une dépanneuse à Nice ?',
+    title: `Prix d'une dépanneuse à Nice : tarifs dès ${TARIFS.calcul.bandes[0][1]} € et exemples chiffrés`,
+    desc: `Prix d'un dépannage et d'un remorquage à Nice : ce qui fait le prix (distance, nuit, sous-sol, utilitaire), exemples chiffrés et pièges à éviter.`,
+    essentiel: [`Dépannage sur place ou remorquage jusqu'à ${TARIFS.calcul.bandes[0][0]} km : ${TARIFS.calcul.bandes[0][1]} € TTC chez nous, de jour, à Nice.`, 'Le prix dépend surtout de la distance de remorquage.', 'Nuit, dimanche, sous-sol, utilitaire : suppléments annoncés avant le départ.', 'Sur autoroute, le tarif est réglementé et le dépanneur imposé.'],
+    services: ['remorquage-voiture-nice', 'depannage-batterie-nice'],
+    corps: (() => {
+      const c = TARIFS.calcul;
+      const e = n => `${n}&nbsp;€`;
+      const ex = TARIFS.exemples('fr');
+      return `
+<h2>Ce qui fait le prix</h2>
+<p>Quatre éléments, toujours les mêmes&nbsp;: <strong>ce qu'il faut faire</strong> (réparer sur place ou remorquer), <strong>la distance</strong> (jusqu'au lieu de la panne, puis jusqu'au garage), <strong>le moment</strong> (jour, nuit, dimanche) et <strong>l'accès</strong> (parking souterrain, roues bloquées, utilitaire). Un dépanneur sérieux vous les demande au téléphone et vous annonce un prix ferme avant de partir.</p>
+<h2>Nos prix, publiés</h2>
+<ul>
+<li>Dépannage sur place (batterie, roue, panne sèche) à Nice, de jour&nbsp;: dès ${e(TARIFS.surPlace.find(x => x.id === 'batterie').prix)}.</li>
+<li>Remorquage&nbsp;: ${c.bandes.map(([km, p], i) => `${e(p)} ${i === 0 ? `jusqu'à ${km}&nbsp;km` : `de ${c.bandes[i - 1][0]} à ${km}&nbsp;km`}`).join(', ')}, puis ${e(c.kmSupp)} par km.</li>
+<li>Déplacement au-delà de ${c.baseKm}&nbsp;km de notre atelier&nbsp;: ${e(c.deplacementKm)} par km.</li>
+<li>Nuit (20&nbsp;h – 8&nbsp;h), dimanche et jour férié&nbsp;: +${e(c.nuit)}. Sortie de parking souterrain&nbsp;: +${e(c.sousSol)}. Utilitaire ou camping-car&nbsp;: +${e(c.utilitaire)}.</li>
+</ul>
+<p>La grille complète et l'estimateur sont sur la page <a href="tarifs.html">tarifs</a>.</p>
+<h2>Exemples chiffrés</h2>
+<ul>
+${ex.map(x => `<li><strong>${x.titre}</strong> (${x.sous})&nbsp;: ${x.total}.</li>`).join('\n')}
+</ul>
+<p>Ces exemples sont calculés pour une voiture avec notre grille. Votre prix ferme vous est donné au téléphone avant le départ&nbsp;: c'est celui qui est facturé.</p>
+<h2>Les pièges à éviter</h2>
+<p>Un prix d'appel très bas sans détail, un «&nbsp;on verra sur place&nbsp;», des «&nbsp;frais de dossier&nbsp;» ou un supplément découvert à l'arrivée&nbsp;: autant de signes qu'il faut demander un prix ferme avant tout. Notre guide <a href="guide-choisir-un-depanneur.html">choisir un dépanneur</a> détaille ce que vous êtes en droit d'exiger.</p>
+<h2>Votre assurance peut payer</h2>
+<p>Si votre contrat comprend l'assistance, appelez d'abord son numéro&nbsp;: elle peut prendre en charge tout ou partie de l'intervention. Voir <a href="guide-assurance-assistance.html">assurance et assistance</a>.</p>
+<h2>Sur l'autoroute</h2>
+<p>Le dépanneur est imposé (agréé pour le tronçon) et le tarif fixé par la réglementation. <a href="guide-panne-autoroute-a8.html">Panne sur l'A8&nbsp;: les bons réflexes</a>.</p>`;
+    })(),
   },
 ];
 

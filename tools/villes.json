@@ -534,6 +534,176 @@
           "r": "Comme en France, nous essayons d'abord de vous dépanner sur place&nbsp;: batterie, roue, carburant, ouverture de porte. Si ce n'est pas possible, nous remorquons le véhicule vers le garage de votre choix, à Monaco, à Nice ou ailleurs."
         }
       ]
+    },
+    {
+      "slug": "villefranche-sur-mer",
+      "nom": "Villefranche-sur-Mer",
+      "cp": "06230",
+      "lat": 43.704,
+      "lng": 7.3111,
+      "distanceKm": 7,
+      "delai": "20 à 40 min",
+      "acces": "Basse Corniche (M6098) par le Mont Boron, ou Moyenne Corniche (M6007) par le col de Villefranche.",
+      "intro": "Juste après le Mont Boron, Villefranche-sur-Mer est la première commune de la Basse Corniche en sortant de Nice. La rade, la vieille ville en escaliers et deux corniches superposées&nbsp;: l'endroit où le véhicule est arrêté change tout pour l'intervention.",
+      "specTitre": "Bon à savoir à Villefranche-sur-Mer",
+      "specificites": [
+        {
+          "titre": "La Basse Corniche, sans bande d'arrêt",
+          "texte": "Entre Nice et Villefranche, la Basse Corniche longe la falaise&nbsp;: pas d'accotement, des bus et beaucoup de deux-roues. En cas de panne, feux de détresse, gilet, et mettez-vous à l'abri côté trottoir. Dites-nous dans quel sens vous rouliez&nbsp;: c'est ce qui nous permet de vous rejoindre vite."
+        },
+        {
+          "titre": "Vieille ville et ruelles en escaliers",
+          "texte": "Le cœur de Villefranche ne se parcourt qu'à pied. Si votre véhicule est sur un parking en bordure, indiquez lequel&nbsp;; s'il ne roule plus, nous le chargeons au point accessible le plus proche."
+        },
+        {
+          "titre": "Les jours d'escale",
+          "texte": "Quand des paquebots mouillent dans la rade, la circulation autour du port et de la Basse Corniche est plus dense. Le délai annoncé au téléphone en tient compte."
+        }
+      ],
+      "quartiers": [
+        "Vieille ville",
+        "La Darse",
+        "Port de la Santé",
+        "Les Marinières",
+        "Col de Villefranche"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Villefranche-sur-Mer ?",
+          "r": "La commune est à environ 7 km de notre atelier&nbsp;: comptez 20 à 40 minutes. Les jours de forte affluence sur la Basse Corniche, nous vous donnons un délai précis au téléphone."
+        },
+        {
+          "q": "Je suis en panne sur la Moyenne Corniche, au-dessus de Villefranche.",
+          "r": "Nous intervenons aussi sur la Moyenne Corniche. Indiquez-nous un repère (col de Villefranche, virage, numéro de borne) ou envoyez votre position GPS depuis le formulaire&nbsp;: c'est le plus rapide."
+        }
+      ]
+    },
+    {
+      "slug": "mougins",
+      "nom": "Mougins",
+      "cp": "06250",
+      "lat": 43.6,
+      "lng": 6.9953,
+      "distanceKm": 32,
+      "delai": "45 min à 1 h 15",
+      "acces": "A8 sortie Cannes-Mougins, puis pénétrante Cannes-Grasse (D6185) selon le quartier.",
+      "intro": "Au-dessus de Cannes, Mougins mêle un vieux village perché, de grands quartiers résidentiels en colline et une partie du technopôle de Sophia Antipolis. La pénétrante Cannes-Grasse la traverse&nbsp;: c'est souvent là que la panne arrive.",
+      "specTitre": "Bon à savoir à Mougins",
+      "specificites": [
+        {
+          "titre": "La pénétrante Cannes-Grasse",
+          "texte": "Voie rapide très fréquentée aux heures de pointe, avec peu d'endroits pour s'arrêter. Si vous êtes immobilisé dessus, mettez-vous derrière la glissière, appelez-nous et donnez le sens de circulation et la sortie la plus proche."
+        },
+        {
+          "titre": "Résidences et domaines fermés",
+          "texte": "Beaucoup de quartiers sont des résidences à portail ou à badge. Donnez-nous le code ou prévenez le gardien&nbsp;: un portail fermé peut faire perdre plus de temps que l'intervention elle-même."
+        },
+        {
+          "titre": "Le vieux village",
+          "texte": "Le centre historique est en grande partie piéton. Si votre voiture est garée sur l'un des parkings autour du village, précisez lequel&nbsp;: nous venons directement au bon endroit."
+        }
+      ],
+      "quartiers": [
+        "Vieux village",
+        "Mougins-le-Haut",
+        "Tournamy",
+        "Saint-Basile",
+        "Val de Mougins"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Mougins ?",
+          "r": "Mougins est à environ 32 km de notre atelier, par l'A8&nbsp;: comptez 45 minutes à 1 h 15 selon l'heure. Le délai exact vous est donné au téléphone avant le départ."
+        },
+        {
+          "q": "Pouvez-vous emmener ma voiture dans un garage de Mougins ou de Cannes ?",
+          "r": "Oui&nbsp;: nous remorquons vers le garage de votre choix, votre concessionnaire, votre domicile ou notre atelier de Nice. Le prix dépend de la distance et vous est annoncé avant le départ."
+        }
+      ]
+    },
+    {
+      "slug": "carros",
+      "nom": "Carros",
+      "cp": "06510",
+      "lat": 43.7886,
+      "lng": 7.1844,
+      "distanceKm": 24,
+      "delai": "35 min à 1 h",
+      "acces": "Par la plaine du Var depuis Saint-Laurent-du-Var (M6202bis), ou rive gauche par la M6202 puis un pont sur le Var.",
+      "intro": "Carros, c'est d'un côté un village perché et de l'autre l'une des plus grandes zones industrielles des Alpes-Maritimes, au bord du Var. Entreprises, artisans, utilitaires&nbsp;: une bonne partie de nos interventions ici concerne des véhicules de travail.",
+      "specTitre": "Bon à savoir à Carros",
+      "specificites": [
+        {
+          "titre": "La zone industrielle",
+          "texte": "Dans la zone industrielle de Carros-Le Broc, indiquez le nom de l'entreprise et l'entrée à utiliser&nbsp;: les sites sont grands et les accès parfois réservés aux livraisons. Pour un utilitaire en panne, précisez s'il est chargé."
+        },
+        {
+          "titre": "La voie de la plaine du Var",
+          "texte": "La M6202bis est une route rapide&nbsp;: si vous tombez en panne dessus, sortez par la droite si vous le pouvez, gilet et feux de détresse, et attendez derrière la glissière."
+        },
+        {
+          "titre": "Le village perché",
+          "texte": "La montée vers Carros-Village se fait en lacets. Si la voiture ne repart pas dans la côte, serrez le frein à main, braquez les roues vers le bord de la route et attendez-nous hors du véhicule."
+        }
+      ],
+      "quartiers": [
+        "Carros-Village",
+        "Carros-Ville (Les Plans)",
+        "Zone industrielle",
+        "Bord du Var"
+      ],
+      "faq": [
+        {
+          "q": "Intervenez-vous pour les entreprises de la zone industrielle ?",
+          "r": "Oui&nbsp;: voitures, utilitaires jusqu'à 3,5&nbsp;t, dépannage sur place ou remorquage vers votre garage. Pour un camion plus lourd, appelez-nous&nbsp;: nous vous disons ce qui est possible. Voir aussi notre page <a href=\"professionnels.html\">professionnels</a>."
+        },
+        {
+          "q": "Quel est votre délai sur Carros ?",
+          "r": "Carros est à environ 24 km de notre atelier&nbsp;: comptez 35 minutes à 1 heure, un peu plus aux heures d'embauche et de sortie de la zone industrielle."
+        }
+      ]
+    },
+    {
+      "slug": "saint-martin-du-var",
+      "nom": "Saint-Martin-du-Var",
+      "cp": "06670",
+      "lat": 43.8183,
+      "lng": 7.2025,
+      "distanceKm": 27,
+      "delai": "40 min à 1 h 10",
+      "acces": "Rive gauche du Var par la M6202 (route de Digne), depuis Nice ou depuis la plaine du Var.",
+      "intro": "Saint-Martin-du-Var s'étire le long de la M6202, la grande route de la vallée du Var vers l'arrière-pays. Beaucoup de trafic de passage, des poids lourds et des entreprises le long de la route&nbsp;: c'est la porte de la montagne niçoise.",
+      "specTitre": "Bon à savoir à Saint-Martin-du-Var",
+      "specificites": [
+        {
+          "titre": "La M6202, route de la vallée",
+          "texte": "Route rapide et chargée, empruntée par les camions. En cas de panne, garez-vous le plus à droite possible, feux de détresse allumés, et attendez hors du véhicule, en sécurité derrière la glissière ou sur le bas-côté."
+        },
+        {
+          "titre": "Vers les vallées",
+          "texte": "Au-delà de Saint-Martin-du-Var commencent les routes de montagne (Vésubie, Tinée). Nous intervenons aussi plus haut&nbsp;: le délai et le prix vous sont annoncés au téléphone avant le départ."
+        },
+        {
+          "titre": "Hameaux et chemins en colline",
+          "texte": "Certaines habitations sont desservies par des chemins étroits. Dites-nous si un grand véhicule peut passer&nbsp;: sinon, nous adaptons le matériel ou le point de chargement."
+        }
+      ],
+      "quartiers": [
+        "Centre",
+        "Le long de la M6202",
+        "Bord du Var",
+        "Hameaux en colline"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Saint-Martin-du-Var ?",
+          "r": "La commune est à environ 27 km de notre atelier&nbsp;: comptez 40 minutes à 1 h 10 selon la circulation sur la M6202."
+        },
+        {
+          "q": "Je suis en panne plus haut dans la vallée, vous venez ?",
+          "r": "Oui, dans tout le département. Plus la route est longue, plus le délai l'est aussi&nbsp;: nous vous l'annonçons avec le prix avant de partir."
+        }
+      ]
     }
   ]
 }

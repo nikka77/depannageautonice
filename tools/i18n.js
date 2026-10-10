@@ -26,7 +26,7 @@ const NAV = {
   it: ['services', 'tarifs', 'zone', 'faq', 'a-propos', 'contact'],
 };
 // Pages françaises sans traduction, mais présentes dans le menu.
-const FR_SEULEMENT = { conseils: 'conseils.html' };
+const FR_SEULEMENT = { conseils: 'conseils.html', professionnels: 'professionnels.html' };
 
 const LANGS = [
   { code: 'fr', label: 'FR', name: 'Français' },
@@ -42,7 +42,7 @@ const T = {
     tel: '06 17 68 42 70', urgence: 'Urgence 24h/24', callAria: 'Appeler le', headCta: 'Demander',
     footAddr: 'Zone industrielle du Quai de la Blanquière, Nice.<br>Équipe niçoise depuis 2004, toutes assurances.',
     ftSite: 'Le site', ftAct: 'Agir',
-    ftLinks: { accueil: 'Accueil', services: 'Nos services', tarifs: 'Tarifs', zone: "Zone d'intervention", conseils: 'Guides et conseils', faq: 'Questions fréquentes', 'a-propos': "À propos de l'équipe" },
+    ftLinks: { accueil: 'Accueil', services: 'Nos services', tarifs: 'Tarifs', zone: "Zone d'intervention", conseils: 'Guides et conseils', faq: 'Questions fréquentes', professionnels: 'Professionnels', 'a-propos': "À propos de l'équipe" },
     cgv: 'Conditions de vente',
     demande: 'Demander un dépannage', diag: 'Diagnostic pneus gratuit', contact: 'Contact', legal: 'Mentions légales',
     quick: 'Contact rapide', railCall: 'Appeler 24h/24', railDem: 'Demander un dépannage', top: 'Remonter en haut de page',

@@ -561,6 +561,8 @@ p { margin: 0; }
 .prose { max-width: 720px; color: var(--ink-2); font-size: 1.02rem; line-height: 1.75; }
 .prose h2 { font-size: 1.25rem; color: var(--ink); margin: 36px 0 10px; line-height: 1.3; }
 .prose h2:first-child { margin-top: 0; }
+.prose h3 { font-size: 1.05rem; color: var(--ink); margin: 24px 0 6px; line-height: 1.35; }
+.prose h3:first-child { margin-top: 0; }
 .prose p + p { margin-top: 12px; }
 .prose ul, .prose ol { margin: 10px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
 .prose ul + p, .prose ol + p { margin-top: 14px; }
@@ -1072,6 +1074,7 @@ textarea.qr-in-txt { resize: vertical; min-height: 64px; }
   .fact { padding: 18px 16px; }
   .fact:nth-child(odd) { border-left: 0; padding-left: 0; }
   .facts { grid-template-columns: 1fr 1fr; }
+  .facts .fact:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
   .fact b { font-size: 1.15rem; }
   .fact span { font-size: .8rem; }
@@ -1125,4 +1128,24 @@ textarea.qr-in-txt { resize: vertical; min-height: 64px; }
 @keyframes rv-ic { from { opacity: 0; transform: scale(.4) rotate(-14deg); } to { opacity: 1; transform: none; } }
 @keyframes rv-n { from { opacity: 0; letter-spacing: .5em; } to { opacity: 1; } }
 @media print { .rv { opacity: 1 !important; transform: none !important; } }
+
+/* ── Exemples de prix (page Tarifs, guide prix) ── */
+.ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.ex-card { border: 1px solid var(--line); background: var(--paper); padding: 18px 18px 14px; display: flex; flex-direction: column; gap: 8px; }
+.ex-card h3 { font-size: .98rem; line-height: 1.35; letter-spacing: -.01em; }
+.ex-sous { font-family: var(--mono); font-size: .7rem; letter-spacing: .04em; color: var(--muted); }
+.ex-card ul { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ex-card li, .ex-total { display: flex; justify-content: space-between; gap: 12px; font-size: .88rem; color: var(--ink-2); }
+.ex-card li b { font-weight: 600; white-space: nowrap; }
+.ex-total { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 700; }
+.ex-total b { font-family: var(--mono); font-size: 1.15rem; color: var(--accent); white-space: nowrap; }
+
+/* ── Encadré d'alerte (panne sur autoroute) ── */
+.alerte { display: flex; gap: 18px; align-items: flex-start; border: 1px solid #f0c4a0; border-left: 6px solid var(--fill); background: #fff6ef; padding: 22px 24px; }
+.alerte > .ic { width: 30px; height: 30px; color: var(--accent); margin-top: 2px; }
+.alerte h2 { font-size: 1.15rem; margin-bottom: 10px; }
+.alerte ol { margin: 0 0 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: var(--ink-2); font-size: .95rem; line-height: 1.55; }
+.alerte strong { color: var(--ink); }
+@media (max-width: 520px) { .alerte { flex-direction: column; gap: 10px; padding: 18px; } }
+.cell .textlink { margin-top: auto; }
 
