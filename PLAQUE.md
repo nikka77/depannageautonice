@@ -165,3 +165,19 @@ comportement, même fiche, un seul endroit à modifier.
   envoyé au garage et rappelé sur l'écran de confirmation. La plaque est
   conservée même si le client clique « Passer », qui ne concerne que la
   description.
+
+## Fenêtre de demande : remplissage automatique
+
+Dans « Demander un dépannage », la plaque est demandée en premier, dans un
+champ dessiné comme une vraie plaque française. Dès qu'une plaque SIV est
+complète (AA-123-AA), la recherche part (120 ms) et remplit marque, modèle,
+type de véhicule, énergie et boîte automatique (`js/demande-rapide.js`,
+`remplirVehicule`). Chaque champ rempli porte l'étiquette « D'après la
+plaque » et reste modifiable ; changer de plaque retire ce qui avait été posé.
+
+La boîte est déduite de la finition (EAT8, DSG, EDC, BVA…), une électrique
+étant toujours automatique. `api/plaque.js` renvoie aussi `boite` et `genre`
+si Auto Ways les fournit : **effectif après redéploiement du relais**, qui
+n'est pas relié au dépôt (voir plus haut). Sans redéploiement, tout le reste
+fonctionne déjà.
+

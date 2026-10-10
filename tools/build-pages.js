@@ -337,6 +337,10 @@ for (const lang of ['en', 'it']) {
 // (js/demande-rapide.js) au lieu de changer de page. demande.html n'est
 // plus qu'une redirection vers l'accueil qui ouvre cette fenêtre, pour les
 // anciens liens, favoris et QR codes.
+// Plaque française de la fenêtre de demande : bande européenne (12 étoiles,
+// « F ») à gauche, bande départementale (06) à droite.
+const PF_ETOILES = '<svg class="pf-etoiles" viewBox="0 0 24 24" focusable="false"><polygon points="12.00,3.35 12.35,4.31 13.38,4.35 12.57,4.99 12.85,5.97 12.00,5.40 11.15,5.97 11.43,4.99 10.62,4.35 11.65,4.31"/><polygon points="15.60,4.31 15.95,5.28 16.98,5.32 16.17,5.95 16.45,6.94 15.60,6.36 14.75,6.94 15.03,5.95 14.22,5.32 15.25,5.28"/><polygon points="18.24,6.95 18.59,7.91 19.61,7.95 18.81,8.59 19.09,9.57 18.24,9.00 17.38,9.57 17.66,8.59 16.86,7.95 17.88,7.91"/><polygon points="19.20,10.55 19.55,11.51 20.58,11.55 19.77,12.19 20.05,13.17 19.20,12.60 18.35,13.17 18.63,12.19 17.82,11.55 18.85,11.51"/><polygon points="18.24,14.15 18.59,15.11 19.61,15.15 18.81,15.79 19.09,16.77 18.24,16.20 17.38,16.77 17.66,15.79 16.86,15.15 17.88,15.11"/><polygon points="15.60,16.79 15.95,17.75 16.98,17.79 16.17,18.42 16.45,19.41 15.60,18.84 14.75,19.41 15.03,18.42 14.22,17.79 15.25,17.75"/><polygon points="12.00,17.75 12.35,18.71 13.38,18.75 12.57,19.39 12.85,20.37 12.00,19.80 11.15,20.37 11.43,19.39 10.62,18.75 11.65,18.71"/><polygon points="8.40,16.79 8.75,17.75 9.78,17.79 8.97,18.42 9.25,19.41 8.40,18.84 7.55,19.41 7.83,18.42 7.02,17.79 8.05,17.75"/><polygon points="5.76,14.15 6.12,15.11 7.14,15.15 6.34,15.79 6.62,16.77 5.76,16.20 4.91,16.77 5.19,15.79 4.39,15.15 5.41,15.11"/><polygon points="4.80,10.55 5.15,11.51 6.18,11.55 5.37,12.19 5.65,13.17 4.80,12.60 3.95,13.17 4.23,12.19 3.42,11.55 4.45,11.51"/><polygon points="5.76,6.95 6.12,7.91 7.14,7.95 6.34,8.59 6.62,9.57 5.76,9.00 4.91,9.57 5.19,8.59 4.39,7.95 5.41,7.91"/><polygon points="8.40,4.31 8.75,5.28 9.78,5.32 8.97,5.95 9.25,6.94 8.40,6.36 7.55,6.94 7.83,5.95 7.02,5.32 8.05,5.28"/></svg>';
+const PF_DEP = '<svg class="pf-embleme" viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="9" r="4.2"/><path d="M3 17c3-2.4 6-2.4 9 0s6 2.4 9 0M3 21c3-2.4 6-2.4 9 0s6 2.4 9 0" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>';
 const QR_TYPES = [['batterie', 'battery'], ['pneu', 'wheel'], ['carburant', 'fuel'], ['remorquage', 'truck'], ['moteur', 'thermo'], ['cles', 'key'], ['accident', 'alert'], ['autre', 'wrench']];
 const QR_CATS = [['voiture', 'car'], ['suv', 'car'], ['utilitaire', 'truck'], ['campingcar', 'truck'], ['moto', 'bike']];
 function demandeRapide(lang, to) {
@@ -354,7 +358,7 @@ function demandeRapide(lang, to) {
     presta: Object.fromEntries(TARIFS.surPlace.map(x => [x.id, x.prix])),
     delais: [{ km: 0, d: I18N.DELAI_NICE[lang] }, ...villes.map(v => ({ km: v.distanceKm, d: I18N.delai(lang, v.delai), v: nomV(v) }))],
     fr: (({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }) => ({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }))(I18N.T.fr.qr),
-    loc: { types: q.types, categories: q.categories, energies: q.energies, dests: q.dests, creneaux: q.creneaux, carbuOpts: q.carbuOpts, clesOpts: q.clesOpts },
+    loc: { auto: q.auto, types: q.types, categories: q.categories, energies: q.energies, dests: q.dests, creneaux: q.creneaux, carbuOpts: q.carbuOpts, clesOpts: q.clesOpts },
   };
   const json = o => JSON.stringify(o).replace(/</g, '\\u003c');
   return `
@@ -415,20 +419,32 @@ ${QR_TYPES.map(([id, icon]) => `              <label class="qr-type"><input type
             <p class="qr-note qr-note-rouge" id="qrBlessesMsg" hidden>${ic('alert', 'ic-sm')}${q.blessesMsg} <a href="tel:112">112</a></p>
             <p class="qr-lab">${q.roule}</p>${ouiNon('roule')}
           </div>
-          <fieldset class="qr-f">
+          <fieldset class="qr-f qr-veh">
             <legend>${q.vehicule}</legend>
-            <div class="qr-cats">
-${QR_CATS.map(([id, icon]) => `              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="${id}"${id === 'voiture' ? ' checked' : ''}><span>${ic(icon)}${q.categories[id]}</span></label>`).join('\n')}
+            <label class="qr-lab" for="qrPlaque">${q.plaque}</label>
+            <div class="plaque-fr">
+              <span class="pf-band pf-eu" aria-hidden="true">${PF_ETOILES}<b>F</b></span>
+              <input class="champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-describedby="qrPlaqueAide">
+              <span class="pf-band pf-dep" aria-hidden="true">${PF_DEP}<b>06</b></span>
+              <span class="pf-scan" aria-hidden="true"></span>
             </div>
-            <div class="qr-duo">
-              <div><label class="qr-lab" for="qrEnergie">${q.energie}</label><select class="qr-in-txt" id="qrEnergie" name="energie">${Object.entries(q.energies).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
-              <div class="qr-duo-chk">${chk('boite', q.boite)}</div>
-            </div>
-            <label class="qr-lab" for="qrPlaque">${q.plaque} <small>(${q.facultatif})</small></label>
-            <input class="qr-in-txt champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <p class="qr-aide" id="qrPlaqueAide">${q.plaqueAide}</p>
             <p class="plaque-statut" id="qrPlaqueSt" role="status" aria-live="polite" hidden></p>
             <div class="veh-carte" id="qrPlaqueCarte" role="status" aria-live="polite" hidden></div>
-            <p class="qr-aide">${q.plaqueAide}</p>
+            <div class="qr-duo">
+              <div class="qr-auto"><label class="qr-lab" for="qrMarque">${q.marque}</label><input class="qr-in-txt" type="text" id="qrMarque" name="marque" autocomplete="off"></div>
+              <div class="qr-auto"><label class="qr-lab" for="qrModele">${q.modele}</label><input class="qr-in-txt" type="text" id="qrModele" name="modele" autocomplete="off"></div>
+            </div>
+            <div class="qr-f qr-auto" id="qrCatsBloc" role="radiogroup" aria-labelledby="qrCatsLab">
+              <p class="qr-lab" id="qrCatsLab">${q.typeVeh}</p>
+              <div class="qr-cats">
+${QR_CATS.map(([id, icon]) => `                <label class="qr-type qr-cat"><input type="radio" name="categorie" value="${id}"${id === 'voiture' ? ' checked' : ''}><span>${ic(icon)}${q.categories[id]}</span></label>`).join('\n')}
+              </div>
+            </div>
+            <div class="qr-duo">
+              <div class="qr-auto"><label class="qr-lab" for="qrEnergie">${q.energie}</label><select class="qr-in-txt" id="qrEnergie" name="energie">${Object.entries(q.energies).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+              <div class="qr-duo-chk qr-auto">${chk('boite', q.boite)}</div>
+            </div>
           </fieldset>
           <div class="qr-f">
             <p class="qr-lab">${q.photo} <small>(${q.facultatif})</small></p>

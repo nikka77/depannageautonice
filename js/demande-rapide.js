@@ -289,21 +289,98 @@
     en: { recherche: 'Looking up the vehicle…', pasLeBon: 'Not my vehicle', pasMonVehicule: 'This is not my vehicle', format: 'French format: AA-123-AA', introuvable: 'Vehicle not found — just describe it in the details', indisponible: 'Lookup unavailable — just describe the vehicle in the details', delai: 'Lookup took too long', 'trop-de-requetes': 'Too many lookups, wait a minute' },
     it: { recherche: 'Ricerca del veicolo…', pasLeBon: 'Non è il mio', pasMonVehicule: 'Non è il mio veicolo', format: 'Formato francese: AA-123-AA', introuvable: 'Veicolo non trovato — descrivetelo nei dettagli', indisponible: 'Ricerca non disponibile — descrivete il veicolo nei dettagli', delai: 'La ricerca ha richiesto troppo tempo', 'trop-de-requetes': 'Troppe ricerche, attendete un minuto' },
   };
-  let plaqueBranchee = false;
+  // ── Remplissage automatique d'après la plaque ──
+  // Auto Ways renvoie des libellés en majuscules, parfois accentués
+  // (« ÉLECTRICITÉ », « FOURGON », « 1.2 PURETECH 130 EAT8 »).
+  const sansAccent = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+  function energieDe(v) {
+    const e = sansAccent(v.energie);
+    if (!e) return '';
+    if (e.includes('HYBRID') || (/ELEC/.test(e) && /ESS|GAZ|DIES/.test(e))) return 'hybride';
+    if (/ELEC/.test(e)) return 'electrique';
+    if (/GAZOLE|DIESEL/.test(e)) return 'diesel';
+    if (/GPL|GNV/.test(e)) return 'gpl';
+    if (/ESS|SUPER|ETHANOL|E85/.test(e)) return 'essence';
+    return '';
+  }
+  function categorieDe(v) {
+    const c = sansAccent([v.carrosserie, v.genre].filter(Boolean).join(' '));
+    if (!c) return '';
+    if (/CAMPING|CARAVANE|VASP/.test(c)) return 'campingcar';
+    if (/MOTO|SCOOT|CYCLO|QUAD|\bMTL\b|\bMTT/.test(c)) return 'moto';
+    if (/FOURGON|CAMIONNETTE|CTTE|UTILITAIRE|PLATEAU|BENNE|PICK|CHASSIS|MINIBUS|\bVAN\b|\bCAM\b|DERIV/.test(c)) return 'utilitaire';
+    if (/TOUT.?TERRAIN|\bSUV\b|4X4|CROSSOVER|\bTT\b/.test(c)) return 'suv';
+    return 'voiture';
+  }
+  // La boîte n'est pas toujours fournie : on la déduit de la finition
+  // (EAT8, DSG, EDC, BVA…) ; une électrique est toujours automatique.
+  function boiteDe(v) {
+    const b = sansAccent(v.boite);
+    if (b) return /AUTO|BVA|ROBOT|CVT/.test(b);
+    if (energieDe(v) === 'electrique') return true;
+    const f = sansAccent(v.version);
+    if (/\b(BVA\d*|EAT\d*|EDC\d*|DSG\d*|DCT\d*|S.?TRONIC|TIPTRONIC|STEPTRONIC|MULTITRONIC|GEARTRONIC|POWERSHIFT|X.?TRONIC|E?-?CVT|AUTO(MATIQUE)?|AUT\d*|\d{1,2}G.?TRONIC|AMT|ETG\d*|BVR|MCP|DKG|PDK|SPEEDSHIFT)\b/.test(f)) return true;
+    if (/\b(BVM\d*|MANUELLE)\b/.test(f)) return false;
+    return null;
+  }
+  const autoVals = new Map();     // champ → valeur posée automatiquement
+  function marquer(bloc) {
+    if (!bloc) return;
+    bloc.classList.remove('is-auto');
+    void bloc.offsetWidth;          // relance l'animation à chaque plaque
+    bloc.classList.add('is-auto');
+    bloc.dataset.auto = D.loc.auto;
+  }
+  function poserAuto(champ, valeur, bloc) {
+    if (valeur === '' || valeur == null) return;
+    if (champ.type === 'checkbox') champ.checked = valeur; else champ.value = valeur;
+    autoVals.set(champ, valeur);
+    marquer(bloc || champ.closest('.qr-auto'));
+  }
+  function remplirVehicule(v) {
+    const j = t => (window.Plaque ? Plaque.joli(t) : t || '');
+    poserAuto(el.marque, j(v.marque));
+    poserAuto(el.modele, j(v.modele));
+    const cat = categorieDe(v);
+    if (cat) {
+      const r = f.querySelector(`input[name="categorie"][value="${cat}"]`);
+      if (r) { r.checked = true; autoVals.set(r, true); marquer($('qrCatsBloc')); }
+    }
+    poserAuto(el.energie, energieDe(v));
+    const bo = boiteDe(v);
+    if (bo !== null) poserAuto(el.boite, bo);
+    majConditions();
+  }
+  // Plaque effacée ou modifiée : on retire seulement ce qui avait été posé
+  // automatiquement et que le client n'a pas changé depuis.
+  function viderAuto() {
+    autoVals.forEach((valeur, champ) => {
+      if (champ.type === 'radio') { if (champ.checked) f.querySelector('input[name="categorie"][value="voiture"]').checked = true; }
+      else if (champ.type === 'checkbox') { if (champ.checked === valeur) champ.checked = false; }
+      else if (champ.value === valeur) champ.value = '';
+    });
+    autoVals.clear();
+    qr.querySelectorAll('.qr-auto.is-auto').forEach(b => b.classList.remove('is-auto'));
+  }
+  // Une modification à la main retire l'étiquette « D'après la plaque ».
+  qr.querySelectorAll('.qr-auto').forEach(b => b.addEventListener('change', () => b.classList.remove('is-auto')));
+  [el.marque, el.modele].forEach(c => c.addEventListener('input', () => { autoVals.delete(c); c.closest('.qr-auto').classList.remove('is-auto'); }));
+
+  let plaqueBranchee = false, plaqueCtl = null;
   function brancherPlaque() {
     if (plaqueBranchee || !window.Plaque) return;
     plaqueBranchee = true;
-    Plaque.brancher({
+    plaqueCtl = Plaque.brancher({
       champ: $('qrPlaque'), carte: $('qrPlaqueCarte'), statut: $('qrPlaqueSt'), textes: TXT_PLAQUE[LANG],
       onTrouve: v => {
         etat.vehicule = v;
-        // Énergie et carrosserie trouvées : on pré-remplit ce que l'on peut.
-        const en = String(v.energie || '').toLowerCase();
-        const map = { essence: 'essence', gazole: 'diesel', diesel: 'diesel', electri: 'electrique', hybride: 'hybride', gpl: 'gpl' };
-        const k = Object.keys(map).find(x => en.includes(x));
-        if (k) el.energie.value = map[k];
+        remplirVehicule(v);
+        // Plaque complète et véhicule trouvé : on range le clavier (mobile)
+        // et on montre la fiche et les champs remplis.
+        if (document.activeElement === el.plaque && matchMedia('(pointer: coarse)').matches) el.plaque.blur();
+        $('qrPlaqueCarte').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       },
-      onEfface: () => { etat.vehicule = null; },
+      onEfface: () => { etat.vehicule = null; viderAuto(); },
     });
   }
   const photoIn = $('qrPhoto'), apercu = $('qrPhotoApercu'), retirer = $('qrPhotoRetirer'), ajout = $('qrPhotoAdd');
@@ -328,7 +405,7 @@
     const lignes = [
       [Q.lieu, el.adresse.value.trim() || (etat.gps ? `${etat.gps.lat.toFixed(4)}, ${etat.gps.lng.toFixed(4)}` : '—')],
       [Q.panne, [val(D.loc.types, el.type.value), val(D.loc.carbuOpts, el.carbu.value), val(D.loc.clesOpts, el.cles.value)].filter(Boolean).join(' · ')],
-      [Q.vehicule, [val(D.loc.categories, el.categorie.value), el.energie.value ? D.loc.energies[el.energie.value] : '', el.plaque.value.trim()].filter(Boolean).join(' · ')],
+      [Q.vehicule, [[el.marque.value.trim(), el.modele.value.trim()].filter(Boolean).join(' '), val(D.loc.categories, el.categorie.value), el.energie.value ? D.loc.energies[el.energie.value] : '', el.plaque.value.trim()].filter(Boolean).join(' · ')],
       [Q.quand, el.quand.value === 'plus-tard' ? `${Q.rdv} ${el.date.value ? new Date(el.date.value + 'T12:00:00').toLocaleDateString(LANG, { weekday: 'long', day: 'numeric', month: 'long' }) : ''}, ${D.loc.creneaux[+el.creneau.value]}` : Q.urgence],
       [Q.destination, [D.loc.dests[el.dest.value], el.destAdresse.value.trim()].filter(Boolean).join(' · ')],
     ];
@@ -368,7 +445,7 @@
       el.type.value === 'cles' && el.cles.value ? `   ${FR.clesOpts[el.cles.value]}` : null,
       el.type.value === 'accident' && el.blesses.value ? `   Blessés : ${oui(el.blesses.value)}` : null,
       el.type.value === 'accident' && el.roule.value ? `   Peut rouler : ${oui(el.roule.value)}` : null,
-      `🚗 Véhicule : ${[FR.categories[el.categorie.value], el.energie.value ? FR.energies[el.energie.value] : '', el.boite.checked ? 'boîte auto' : ''].filter(Boolean).join(', ')}`,
+      `🚗 Véhicule : ${[[el.marque.value.trim(), el.modele.value.trim()].filter(Boolean).join(' '), FR.categories[el.categorie.value], el.energie.value ? FR.energies[el.energie.value] : '', el.boite.checked ? 'boîte auto' : ''].filter(Boolean).join(', ')}`,
       el.plaque.value.trim() ? `   Plaque : ${el.plaque.value.trim()}${v ? ' — ' + [j(v.marque), j(v.modele), v.version].filter(Boolean).join(' ') + (v.annee ? ' (' + v.annee + ')' : '') : ''}` : null,
       el.details.value.trim() ? `📝 Précisions : ${el.details.value.trim()}` : null,
       etat.photo ? '📷 Photo : le client en a une, elle suit sur WhatsApp' : null,
@@ -468,6 +545,8 @@
 
   $('qrAgain').addEventListener('click', () => {
     f.reset(); etat.gps = null; etat.photo = null; etat.vehicule = null;
+    if (plaqueCtl) plaqueCtl.effacer({ silencieux: true });
+    autoVals.clear(); qr.querySelectorAll('.qr-auto.is-auto').forEach(b => b.classList.remove('is-auto'));
     gpsBtn.classList.remove('is-ok'); statut('');
     ['qrMap', 'qrMapAide', 'qrDist'].forEach(id => { $(id).hidden = true; });
     apercu.hidden = true; retirer.hidden = true; ajout.hidden = false;
