@@ -219,7 +219,8 @@ const BUSINESS = {
   logo: `${BASE}/img/logo.png`,
   foundingDate: '2004',
   areaServed: [
-    ...['Nice', 'Cannes', 'Antibes', 'Menton', 'Grasse', 'Vence', 'Cagnes-sur-Mer', 'Villeneuve-Loubet', 'Saint-Laurent-du-Var', 'Mougins']
+    ...['Nice', 'Cannes', 'Antibes', 'Menton', 'Grasse', 'Vence', 'Cagnes-sur-Mer', 'Villeneuve-Loubet', 'Saint-Laurent-du-Var', 'Mougins',
+      'Beaulieu-sur-Mer', 'Saint-Jean-Cap-Ferrat', 'Èze', 'Monaco']
       .map(name => ({ '@type': 'City', name })),
     { '@type': 'AdministrativeArea', name: 'Alpes-Maritimes' },
   ],

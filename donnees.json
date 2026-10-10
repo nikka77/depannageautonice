@@ -32,6 +32,13 @@
         "page": "https://nikka77.github.io/depannageautonice/ville-saint-laurent-du-var.html"
       },
       {
+        "ville": "Beaulieu-sur-Mer",
+        "cp": "06310",
+        "distanceKm": 10,
+        "delai": "20 à 40 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-beaulieu-sur-mer.html"
+      },
+      {
         "ville": "Cagnes-sur-Mer",
         "cp": "06800",
         "distanceKm": 13,
@@ -39,11 +46,32 @@
         "page": "https://nikka77.github.io/depannageautonice/ville-cagnes-sur-mer.html"
       },
       {
+        "ville": "Saint-Jean-Cap-Ferrat",
+        "cp": "06230",
+        "distanceKm": 13,
+        "delai": "25 à 45 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-saint-jean-cap-ferrat.html"
+      },
+      {
+        "ville": "Èze",
+        "cp": "06360",
+        "distanceKm": 13,
+        "delai": "25 à 45 min",
+        "page": "https://nikka77.github.io/depannageautonice/ville-eze.html"
+      },
+      {
         "ville": "Villeneuve-Loubet",
         "cp": "06270",
         "distanceKm": 17,
         "delai": "30 à 50 min",
         "page": "https://nikka77.github.io/depannageautonice/ville-villeneuve-loubet.html"
+      },
+      {
+        "ville": "Monaco",
+        "cp": "98000",
+        "distanceKm": 20,
+        "delai": "35 min à 1 h",
+        "page": "https://nikka77.github.io/depannageautonice/ville-monaco.html"
       },
       {
         "ville": "Antibes",

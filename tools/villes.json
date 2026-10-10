@@ -360,6 +360,180 @@
           "r": "Allumez vos feux de détresse, sortez du véhicule côté talus et, si possible, éloignez-vous du virage. Donnez-nous un repère précis ou envoyez votre position par WhatsApp&nbsp;: nous vous annonçons le délai avant de partir."
         }
       ]
+    },
+    {
+      "slug": "beaulieu-sur-mer",
+      "nom": "Beaulieu-sur-Mer",
+      "cp": "06310",
+      "lat": 43.7072,
+      "lng": 7.3317,
+      "distanceKm": 10,
+      "delai": "20 à 40 min",
+      "acces": "Basse Corniche (M6098) par Villefranche-sur-Mer, ou descente depuis la Moyenne Corniche.",
+      "intro": "Beaulieu-sur-Mer tient dans une petite baie abritée entre Villefranche et Èze, coupée en deux par la Basse Corniche. Une seule route principale, beaucoup de circulation en saison&nbsp;: une panne y bloque vite tout le monde.",
+      "specTitre": "Bon à savoir à Beaulieu-sur-Mer",
+      "specificites": [
+        {
+          "titre": "La Basse Corniche",
+          "texte": "La route du bord de mer est l'unique axe qui traverse la ville et elle reste chargée toute l'année. Si vous êtes arrêté sur la voie, allumez vos feux de détresse et sortez côté trottoir&nbsp;: nous arrivons par la même route, donnez-nous le sens dans lequel vous rouliez."
+        },
+        {
+          "titre": "Le port et ses parkings",
+          "texte": "Autour du port de plaisance, les parkings sont nombreux mais parfois couverts ou à barrière. Indiquez-nous le parking exact et, s'il y en a un, le niveau&nbsp;: nous vérifions avant de partir que le camion peut entrer."
+        },
+        {
+          "titre": "Les rues en pente",
+          "texte": "Au-dessus de la Corniche, les rues montent vite et sont étroites. Nous venons d'abord évaluer sur place&nbsp;; si le remorquage est nécessaire, nous descendons le véhicule jusqu'à un point de chargement praticable."
+        }
+      ],
+      "quartiers": [
+        "Centre-ville",
+        "Port de plaisance",
+        "Baie des Fourmis",
+        "Petite Afrique",
+        "Basse Corniche"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Beaulieu-sur-Mer ?",
+          "r": "Beaulieu est à environ 10 km de notre atelier par la Basse Corniche&nbsp;: comptez 20 à 40 minutes selon l'heure. En été, la traversée de Villefranche peut allonger le trajet&nbsp;: nous vous le disons au téléphone."
+        },
+        {
+          "q": "Ma voiture est garée sur le port, pouvez-vous venir ?",
+          "r": "Oui. Indiquez-nous le parking et l'emplacement, et prévenez le gardien s'il y a une barrière&nbsp;: c'est l'accès qui fait perdre le plus de temps."
+        }
+      ]
+    },
+    {
+      "slug": "saint-jean-cap-ferrat",
+      "nom": "Saint-Jean-Cap-Ferrat",
+      "cp": "06230",
+      "lat": 43.6886,
+      "lng": 7.3326,
+      "distanceKm": 13,
+      "delai": "25 à 45 min",
+      "acces": "Basse Corniche jusqu'à Beaulieu ou Villefranche, puis l'avenue Denis-Séméria vers la presqu'île.",
+      "intro": "Saint-Jean-Cap-Ferrat est une presqu'île&nbsp;: on y entre et on en sort par une seule route. Entre le port, les chemins étroits qui longent le cap et les grandes propriétés fermées, l'accès compte autant que la panne.",
+      "specTitre": "Bon à savoir à Saint-Jean-Cap-Ferrat",
+      "specificites": [
+        {
+          "titre": "Une seule route d'accès",
+          "texte": "Toute la presqu'île est desservie par l'avenue Denis-Séméria. Un véhicule immobilisé dessus gêne tout le cap&nbsp;: allumez vos feux de détresse, mettez-vous en sécurité et appelez-nous tout de suite, nous vous donnons le délai avant de partir."
+        },
+        {
+          "titre": "Propriétés et domaines privés",
+          "texte": "Beaucoup de villas sont derrière un portail ou dans un domaine gardé. Prévenez le gardien ou la conciergerie de notre passage et donnez-nous le code ou un contact sur place&nbsp;: sans cela, l'accès peut prendre plus de temps que l'intervention."
+        },
+        {
+          "titre": "Les chemins du cap",
+          "texte": "Autour du cap et vers la pointe Saint-Hospice, les voies sont étroites et sinueuses. Nous venons d'abord évaluer sur place&nbsp;; si le remorquage est nécessaire, nous amenons le véhicule jusqu'à un point de chargement praticable."
+        }
+      ],
+      "quartiers": [
+        "Le port",
+        "Pointe Saint-Hospice",
+        "Passable",
+        "Paloma",
+        "Le phare"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Saint-Jean-Cap-Ferrat ?",
+          "r": "La presqu'île est à environ 13 km de notre atelier&nbsp;: comptez 25 à 45 minutes selon l'heure et le point exact. En saison, la Basse Corniche ralentit parfois le trajet&nbsp;: nous vous le disons au téléphone."
+        },
+        {
+          "q": "Le véhicule est dans une propriété fermée.",
+          "r": "Aucun problème si nous pouvons entrer&nbsp;: donnez-nous le code du portail ou le numéro du gardien, et l'emplacement du véhicule. Nous vérifions au téléphone que le camion passe."
+        }
+      ]
+    },
+    {
+      "slug": "eze",
+      "nom": "Èze",
+      "cp": "06360",
+      "lat": 43.7279,
+      "lng": 7.3617,
+      "distanceKm": 13,
+      "delai": "25 à 45 min",
+      "acces": "Moyenne Corniche (M6007) pour le village, Basse Corniche pour Èze-Bord-de-Mer, Grande Corniche pour le col d'Èze.",
+      "intro": "Èze s'étage sur trois corniches, du bord de mer jusqu'au col, avec un village perché entre les deux. Selon que vous êtes en bas, au village ou sur les hauteurs, la route et le délai ne sont pas les mêmes&nbsp;: dites-nous d'abord sur laquelle vous êtes.",
+      "specTitre": "Bon à savoir à Èze",
+      "specificites": [
+        {
+          "titre": "Trois corniches, trois routes",
+          "texte": "La Basse Corniche longe la mer, la Moyenne Corniche passe au pied du village, la Grande Corniche monte au col d'Èze. Elles ne se rejoignent pas partout&nbsp;: précisez laquelle et dans quel sens vous rouliez, nous prenons la bonne du premier coup."
+        },
+        {
+          "titre": "Le village perché",
+          "texte": "Le vieux village est piéton. Nous ne pouvons pas y entrer avec un camion&nbsp;: si votre véhicule est sur l'un des parkings du village, donnez-nous lequel, nous vous y rejoignons."
+        },
+        {
+          "titre": "Les descentes et les freins",
+          "texte": "Les routes qui descendent du col sont longues et raides. Si vos freins chauffent ou si un voyant s'allume, arrêtez-vous dès qu'un dégagement le permet, moteur coupé, et appelez-nous&nbsp;: ne repartez pas avant qu'ils aient refroidi."
+        }
+      ],
+      "quartiers": [
+        "Èze-Village",
+        "Èze-Bord-de-Mer",
+        "Col d'Èze",
+        "Saint-Laurent-d'Èze",
+        "Moyenne Corniche"
+      ],
+      "faq": [
+        {
+          "q": "Quel est votre délai sur Èze ?",
+          "r": "Èze est à environ 13 km de notre atelier&nbsp;: comptez 25 à 45 minutes selon l'heure et la corniche où vous êtes, un peu plus pour le col d'Èze."
+        },
+        {
+          "q": "Je suis en panne sur la Grande Corniche.",
+          "r": "Allumez vos feux de détresse, sortez du véhicule côté talus et éloignez-vous du virage si vous pouvez. Donnez-nous un repère précis ou envoyez votre position par WhatsApp&nbsp;: nous vous annonçons le délai avant de partir."
+        }
+      ]
+    },
+    {
+      "slug": "monaco",
+      "nom": "Monaco",
+      "cp": "98000",
+      "pays": "MC",
+      "lat": 43.7384,
+      "lng": 7.4246,
+      "distanceKm": 20,
+      "delai": "35 min à 1 h",
+      "acces": "A8 sortie Monaco, ou Basse Corniche par Cap-d'Ail, ou Moyenne Corniche.",
+      "intro": "Monaco est à vingt kilomètres de Nice. Nous y faisons les mêmes interventions qu'en France&nbsp;: dépannage sur place, remorquage, ouverture de porte, batterie, pneu, erreur de carburant. Le prix et le délai vous sont annoncés au téléphone avant le départ.",
+      "specTitre": "Bon à savoir à Monaco",
+      "specificites": [
+        {
+          "titre": "Un autre pays, les mêmes services",
+          "texte": "Monaco a sa propre police, la Sûreté publique, et sa propre fourrière. Si votre véhicule gêne la circulation, suivez d'abord les consignes des agents sur place, puis appelez-nous&nbsp;: nous intervenons comme à Nice, avec les mêmes prix publiés et le trajet annoncé avant le départ."
+        },
+        {
+          "titre": "Parkings souterrains",
+          "texte": "Une grande partie du stationnement se fait en parkings publics souterrains. Indiquez-nous le parking et le niveau, et prévenez l'accueil du parking&nbsp;: nous vérifions avant de partir que la hauteur permet au camion d'entrer."
+        },
+        {
+          "titre": "Grand Prix et grands événements",
+          "texte": "Pendant le Grand Prix et les grands événements, une partie des rues est fermée et la circulation est déviée pendant plusieurs jours. Le délai peut s'allonger nettement&nbsp;: nous vous le disons honnêtement au téléphone."
+        }
+      ],
+      "quartiers": [
+        "Monte-Carlo",
+        "La Condamine",
+        "Monaco-Ville",
+        "Fontvieille",
+        "Larvotto",
+        "Moneghetti"
+      ],
+      "faq": [
+        {
+          "q": "Intervenez-vous à Monaco ?",
+          "r": "Oui, avec les mêmes services qu'en France, depuis notre atelier de Nice à environ 20 km. Comptez 35 minutes à 1 heure selon l'heure et le quartier. Le prix, trajet compris, vous est annoncé avant le départ."
+        },
+        {
+          "q": "Pouvez-vous réparer sur place ou faut-il remorquer ?",
+          "r": "Comme en France, nous essayons d'abord de vous dépanner sur place&nbsp;: batterie, roue, carburant, ouverture de porte. Si ce n'est pas possible, nous remorquons le véhicule vers le garage de votre choix, à Monaco, à Nice ou ailleurs."
+        }
+      ]
     }
   ]
 }
