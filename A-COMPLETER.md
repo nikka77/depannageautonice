@@ -39,6 +39,29 @@ Pour la suite, au choix :
   « Notifications par SMS »), sinon OVH SMS ou Brevo (environ 5 à 8 centimes
   par SMS).
 
+### Fait le 11 octobre 2026 (sans attendre vos réponses)
+
+- **Sorties A8 corrigées** (source : liste des échangeurs de l'A8) :
+  Cagnes-sur-Mer = sortie 48 (est) ou 47 (ouest, Villeneuve-Loubet) — elles
+  étaient inversées ; Cannes = 41 (La Bocca) ou 42 (Mougins, Cannes-centre)
+  — c'était faux aussi ; Villeneuve-Loubet = 46 ou 47 ; Mougins = 42.
+  Routes renommées : D6098 (ex-N98) et D6007 (ex-N7).
+- **Majoration de nuit** : plus de contradiction. +40 € la nuit, le dimanche
+  et les jours fériés partout (grille, CGV, mentions) ; « aucun supplément »
+  veut dire « rien d'ajouté à l'arrivée ».
+- **Pages ville** : le prix indiquait un supplément seulement au-delà de
+  20 km, alors que la grille compte le déplacement dès 10 km. Corrigé, avec
+  le montant (ex. Cannes ≈ 35 €, Carros ≈ 21 €).
+- **Mentions légales et CGV** : toutes les informations légales se
+  remplissent dans `tools/entreprise.js` et ne s'affichent que remplies.
+  Les CGV ne prétendent plus que les coordonnées du médiateur sont dans les
+  mentions tant qu'il n'y en a pas.
+- **Documents prêts** dans `notes/` : `fiches-annuaires.md` (textes Google,
+  PagesJaunes, Apple, Bing, catégories, horaires), `messages-avis.md` (SMS
+  et WhatsApp de demande d'avis, réponses aux avis),
+  `brouillon-mentions-legales.md` (ce qu'il faut fournir, médiateur, clause
+  de conservation à valider).
+
 ### Ajouts du 10 octobre 2026 (idées concurrents) — à relire
 
 - **Page Professionnels** (`professionnels.html`) : elle propose un « compte

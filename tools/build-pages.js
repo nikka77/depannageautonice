@@ -242,6 +242,38 @@ ${TARIFS.exemples(lang).map(e => `    <article class="ex-card">
     </article>`).join('\n')}
   </div>
 </section>`;
+// Mentions légales et CGV : informations de tools/entreprise.js, affichées
+// seulement quand elles sont remplies.
+const ENT = require('./entreprise');
+const legal = {
+  editeur: () => {
+    const e = ENT, l = [`<strong>${e.raisonSociale || e.nom}</strong>${e.raisonSociale ? ` (nom commercial&nbsp;: ${e.nom})` : ''}`];
+    if (e.forme) l.push(`${e.forme}${e.capital ? ` au capital de ${e.capital}` : ''}`);
+    l.push(...e.adresse);
+    if (e.siret) l.push(`SIRET&nbsp;: ${e.siret}`);
+    if (e.rcs && e.siret) l.push(`RCS ${e.rcs} ${e.siret.replace(/\s/g, '').slice(0, 9).replace(/(\d{3})(?=\d)/g, '$1 ')}`);
+    if (e.rm) l.push(`Immatriculée au Répertoire des métiers (${e.rm})`);
+    if (e.tva.regime === 'assujetti' && e.tva.numero) l.push(`TVA intracommunautaire&nbsp;: ${e.tva.numero}`);
+    if (e.tva.regime === 'franchise') l.push('TVA non applicable, article 293 B du Code général des impôts');
+    l.push('Téléphone&nbsp;: <a href="tel:{{TEL_HREF}}">{{TEL}}</a>');
+    if (e.email) l.push(`E-mail&nbsp;: <a href="mailto:${e.email}">${e.email}</a>`);
+    return `<p>\n    ${l.join('<br>\n    ')}\n  </p>`;
+  },
+  directeur: () => ENT.directeur
+    ? `<p>Le directeur de la publication est ${ENT.directeur}.</p>`
+    : '<p>Le directeur de la publication est le gérant de l\'entreprise Dépannage Auto Nice.</p>',
+  assurance: () => ENT.assurance.assureur
+    ? `\n  <h3>Assurance professionnelle</h3>\n  <p>Responsabilité civile professionnelle souscrite auprès de ${ENT.assurance.assureur}${ENT.assurance.adresse ? `, ${ENT.assurance.adresse}` : ''}${ENT.assurance.zone ? `. Couverture géographique&nbsp;: ${ENT.assurance.zone}` : ''}.</p>`
+    : '',
+  mediation: () => ENT.mediateur.nom
+    ? `\n  <h3>Médiation de la consommation</h3>\n  <p>Conformément aux articles L611-1 et suivants du Code de la consommation, le consommateur peut recourir gratuitement au médiateur suivant&nbsp;: <strong>${ENT.mediateur.nom}</strong>${ENT.mediateur.adresse ? `, ${ENT.mediateur.adresse}` : ''}${ENT.mediateur.site ? ` — <a href="${ENT.mediateur.site}" rel="noopener">${ENT.mediateur.site.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>` : ''}.</p>`
+    : '',
+  conservation: () => ENT.conservation ? `\n  <h3>Durée de conservation</h3>\n  <p>${ENT.conservation}</p>` : '',
+  cgvMediateur: () => ENT.mediateur.nom
+    ? 'dont les coordonnées figurent dans les <a href="mentions-legales.html">mentions légales</a>'
+    : 'dont les coordonnées vous sont communiquées sur simple demande',
+};
+
 const PAY_IC = ['card', 'phone', 'phone', 'euro'];
 const paiementHtml = lang => `<ul class="pay">${TARIFS.paiement[lang].map((m, i) => `<li>${ic(PAY_IC[i])}${m}</li>`).join('')}</ul>`;
 function estimData(lang) {
@@ -755,6 +787,12 @@ function fill(p, src) {
   const t = I18N.T[lang];
   const nom = v => I18N.nomVille(lang, v.slug, v.nom);
   return src
+    .replace('{{LEGAL_EDITEUR}}', legal.editeur)
+    .replace('{{LEGAL_DIRECTEUR}}', legal.directeur)
+    .replace('{{LEGAL_ASSURANCE}}', legal.assurance)
+    .replace('{{LEGAL_MEDIATION}}', legal.mediation)
+    .replace('{{LEGAL_CONSERVATION}}', legal.conservation)
+    .replace('{{CGV_MEDIATEUR}}', legal.cgvMediateur)
     .replace(/\{\{ic:([a-z0-9-]+)(?::([a-z0-9- ]+))?\}\}/g, (_, n, c) => ic(n, c))
     .replace(/\{\{TEL_HREF\}\}/g, TEL_HREF)
     .replace(/\{\{TEL\}\}/g, t.tel)
