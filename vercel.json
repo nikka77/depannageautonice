@@ -137,6 +137,28 @@
       ],
       "destination": "https://depanneuse-riviera.fr/",
       "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneur-nice.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneur-nice.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/",
+      "permanent": true
     }
   ]
 }
