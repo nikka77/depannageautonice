@@ -4,5 +4,139 @@
     "api/plaque.js": {
       "maxDuration": 10
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneuse-cannes.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-cannes.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneuse-cannes.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-cannes.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneuse-antibes.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-antibes.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneuse-antibes.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-antibes.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneuse-menton.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-menton.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneuse-menton.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-menton.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneuse-monaco.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-monaco.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneuse-monaco.fr"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-monaco.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneuse-monaco.com"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-monaco.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneuse-monaco.com"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/ville-monaco.html",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "depanneuse-riviera.com"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depanneuse-riviera.com"
+        }
+      ],
+      "destination": "https://depanneuse-riviera.fr/",
+      "permanent": true
+    }
+  ]
 }
