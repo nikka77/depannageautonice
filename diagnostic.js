@@ -395,7 +395,7 @@ function buildCertificate() {
 
     <div class="cert-footer">
       <div class="cert-legal">
-        Ce document a été établi suite à un auto-diagnostic assisté réalisé via <strong>depanneuse-riviera.fr</strong>.<br>
+        Ce document a été établi suite à un auto-diagnostic assisté réalisé via <strong>depannagenice.fr</strong>.<br>
         Il atteste que le propriétaire du véhicule a entrepris une démarche de vérification de l'état de ses pneumatiques et, le cas échéant, a planifié leur remplacement.
         Il repose sur les photos et les réponses du propriétaire&nbsp;: il ne remplace pas l'examen des pneus par un professionnel et n'a aucune valeur officielle (contrôle technique, forces de l'ordre).<br><br>
         Contact : <strong>06 17 68 42 70</strong> — Zone ind. Quai de la Blanquière, Nice

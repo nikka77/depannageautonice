@@ -18,8 +18,8 @@
 const UPSTREAM = 'https://app.auto-ways.net/api/v1/fr';
 
 const ORIGINES_PAR_DEFAUT = [
-  'https://depanneuse-riviera.fr',
-  'https://www.depanneuse-riviera.fr',
+  'https://depannagenice.fr',
+  'https://www.depannagenice.fr',
   'https://nikka77.github.io',
   'http://localhost:8123',
 ];

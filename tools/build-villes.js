@@ -22,6 +22,7 @@ const esc = s => String(s).replace(/&(?!(amp|lt|gt|quot|#\d+|nbsp);)/g, '&amp;')
 const plain = s => String(s).replace(/&nbsp;/g, ' ').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
 
 const { writePage, PAGES } = require('./build-pages');
+const TARIFS = require('./tarifs');
 const { SERVICES } = require('./services');
 const { GUIDES } = require('./guides');
 // Services mis en avant sur chaque page ville.
@@ -123,7 +124,7 @@ function page(v) {
 
 <section class="wrap sec" aria-labelledby="h-tarifs">
   <h2 class="sec-t" id="h-tarifs">Tarifs</h2>
-  <p class="lead">Notre tarif de base est de <strong>70&nbsp;€</strong> pour Nice et ses environs immédiats (<a href="tarifs.html">grille complète</a>). ${v.distanceKm > 20 ? `${esc(v.nom)} étant à ${v.distanceKm}&nbsp;km, un supplément de distance s'applique&nbsp;:` : 'Pour ' + esc(v.nom) + ', le tarif reste proche de ce montant&nbsp;:'} le prix exact vous est annoncé au téléphone <strong>avant</strong> tout déplacement, et c'est celui qui sera facturé. Aucun supplément à l'arrivée.</p>
+  <p class="lead">Notre tarif de base est de <strong>70&nbsp;€</strong> pour Nice et ses environs immédiats (<a href="tarifs.html">grille complète</a>). ${v.distanceKm > TARIFS.calcul.baseKm ? `${esc(v.nom)} étant à environ ${v.distanceKm}&nbsp;km de l'atelier, s'y ajoutent les frais de déplacement, environ ${TARIFS.prixDeplacement(v.distanceKm)}&nbsp;€ de jour&nbsp;:` : 'Pour ' + esc(v.nom) + ', pas de frais de déplacement&nbsp;:'} le prix exact vous est annoncé au téléphone <strong>avant</strong> tout déplacement, et c'est celui qui sera facturé. Aucun supplément à l'arrivée.</p>
   <p class="lead">Nous travaillons avec toutes les compagnies d'assurance auto&nbsp;: la prise en charge directe est souvent possible, demandez-nous.</p>
 </section>
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://depanneuse-riviera.fr/sitemap.xml
+Sitemap: https://depannagenice.fr/sitemap.xml

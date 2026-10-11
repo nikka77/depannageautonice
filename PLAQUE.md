@@ -43,7 +43,7 @@ Variables d'environnement déjà définies sur le projet :
 | Nom | Valeur | État |
 |---|---|---|
 | `AUTOWAYS_TOKEN` | le jeton Auto Ways | défini, type « sensitive » (non relisible) |
-| `ALLOWED_ORIGINS` | `https://depanneuse-riviera.fr,https://www.depanneuse-riviera.fr,https://nikka77.github.io,http://localhost:8123` | défini |
+| `ALLOWED_ORIGINS` | `https://depannagenice.fr,https://www.depannagenice.fr,https://nikka77.github.io,http://localhost:8123` | défini |
 | `DEBUG_PLAQUE` | `0` | désactivé |
 
 ## Refaire le déploiement depuis zéro
@@ -58,7 +58,7 @@ Variables d'environnement déjà définies sur le projet :
    | Nom | Valeur | Obligatoire |
    |---|---|---|
    | `AUTOWAYS_TOKEN` | le jeton Auto Ways | oui |
-   | `ALLOWED_ORIGINS` | `https://depanneuse-riviera.fr,https://www.depanneuse-riviera.fr,https://nikka77.github.io` | recommandé |
+   | `ALLOWED_ORIGINS` | `https://depannagenice.fr,https://www.depannagenice.fr,https://nikka77.github.io` | recommandé |
    | `DEBUG_PLAQUE` | `1` temporairement, voir plus bas | non |
 
    `ALLOWED_ORIGINS` accepte plusieurs origines séparées par des virgules.

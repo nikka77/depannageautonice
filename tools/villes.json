@@ -1,6 +1,6 @@
 {
   "site": {
-    "base": "https://depanneuse-riviera.fr",
+    "base": "https://depannagenice.fr",
     "nom": "Dépannage Auto Nice",
     "tel": "06 17 68 42 70",
     "telHref": "+33617684270",
@@ -16,7 +16,7 @@
       "lng": 7.0174,
       "distanceKm": 33,
       "delai": "45 min à 1 h 15",
-      "acces": "A8 sortie 41 (Cannes-Mougins) ou 42 (Cannes-Centre), puis boulevard Carnot.",
+      "acces": "A8 sortie 41 (Cannes-La Bocca, ouest de Cannes) ou 42 (Mougins, Cannes-centre), puis boulevard Carnot.",
       "intro": "Une panne à Cannes immobilise vite toute une rue&nbsp;: entre la Croisette, le boulevard Carnot et les abords du Palais des Festivals, il y a rarement de quoi se ranger. Nous partons de Nice et remontons l'A8 pour vous dégager, réparer sur place quand c'est possible, ou remorquer.",
       "specificites": [
         {
@@ -61,7 +61,7 @@
       "lng": 7.1239,
       "distanceKm": 22,
       "delai": "35 min à 1 h",
-      "acces": "A8 sortie 44 (Antibes), ou bord de mer par la N7 depuis Villeneuve-Loubet.",
+      "acces": "A8 sortie 44 (Antibes), ou bord de mer par la D6007 (ex-N7) depuis Villeneuve-Loubet.",
       "intro": "Antibes, Juan-les-Pins et le Cap forment trois réalités très différentes pour un dépanneur. Nous couvrons les trois, de la zone technologique aux ruelles du vieil Antibes, en partant de notre atelier niçois.",
       "specificites": [
         {
@@ -150,7 +150,7 @@
       "lng": 7.1487,
       "distanceKm": 13,
       "delai": "25 à 45 min",
-      "acces": "A8 sortie 47 (Cagnes-sur-Mer) ou 48 (Villeneuve-Loubet), bord de mer par la N98.",
+      "acces": "A8 sortie 48 (Cagnes-sur-Mer est) ou 47 (Cagnes-sur-Mer ouest, Villeneuve-Loubet), bord de mer par la D6098 (ex-N98).",
       "intro": "Cagnes est la commune la plus proche de notre atelier&nbsp;: c'est là que nos délais sont les plus courts. Du Cros-de-Cagnes au village perché du Haut-de-Cagnes, les conditions d'intervention n'ont pourtant rien à voir.",
       "specificites": [
         {
@@ -283,7 +283,7 @@
       "lng": 7.1219,
       "distanceKm": 17,
       "delai": "30 à 50 min",
-      "acces": "A8 sorties Villeneuve-Loubet ou Cagnes-sur-Mer, ou bord de mer par la D6007.",
+      "acces": "A8 sorties 46 (Villeneuve-Loubet Plage) ou 47 (Villeneuve-Loubet centre), ou bord de mer par la D6007.",
       "intro": "Entre Cagnes et Antibes, Villeneuve-Loubet va de la mer, avec Marina Baie des Anges, jusqu'au village perché autour de son château. Deux terrains très différents pour une intervention.",
       "specTitre": "Bon à savoir à Villeneuve-Loubet",
       "specificites": [
@@ -586,7 +586,7 @@
       "lng": 6.9953,
       "distanceKm": 32,
       "delai": "45 min à 1 h 15",
-      "acces": "A8 sortie Cannes-Mougins, puis pénétrante Cannes-Grasse (D6185) selon le quartier.",
+      "acces": "A8 sortie 42 (Mougins), puis pénétrante Cannes-Grasse (D6185) selon le quartier.",
       "intro": "Au-dessus de Cannes, Mougins mêle un vieux village perché, de grands quartiers résidentiels en colline et une partie du technopôle de Sophia Antipolis. La pénétrante Cannes-Grasse la traverse&nbsp;: c'est souvent là que la panne arrive.",
       "specTitre": "Bon à savoir à Mougins",
       "specificites": [
