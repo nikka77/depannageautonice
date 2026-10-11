@@ -115,6 +115,8 @@ function normaliser(data) {
     puissanceFiscale: champ(v, 'puissance_fiscale'),
     puissanceCh: champ(v, 'puissance_chevaux'),
     portes:      champ(v, 'nbr_portes'),
+    boite:       champ(v, 'boite_vitesse', 'boite_de_vitesse', 'type_boite', 'boite'),
+    genre:       champ(v, 'genre', 'genre_national', 'genrev'),
     vin:         champ(v, 'vin'),
     pneu:        pneu,
     pneus:       pneus,

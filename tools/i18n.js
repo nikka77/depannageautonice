@@ -26,7 +26,7 @@ const NAV = {
   it: ['services', 'tarifs', 'zone', 'faq', 'a-propos', 'contact'],
 };
 // Pages françaises sans traduction, mais présentes dans le menu.
-const FR_SEULEMENT = { conseils: 'conseils.html' };
+const FR_SEULEMENT = { conseils: 'conseils.html', professionnels: 'professionnels.html' };
 
 const LANGS = [
   { code: 'fr', label: 'FR', name: 'Français' },
@@ -42,7 +42,7 @@ const T = {
     tel: '06 17 68 42 70', urgence: 'Urgence 24h/24', callAria: 'Appeler le', headCta: 'Demander',
     footAddr: 'Zone industrielle du Quai de la Blanquière, Nice.<br>Équipe niçoise depuis 2004, toutes assurances.',
     ftSite: 'Le site', ftAct: 'Agir',
-    ftLinks: { accueil: 'Accueil', services: 'Nos services', tarifs: 'Tarifs', zone: "Zone d'intervention", conseils: 'Guides et conseils', faq: 'Questions fréquentes', 'a-propos': "À propos de l'équipe" },
+    ftLinks: { accueil: 'Accueil', services: 'Nos services', tarifs: 'Tarifs', zone: "Zone d'intervention", conseils: 'Guides et conseils', faq: 'Questions fréquentes', professionnels: 'Professionnels', 'a-propos': "À propos de l'équipe" },
     cgv: 'Conditions de vente',
     demande: 'Demander un dépannage', diag: 'Diagnostic pneus gratuit', contact: 'Contact', legal: 'Mentions légales',
     quick: 'Contact rapide', railCall: 'Appeler 24h/24', railDem: 'Demander un dépannage', top: 'Remonter en haut de page',
@@ -65,7 +65,7 @@ const T = {
       oui: 'Oui', non: 'Non', nsp: 'Je ne sais pas',
       vehicule: 'Votre véhicule', categories: { voiture: 'Voiture', suv: 'SUV / 4x4', utilitaire: 'Utilitaire', campingcar: 'Camping-car', moto: 'Moto / scooter' },
       energie: 'Énergie', energies: { '': '—', essence: 'Essence', diesel: 'Diesel', electrique: 'Électrique', hybride: 'Hybride', gpl: 'GPL' },
-      boite: 'Boîte automatique', plaque: 'Plaque d\'immatriculation', plaqueAide: 'Nous identifions le véhicule pour venir avec le bon matériel.',
+      boite: 'Boîte automatique', plaque: 'Plaque d\'immatriculation', plaqueAide: 'Tapez la plaque : marque, modèle, type, énergie et boîte se remplissent tout seuls. Plaque étrangère ou pas de plaque ? Remplissez simplement les champs.', pneuDim: 'Dimension du pneu', pneuAide: 'Elle est écrite sur le flanc du pneu, par exemple 205/55 R16 91V. Le technicien vient avec la bonne roue.', carbuMis: 'Qu\'avez-vous mis dans le réservoir ?', carbuMisOpts: { '': '—', essence: 'De l\'essence', gazole: 'Du gazole (diesel)', adblue: 'De l\'AdBlue', autre: 'Autre chose' }, typeCle: 'Type de clé', typeCleOpts: { '': '—', classique: 'Clé classique', telecommande: 'Clé avec télécommande', mainslibres: 'Carte ou clé mains libres', nsp: 'Je ne sais pas' }, marque: 'Marque', modele: 'Modèle', typeVeh: 'Type de véhicule', auto: 'D\'après la plaque',
       photo: 'Photo de la panne', photoAjout: 'Ajouter une photo', photoAide: 'Elle nous aide à préparer l\'intervention ; elle partira sur WhatsApp.', photoRetirer: 'Retirer la photo',
       details: 'Précisions', facultatif: 'facultatif', detailsPh: 'Ce que vous avez remarqué, voyants, bruits, accès…',
       quand: 'Quand ?', maintenant: 'Maintenant', plusTard: 'Plus tard', date: 'Date', creneau: 'Créneau',
@@ -78,7 +78,7 @@ const T = {
       recap: 'Votre demande', estim: 'Estimation indicative', estimNote: 'Prix ferme annoncé au téléphone avant le départ, rien n\'est ajouté sur place.',
       rgpd: 'Vos informations servent uniquement à traiter la demande et à établir la facture.',
       envoyer: 'Envoyer la demande', ouAppel: 'Urgence ? Appelez le',
-      js: { gpsEnCours: 'Localisation en cours…', gpsOk: 'Position GPS reçue', gpsKo: 'Position indisponible : indiquez une adresse ou un repère.',
+      js: { cs: { titre: 'Pour votre véhicule', plateau: 'Transport sur plateau obligatoire ({r}) : jamais roues au sol.', rElec: 'électrique ou hybride', rAuto: 'boîte automatique', r4x4: 'transmission intégrale', grand: 'Utilitaire ou camping-car : nous envoyons une dépanneuse adaptée au gabarit.', batterie: 'Batterie probable : {b} (indicatif, vérifiée sur place).', batElec: 'En panne, c\'est souvent la batterie 12 V qui alimente l\'électronique, pas la batterie de traction : elle se règle sur place.', bat: { agm: 'AGM', efb: 'EFB (Start & Stop)', std: 'plomb classique', ss: 'EFB ou AGM si Start & Stop', moto: 'batterie moto 12 V' }, pneu: 'Dimension d\'origine : {p}. Vérifiez-la sur le flanc du pneu.', pneuPlus: 'Plusieurs dimensions existent pour ce modèle : choisissez la vôtre dans la liste.', energie: 'Votre véhicule roule {e}.', energieOpts: { essence: 'à l\'essence', diesel: 'au gazole (diesel)', electrique: 'à l\'électricité', hybride: 'en hybride', gpl: 'au GPL' }, elecSeche: 'Électrique à plat : transport sur plateau jusqu\'à une borne de recharge.', cleRecente: 'Véhicule récent : la clé est sans doute électronique. Précisez son type, le technicien prévoit le matériel.', hauteur: 'Utilitaire ou camping-car en sous-sol : comparez sa hauteur à la hauteur maximale du parking.' }, gpsEnCours: 'Localisation en cours…', gpsOk: 'Position GPS reçue', gpsKo: 'Position indisponible : indiquez une adresse ou un repère.',
             geoEnCours: 'Recherche de l\'adresse…', geoKo: 'Adresse introuvable sur la carte : précisez-la ou décrivez un repère.',
             dist: '{km} km de notre atelier', delai: 'délai estimé {d}',
             errLieu: 'Indiquez où vous êtes, ou touchez « Me localiser ».', errType: 'Choisissez ce qui se passe.', errTel: 'Indiquez un numéro de téléphone complet.',
@@ -119,7 +119,7 @@ const T = {
       oui: 'Yes', non: 'No', nsp: 'Not sure',
       vehicule: 'Your vehicle', categories: { voiture: 'Car', suv: 'SUV / 4x4', utilitaire: 'Van', campingcar: 'Motorhome', moto: 'Motorbike / scooter' },
       energie: 'Fuel type', energies: { '': '—', essence: 'Petrol', diesel: 'Diesel', electrique: 'Electric', hybride: 'Hybrid', gpl: 'LPG' },
-      boite: 'Automatic gearbox', plaque: 'Number plate', plaqueAide: 'French plates are looked up automatically; for other plates, just type it.',
+      boite: 'Automatic gearbox', plaque: 'Number plate', plaqueAide: 'Type a French plate: make, model, type, fuel and gearbox fill in by themselves. Foreign plate? Just fill in the fields.', pneuDim: 'Tyre size', pneuAide: 'It is printed on the side of the tyre, e.g. 205/55 R16 91V. The technician brings the right wheel.', carbuMis: 'What did you put in the tank?', carbuMisOpts: { '': '—', essence: 'Petrol', gazole: 'Diesel', adblue: 'AdBlue', autre: 'Something else' }, typeCle: 'Key type', typeCleOpts: { '': '—', classique: 'Plain key', telecommande: 'Key with remote', mainslibres: 'Keyless card or fob', nsp: 'I don\'t know' }, marque: 'Make', modele: 'Model', typeVeh: 'Vehicle type', auto: 'From the plate',
       photo: 'Photo of the problem', photoAjout: 'Add a photo', photoAide: 'It helps us prepare; it will be sent on WhatsApp.', photoRetirer: 'Remove the photo',
       details: 'Details', facultatif: 'optional', detailsPh: 'What you noticed, warning lights, noises, access…',
       quand: 'When?', maintenant: 'Now', plusTard: 'Later', date: 'Date', creneau: 'Time slot',
@@ -132,7 +132,7 @@ const T = {
       recap: 'Your request', estim: 'Indicative estimate', estimNote: 'Firm price given on the phone before we set off; nothing is added on arrival.',
       rgpd: 'Your details are only used to handle the request and issue the invoice.',
       envoyer: 'Send request', ouAppel: 'Emergency? Call',
-      js: { gpsEnCours: 'Locating…', gpsOk: 'GPS location received', gpsKo: 'Location unavailable: please type an address or landmark.',
+      js: { cs: { titre: 'For your vehicle', plateau: 'Flatbed transport required ({r}): never towed on its wheels.', rElec: 'electric or hybrid', rAuto: 'automatic gearbox', r4x4: 'all-wheel drive', grand: 'Van or motorhome: we send a tow truck suited to its size.', batterie: 'Likely battery: {b} (estimate, checked on site).', batElec: 'Often it is the 12 V battery that powers the electronics, not the traction battery: it can be fixed on site.', bat: { agm: 'AGM', efb: 'EFB (Start & Stop)', std: 'standard lead-acid', ss: 'EFB or AGM if Start & Stop', moto: '12 V motorbike battery' }, pneu: 'Original size: {p}. Check it on the side of the tyre.', pneuPlus: 'Several sizes exist for this model: pick yours from the list.', energie: 'Your vehicle runs on {e}.', energieOpts: { essence: 'petrol', diesel: 'diesel', electrique: 'electricity', hybride: 'hybrid power', gpl: 'LPG' }, elecSeche: 'Flat electric car: flatbed transport to a charging point.', cleRecente: 'Recent vehicle: the key is probably electronic. Tell us its type so the technician brings the right tools.', hauteur: 'Van or motorhome underground: compare its height with the car park\'s maximum height.' }, gpsEnCours: 'Locating…', gpsOk: 'GPS location received', gpsKo: 'Location unavailable: please type an address or landmark.',
             geoEnCours: 'Looking up the address…', geoKo: 'Address not found on the map: add details or describe a landmark.',
             dist: '{km} km from our workshop', delai: 'estimated time {d}',
             errLieu: 'Tell us where you are, or tap "Use my location".', errType: 'Choose what happened.', errTel: 'Please enter a full phone number.',
@@ -173,7 +173,7 @@ const T = {
       oui: 'Sì', non: 'No', nsp: 'Non so',
       vehicule: 'Il vostro veicolo', categories: { voiture: 'Auto', suv: 'SUV / 4x4', utilitaire: 'Furgone', campingcar: 'Camper', moto: 'Moto / scooter' },
       energie: 'Alimentazione', energies: { '': '—', essence: 'Benzina', diesel: 'Diesel', electrique: 'Elettrica', hybride: 'Ibrida', gpl: 'GPL' },
-      boite: 'Cambio automatico', plaque: 'Targa', plaqueAide: 'Le targhe francesi vengono riconosciute; per le altre, scrivetela semplicemente.',
+      boite: 'Cambio automatico', plaque: 'Targa', plaqueAide: 'Digitate una targa francese: marca, modello, tipo, alimentazione e cambio si compilano da soli. Targa straniera? Compilate semplicemente i campi.', pneuDim: 'Misura dello pneumatico', pneuAide: 'È scritta sul fianco dello pneumatico, ad es. 205/55 R16 91V. Il tecnico arriva con la ruota giusta.', carbuMis: 'Cosa avete messo nel serbatoio?', carbuMisOpts: { '': '—', essence: 'Benzina', gazole: 'Gasolio (diesel)', adblue: 'AdBlue', autre: 'Altro' }, typeCle: 'Tipo di chiave', typeCleOpts: { '': '—', classique: 'Chiave classica', telecommande: 'Chiave con telecomando', mainslibres: 'Scheda o chiave keyless', nsp: 'Non lo so' }, marque: 'Marca', modele: 'Modello', typeVeh: 'Tipo di veicolo', auto: 'Dalla targa',
       photo: 'Foto del guasto', photoAjout: 'Aggiungi una foto', photoAide: 'Ci aiuta a preparare l\'intervento; verrà inviata su WhatsApp.', photoRetirer: 'Rimuovi la foto',
       details: 'Dettagli', facultatif: 'facoltativo', detailsPh: 'Cosa avete notato, spie, rumori, accesso…',
       quand: 'Quando?', maintenant: 'Adesso', plusTard: 'Più tardi', date: 'Data', creneau: 'Fascia oraria',
@@ -186,7 +186,7 @@ const T = {
       recap: 'La vostra richiesta', estim: 'Stima indicativa', estimNote: 'Prezzo fisso comunicato al telefono prima della partenza; nulla viene aggiunto sul posto.',
       rgpd: 'I vostri dati servono solo a gestire la richiesta e a emettere la fattura.',
       envoyer: 'Invia la richiesta', ouAppel: 'Urgenza? Chiamate il',
-      js: { gpsEnCours: 'Localizzazione…', gpsOk: 'Posizione GPS ricevuta', gpsKo: 'Posizione non disponibile: indicate un indirizzo o un punto di riferimento.',
+      js: { cs: { titre: 'Per il vostro veicolo', plateau: 'Trasporto su pianale obbligatorio ({r}): mai a ruote a terra.', rElec: 'elettrico o ibrido', rAuto: 'cambio automatico', r4x4: 'trazione integrale', grand: 'Furgone o camper: inviamo un carro attrezzi adatto alle dimensioni.', batterie: 'Batteria probabile: {b} (indicativo, verificata sul posto).', batElec: 'Spesso è la batteria 12 V che alimenta l\'elettronica, non quella di trazione: si risolve sul posto.', bat: { agm: 'AGM', efb: 'EFB (Start & Stop)', std: 'al piombo tradizionale', ss: 'EFB o AGM se Start & Stop', moto: 'batteria moto 12 V' }, pneu: 'Misura d\'origine: {p}. Verificatela sul fianco dello pneumatico.', pneuPlus: 'Per questo modello esistono più misure: scegliete la vostra dall\'elenco.', energie: 'Il vostro veicolo va {e}.', energieOpts: { essence: 'a benzina', diesel: 'a gasolio (diesel)', electrique: 'a elettricità', hybride: 'in ibrido', gpl: 'a GPL' }, elecSeche: 'Elettrica scarica: trasporto su pianale fino a una colonnina di ricarica.', cleRecente: 'Veicolo recente: la chiave è probabilmente elettronica. Indicatene il tipo, il tecnico porta l\'attrezzatura.', hauteur: 'Furgone o camper in parcheggio sotterraneo: confrontate l\'altezza con quella massima del parcheggio.' }, gpsEnCours: 'Localizzazione…', gpsOk: 'Posizione GPS ricevuta', gpsKo: 'Posizione non disponibile: indicate un indirizzo o un punto di riferimento.',
             geoEnCours: 'Ricerca dell\'indirizzo…', geoKo: 'Indirizzo non trovato sulla mappa: precisatelo o descrivete un punto di riferimento.',
             dist: '{km} km dalla nostra officina', delai: 'tempo stimato {d}',
             errLieu: 'Indicate dove vi trovate, o toccate «Usa la mia posizione».', errType: 'Scegliete cosa è successo.', errTel: 'Inserite un numero di telefono completo.',

@@ -48,7 +48,8 @@ function page(v) {
         areaServed: {
           '@type': 'City',
           name: v.nom,
-          address: { '@type': 'PostalAddress', addressLocality: v.nom, postalCode: v.cp, addressRegion: 'Alpes-Maritimes', addressCountry: 'FR' },
+          // Monaco (pays: 'MC') n'a pas de département.
+          address: { '@type': 'PostalAddress', addressLocality: v.nom, postalCode: v.cp, ...(v.pays ? {} : { addressRegion: 'Alpes-Maritimes' }), addressCountry: v.pays || 'FR' },
           geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng },
         },
         availableChannel: {

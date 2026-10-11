@@ -165,3 +165,40 @@ comportement, même fiche, un seul endroit à modifier.
   envoyé au garage et rappelé sur l'écran de confirmation. La plaque est
   conservée même si le client clique « Passer », qui ne concerne que la
   description.
+
+## Fenêtre de demande : remplissage automatique
+
+Dans « Demander un dépannage », la plaque est demandée en premier, dans un
+champ dessiné comme une vraie plaque française. Dès qu'une plaque SIV est
+complète (AA-123-AA), la recherche part (120 ms) et remplit marque, modèle,
+type de véhicule, énergie et boîte automatique (`js/demande-rapide.js`,
+`remplirVehicule`). Chaque champ rempli porte l'étiquette « D'après la
+plaque » et reste modifiable ; changer de plaque retire ce qui avait été posé.
+
+La boîte est déduite de la finition (EAT8, DSG, EDC, BVA…), une électrique
+étant toujours automatique. `api/plaque.js` renvoie aussi `boite` et `genre`
+si Auto Ways les fournit : **effectif après redéploiement du relais**, qui
+n'est pas relié au dépôt (voir plus haut). Sans redéploiement, tout le reste
+fonctionne déjà.
+
+
+## Préparation de l'intervention selon le véhicule
+
+À partir des champs du formulaire (remplis par la plaque ou à la main) et de
+la fiche Auto Ways, `js/demande-rapide.js` (`profil`, `conseils`,
+`ficheTechnique`) adapte la demande à la panne :
+
+- **Pneu crevé** : dimension d'origine pré-remplie (modifiable), liste des
+  autres montes du modèle.
+- **Batterie** : batterie 12 V probable, **indicative** (Auto Ways ne la
+  fournit pas) — type d'après l'année, le Start & Stop et l'hybridation
+  (plomb, EFB, AGM), capacité d'après l'énergie, le gabarit et la puissance.
+- **Carburant** : rappel de l'énergie du véhicule, carburant mis par erreur
+  pré-choisi (essence pour un diesel, gazole pour une essence).
+- **Remorquage, accident, surchauffe, autre** : plateau obligatoire pour un
+  électrique ou hybride, une transmission intégrale ou une boîte auto ;
+  dépanneuse adaptée pour un utilitaire ou un camping-car.
+- **Clés** : type de clé demandé ; alerte « clé électronique » après 2010.
+
+Le message reçu commence par une **fiche technique** (véhicule, pneu,
+batterie probable, carburant mis, clé, transport, gabarit).

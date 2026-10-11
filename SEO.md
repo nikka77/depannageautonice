@@ -14,10 +14,11 @@ pas être faites depuis le code.
   texte affiché et le balisage viennent de la même source dans
   `tools/build-pages.js`, ils ne peuvent pas diverger.
 - **Pages locales** pour Cannes, Antibes, Menton, Cagnes-sur-Mer, Grasse,
-  Saint-Laurent-du-Var, Villeneuve-Loubet et Vence.
+  Saint-Laurent-du-Var, Villeneuve-Loubet, Vence, Beaulieu-sur-Mer,
+  Saint-Jean-Cap-Ferrat, Èze et Monaco.
   Chacune a son propre contenu (accès, pannes fréquentes sur place, quartiers,
   délai réel depuis Nice), son `BreadcrumbList` et son `Service` géolocalisé.
-- **Sitemap** (29 URL, construit automatiquement à partir des pages) et `robots.txt` pointant dessus.
+- **Sitemap** (76 URL, construit automatiquement à partir des pages) et `robots.txt` pointant dessus.
 - **Image de partage** `img/og-cover.jpg` au format 1200×630 attendu par
   Facebook, WhatsApp et X, avec le nom et le numéro : un lien partagé sur
   WhatsApp montre directement qui appeler.

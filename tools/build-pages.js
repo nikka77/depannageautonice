@@ -180,6 +180,68 @@ ${g.lignes.map(l => `      <tr${l.id ? ` id="t-${l.id}"` : ''}><th scope="row">$
   </table>
 </section>`).join('\n\n');
 }
+// Routes et points noirs du 06 : accueil (version courte) et zone (complète).
+// Textes propres au site ; chaque axe renvoie vers le guide ou la page utile.
+const ROUTES_06 = [
+  { t: 'A8, la Provençale', txt: 'De Cannes à Menton, sans arrêt possible hors bande d\'arrêt d\'urgence. Sur l\'autoroute, le dépannage est réservé au dépanneur agréé&nbsp;: nous reprenons ensuite votre véhicule à la sortie.', href: 'guide-panne-autoroute-a8.html', lien: 'Panne sur l\'A8' },
+  { t: 'Voie Pierre-Mathis', txt: 'La voie rapide qui traverse Nice, avec ses tunnels et ses bretelles courtes. On ne s\'arrête jamais dans un tunnel si la voiture roule encore&nbsp;: on sort d\'abord.', href: 'guide-panne-tunnel.html', lien: 'Panne dans un tunnel' },
+  { t: 'Promenade des Anglais', txt: 'Six voies, des feux, des bus et des vélos. Garez-vous hors des voies de circulation si vous le pouvez et donnez-nous le numéro le plus proche.', href: 'ville-saint-laurent-du-var.html', lien: 'Vers Saint-Laurent-du-Var' },
+  { t: 'Basse Corniche', txt: 'Le long de la mer vers Villefranche, Beaulieu et Monaco&nbsp;: pas d\'accotement et beaucoup de deux-roues. Feux de détresse et à l\'abri côté trottoir.', href: 'ville-villefranche-sur-mer.html', lien: 'Villefranche-sur-Mer' },
+  { t: 'Moyenne Corniche', txt: 'Par le col de Villefranche et Èze, une route en lacets avec peu d\'endroits pour s\'arrêter. Un repère (virage, belvédère, borne) nous fait gagner du temps.', href: 'ville-eze.html', lien: 'Èze' },
+  { t: 'Grande Corniche', txt: 'La plus haute, par La Turbie&nbsp;: route de montagne, virages serrés, peu de réseau par endroits. Envoyez votre position dès que vous captez.', href: 'ville-monaco.html', lien: 'Monaco' },
+  { t: 'Plaine du Var (M6202 et M6202bis)', txt: 'Routes rapides de la vallée, poids lourds, zones industrielles de Carros et Saint-Laurent. Sortez par la droite et attendez derrière la glissière.', href: 'ville-carros.html', lien: 'Carros' },
+  { t: 'Pénétrante Cannes-Grasse', txt: 'Voie rapide chargée aux heures de pointe entre Cannes, Mougins et Grasse. Donnez le sens de circulation et la sortie la plus proche.', href: 'ville-mougins.html', lien: 'Mougins' },
+  { t: 'Parkings souterrains', txt: 'Nice et la côte en comptent des centaines, souvent bas de plafond. Notez le niveau, la place et la hauteur maximale affichée à l\'entrée.', href: 'depannage-parking-souterrain-nice.html', lien: 'Parking souterrain' },
+];
+const routesHtml = court => court
+  ? `<section class="wrap sec" aria-labelledby="h-routes">
+  <h2 class="sec-t" id="h-routes">Nous connaissons vos routes</h2>
+  <p class="sec-sub">A8, corniches, voie Mathis, plaine du Var, parkings bas&nbsp;: chaque axe a ses pièges. Les bons réflexes, route par route.</p>
+  <ul class="chips">
+${ROUTES_06.map(r => `    <li><a href="zone.html#routes">${r.t}</a></li>`).join('\n')}
+  </ul>
+</section>`
+  : `<section class="wrap sec" id="routes" aria-labelledby="h-routes">
+  <h2 class="sec-t" id="h-routes">Routes et points noirs du 06</h2>
+  <p class="sec-sub">Où les pannes arrivent le plus souvent, et ce qu'il faut faire en attendant la dépanneuse.</p>
+  <div class="grid grid-wide">
+${ROUTES_06.map(r => `    <article class="cell">${ic('route')}<h3>${r.t}</h3><p>${r.txt}</p><a class="textlink" href="${r.href}"><span>${r.lien}</span></a></article>`).join('\n')}
+  </div>
+</section>`;
+// Panne sur autoroute : encadré de l'accueil et de la page remorquage.
+const AUTOROUTE = `<section class="wrap sec" aria-labelledby="h-autoroute">
+  <div class="alerte">
+    ${ic('alert')}
+    <div>
+      <h2 id="h-autoroute">En panne sur l'autoroute&nbsp;?</h2>
+      <ol>
+        <li><strong>Mettez-vous à l'abri&nbsp;:</strong> feux de détresse, gilet, et tout le monde derrière la glissière, loin du véhicule.</li>
+        <li><strong>Appelez depuis une borne orange</strong> (tous les 2&nbsp;km) ou le <a href="tel:112">112</a>&nbsp;: sur l'autoroute, seul le dépanneur agréé pour ce tronçon peut intervenir, à un tarif réglementé.</li>
+        <li><strong>Ensuite, appelez-nous&nbsp;:</strong> nous reprenons le véhicule là où il a été déposé et l'emmenons au garage de votre choix.</li>
+      </ol>
+      <a class="textlink" href="guide-panne-autoroute-a8.html"><span>Le guide complet : panne sur l'A8</span></a>
+    </div>
+  </div>
+</section>`;
+
+// Exemples de trajets chiffrés (tools/tarifs.js) : page Tarifs et guide prix.
+const EX_T = {
+  fr: { t: 'Exemples de prix', sub: 'Calculés avec la grille ci-dessous, pour une voiture. Le prix ferme vous est confirmé au téléphone avant le départ.', total: 'Total TTC' },
+  en: { t: 'Price examples', sub: 'Worked out with the grid below, for a car. The firm price is confirmed on the phone before we set off.', total: 'Total incl. VAT' },
+  it: { t: 'Esempi di prezzo', sub: 'Calcolati con la tabella qui sotto, per un\'auto. Il prezzo fisso viene confermato al telefono prima della partenza.', total: 'Totale IVA incl.' },
+};
+const exemplesHtml = lang => `<section class="wrap sec" id="exemples" aria-labelledby="h-exemples">
+  <h2 class="sec-t" id="h-exemples">${EX_T[lang].t}</h2>
+  <p class="sec-sub">${EX_T[lang].sub}</p>
+  <div class="ex-grid">
+${TARIFS.exemples(lang).map(e => `    <article class="ex-card">
+      <h3>${e.titre}</h3>
+      <p class="ex-sous">${e.sous}</p>
+      <ul>${e.lignes.map(l => `<li><span>${l.nom}</span><b>${l.prix}</b></li>`).join('')}</ul>
+      <p class="ex-total"><span>${EX_T[lang].total}</span><b>${e.total}</b></p>
+    </article>`).join('\n')}
+  </div>
+</section>`;
 const PAY_IC = ['card', 'phone', 'phone', 'euro'];
 const paiementHtml = lang => `<ul class="pay">${TARIFS.paiement[lang].map((m, i) => `<li>${ic(PAY_IC[i])}${m}</li>`).join('')}</ul>`;
 function estimData(lang) {
@@ -219,7 +281,8 @@ const BUSINESS = {
   logo: `${BASE}/img/logo.png`,
   foundingDate: '2004',
   areaServed: [
-    ...['Nice', 'Cannes', 'Antibes', 'Menton', 'Grasse', 'Vence', 'Cagnes-sur-Mer', 'Villeneuve-Loubet', 'Saint-Laurent-du-Var', 'Mougins']
+    ...['Nice', 'Cannes', 'Antibes', 'Menton', 'Grasse', 'Vence', 'Cagnes-sur-Mer', 'Villeneuve-Loubet', 'Saint-Laurent-du-Var', 'Mougins',
+      'Beaulieu-sur-Mer', 'Saint-Jean-Cap-Ferrat', 'Èze', 'Monaco']
       .map(name => ({ '@type': 'City', name })),
     { '@type': 'AdministrativeArea', name: 'Alpes-Maritimes' },
   ],
@@ -285,6 +348,12 @@ const PAGES = [
     ],
   },
   {
+    file: 'professionnels.html', frag: 'professionnels.html', nav: null, path: '/professionnels.html',
+    title: `Dépannage pour professionnels à Nice — flottes, utilitaires | ${TEL}`,
+    desc: 'Loueurs, VTC, taxis, artisans, garages, parkings : dépannage et remorquage de voitures et utilitaires jusqu\'à 3,5 t dans tout le 06, 7j/7 24h/24, compte professionnel sur demande.',
+    schema: url => [crumbs(url, 'Professionnels')],
+  },
+  {
     file: 'mentions-legales.html', frag: 'mentions-legales.html', nav: null, path: '/mentions-legales.html',
     title: 'Mentions légales — Dépannage Auto Nice',
     desc: 'Mentions légales du site Dépannage Auto Nice : éditeur, hébergeur, données personnelles, services tiers, stockage local.',
@@ -337,6 +406,10 @@ for (const lang of ['en', 'it']) {
 // (js/demande-rapide.js) au lieu de changer de page. demande.html n'est
 // plus qu'une redirection vers l'accueil qui ouvre cette fenêtre, pour les
 // anciens liens, favoris et QR codes.
+// Plaque française de la fenêtre de demande : bande européenne (12 étoiles,
+// « F ») à gauche, bande départementale (06) à droite.
+const PF_ETOILES = '<svg class="pf-etoiles" viewBox="0 0 24 24" focusable="false"><polygon points="12.00,3.35 12.35,4.31 13.38,4.35 12.57,4.99 12.85,5.97 12.00,5.40 11.15,5.97 11.43,4.99 10.62,4.35 11.65,4.31"/><polygon points="15.60,4.31 15.95,5.28 16.98,5.32 16.17,5.95 16.45,6.94 15.60,6.36 14.75,6.94 15.03,5.95 14.22,5.32 15.25,5.28"/><polygon points="18.24,6.95 18.59,7.91 19.61,7.95 18.81,8.59 19.09,9.57 18.24,9.00 17.38,9.57 17.66,8.59 16.86,7.95 17.88,7.91"/><polygon points="19.20,10.55 19.55,11.51 20.58,11.55 19.77,12.19 20.05,13.17 19.20,12.60 18.35,13.17 18.63,12.19 17.82,11.55 18.85,11.51"/><polygon points="18.24,14.15 18.59,15.11 19.61,15.15 18.81,15.79 19.09,16.77 18.24,16.20 17.38,16.77 17.66,15.79 16.86,15.15 17.88,15.11"/><polygon points="15.60,16.79 15.95,17.75 16.98,17.79 16.17,18.42 16.45,19.41 15.60,18.84 14.75,19.41 15.03,18.42 14.22,17.79 15.25,17.75"/><polygon points="12.00,17.75 12.35,18.71 13.38,18.75 12.57,19.39 12.85,20.37 12.00,19.80 11.15,20.37 11.43,19.39 10.62,18.75 11.65,18.71"/><polygon points="8.40,16.79 8.75,17.75 9.78,17.79 8.97,18.42 9.25,19.41 8.40,18.84 7.55,19.41 7.83,18.42 7.02,17.79 8.05,17.75"/><polygon points="5.76,14.15 6.12,15.11 7.14,15.15 6.34,15.79 6.62,16.77 5.76,16.20 4.91,16.77 5.19,15.79 4.39,15.15 5.41,15.11"/><polygon points="4.80,10.55 5.15,11.51 6.18,11.55 5.37,12.19 5.65,13.17 4.80,12.60 3.95,13.17 4.23,12.19 3.42,11.55 4.45,11.51"/><polygon points="5.76,6.95 6.12,7.91 7.14,7.95 6.34,8.59 6.62,9.57 5.76,9.00 4.91,9.57 5.19,8.59 4.39,7.95 5.41,7.91"/><polygon points="8.40,4.31 8.75,5.28 9.78,5.32 8.97,5.95 9.25,6.94 8.40,6.36 7.55,6.94 7.83,5.95 7.02,5.32 8.05,5.28"/></svg>';
+const PF_DEP = '<svg class="pf-embleme" viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="9" r="4.2"/><path d="M3 17c3-2.4 6-2.4 9 0s6 2.4 9 0M3 21c3-2.4 6-2.4 9 0s6 2.4 9 0" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>';
 const QR_TYPES = [['batterie', 'battery'], ['pneu', 'wheel'], ['carburant', 'fuel'], ['remorquage', 'truck'], ['moteur', 'thermo'], ['cles', 'key'], ['accident', 'alert'], ['autre', 'wrench']];
 const QR_CATS = [['voiture', 'car'], ['suv', 'car'], ['utilitaire', 'truck'], ['campingcar', 'truck'], ['moto', 'bike']];
 function demandeRapide(lang, to) {
@@ -353,8 +426,8 @@ function demandeRapide(lang, to) {
     calcul: TARIFS.calcul,
     presta: Object.fromEntries(TARIFS.surPlace.map(x => [x.id, x.prix])),
     delais: [{ km: 0, d: I18N.DELAI_NICE[lang] }, ...villes.map(v => ({ km: v.distanceKm, d: I18N.delai(lang, v.delai), v: nomV(v) }))],
-    fr: (({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }) => ({ types, carbuOpts, clesOpts, categories, energies, dests, assistances, passagersOpts, creneaux }))(I18N.T.fr.qr),
-    loc: { types: q.types, categories: q.categories, energies: q.energies, dests: q.dests, creneaux: q.creneaux, carbuOpts: q.carbuOpts, clesOpts: q.clesOpts },
+    fr: (({ types, carbuOpts, carbuMisOpts, clesOpts, typeCleOpts, categories, energies, dests, assistances, passagersOpts, creneaux }) => ({ types, carbuOpts, carbuMisOpts, clesOpts, typeCleOpts, categories, energies, dests, assistances, passagersOpts, creneaux }))(I18N.T.fr.qr),
+    loc: { auto: q.auto, types: q.types, categories: q.categories, energies: q.energies, dests: q.dests, creneaux: q.creneaux, carbuOpts: q.carbuOpts, clesOpts: q.clesOpts },
   };
   const json = o => JSON.stringify(o).replace(/</g, '\\u003c');
   return `
@@ -406,29 +479,52 @@ ${QR_TYPES.map(([id, icon]) => `              <label class="qr-type"><input type
           </fieldset>
           <div class="qr-sub" data-si="carburant" hidden>
             <p class="qr-lab">${q.carbu}</p>${seg('carbu', Object.entries(q.carbuOpts))}
-            <div class="qr-sub" data-si-carbu="erreur" hidden><p class="qr-lab">${q.demarre}</p>${ouiNon('demarre')}<p class="qr-note">${ic('alert', 'ic-sm')}${q.demarreMsg}</p></div>
+            <div class="qr-sub" data-si-carbu="erreur" hidden>
+              <div class="qr-f qr-auto"><label class="qr-lab" for="qrCarbuMis">${q.carbuMis}</label><select class="qr-in-txt" id="qrCarbuMis" name="carbuMis">${Object.entries(q.carbuMisOpts).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+              <p class="qr-lab">${q.demarre}</p>${ouiNon('demarre')}<p class="qr-note">${ic('alert', 'ic-sm')}${q.demarreMsg}</p>
+            </div>
           </div>
-          <div class="qr-sub" data-si="pneu" hidden><p class="qr-lab">${q.roue}</p>${seg('roue', [['oui', q.oui], ['non', q.non], ['nsp', q.nsp]], ' qr-seg-3')}</div>
-          <div class="qr-sub" data-si="cles" hidden><p class="qr-lab">${q.cles}</p>${seg('cles', Object.entries(q.clesOpts), ' qr-seg-col')}</div>
+          <div class="qr-sub" data-si="pneu" hidden>
+            <p class="qr-lab">${q.roue}</p>${seg('roue', [['oui', q.oui], ['non', q.non], ['nsp', q.nsp]], ' qr-seg-3')}
+            <div class="qr-f qr-auto"><label class="qr-lab" for="qrPneuDim">${q.pneuDim} <small>(${q.facultatif})</small></label><input class="qr-in-txt" type="text" id="qrPneuDim" name="pneuDim" list="qrPneuListe" placeholder="205/55 R16 91V" autocomplete="off" autocapitalize="characters" spellcheck="false"><datalist id="qrPneuListe"></datalist></div>
+            <p class="qr-aide">${q.pneuAide}</p>
+          </div>
+          <div class="qr-sub" data-si="cles" hidden>
+            <p class="qr-lab">${q.cles}</p>${seg('cles', Object.entries(q.clesOpts), ' qr-seg-col')}
+            <div class="qr-f"><label class="qr-lab" for="qrTypeCle">${q.typeCle}</label><select class="qr-in-txt" id="qrTypeCle" name="typeCle">${Object.entries(q.typeCleOpts).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+          </div>
           <div class="qr-sub" data-si="accident" hidden>
             <p class="qr-lab">${q.blesses}</p>${ouiNon('blesses')}
             <p class="qr-note qr-note-rouge" id="qrBlessesMsg" hidden>${ic('alert', 'ic-sm')}${q.blessesMsg} <a href="tel:112">112</a></p>
             <p class="qr-lab">${q.roule}</p>${ouiNon('roule')}
           </div>
-          <fieldset class="qr-f">
+          <fieldset class="qr-f qr-veh">
             <legend>${q.vehicule}</legend>
-            <div class="qr-cats">
-${QR_CATS.map(([id, icon]) => `              <label class="qr-type qr-cat"><input type="radio" name="categorie" value="${id}"${id === 'voiture' ? ' checked' : ''}><span>${ic(icon)}${q.categories[id]}</span></label>`).join('\n')}
+            <label class="qr-lab" for="qrPlaque">${q.plaque}</label>
+            <div class="plaque-fr">
+              <span class="pf-band pf-eu" aria-hidden="true">${PF_ETOILES}<b>F</b></span>
+              <input class="champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done" aria-describedby="qrPlaqueAide">
+              <span class="pf-band pf-dep" aria-hidden="true">${PF_DEP}<b>06</b></span>
+              <span class="pf-scan" aria-hidden="true"></span>
             </div>
-            <div class="qr-duo">
-              <div><label class="qr-lab" for="qrEnergie">${q.energie}</label><select class="qr-in-txt" id="qrEnergie" name="energie">${Object.entries(q.energies).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
-              <div class="qr-duo-chk">${chk('boite', q.boite)}</div>
-            </div>
-            <label class="qr-lab" for="qrPlaque">${q.plaque} <small>(${q.facultatif})</small></label>
-            <input class="qr-in-txt champ-plaque" type="text" id="qrPlaque" name="plaque" placeholder="AB-123-CD" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            <p class="qr-aide" id="qrPlaqueAide">${q.plaqueAide}</p>
             <p class="plaque-statut" id="qrPlaqueSt" role="status" aria-live="polite" hidden></p>
             <div class="veh-carte" id="qrPlaqueCarte" role="status" aria-live="polite" hidden></div>
-            <p class="qr-aide">${q.plaqueAide}</p>
+            <div class="qr-duo">
+              <div class="qr-auto"><label class="qr-lab" for="qrMarque">${q.marque}</label><input class="qr-in-txt" type="text" id="qrMarque" name="marque" autocomplete="off"></div>
+              <div class="qr-auto"><label class="qr-lab" for="qrModele">${q.modele}</label><input class="qr-in-txt" type="text" id="qrModele" name="modele" autocomplete="off"></div>
+            </div>
+            <div class="qr-f qr-auto" id="qrCatsBloc" role="radiogroup" aria-labelledby="qrCatsLab">
+              <p class="qr-lab" id="qrCatsLab">${q.typeVeh}</p>
+              <div class="qr-cats">
+${QR_CATS.map(([id, icon]) => `                <label class="qr-type qr-cat"><input type="radio" name="categorie" value="${id}"${id === 'voiture' ? ' checked' : ''}><span>${ic(icon)}${q.categories[id]}</span></label>`).join('\n')}
+              </div>
+            </div>
+            <div class="qr-duo">
+              <div class="qr-auto"><label class="qr-lab" for="qrEnergie">${q.energie}</label><select class="qr-in-txt" id="qrEnergie" name="energie">${Object.entries(q.energies).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+              <div class="qr-duo-chk qr-auto">${chk('boite', q.boite)}</div>
+            </div>
+            <div class="qr-conseil" id="qrConseil" aria-live="polite" hidden></div>
           </fieldset>
           <div class="qr-f">
             <p class="qr-lab">${q.photo} <small>(${q.facultatif})</small></p>
@@ -672,6 +768,10 @@ ${faqHtml(g.items, g === FAQ_GROUPES[0])}
 </section>`).join('\n\n'))
     .replace('{{TARIFS_TABLES}}', () => `<script type="application/json" id="tarifsData">${JSON.stringify(estimData(lang)).replace(/</g, '\\u003c')}</script>\n\n` + tarifsTables(lang))
     .replace('{{PAIEMENT}}', () => paiementHtml(lang))
+    .replace('{{EXEMPLES}}', () => exemplesHtml(lang))
+    .replace('{{ROUTES_06}}', () => routesHtml(false))
+    .replace('{{ROUTES_06_COURT}}', () => routesHtml(true))
+    .replace('{{AUTOROUTE}}', () => AUTOROUTE)
     .replace('{{HERO_TYPES}}', () => QR_TYPES.map(([id, icon]) => `      <li><a href="demande.html?type=${id}">${ic(icon)}${I18N.T[lang].qr.types[id]}</a></li>`).join('\n'))
     .replace('{{SERVICES_GRID}}', () => SCATS.map(c => `<section class="wrap sec svc-cat" aria-labelledby="h-c-${c.id}">
   <h2 class="sec-t" id="h-c-${c.id}">${c.titre}</h2>

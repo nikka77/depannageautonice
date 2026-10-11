@@ -132,6 +132,10 @@
     const cfg = window.SITE_CONFIG || {};
     const statusEl = document.getElementById('contactFormStatus');
     const submitBtn = form.querySelector('button[type="submit"]');
+    // contact.html?sujet=pro (page Professionnels) : sujet présélectionné.
+    const sujet = new URLSearchParams(location.search).get('sujet');
+    const opt = sujet && form.querySelector(`option[data-sujet="${CSS.escape(sujet)}"]`);
+    if (opt) opt.selected = true;
 
     const setStatus = (text, kind) => {
       if (!statusEl) return;

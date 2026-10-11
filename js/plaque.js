@@ -33,7 +33,8 @@ window.Plaque = (function () {
   // Met la plaque au format lisible AA-123-AA au fil de la frappe.
   function formater(valeur) {
     const v = normaliserSaisie(valeur).slice(0, 9);
-    const m = v.match(/^([A-Z]{0,2})([0-9]{0,3})([A-Z]{0,2})$/);
+    // Ancien format (FNI) : 1234-AB-06, qui commence par des chiffres.
+    const m = v.match(/^([A-Z]{0,2})([0-9]{0,3})([A-Z]{0,2})$/) || v.match(/^([0-9]{1,4})([A-Z]{0,3})([0-9]{0,2})$/);
     if (!m) return v;
     return [m[1], m[2], m[3]].filter(Boolean).join('-');
   }
@@ -229,7 +230,10 @@ window.Plaque = (function () {
         afficherStatut('', null);
         return;
       }
-      minuteur = setTimeout(lancer, DELAI_FRAPPE);
+      // Plaque SIV complète (AA-123-AA) : rien ne peut suivre, la recherche
+      // part presque immédiatement. L'ancien format, de longueur variable,
+      // attend la fin de la frappe.
+      minuteur = setTimeout(lancer, SIV.test(normaliserSaisie(champ.value)) ? 120 : DELAI_FRAPPE);
     });
 
     // Coller une plaque ou quitter le champ déclenche sans attendre.

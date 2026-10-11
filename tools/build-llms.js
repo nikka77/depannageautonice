@@ -110,6 +110,7 @@ ${guides.map(g => ligne(g.titre, `${B}/${g.slug}.html`, g.desc)).join('\n')}
 
 ${[
   ligne('Questions fréquentes', `${B}/faq.html`),
+  ligne('Professionnels (flottes, utilitaires, compte pro)', `${B}/professionnels.html`),
   ligne('À propos', `${B}/a-propos.html`),
   ligne('Diagnostic pneus en photo (gratuit)', `${B}/diagnostic.html`),
   ligne('English', `${B}/en/`),
