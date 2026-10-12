@@ -27,28 +27,6 @@
       ],
       "destination": "https://depannagenice.fr/:path*",
       "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "depannagenice.eu"
-        }
-      ],
-      "destination": "https://depannagenice.fr/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.depannagenice.eu"
-        }
-      ],
-      "destination": "https://depannagenice.fr/:path*",
-      "permanent": true
     }
   ]
 }
