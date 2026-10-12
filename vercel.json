@@ -4,5 +4,29 @@
     "api/plaque.js": {
       "maxDuration": 10
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "depannagenice.com"
+        }
+      ],
+      "destination": "https://depannagenice.fr/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.depannagenice.com"
+        }
+      ],
+      "destination": "https://depannagenice.fr/:path*",
+      "permanent": true
+    }
+  ]
 }

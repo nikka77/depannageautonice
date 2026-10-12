@@ -401,7 +401,7 @@ const PAGES = [
     // GitHub Pages sert 404.html pour toute adresse inconnue, quelle que soit
     // sa profondeur : les liens et ressources sont réécrits en chemins
     // absolus (voir writePage). Pas de <base> : il casserait les ancres #main.
-    file: '404.html', frag: '404.html', nav: null, path: '/404.html', base: '/depannageautonice/', noindex: true,
+    file: '404.html', frag: '404.html', nav: null, path: '/404.html', base: new URL(BASE + '/').pathname, noindex: true,
     title: 'Page introuvable — Dépannage Auto Nice',
     desc: `Page introuvable. En panne ? Appelez le ${TEL}, 7j/7 24h/24.`,
     schema: () => [],
