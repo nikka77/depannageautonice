@@ -238,6 +238,108 @@
     });
   });
 
+  // ── Formulaires de la page Professionnels ──
+  // data-pro="chauffeur" : demande de dépannage d'un véhicule d'entreprise
+  // (entreprise + plaque + lieu), sans paiement par le chauffeur.
+  // data-pro="compte" : demande d'ouverture de compte professionnel.
+  // Le message reprend chaque champ rempli avec son libellé (data-l). Même
+  // relais que le contact ; sans relais, envoi par WhatsApp ou SMS.
+  const PRO = {
+    chauffeur: {
+      titre: '🚚 Dépannage véhicule pro',
+      sujet: el => `🚚 Pro — ${el.entreprise.value.trim()} — ${el.plaque.value.trim()}`,
+      note: 'Facturation à l\'entreprise (compte pro à vérifier).',
+      ok: 'Demande envoyée. Nous vérifions le compte de l\'entreprise et vous rappelons tout de suite.',
+      wa: 'Votre demande est prête. Envoyez-la par WhatsApp ou par SMS :',
+    },
+    compte: {
+      titre: '🏢 Demande de compte pro',
+      sujet: el => `🏢 Compte pro — ${el.societe.value.trim()}`,
+      note: '',
+      ok: 'Demande envoyée. Nous revenons vers vous avec une proposition écrite.',
+      wa: 'Votre demande est prête. Envoyez-la par WhatsApp ou par SMS :',
+    },
+  };
+  document.querySelectorAll('form[data-pro]').forEach((f) => {
+    const P = PRO[f.dataset.pro];
+    if (!P) return;
+    const cfg = window.SITE_CONFIG || {};
+    const st = f.querySelector('.form-status');
+    const btn = f.querySelector('button[type="submit"]');
+    const dire = (text, kind) => { st.textContent = text; st.className = `form-status is-${kind}`; st.hidden = !text; };
+    const champs = () => [...f.querySelectorAll('[data-l]')];
+
+    if (f.elements.plaque) {
+      f.elements.plaque.addEventListener('blur', (e) => { e.target.value = e.target.value.toUpperCase().trim(); });
+    }
+
+    // « Utiliser ma position » : coordonnées et lien carte dans le champ lieu.
+    f.querySelectorAll('[data-gps]').forEach((b) => {
+      const cible = document.getElementById(b.dataset.gps);
+      if (!navigator.geolocation || !cible) { b.hidden = true; return; }
+      const label = b.innerHTML;
+      b.addEventListener('click', () => {
+        b.disabled = true; b.textContent = 'Localisation…';
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const { latitude: la, longitude: lo } = pos.coords;
+          cible.value = `GPS ${la.toFixed(5)}, ${lo.toFixed(5)} — https://maps.google.com/?q=${la.toFixed(5)},${lo.toFixed(5)}`;
+          b.disabled = false; b.innerHTML = label;
+        }, () => {
+          b.disabled = false; b.innerHTML = label;
+          dire('Position indisponible : indiquez l\'adresse ou un repère.', 'error');
+          cible.focus();
+        }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+      });
+    });
+
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (f.elements.botcheck && f.elements.botcheck.checked) { dire(P.ok, 'ok'); return; }
+      const manquant = champs().find(c => c.required && !c.value.trim());
+      if (manquant) {
+        const lab = f.querySelector(`label[for="${manquant.id}"]`);
+        dire(`Merci de remplir : ${lab ? lab.textContent.replace(/\s+/g, ' ').trim() : manquant.name}.`, 'error');
+        manquant.focus(); return;
+      }
+      const tel = f.elements.tel;
+      if (tel.value.replace(/\D/g, '').length < 9) { dire(tx.rappelTel, 'error'); tel.focus(); return; }
+      if (f.elements.email && f.elements.email.value && !f.elements.email.checkValidity()) {
+        dire('Indiquez une adresse e-mail valide.', 'error'); f.elements.email.focus(); return;
+      }
+
+      const lignes = champs().filter(c => c.value.trim()).map(c => `${c.dataset.l} : ${c.value.trim()}`);
+      const texte = [P.titre, ...lignes, P.note].filter(Boolean).join('\n');
+      if (window.mesurer) window.mesurer('pro/' + f.dataset.pro);
+
+      if (!cfg.formAccessKey) { choixEnvoi(st, P.wa, texte); return; }
+      const label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = tx.envoi;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), cfg.formTimeoutMs || 8000);
+      try {
+        const res = await fetch(cfg.formEndpoint, {
+          method: 'POST', signal: ctrl.signal,
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: cfg.formAccessKey, botcheck: false, subject: P.sujet(f.elements),
+            from_name: 'Dépannage Auto Nice (site)', message: texte,
+            ...(f.elements.email && f.elements.email.value ? { replyto: f.elements.email.value.trim() } : {}),
+          }),
+        });
+        if (!res.ok) throw new Error('relais');
+        f.reset();
+        dire(P.ok, 'ok');
+      } catch {
+        // Le relais a échoué : on ne perd pas la demande, elle part par WhatsApp ou SMS.
+        choixEnvoi(st, tx.echec + ' ' + P.wa, texte);
+        st.className = 'form-status is-error';
+      } finally {
+        clearTimeout(timer);
+        btn.disabled = false; btn.innerHTML = label;
+      }
+    });
+  });
+
   // ── Estimateur de prix (page Tarifs) ──────
   // Même grille que les tableaux : tools/tarifs.js, injectée dans la page.
   const est = document.querySelector('[data-estim]');

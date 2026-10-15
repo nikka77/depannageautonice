@@ -382,7 +382,7 @@ const PAGES = [
   {
     file: 'professionnels.html', frag: 'professionnels.html', nav: null, path: '/professionnels.html',
     title: `Dépannage pour professionnels à Nice — flottes, utilitaires | ${TEL}`,
-    desc: 'Loueurs, VTC, taxis, artisans, garages, parkings : dépannage et remorquage de voitures et utilitaires jusqu\'à 3,5 t dans tout le 06, 7j/7 24h/24, compte professionnel sur demande.',
+    desc: 'Compte pro pour loueurs, VTC, livreurs, artisans et garages : intervention prioritaire, zéro avance pour vos chauffeurs, une facture par mois. Voitures et utilitaires jusqu\'à 3,5 t, 06, 24h/24.',
     schema: url => [crumbs(url, 'Professionnels')],
   },
   {
