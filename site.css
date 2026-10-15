@@ -948,6 +948,10 @@ textarea.qr-in-txt { resize: vertical; min-height: 64px; }
 .form .envoi-choix .btn, .envoi-choix .btn { width: auto; flex: 1 1 130px; min-height: 46px; font-size: .95rem; }
 .form-status.is-error { background: #fdecee; color: #7f1d1d; border-left: 4px solid #cc0026; }
 .form-help { font-family: var(--mono); font-size: .72rem; color: var(--muted); line-height: 1.6; }
+/* Bouton secondaire sous un champ (ex. « Utiliser ma position »). */
+.form .btn-line { background: #fff; color: var(--ink); border-color: var(--line-2); min-height: 44px; font-size: .92rem; padding: 10px 16px; gap: 8px; }
+.form .btn-line:hover { border-color: var(--fill); }
+.form .btn-line .ic { width: 18px; height: 18px; }
 
 /* ── Pied de page ────────────────────────── */
 .ft { background: var(--foot); color: var(--foot-text); }

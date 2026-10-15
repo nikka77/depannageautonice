@@ -1,10 +1,73 @@
 <section class="wrap intro">
   <a href="index.html" class="back">← Accueil</a>
   <h1>Professionnels&nbsp;: un véhicule immobilisé, c'est une journée perdue.</h1>
-  <p class="lead">Loueurs, VTC et taxis, artisans, garages et concessions, gestionnaires de parkings&nbsp;: nous dépannons et remorquons vos voitures et utilitaires jusqu'à 3,5&nbsp;t, 7j/7 24h/24, dans tout le 06. Prix de notre <a href="tarifs.html">grille publiée</a>, annoncé avant le départ.</p>
+  <p class="lead">Loueurs, VTC et taxis, livreurs, artisans, garages et concessions&nbsp;: avec un compte pro, vos véhicules passent en priorité, vos chauffeurs n'avancent rien et vous recevez une seule facture par mois. Voitures et utilitaires jusqu'à 3,5&nbsp;t, 7j/7 24h/24, dans tout le 06.</p>
   <div class="btns">
-    <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
-    <a href="contact.html?sujet=pro" class="btn btn-dark">{{ic:file}}Ouvrir un compte pro</a>
+    <a href="#compte-pro" class="btn btn-orange">{{ic:file}}Ouvrir un compte pro</a>
+    <a href="#chauffeur" class="btn btn-dark">{{ic:truck}}Un chauffeur est en panne</a>
+  </div>
+</section>
+
+<section class="wrap sec" aria-labelledby="h-pro-promesse">
+  <h2 class="sec-t" id="h-pro-promesse">Nos engagements avec un compte pro</h2>
+  <div class="grid">
+    <article class="cell">{{ic:timer}}<h3>Priorité et délai annoncé</h3><p>Vos demandes passent avant les nouvelles demandes. Le délai vous est annoncé dès l'appel&nbsp;: 30 à 60&nbsp;minutes en général sur Nice, et nous vous prévenons s'il change.</p></article>
+    <article class="cell">{{ic:card}}<h3>Zéro avance pour vos chauffeurs</h3><p>Votre chauffeur donne le nom de l'entreprise et la plaque. Il n'a rien à payer sur place&nbsp;: l'intervention est facturée à votre société.</p></article>
+    <article class="cell">{{ic:calendar}}<h3>Une facture par mois</h3><p>Un relevé mensuel avec, pour chaque intervention, la plaque, le lieu, les horaires, la prestation et des photos. Simple à rapprocher de votre flotte ou à refacturer.</p></article>
+    <article class="cell">{{ic:prix}}<h3>Des prix connus d'avance</h3><p>Une grille fixée ensemble à l'ouverture du compte, à partir de notre <a href="tarifs.html">grille publiée</a>&nbsp;: pas de surprise sur la facture.</p></article>
+  </div>
+</section>
+
+<section class="wrap sec" id="chauffeur" aria-labelledby="h-pro-chauffeur">
+  <h2 class="sec-t" id="h-pro-chauffeur">Chauffeur ou collaborateur en panne&nbsp;?</h2>
+  <div class="split">
+    <div class="prose">
+      <p>Vous conduisez un véhicule de votre entreprise, d'une société VTC ou d'un loueur&nbsp;: donnez-nous juste le nom de l'entreprise, la plaque et l'endroit où vous êtes.</p>
+      <ol>
+        <li><strong>Vous envoyez la demande</strong> (moins d'une minute).</li>
+        <li><strong>Nous vérifions le compte pro</strong> de l'entreprise et vous rappelons pour confirmer le délai.</li>
+        <li><strong>Nous intervenons</strong>, sur place ou en remorquage vers le garage choisi par l'entreprise. Vous n'avancez rien.</li>
+      </ol>
+      <p>L'entreprise n'a pas encore de compte chez nous&nbsp;? Envoyez quand même&nbsp;: nous vous rappelons et voyons avec elle qui règle l'intervention avant de partir. Danger immédiat ou voie rapide&nbsp;: appelez directement le <a href="tel:{{TEL_HREF}}">{{TEL}}</a>.</p>
+    </div>
+
+    <form class="form" id="chauffeurForm" data-pro="chauffeur" novalidate>
+      <h3 class="sr-only">Demande de dépannage pour un véhicule d'entreprise</h3>
+      <div class="field">
+        <label for="ch-entreprise">Entreprise</label>
+        <input type="text" id="ch-entreprise" name="entreprise" data-l="Entreprise" autocomplete="organization" placeholder="Nom de la société" required>
+      </div>
+      <div class="field">
+        <label for="ch-plaque">Plaque</label>
+        <input type="text" id="ch-plaque" name="plaque" data-l="Plaque" autocapitalize="characters" autocomplete="off" placeholder="AB-123-CD" maxlength="12" required>
+      </div>
+      <div class="field">
+        <label for="ch-lieu">Où êtes-vous&nbsp;?</label>
+        <input type="text" id="ch-lieu" name="lieu" data-l="Lieu" autocomplete="street-address" placeholder="Adresse, rue ou repère" required>
+        <button type="button" class="btn btn-line" data-gps="ch-lieu">{{ic:pin}}Utiliser ma position</button>
+      </div>
+      <div class="field">
+        <label for="ch-panne">Problème</label>
+        <select id="ch-panne" name="panne" data-l="Problème">
+          <option>Ne démarre pas, batterie</option>
+          <option>Pneu crevé</option>
+          <option>Panne de carburant ou erreur de carburant</option>
+          <option>Accident</option>
+          <option>Voyant, bruit, moteur</option>
+          <option>Clés perdues ou enfermées</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ch-tel">Votre téléphone</label>
+        <input type="tel" id="ch-tel" name="tel" data-l="Téléphone" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required>
+      </div>
+      <!-- Piège à robots : invisible et hors tabulation ; un humain ne le coche jamais. -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+      <button type="submit" class="btn btn-orange">Envoyer la demande</button>
+      <p class="form-status" role="status" aria-live="polite" hidden></p>
+      <p class="form-help">Rien à payer sur place quand l'entreprise a un compte pro. Sans compte, nous vous rappelons avant de partir.</p>
+    </form>
   </div>
 </section>
 
@@ -13,8 +76,6 @@
   <div class="grid">
     <article class="cell">{{ic:truck}}<h3>Voitures et utilitaires</h3><p>Dépannage sur place quand c'est possible, sinon remorquage sur plateau, utilitaires chargés compris jusqu'à 3,5&nbsp;t. Au-delà, appelez-nous&nbsp;: nous vous disons ce qui est faisable.</p></article>
     <article class="cell">{{ic:route}}<h3>Vers le garage de votre choix</h3><p>Votre atelier, votre concessionnaire, votre dépôt ou notre atelier du Quai de la Blanquière&nbsp;: vous choisissez la destination, le prix suit la distance.</p></article>
-    <article class="cell">{{ic:file}}<h3>Une facture par véhicule</h3><p>Plaque, lieu, horaires et prestation sur chaque facture&nbsp;: simple à rapprocher de votre flotte ou à refacturer à votre client.</p></article>
-    <article class="cell">{{ic:calendar}}<h3>Compte professionnel</h3><p>Sur demande&nbsp;: un compte à votre nom, une facturation regroupée en fin de mois et un interlocuteur qui connaît vos véhicules. Les conditions se définissent ensemble.</p></article>
     <article class="cell">{{ic:parking}}<h3>Parkings et sous-sols</h3><p>Sortie de véhicule en parking souterrain quand la hauteur le permet, chariots porte-roues pour les roues bloquées.</p></article>
     <article class="cell">{{ic:box}}<h3>Gardiennage et épaves</h3><p>48&nbsp;heures de <a href="gardiennage-vehicule-nice.html">gardiennage</a> offertes à l'atelier, puis 10&nbsp;€ par jour. <a href="enlevement-epave-nice.html">Enlèvement d'épave</a> gratuit pour un véhicule complet, papiers en règle.</p></article>
   </div>
@@ -25,20 +86,90 @@
   <div class="split">
     <div class="prose">
       <h3>Loueurs et agences de location</h3>
-      <p>Votre client est en panne avec un de vos véhicules&nbsp;: donnez-lui notre numéro, ou appelez-nous directement. Nous intervenons sur votre accord et la facture vous est adressée. Voir aussi notre guide <a href="guide-voiture-de-location-en-panne.html">voiture de location en panne</a>.</p>
+      <p>Votre client est en panne avec un de vos véhicules&nbsp;: il nous envoie le nom de l'agence et la plaque depuis cette page, ou vous nous appelez. Nous intervenons sur votre accord et la facture vous est adressée. Voir aussi notre guide <a href="guide-voiture-de-location-en-panne.html">voiture de location en panne</a>.</p>
       <h3>VTC et taxis</h3>
       <p>Chaque heure à l'arrêt est une heure sans course. Nous réparons sur place ce qui peut l'être (batterie, roue, carburant) et, sinon, nous déposons le véhicule chez votre garagiste.</p>
-      <h3>Artisans et entreprises</h3>
-      <p>Utilitaire chargé, chantier, zone industrielle de Carros ou de Saint-Laurent-du-Var&nbsp;: dites-nous si le véhicule est chargé et où l'emmener. Nous intervenons aussi sur votre site.</p>
+      <h3>Livraison et transport</h3>
+      <p>Utilitaire chargé en pleine tournée&nbsp;: dites-nous ce qu'il transporte et où l'emmener. Nous pouvons déposer le véhicule à votre dépôt pour que la marchandise reparte.</p>
     </div>
     <div class="prose">
+      <h3>Artisans et entreprises</h3>
+      <p>Chantier, zone industrielle de Carros ou de Saint-Laurent-du-Var&nbsp;: nous intervenons aussi sur votre site.</p>
       <h3>Garages et concessions</h3>
-      <p>Transport de véhicules clients vers votre atelier, retour après réparation, véhicules non roulants&nbsp;: sur plateau, avec prise de rendez-vous si ce n'est pas urgent.</p>
+      <p>Transport de véhicules clients en panne vers votre atelier&nbsp;: sur plateau, avec prise de rendez-vous si ce n'est pas urgent.</p>
       <h3>Syndics et gestionnaires de parkings</h3>
       <p>Véhicule en panne qui bloque un accès, voiture d'un résident à sortir d'un sous-sol&nbsp;: nous intervenons à la demande du propriétaire du véhicule. Pour un véhicule abandonné, nous vous expliquons la démarche à suivre avant toute intervention.</p>
-      <h3>Comment démarrer</h3>
-      <p>Appelez-nous ou écrivez-nous avec le nom de votre société, le nombre et le type de véhicules, et votre zone. Nous vous répondons avec nos conditions.</p>
     </div>
+  </div>
+</section>
+
+<section class="wrap sec" id="compte-pro" aria-labelledby="h-pro-compte">
+  <h2 class="sec-t" id="h-pro-compte">Ouvrir un compte pro</h2>
+  <div class="split">
+    <div class="prose">
+      <p>Gratuit et sans engagement de volume. Dites-nous qui vous êtes et combien de véhicules vous avez&nbsp;: nous revenons vers vous avec une proposition écrite.</p>
+      <ul>
+        <li>la grille de prix appliquée à vos véhicules&nbsp;;</li>
+        <li>le délai d'intervention selon la zone&nbsp;;</li>
+        <li>la facturation mensuelle et le délai de paiement&nbsp;;</li>
+        <li>les personnes autorisées à demander une intervention.</li>
+      </ul>
+      <p>Dès que le compte est ouvert, vos chauffeurs n'ont plus qu'à donner le nom de l'entreprise et la plaque.</p>
+    </div>
+
+    <form class="form" id="compteProForm" data-pro="compte" novalidate>
+      <h3 class="sr-only">Demande d'ouverture de compte professionnel</h3>
+      <div class="field">
+        <label for="cp-societe">Société</label>
+        <input type="text" id="cp-societe" name="societe" data-l="Société" autocomplete="organization" placeholder="Raison sociale" required>
+      </div>
+      <div class="field">
+        <label for="cp-siret">SIRET (facultatif)</label>
+        <input type="text" id="cp-siret" name="siret" data-l="SIRET" inputmode="numeric" placeholder="123 456 789 00012">
+      </div>
+      <div class="field">
+        <label for="cp-nom">Votre nom et fonction</label>
+        <input type="text" id="cp-nom" name="nom" data-l="Contact" autocomplete="name" placeholder="Ex. Sophie Martin, gestionnaire de flotte" required>
+      </div>
+      <div class="field">
+        <label for="cp-tel">Téléphone</label>
+        <input type="tel" id="cp-tel" name="tel" data-l="Téléphone" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required>
+      </div>
+      <div class="field">
+        <label for="cp-email">E-mail</label>
+        <input type="email" id="cp-email" name="email" data-l="E-mail" autocomplete="email" placeholder="flotte@societe.fr" required>
+      </div>
+      <div class="field">
+        <label for="cp-activite">Activité</label>
+        <select id="cp-activite" name="activite" data-l="Activité">
+          <option>Location de véhicules</option>
+          <option>VTC ou taxi</option>
+          <option>Livraison ou transport</option>
+          <option>Artisan ou entreprise</option>
+          <option>Garage ou concession</option>
+          <option>Syndic ou parking</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cp-nb">Nombre de véhicules</label>
+        <select id="cp-nb" name="nb" data-l="Véhicules">
+          <option>1 à 5</option>
+          <option>6 à 20</option>
+          <option>21 à 50</option>
+          <option>Plus de 50</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cp-message">Types de véhicules, zone, remarques (facultatif)</label>
+        <textarea id="cp-message" name="message" data-l="Précisions" rows="4" placeholder="Ex. 8 Toyota C-HR hybrides, Nice et aéroport, garage habituel à Saint-Laurent-du-Var"></textarea>
+      </div>
+      <!-- Piège à robots : invisible et hors tabulation ; un humain ne le coche jamais. -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+      <button type="submit" class="btn btn-dark">Demander l'ouverture du compte</button>
+      <p class="form-status" role="status" aria-live="polite" hidden></p>
+      <p class="form-help">Ces informations servent uniquement à préparer votre proposition. Voir les <a href="mentions-legales.html">mentions légales</a>.</p>
+    </form>
   </div>
 </section>
 
