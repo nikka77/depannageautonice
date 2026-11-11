@@ -68,12 +68,12 @@ qui dira quelles villes méritent une page supplémentaire.
 
 ### 4. Nom de domaine
 
-Le site est publié sur `nikka77.github.io/depannageautonice`. Un vrai domaine
-(`depannageautonice.fr`) inspire nettement plus confiance et se retient au
-téléphone. Après l'achat, il faudra remplacer l'adresse de base dans
-`tools/villes.json` (clé `site.base`), relancer les deux générateurs, et mettre
-à jour le `canonical` de `demande.html` (redirection) et de `diagnostic.html`,
-qui ne sont pas générées.
+Fait le 11 novembre 2026 : le site est servi sur `https://depannagenice.fr`
+(GitHub Pages, fichier `CNAME`) et toutes les adresses (canoniques, sitemap,
+données structurées, `robots.txt`, `llms.txt`) pointent vers ce domaine.
+`depannagenice.com` est redirigé vers le `.fr` chez IONOS. Pour changer encore
+de domaine : clé `site.base` dans `tools/villes.json`, `npm run build`, puis
+les `canonical` de `demande.html` et `diagnostic.html` (non générées).
 
 ## Versions anglaise et italienne
 

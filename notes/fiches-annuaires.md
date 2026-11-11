@@ -22,7 +22,7 @@ affaiblit le référencement local.
 | Nom | Dépannage Auto Nice |
 | Adresse | Zone industrielle du Quai de la Blanquière, [code postal] Nice |
 | Téléphone | 06 17 68 42 70 |
-| Site | https://nikka77.github.io/depannageautonice/ (à remplacer par le domaine définitif s'il est acheté) |
+| Site | https://depannagenice.fr/ |
 | Horaires | Ouvert 24 h/24, 7 jours/7, jours fériés compris |
 | Zone desservie | Nice, Alpes-Maritimes (06) et Monaco |
 
@@ -117,7 +117,7 @@ erreur de carburant 150 €.
 - Langues : français. N'ajoutez anglais et italien que si quelqu'un répond
   réellement dans ces langues au téléphone.
 - Prise de rendez-vous en ligne : lien
-  `https://nikka77.github.io/depannageautonice/#demande`
+  `https://depannagenice.fr/#demande`
 - Lien « Appeler » : 06 17 68 42 70. Lien WhatsApp :
   `https://wa.me/33617684270`
 

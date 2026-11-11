@@ -195,7 +195,9 @@ ${faqHtml(g.faq)}
     publisher: { '@id': `${B}/#business` },
   };
   writePage({
-    file: `${g.slug}.html`, path: `/${g.slug}.html`, nav: 'conseils', title: `${plain(g.title)} | ${site.nom}`, desc: g.desc,
+    file: `${g.slug}.html`, path: `/${g.slug}.html`, nav: 'conseils',
+    // Google coupe vers 60-65 caractères : le nom du site ne s'ajoute que s'il tient.
+    title: (plain(g.title) + " | " + site.nom).length <= 65 ? `${plain(g.title)} | ${site.nom}` : plain(g.title), desc: g.desc,
     schema: () => [article, crumbs([['Accueil', `${B}/`], ['Guides et conseils', `${B}/conseils.html`], [plain(g.titre), url]]), ...(g.faq ? [faqSchema(g.faq, url)] : [])],
   }, contenu);
 }
