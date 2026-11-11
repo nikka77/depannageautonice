@@ -1,52 +1,20 @@
-IMAGES À FOURNIR — DepannageAutoNice
-======================================
-Générées via Midjourney ou DALL-E. Style : moody, cinematic, neon-lit, photo-realistic.
-Règle : no text, no logos, no LS Customs, no Los Santos.
+IMAGES DU SITE — Dépannage Auto Nice
+====================================
+Générées avec Higgsfield (GPT Image 2.6) le 11/11/2026, à partir de photos
+de référence libres (Wikimedia Commons) de vrais modèles : dépanneuse
+Iveco Daily (plateau et à potence), Renault Clio V, Peugeot 208, Citroën C3,
+Renault Zoé, Yamaha TMAX 560, camping-car Fiat Ducato. Logos des marques
+retirés, plaques vierges, aucun texte. Chaque image a été vérifiée à l'œil.
 
-HERO
-----
-hero-garage.jpg (1920×1080)
-  Prompt : A wide cinematic shot of an automotive repair garage at night,
-  neon orange and cyan lights illuminating the space, two cars on hydraulic
-  lifts, mechanic tools visible, wet concrete floor reflecting neon colors,
-  atmospheric urban industrial setting, moody cyberpunk aesthetic,
-  photo-realistic, 21:9 aspect ratio, no text no logos, dark moody atmosphere
+À remplacer par de vraies photos des camions dès qu'elles existent.
 
-SERVICES
---------
-service-towing.jpg (800×600)
-  Prompt : A modern tow truck parked at night on an urban street in southern
-  France, orange and pink neon reflections on its surface, low angle dramatic
-  shot, cinematic lighting, professional automotive photography, wet asphalt,
-  atmospheric mist, no text no logos, photo-realistic
-
-service-battery.jpg (800×600)
-  Prompt : Close-up of a car battery being jump-started at night, hands working
-  under the hood, neon orange and blue light reflections, dramatic side lighting,
-  mechanic in dark workwear, photo-realistic, no logos, no text, cinematic mood
-
-service-tire.jpg (800×600)
-  Prompt : A tire being changed on a car at night, neon orange light source,
-  low angle, professional automotive photography, urban setting, dramatic
-  shadows, no text no logos, cinematic mood
-
-service-fuel.jpg (800×600)
-  Prompt : Mechanic draining a fuel tank at night, orange workshop lamp overhead,
-  urban garage, close-up hands, dark workwear, cinematic, no text no logos
-
-service-engine.jpg (800×600)
-  Prompt : Car hood open at night with steam rising from engine, orange neon
-  glow, mechanic inspecting under the hood, dramatic lighting, no text no logos
-
-ÉQUIPE
-------
-team-photo.jpg (800×800)
-  Photo du gérant / dépanneur (photo réelle recommandée, pas IA)
-  Sinon : A professional mechanic in a dark garage, orange neon background,
-  confident pose, photo-realistic portrait, no text no logos
-
-USAGE DANS LE CODE
-------------------
-- hero-garage.jpg  → .hero-image { background-image: url('img/hero-garage.jpg'); }
-- service-*.jpg    → .service-card:hover (hover background, à activer dans style.css)
-- team-photo.jpg   → demande.html (step 5 — confirmation profil dépanneur)
+hero-1/2/3.webp (1366 px) et -m.webp (900 px, mobile) : bandeau d'accueil
+  1. Plateau sur la Promenade des Anglais au crépuscule (aussi page À propos)
+  2. Dépanneuse à potence dans un parking souterrain
+  3. Plateau sur la corniche, maxi-scooter sanglé
+svc-*.webp (1000 px) et -m.webp (760 px) : photo en tête des pages services
+  (liste et textes alternatifs dans tools/build-contenu.js, constante PHOTOS)
+og-cover.jpg (1200×630) : aperçu des liens partagés, fait à partir de hero-1
+logo.png (512×512) : emblème déclaré à Google (données structurées)
+icon-*.png : icônes d'écran d'accueil
+icons.svg : pictogrammes de l'interface
