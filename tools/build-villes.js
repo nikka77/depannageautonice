@@ -96,7 +96,7 @@ function page(v) {
     <div class="cell"><p class="svc-num">Délai d'intervention estimé</p><p class="fact-v">${esc(v.delai)}</p></div>
     <div class="cell"><p class="svc-num">Accès</p><p class="fact-v">${esc(v.acces)}</p></div>
   </div>
-  <p class="small-mono">Nos camions partent de ${esc(site.depart)}. Le délai annoncé est une estimation liée au trafic, pas une garantie&nbsp;: nous vous donnons une fourchette réaliste au téléphone.</p>
+  <p class="small-mono">Nos camions partent de notre atelier du ${esc(site.depart.replace(/^Quai/, "quai"))}. Le délai annoncé est une estimation liée au trafic, pas une garantie&nbsp;: nous vous donnons une fourchette réaliste au téléphone.</p>
 </section>
 
 <section class="wrap sec" aria-labelledby="h-local">
