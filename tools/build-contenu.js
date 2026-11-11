@@ -34,6 +34,25 @@ const faqSchema = (faq, url) => ({
 const faqHtml = faq => faq.map(([q, a], i) =>
   `    <details name="faq"${i === 0 ? ' open' : ''}><summary>${fineTxt(q)}{{ic:chevron}}</summary><div><p>${fineTxt(a)}</p></div></details>`).join('\n');
 
+// Photos des pages services (générées avec Higgsfield à partir de photos
+// de référence de vrais modèles, logos retirés). Fichiers : img/<nom>.webp
+// (1000 px) et img/<nom>-m.webp (760 px). À remplacer par de vraies photos
+// des camions dès qu'elles existent.
+const PHOTOS = {
+  'pneu-creve-nice': ['svc-pneu-creve', 'Technicien changeant une roue crevée sur le bord de mer à Nice, dépanneuse derrière'],
+  'depannage-batterie-nice': ['svc-batterie', 'Technicien démarrant une voiture au booster, de nuit, dans une rue de Nice'],
+  'panne-seche-nice': ['svc-panne-seche', 'Technicien versant du carburant au jerrican dans une voiture arrêtée sur la route côtière'],
+  'erreur-carburant-nice': ['svc-erreur-carburant', 'Vidange d\'un réservoir après une erreur de carburant, avec pompe et bac de récupération'],
+  'ouverture-porte-voiture-nice': ['svc-ouverture-porte', 'Ouverture d\'une portière de voiture sans dégât avec un coussin gonflable professionnel'],
+  'depannage-moto-scooter-nice': ['svc-moto-scooter', 'Maxi-scooter sanglé sur le plateau d\'une dépanneuse à Nice'],
+  'depannage-voiture-electrique-nice': ['svc-voiture-electrique', 'Voiture électrique chargée sur le plateau d\'une dépanneuse, roues sur le plateau'],
+  'depannage-accident-nice': ['svc-accident', 'Technicien posant un triangle de signalisation devant une voiture accidentée à Nice'],
+  'depannage-utilitaire-camping-car-nice': ['svc-camping-car', 'Camping-car transporté sur une dépanneuse plateau dans les collines de Nice'],
+  'enlevement-epave-nice': ['svc-epave', 'Épave rouillée chargée sur une dépanneuse plateau'],
+  'depannage-parking-souterrain-nice': ['svc-parking-souterrain', 'Dépanneuse remorquant une voiture dans un parking souterrain à Nice'],
+  'depannage-aeroport-nice': ['svc-aeroport', 'Dépanneuse sur un parking de l\'aéroport de Nice, technicien avec une voyageuse'],
+};
+
 // ── Pages services ─────────────────────────
 function pageService(s) {
   verifier(s.guides, guideParSlug, s.slug);
@@ -44,15 +63,22 @@ function pageService(s) {
   const memes = SERVICES.filter(o => o.cat === s.cat && o.slug !== s.slug);
   const prixNum = (s.prix.match(/(\d+)/) || [])[1];
 
-  const contenu = `<section class="wrap intro">
-  <a href="services.html" class="back">← Tous les services</a>
-  <p class="kicker">${cat.titre}</p>
+  const texteIntro = `<p class="kicker">${cat.titre}</p>
   <h1>${s.h1}</h1>
   <p class="lead">${s.intro}</p>
   <div class="btns">
     <a href="tel:{{TEL_HREF}}" class="btn btn-orange">{{ic:phone}}Appeler le {{TEL}}</a>
     <a href="${demande}" class="btn btn-dark">{{ic:${s.quand ? 'calendar' : 'file'}}}${s.quand ? 'Prendre rendez-vous' : 'Demander en ligne'}</a>
+  </div>`;
+  const photo = PHOTOS[s.slug];
+  const contenu = `<section class="wrap intro">
+  <a href="services.html" class="back">← Tous les services</a>
+  ${photo ? `<div class="intro-split">
+  <div>
+  ${texteIntro}
   </div>
+  <img class="intro-img svc-img" src="img/${photo[0]}.webp" srcset="img/${photo[0]}-m.webp 760w, img/${photo[0]}.webp 1000w" sizes="(max-width: 700px) 100vw, 560px" alt="${photo[1]}" width="1000" height="750" loading="eager" decoding="async">
+  </div>` : texteIntro}
 </section>
 
 <section class="wrap" aria-label="${esc(plain(s.nom))} en bref">
